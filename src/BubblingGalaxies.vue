@@ -40,6 +40,17 @@
         <div id="bottom-content">
           <!-- <GesturePreview /> -->
           <SplashGesture v-if="splashIsClosed && !isLoading" />
+          <div id="image-index-control">
+            <v-slider 
+              v-if="ready"
+              v-model="imageIndex"
+              class="image-index-control-slider"
+              :min="0"
+              :max="layers.length - 1"
+              step="1"
+            >
+            </v-slider>
+          </div>
           <div
             v-if="!smallSize"
             id="body-logos"
@@ -141,6 +152,8 @@ const buttonColor = ref("#ffffff");
 
 
 
+const layers = ref<ImageSetLayer[]>([]);
+
 
 onMounted(() => {
 
@@ -155,10 +168,52 @@ onMounted(() => {
   }
 
   store.waitForReady().then(async () => {
-    positionSet.value = true;
+    const folder =  await store.loadImageCollection({
+      url: "i5_all.wtml",
+      loadChildFolders: false,
+    });
+    const children = folder.get_children();
+    if (children == null) return;
+    children.forEach((child: Place | unknown, index: number) => {
+      if (!(child instanceof Place)) return;
+      const imageset = child.get_studyImageset();
+      if (imageset == null) return;
+      store.addImageSetLayer({
+        url: imageset.get_url(),
+        mode: "autodetect",
+        name: imageset.get_name(),
+        goto: false,
+      }).then(newLayer => {
+        newLayer.set_enabled(true); 
+        newLayer.set_opacity(index === 0 ? 1 : 0); // show only the first layer initially
+        layers.value.push(newLayer);
+        if (index === 0) {
+          console.log("setting position to first layer");
+          const iset = layers.value[0].get_imageSet();
+          store.gotoRADecZoom({
+            raRad: iset.get_centerX() * D2R,
+            decRad: iset.get_centerY() * D2R,
+            zoomDeg: 100 / 60,
+            instant: true
+          }).then(() => positionSet.value = true);
+        };
+      });
+    }); 
     layersLoaded.value = true;
   });
 });
+
+
+const imageIndex = ref(0);
+function setOnlyLayerAtIndexVisible(index: number) {
+  layers.value.forEach((layer, idx) => {
+    layer.set_opacity(idx === index ? 1 : 0);
+  });
+}
+watch(imageIndex, (newIndex) => {
+  setOnlyLayerAtIndexVisible(newIndex);
+});
+
 
 const ready = computed(() => layersLoaded.value && positionSet.value);
 
@@ -447,9 +502,11 @@ and remember, position:absolute is still a positioned parent, so children can be
 }
 
 
-
-
-
+#image-index-control {
+  width: 100%;
+  max-width: 400px;
+  pointer-events: auto;
+}
 
 
 
