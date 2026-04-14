@@ -143,7 +143,7 @@ const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
 
 const backgroundImagesets = reactive<BackgroundImageset[]>([]);
 const showInfoSheet = ref(false);
-const showSplashScreen = ref(true);
+const showSplashScreen = ref(false);
 const splashIsClosed = ref(false);
 const layersLoaded = ref(false);
 const positionSet = ref(false);
