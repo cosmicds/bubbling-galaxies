@@ -1,6 +1,6 @@
 # Artemis II
 
-This repository contains the code for an interactive visualizing the path of NASA's [Artemis II](https://en.wikipedia.org/wiki/Artemis_II) mission using [WorldWide Telescope](https://www.worldwidetelescope.org/home/) (WWT). This interactive is built using WWT's [Vue](https://vuejs.org/) component.
+This repository contains the code for an interactive visualizing a simulation of galaxy using [WorldWide Telescope](https://www.worldwidetelescope.org/home/) (WWT). This interactive is built using WWT's [Vue](https://vuejs.org/) component.
 
 ## Developer setup 
 
@@ -8,7 +8,7 @@ To start creating your own data story, you can use the following steps.
 
 * First, clone the repository, 
 ```
-git clone https://github.com/cosmicds/artemis-ii.git
+git clone https://github.com/cosmicds/bubbling-galaxies.git
 ```
 
 If you don't already have yarn installed on your system, do that using the instructions [here](https://yarnpkg.com/getting-started/install). We're using Yarn 4.12.0 for this project.

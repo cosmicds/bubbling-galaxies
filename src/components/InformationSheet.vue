@@ -47,40 +47,8 @@
         <v-card class="scrollable">
           <v-card-text class="info-text scrollable">
             <h4 class="user-guide-header">
-              Tracking Artemis II
+              Galaxy
             </h4>
-            <p class="mt-1">
-              On April 1, 2026, the Artemis II crew began their 10-day journey to fly by the Moon and back to Earth. On the way, they have sent back <a href="https://www.nasa.gov/artemis-ii-multimedia/" target="_blank" rel="noopener noreferrer">breathtaking images</a> of both the Moon and the Earth that are inspiring a new generation.
-            </p>
-            <p class="mt-3">
-              In this interactive view, you can:
-            </p>
-            <ul class="ml-5">
-              <li>recreate Artemis's views of Earth and the Moon from space.</li>
-              <li>follow along the Artemis II path, either from the point of view of Earth or the Moon.</li>
-            </ul>
-            <h4 class="mt-6">
-              Why two paths?
-            </h4>
-            <p class="mt-1">
-              If you're wondering why Artemis's path looks so different from Earth's perspective vs the Moon's, the answer is that Earth and the Moon are moving relative to each other. An object's motion looks different when viewed from <strong>reference frames</strong> that have relative motion. 
-            </p>
-            <h5> A ball on a train</h5>
-            <p class="mt-3">
-              Imagine, for example, that you are on a moving train with clear walls. <br /><br />
-              If you throw a ball in the air, you see it go straight up and straight down. <br /><br />
-              If your friend on the ground watches the ball as the train goes by, they see the ball traveling up and down in an arc. 
-            </p>
-            <h5> The Earth & Moon</h5>
-            <p class="mt-3">
-              From Earth's point of view, Artemis's path to the Moon and back is roughly like your point of view of the ball on the train. 
-              Artemis's motion is directly away from Earth and back. 
-              The Moon is orbiting around Earth, so Artemis's trajectory is directed to where the Moon will be at the point of fly by.
-            </p>
-            <p class="mt-3">
-              The Moon's point of view is more like the view of your friend on the ground who watches the train coming from afar. 
-              Both paths are correct, but they look different because the Earth and the Moon are moving relative to each other. 
-            </p> 
           </v-card-text>
         </v-card>
       </v-window-item>
@@ -89,54 +57,6 @@
       <v-window-item>
         <v-card class="scrollable">
           <v-card-text class="info-text scrollable">
-            <p>
-              This <a
-                href="https://www.worldwidetelescope.org/home"
-                target="_blank"
-                rel="noopener noreferrer"
-              >WorldWide Telescope</a> (WWT) interactive provides a view of of the Artemis II 
-              trajectory, from ICPS separation (3h24m18s after launch) to splash down. 
-            </p>
-            <h4 class="user-guide-header mt-5">
-              Technical Note
-            </h4>
-
-            <ul class="ml-5">
-              <li>Data is a JPL Horizons Vector Table for Artemis II, centered on the Earth (Geocentric [code: 500]). Sampled every 5 minutes</li>
-              <li class="li">
-                Data is current as of Apr 10, 2026 06:19 UTC 
-                <details>
-                  <summary>Horizons Query</summary>
-                  <!-- do not intent inside pre tag  -->
-                  <pre>!$$SOF
-MAKE_EPHEM=YES
-COMMAND=-1024
-EPHEM_TYPE=VECTORS
-CENTER='500@399'
-START_TIME='2026-04-02 01:59'
-STOP_TIME='2026-04-10 23:54'
-STEP_SIZE='5 MINUTES'
-VEC_TABLE='1'
-REF_SYSTEM='ICRF'
-REF_PLANE='ECLIPTIC'
-VEC_CORR='NONE'
-CAL_TYPE='M'
-OUT_UNITS='AU-D'
-VEC_LABELS='YES'
-VEC_DELTA_T='YES'
-CSV_FORMAT='YES'
-OBJ_DATA='YES'</pre>
-                </details>
-              </li>
-                
-              <li class="li">
-                Postion with respect to Moon may have a systematic offset.
-              </li>
-              <li class="li">
-                Known bug: for some viewing angles, the Artemis path renders behind the Moon or Earth when it should be in front. 
-              </li>
-            </ul>
-                
             <h4 class="user-guide-header mt-5">
               Sky Navigation
             </h4>
@@ -219,8 +139,8 @@ OBJ_DATA='YES'</pre>
                       rel="noopener noreferrer"
                     >CosmicDS</a>
                   </h5>
-                  <p>John Lewis</p>
                   <p>Jon Carifio</p>
+                  <p>John Lewis</p>
                   <p>Pat Udomprasert</p>
                   <p>Alyssa Goodman</p>
 

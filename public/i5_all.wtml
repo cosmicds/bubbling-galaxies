@@ -1,0 +1,492 @@
+<Folder Browseable="True" Group="Mine" Name="Scott" Searchable="True">
+<Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 0" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 0" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_100.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 1" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 1" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_101.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 2" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 2" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_102.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 3" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 3" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_103.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 4" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 4" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_104.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 5" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 5" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_105.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 6" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 6" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_106.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 7" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 7" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_107.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 8" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 8" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_108.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 9" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 9" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_109.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 10" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 10" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_110.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 11" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 11" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_111.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 12" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 12" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_112.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 13" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 13" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_113.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 14" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 14" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_114.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 15" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 15" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_115.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 16" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 16" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_116.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 17" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 17" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_117.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 18" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 18" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_118.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 19" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 19" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_119.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 20" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 20" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_120.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 21" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 21" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_121.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 22" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 22" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_122.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 23" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 23" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_123.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 24" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 24" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_124.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 25" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 25" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_125.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 26" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 26" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_126.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 27" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 27" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_127.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 28" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 28" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_128.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 29" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 29" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_129.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 30" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 30" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_130.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 31" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 31" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_131.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 32" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 32" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_132.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 33" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 33" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_133.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 34" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 34" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_134.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 35" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 35" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_135.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 36" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 36" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_136.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 37" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 37" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_137.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 38" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 38" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_138.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 39" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 39" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_139.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 40" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 40" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_140.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 41" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 41" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_141.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 42" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 42" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_142.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 43" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 43" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_143.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 44" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 44" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_144.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 45" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 45" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_145.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 46" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 46" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_146.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 47" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 47" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_147.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 48" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00018034265103697024" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 48" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./I5_pngs/frame_148.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place></Folder>

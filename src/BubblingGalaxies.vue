@@ -40,16 +40,16 @@
         <div id="bottom-content">
           <!-- <GesturePreview /> -->
           <SplashGesture v-if="splashIsClosed && !isLoading" />
-          <div
-            v-if="smallSize"
-            class="legend legend-small"
-          >
-            <p class="location">
-              <span>Location</span>
-            </p>
-            <p class="path">
-              <span>Path</span>
-            </p>
+          <div id="image-index-control">
+            <v-slider 
+              v-if="ready"
+              v-model="imageIndex"
+              class="image-index-control-slider"
+              :min="0"
+              :max="layers.length - 1"
+              step="1"
+            >
+            </v-slider>
           </div>
           <div
             v-if="!smallSize"
@@ -93,70 +93,19 @@ import { ref, reactive, computed, onMounted, watch } from "vue";
 import { GotoRADecZoomParams, engineStore } from "@wwtelescope/engine-pinia";
 import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, CreditLogos, IconButton, useFullscreen } from "@cosmicds/vue-toolkit";
 import { useDisplay } from "vuetify";
-import { D2R, H2R  } from "@wwtelescope/astro";
-import { AstroCalc, Color, SpreadSheetLayer } from "@wwtelescope/engine";
-import { CoordinatesType, MarkerScales, PlotTypes, ReferenceFrames, SolarSystemObjects } from "@wwtelescope/engine-types";
-import VideoWrapper from "./components/VideoWrapper.vue";
-import GesturePreview from "./components/GesturePreview.vue";
+import { D2R  } from "@wwtelescope/astro";
+import { Place, ImageSetLayer } from "@wwtelescope/engine";
 import SplashGesture from "./components/SplashGesture.vue";
 
-import { LayerManager, WWTControl } from "@wwtelescope/engine";
-import { AltUnits } from "@wwtelescope/engine-types";
+import { WWTControl } from "@wwtelescope/engine";
 
-import { parseHorizonsVectorsForWwt } from "./horizons";
+
 import SplashScreen from "./components/SplashScreen.vue";
 import InformationSheet from "./components/InformationSheet.vue";
 
 import WebGlTest from "./components/WebGlTest.vue";
 const webglDisabled = ref(false);
 
-const ZOOM_MIN   = 0.00006;
-const ZOOM_MAX   = 240;
-const LOG_MIN    = Math.log(ZOOM_MIN);
-const LOG_MAX    = Math.log(ZOOM_MAX);
-// Power < 1 stretches the small-fov (zoomed-in) end of the slider.
-const ZOOM_POWER = 3.5;
-
-// Map linear slider position [0,1] → stretched slider position [0,1].
-const stretchSlider   = (t: number) => Math.pow(t, ZOOM_POWER);
-// Inverse: stretched slider position → linear slider position.
-const unstretchSlider = (t: number) => Math.pow(t, 1 / ZOOM_POWER);
-
-function fovToSlider(fov: number): number {
-  const linear = (Math.log(fov) - LOG_MIN) / (LOG_MAX - LOG_MIN);
-  return unstretchSlider(linear);
-}
-function sliderToFov(t: number): number {
-  return Math.exp(LOG_MIN + stretchSlider(t) * (LOG_MAX - LOG_MIN));
-}
-
-const zoomSliderValue = computed(() => fovToSlider(store.zoomDeg));
-
-function onZoomSlider(e: Event) {
-  const fov = sliderToFov(+(e.target as HTMLInputElement).value);
-  const rc = WWTControl.singleton.renderContext;
-  rc.targetCamera.zoom = fov;
-  rc.viewCamera.zoom   = fov;
-  WWTControl.singleton.renderOneFrame();
-}
-
-function zoomIn() {
-  const newZoom = store.zoomDeg / 1.25;
-  const clampedZoom = Math.max(newZoom, ZOOM_MIN);
-  const rc = WWTControl.singleton.renderContext;
-  rc.targetCamera.zoom = clampedZoom;
-  rc.viewCamera.zoom   = clampedZoom;
-  WWTControl.singleton.renderOneFrame();
-}
-
-function zoomOut() {
-  const newZoom = store.zoomDeg * 1.25;
-  const clampedZoom = Math.min(newZoom, ZOOM_MAX);
-  const rc = WWTControl.singleton.renderContext;
-  rc.targetCamera.zoom = clampedZoom;
-  rc.viewCamera.zoom   = clampedZoom;
-  WWTControl.singleton.renderOneFrame();
-}
 
 type SheetType = "text" | "video";
 
@@ -183,10 +132,9 @@ const { smAndDown } = useDisplay();
 const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
   wwtNamespace: "wwt-playground",
   initialCameraParams: () => {
-    const galacticCenter = AstroCalc.galacticToJ2000(0, 0);
     return {
-      raRad: galacticCenter.RA * H2R ,
-      decRad: galacticCenter.dec * D2R,
+      raRad: 0,
+      decRad: 0,
       zoomDeg: 360
     };
   }
@@ -195,89 +143,16 @@ const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
 
 const backgroundImagesets = reactive<BackgroundImageset[]>([]);
 const showInfoSheet = ref(false);
-const showSplashScreen = ref(true);
+const showSplashScreen = ref(false);
 const splashIsClosed = ref(false);
-const showVideo = ref(false);
 const layersLoaded = ref(false);
 const positionSet = ref(false);
 const accentColor = ref("#ffa000");
 const buttonColor = ref("#ffffff");
-const VIDEO_URL = "https://www.youtube.com/embed/ML9y0Z7A8ec?autoplay=1&mute=1";
-
-
-// 2026-Apr-02 01:59:00.0000
-const MISSION_START = new Date("2026-04-02T01:59:00Z");
-// 2026-Apr-10 23:54:00.0000
-const MISSION_END   = new Date("2026-04-10T23:54:00Z");
-// HOME_TIME shoul be clamped as now between START and END
-const now = new Date();
-const HOME_TIME = new Date(Math.min(Math.max(now.getTime(), MISSION_START.getTime()), MISSION_END.getTime()));
-const urlTime = new URLSearchParams(window.location.search).get("time");
 
 
 
-const INITIAL_TIME = ref(urlTime ? new Date(+urlTime) : HOME_TIME);
-// ?lng=214.660687&lat=13.418963&fov=0.000511&rot=0.000000&angle=0.000000&time=1775514752592
-const INITIAL_VIEW: CameraView = {
-  lng: 214.660687,
-  lat: 13.418963,
-  zoomDeg: 0.000511,
-  rotationDeg: 0,
-  angleDeg: 0,
-  time: INITIAL_TIME.value.getTime()
-};
-
-// http://localhost:5174/?lng=316.555988&lat=74.277000&fov=0.017202&rot=0.000000&angle=0.000000&time=1775474823266
-const EARTH_VIEW: CameraView = {
-  lng: 316.555988,
-  lat: 74.277000,
-  zoomDeg: 0.017202,
-  rotationDeg: 0,
-  angleDeg: 0,
-  time: 1775474823266
-};
-// const HOME_VIEW: CameraView = {
-//   // lng: 169.906038,
-//   lng: 168.007573,
-//   // lat: 1.323000,
-//   lat: 3.591000,
-//   // zoomDeg: 0.000163,
-//   zoomDeg: 0.000157,
-//   rotationDeg: 0,
-//   angleDeg: 0,
-//   time: HOME_TIME.getTime()
-// };
-
-
-const currentTime = ref(INITIAL_TIME.value);
-
-function goHome() {
-  currentTime.value = INITIAL_TIME.value;
-  trackingCenter.value = SolarSystemObjects.moon;
-  moveViewCamera(INITIAL_VIEW, false);
-}
-
-function doWWTHacks() {
-  WWTControl.singleton.getScreenPointForCoordinates = getScreenPointForCoordinates.bind(WWTControl.singleton);
-  WWTControl.singleton.getCoordinatesForScreenPoint = getCoordinatesForScreenPoint.bind(WWTControl.singleton);
-  // @ts-expect-error this does exist
-  WWTControl.singleton.transformWorldPointToPickSpace = transformWorldPointToPickSpace.bind(WWTControl.singleton);
-  // @ts-expect-error this does exist
-  WWTControl.singleton.transformPickPointToWorldSpace = transformPickPointToWorldSpace.bind(WWTControl.singleton);
-  WWTControl.singleton.renderOneFrame = renderOneFrame.bind(WWTControl.singleton);
-  // @ts-expect-error this does exist
-  WWTControl.singleton.getDepth = getDepth.bind(WWTControl.singleton);
-  // @ts-expect-error this does exist
-  WWTControl.singleton.renderContext.makeFrustum = makeFrustum.bind(WWTControl.singleton.renderContext);
-  // @ts-expect-error this does exist
-  LayerManager._draw = layerManagerDraw;
-}
-
-
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-let copyViewUrl: () => Promise<void> = async () => {};
-const copySuccess = ref(false);
-
+const layers = ref<ImageSetLayer[]>([]);
 
 
 onMounted(() => {
@@ -293,10 +168,52 @@ onMounted(() => {
   }
 
   store.waitForReady().then(async () => {
-    positionSet.value = true;
+    const folder =  await store.loadImageCollection({
+      url: "i5_all.wtml",
+      loadChildFolders: false,
+    });
+    const children = folder.get_children();
+    if (children == null) return;
+    children.forEach((child: Place | unknown, index: number) => {
+      if (!(child instanceof Place)) return;
+      const imageset = child.get_studyImageset();
+      if (imageset == null) return;
+      store.addImageSetLayer({
+        url: imageset.get_url(),
+        mode: "autodetect",
+        name: imageset.get_name(),
+        goto: false,
+      }).then(newLayer => {
+        newLayer.set_enabled(true); 
+        newLayer.set_opacity(index === 0 ? 1 : 0); // show only the first layer initially
+        layers.value.push(newLayer);
+        if (index === 0) {
+          console.log("setting position to first layer");
+          const iset = layers.value[0].get_imageSet();
+          store.gotoRADecZoom({
+            raRad: iset.get_centerX() * D2R,
+            decRad: iset.get_centerY() * D2R,
+            zoomDeg: 100 / 60,
+            instant: true
+          }).then(() => positionSet.value = true);
+        };
+      });
+    }); 
     layersLoaded.value = true;
   });
 });
+
+
+const imageIndex = ref(0);
+function setOnlyLayerAtIndexVisible(index: number) {
+  layers.value.forEach((layer, idx) => {
+    layer.set_opacity(idx === index ? 1 : 0);
+  });
+}
+watch(imageIndex, (newIndex) => {
+  setOnlyLayerAtIndexVisible(newIndex);
+});
+
 
 const ready = computed(() => layersLoaded.value && positionSet.value);
 
@@ -584,43 +501,11 @@ and remember, position:absolute is still a positioned parent, so children can be
   overflow: auto;
 }
 
-.legend {
-  font-size: 0.8em;
-  line-height: 2;
-  border: 1px solid white;
-  border-radius: 4px;
-  padding: 0.5em;
-  padding-left: 1em;
-  background-color: rgba(0,0,0,.6);
-  backdrop-filter: blur(5px);
-  margin-top: calc(0.5em + 10px);
+
+#image-index-control {
+  width: 100%;
+  max-width: 400px;
   pointer-events: auto;
-  user-select: none;
-}
-
-.legend > p {
-  display: list-item;
-  list-style-type: disc;
-  list-style-position: inside;
-}
-
-.legend > p.location {
-  color: red;
-}
-
-.legend > p.path {
-  color: white;
-}
-.legend > p > span {
-  color: white;
-}
-
-.legend-small {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  font-size: clamp(6pt, 4vw, 0.8em);
-  margin-top: 2em;
 }
 
 
