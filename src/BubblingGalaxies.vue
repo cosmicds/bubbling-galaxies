@@ -40,12 +40,10 @@
           <div id="center-buttons">
           </div>
           <div id="right-buttons">
-            <!-- 
-            <ImagesetOffset
-              v-model:rotation="rotationDegrees"
-              v-model:offset="radialOffsetDegrees"
-            /> 
-            -->
+            <!-- <ImagesetOffset
+              v-model:rotation="angle"
+              v-model:offset="offset"
+            />  -->
           </div>
         </div>
 
@@ -209,7 +207,7 @@ const isets = ref<Imageset[]>([]);
 const originalCenter = ref<{ x: number; y: number } | null>(null);
 const simulationOpactiy = ref(0.55);
 
-const offsetSim = ref(false);
+const offsetSim = ref(true);
 const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
 
 import { useImageSetManipulation } from "./imageset_manipulation";
