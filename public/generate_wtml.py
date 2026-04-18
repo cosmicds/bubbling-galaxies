@@ -21,7 +21,7 @@ root.remove(place)
 RA = 15 * (23 + 34 / 60 + 27.49 / 3600)
 DEC = -(36 + 6 / 60 + 3.9 / 3600)
 
-image_width_arcmin = 15 / 60 # degrees
+image_width_arcmin = 13 / 60 # degrees
 pixScale = image_width_arcmin / width
 
 # new_place.set('Name', f"IC 5332")
