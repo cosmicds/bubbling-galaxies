@@ -95,7 +95,7 @@
 
 <script setup lang="ts">
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ref, reactive, computed, onMounted, watch } from "vue";
+import { ref, reactive, computed, onMounted, watch, nextTick } from "vue";
 import { GotoRADecZoomParams, engineStore } from "@wwtelescope/engine-pinia";
 import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, CreditLogos, IconButton, useFullscreen } from "@cosmicds/vue-toolkit";
 import { useDisplay } from "vuetify";
@@ -166,11 +166,37 @@ const layers = ref<ImageSetLayer[]>([]);
 const isets = ref<Imageset[]>([]);
 import { useImageSetManipulation } from "./imageset_manipulation";
 
-const {rotationDegrees, radialOffsetDegrees} = useImageSetManipulation(layers, {rotation: isVertical.value ? -90 : 0, offset: 10 / 60});
+// const {rotationDegrees, radialOffsetDegrees} = useImageSetManipulation(layers, {rotation: isVertical.value ? -90 : 0, offset: 10 / 60});
+//. just using this to apply and initial x - offset. 
+useImageSetManipulation(layers, {rotation: 0, offset: 10 / 60}); // 90deg rot points one down
 
-watch(isVertical, (v) => {
-  rotationDegrees.value = isVertical.value ? 90 : 0;
-});
+function rollView(angleDegrees: number) {
+  const currentRA = store.raRad;
+  const currentDec = store.decRad;
+  const currentZoom = store.zoomDeg;
+  const newRoll = store.rollRad + angleDegrees * D2R;
+  return store.gotoRADecZoom({
+    raRad: currentRA,
+    decRad: currentDec,
+    zoomDeg: currentZoom,
+    rollRad: newRoll,
+    instant: true,
+  });
+} 
+
+/** 
+ * Let's only set the rotation on the initial load.
+ * It is od to have it swtiching when you rotate the screem
+ * It looks ok when objects are centered, but when not centered
+ * they end up in non-inuitive locations.
+ */
+// watch(isVertical, (v) => {
+//   if (isVertical.value) {
+//     rollView(90);
+//   } else {
+//     rollView(-90);
+//   }
+// });
 
 function moveToEdge(imageset: Imageset, edge: 'top' | 'right' | 'bottom' | 'left' | 'center' ) {
   const centerX = imageset.get_centerX(); // degrees
@@ -187,8 +213,8 @@ function moveToEdge(imageset: Imageset, edge: 'top' | 'right' | 'bottom' | 'left
     center: 0,
   };
   const yOff = {
-    top: -offsetY * baseDegrees,
-    bottom: offsetY * baseDegrees,
+    top: offsetY * baseDegrees,
+    bottom: -offsetY * baseDegrees,
     left: 0,
     right: 0,
     center: 0,
@@ -196,15 +222,15 @@ function moveToEdge(imageset: Imageset, edge: 'top' | 'right' | 'bottom' | 'left
   
   const newCenterX = centerX + xOff[edge];
   const newCenterY = centerY + yOff[edge];
-  console.log(`Moving to edge ${edge} with new center: (${newCenterX}, ${newCenterY})`);
+  console.log(`Moving to edge ${edge} with new center: (x, y) = (${xOff[edge]}, ${yOff[edge]})`);
   // const rotationRadians = rotationDegrees.value * D2R;
   return store.gotoRADecZoom({
     raRad: newCenterX * D2R,
     decRad: newCenterY * D2R,
     zoomDeg: 100 / 60,
+    rollRad: isVertical.value ? 90 * D2R : 0,
     instant: true
   });
-  
 }
 
 onMounted(() => {
@@ -220,6 +246,11 @@ onMounted(() => {
   }
 
   store.waitForReady().then(async () => {
+    
+    store.applySetting(['showGrid', true]);
+    store.applySetting(['showEquatorialGridText', true]);
+    
+
     const folder =  await store.loadImageCollection({
       url: "i5_all.wtml",
       loadChildFolders: false,
@@ -233,7 +264,7 @@ onMounted(() => {
       isets.value.push(imageset);
       store.addImageSetLayer({
         url: imageset.get_url(),
-        mode: "autodetect",
+        mode: "preloaded",
         name: imageset.get_name(),
         goto: false,
       }).then(newLayer => {
@@ -243,7 +274,7 @@ onMounted(() => {
         if (index === 0) {
           console.log("setting position to first layer");
           const iset = layers.value[0].get_imageSet();
-          moveToEdge(iset, isVertical.value ? 'top' : 'left').then(() => positionSet.value = true);
+          moveToEdge(iset, 'left').then(() => positionSet.value = true);
         };
       });
     }); 

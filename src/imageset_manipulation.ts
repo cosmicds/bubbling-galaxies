@@ -31,7 +31,7 @@ export function useImageSetManipulation(layers: Ref<ImageSetLayer[] | null>, opt
       layer.set_overrideDefaultLayer(true);
       const originalSettings = originalLayerSettings.value[index];
       const newCenterX = originalSettings.centerX + radialOffsetDegrees.value * Math.cos(rotationRadians);
-      const newCenterY = originalSettings.centerY + radialOffsetDegrees.value * Math.sin(rotationRadians);
+      const newCenterY = originalSettings.centerY - radialOffsetDegrees.value * Math.sin(rotationRadians);
       
       iset.set_centerX(newCenterX);
       iset.set_centerY(newCenterY);
