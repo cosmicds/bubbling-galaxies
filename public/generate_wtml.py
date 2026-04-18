@@ -1,5 +1,10 @@
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from PIL import Image
+
+# get image dimensions
+im = Image.open('./I5_pngs/frame_100.png')
+width, height = im.size
 
 file = Path('./i5-template.wtml')
 
@@ -12,9 +17,12 @@ if place is None:
 root.remove(place)
 
 # Position near IC 5332
-RA = 353 + 42 / 60 + 35.0315 / 3600 
-DEC = -(36 + 5 / 60 + 60 / 3600)
-pixScale = 0.45 / 3600 # 0.25 arcsec/pixel
+# 23 34 27.49 -36 06 03.9
+RA = 15 * (23 + 34 / 60 + 27.49 / 3600)
+DEC = -(36 + 6 / 60 + 3.9 / 3600)
+
+image_width_arcmin = 12 / 60 # degrees
+pixScale = image_width_arcmin / width
 
 # new_place.set('Name', f"IC 5332")
 
@@ -33,6 +41,9 @@ for i in range(0, 49):
     image_set.set('Name', f"IC 5332 {i}")
     image_set.set('CenterX', str(RA))
     image_set.set('CenterY', str(DEC))
+    
+    image_set.set('OffsetX', str(width / 2))
+    image_set.set('OffsetY', str(height / 2))
     image_set.set('BaseDegreesPerTile', str(pixScale))
     root.append(new_place)
 
