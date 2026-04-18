@@ -40,10 +40,10 @@
           <div id="center-buttons">
           </div>
           <div id="right-buttons">
-            <!-- <ImagesetOffset
+            <ImagesetOffset
               v-model:rotation="angle"
               v-model:offset="offset"
-            />  -->
+            /> 
           </div>
         </div>
 
