@@ -27,6 +27,15 @@
       <div id="wwt-overlay">
         <div id="top-content">
           <div id="left-buttons">
+            <v-checkbox
+              v-model="offsetSim"
+              label="Offset sim"
+              color="white"
+              density="compact"
+              class="icon-wrapper"
+              :aria-label="'Toggle simulation offset'"
+              pointer-events="auto"
+            />
           </div>
           <div id="center-buttons">
           </div>
@@ -84,6 +93,7 @@
               :min="0"
               :max="1"
               step="0.01"
+              label="Opacity"
             >
             </v-slider>
           </div>
@@ -195,12 +205,16 @@ const buttonColor = ref("#ffffff");
 
 const layers = ref<ImageSetLayer[]>([]);
 const isets = ref<Imageset[]>([]);
+// Store a single original center (all layers share the same center)
+const originalCenter = ref<{ x: number; y: number } | null>(null);
 const simulationOpactiy = ref(1);
-import { useImageSetManipulation } from "./imageset_manipulation";
 
-// const {rotationDegrees, radialOffsetDegrees} = useImageSetManipulation(layers, {rotation: isVertical.value ? -90 : 0, offset: 10 / 60});
-//. just using this to apply and initial x - offset. 
-useImageSetManipulation(layers, {rotation: 0, offset: 10 / 60}); // 90deg rot points one down
+const offsetSim = ref(true);
+const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
+
+import { useImageSetManipulation } from "./imageset_manipulation";
+const { angle, offset } = useImageSetManipulation(layers, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
+
 
 function rollView(angleDegrees: number) {
   const currentRA = store.raRad;
@@ -230,13 +244,12 @@ function rollView(angleDegrees: number) {
 //   }
 // });
 
-function moveToEdge(imageset: Imageset, edge: 'top' | 'right' | 'bottom' | 'left' | 'center' ) {
-  const centerX = imageset.get_centerX(); // degrees
-  const centerY = imageset.get_centerY(); // degrees
+function moveToEdge(imageset: Imageset, edge: 'top' | 'right' | 'bottom' | 'left' | 'center', roll = true) {
+  const centerX = originalCenter.value?.x ?? imageset.get_centerX(); // degrees
+  const centerY = originalCenter.value?.y ?? imageset.get_centerY(); // degrees
   const offsetX = imageset.get_offsetX(); // pixel
   const offsetY = imageset.get_offsetY(); // pixel
   const baseDegrees = imageset.get_baseTileDegrees(); // degrees per pixel
-  
   const xOff = {
     left: offsetX * baseDegrees,
     right: -offsetX * baseDegrees,
@@ -260,7 +273,7 @@ function moveToEdge(imageset: Imageset, edge: 'top' | 'right' | 'bottom' | 'left
     raRad: newCenterX * D2R,
     decRad: newCenterY * D2R,
     zoomDeg: 100 / 60,
-    rollRad: isVertical.value ? 90 * D2R : 0,
+    rollRad: (roll && isVertical.value) ? 90 * D2R : 0,
     instant: true
   });
 }
@@ -306,6 +319,10 @@ onMounted(() => {
         if (index === 0) {
           console.log("setting position to first layer");
           const iset = layers.value[0].get_imageSet();
+          originalCenter.value = {
+            x: iset.get_centerX(),
+            y: iset.get_centerY(),
+          };
           moveToEdge(iset, 'left').then(() => positionSet.value = true);
         };
       });
@@ -335,6 +352,15 @@ watch(simulationOpactiy, (newOpacity) => {
   const currentLayer = layers.value[imageIndex.value];
   if (currentLayer) {
     currentLayer.set_opacity(newOpacity);
+  }
+});
+
+watch(offsetSim, async (enabled) => {
+  offset.value = enabled ? SIM_OFFSET : 0;
+  await nextTick();
+  const currentLayer = layers.value[imageIndex.value];
+  if (currentLayer) {
+    moveToEdge(currentLayer.get_imageSet(), enabled ? 'left' : 'center', false);
   }
 });
 

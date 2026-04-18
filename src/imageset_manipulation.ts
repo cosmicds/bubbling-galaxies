@@ -2,9 +2,9 @@ import { ref, watch, Ref }  from 'vue';
 import { ImageSetLayer, Imageset, WWTControl } from '@wwtelescope/engine';
 import { removeTilesForImageset } from './edit_tile_cache';
 
-export function useImageSetManipulation(layers: Ref<ImageSetLayer[] | null>, options?: { rotation: number, offset: number }) {
-  const rotationDegrees = ref(options?.rotation ?? 0);
-  const radialOffsetDegrees = ref(options?.offset ?? 0);
+export function useImageSetManipulation(layers: Ref<ImageSetLayer[] | null>, options?: { angleDeg?: number, offsetDeg?: number }) {
+  const rotationDegrees = ref(options?.angleDeg ?? 0);
+  const radialOffsetDegrees = ref(options?.offsetDeg ?? 0);
   console.log('Initial layers:', layers.value);
   console.log('Initial rotation:', rotationDegrees.value, 'Initial radial offset:', radialOffsetDegrees.value);
   
@@ -51,7 +51,7 @@ export function useImageSetManipulation(layers: Ref<ImageSetLayer[] | null>, opt
   watch([rotationDegrees, radialOffsetDegrees], updateImageSets);
   
   return {
-    rotationDegrees,
-    radialOffsetDegrees,
+    angle: rotationDegrees,
+    offset: radialOffsetDegrees,
   };
 };
