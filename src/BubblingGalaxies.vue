@@ -294,37 +294,38 @@ onMounted(() => {
     store.applySetting(['showEquatorialGridText', true]);
     
 
-    const folder =  await store.loadImageCollection({
+    store.loadImageCollection({
       url: "i5_all.wtml",
       loadChildFolders: false,
-    });
-    const children = folder.get_children();
-    if (children == null) return;
-    children.forEach((child: Place | unknown, index: number) => {
-      if (!(child instanceof Place)) return;
-      const imageset = child.get_studyImageset();
-      if (imageset == null) return;
-      isets.value.push(imageset);
-      store.addImageSetLayer({
-        url: imageset.get_url(),
-        mode: "preloaded",
-        name: imageset.get_name(),
-        goto: false,
-      }).then(newLayer => {
-        newLayer.set_enabled(true); 
-        newLayer.set_opacity(index === 0 ? simulationOpactiy.value : 0); // show only the first layer initially
-        layers.value.push(newLayer);
-        if (index === 0) {
-          console.log("setting position to first layer");
-          const iset = layers.value[0].get_imageSet();
-          originalCenter.value = {
-            x: iset.get_centerX(),
-            y: iset.get_centerY(),
+    }).then(folder => {
+      const children = folder.get_children();
+      if (children == null) return;
+      children.forEach((child: Place | unknown, index: number) => {
+        if (!(child instanceof Place)) return;
+        const imageset = child.get_studyImageset();
+        if (imageset == null) return;
+        isets.value.push(imageset);
+        store.addImageSetLayer({
+          url: imageset.get_url(),
+          mode: "preloaded",
+          name: imageset.get_name(),
+          goto: false,
+        }).then(newLayer => {
+          newLayer.set_enabled(true); 
+          newLayer.set_opacity(index === 0 ? simulationOpactiy.value : 0); // show only the first layer initially
+          layers.value.push(newLayer);
+          if (index === 0) {
+            console.log("setting position to first layer");
+            const iset = layers.value[0].get_imageSet();
+            originalCenter.value = {
+              x: iset.get_centerX(),
+              y: iset.get_centerY(),
+            };
+            moveToEdge(iset, offsetSim.value ? 'left' : 'center', offsetSim.value).then(() => positionSet.value = true);
           };
-          moveToEdge(iset, offsetSim.value ? 'left' : 'center', offsetSim.value).then(() => positionSet.value = true);
-        };
-      });
-    }); 
+        });
+      }); 
+    });
     layersLoaded.value = true;
   });
 });
