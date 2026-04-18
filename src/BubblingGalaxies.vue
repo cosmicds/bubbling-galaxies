@@ -55,6 +55,36 @@
               :max="layers.length - 1"
               step="1"
             >
+              <template #prepend>
+                <v-tooltip
+                  location="top"
+                >
+                  <template #activator="{ props: tooltipProps }">
+                    <v-btn
+                      class="mr-3 play-pause-icon"
+                      v-bind="tooltipProps"
+                      size="large"
+                      density="compact"
+                      variant="outlined"
+                      color="white"
+                      :icon="isPlaying ? 'mdi-pause' : 'mdi-play'"
+                      :aria-label="isPlaying ? 'Pause animation' : 'Play animation'"
+                      @click="togglePlayPause"
+                    >
+                    </v-btn>
+                  </template>
+                  {{ isPlaying ? 'Pause simulation' : 'Play simulation' }}
+                </v-tooltip>
+              </template>
+            </v-slider>
+            <v-slider 
+              v-if="ready"
+              v-model="simulationOpactiy"
+              class="image-opacity-control-slider"
+              :min="0"
+              :max="1"
+              step="0.01"
+            >
             </v-slider>
           </div>
           <div
@@ -114,6 +144,7 @@ import InformationSheet from "./components/InformationSheet.vue";
 import WebGlTest from "./components/WebGlTest.vue";
 const webglDisabled = ref(false);
 
+import { useSetInterval } from "./composables/useSetInterval";
 
 type SheetType = "text" | "video";
 
@@ -164,6 +195,7 @@ const buttonColor = ref("#ffffff");
 
 const layers = ref<ImageSetLayer[]>([]);
 const isets = ref<Imageset[]>([]);
+const simulationOpactiy = ref(1);
 import { useImageSetManipulation } from "./imageset_manipulation";
 
 // const {rotationDegrees, radialOffsetDegrees} = useImageSetManipulation(layers, {rotation: isVertical.value ? -90 : 0, offset: 10 / 60});
@@ -269,7 +301,7 @@ onMounted(() => {
         goto: false,
       }).then(newLayer => {
         newLayer.set_enabled(true); 
-        newLayer.set_opacity(index === 0 ? 1 : 0); // show only the first layer initially
+        newLayer.set_opacity(index === 0 ? simulationOpactiy.value : 0); // show only the first layer initially
         layers.value.push(newLayer);
         if (index === 0) {
           console.log("setting position to first layer");
@@ -287,13 +319,24 @@ onMounted(() => {
 const imageIndex = ref(0);
 function setOnlyLayerAtIndexVisible(index: number) {
   layers.value.forEach((layer, idx) => {
-    layer.set_opacity(idx === index ? 1 : 0);
+    layer.set_opacity(idx === index ? simulationOpactiy.value : 0);
   });
 }
 watch(imageIndex, (newIndex) => {
   setOnlyLayerAtIndexVisible(newIndex);
 });
 
+function advanceImageIndex() {
+  imageIndex.value = (imageIndex.value + 1) % layers.value.length;
+}
+const { togglePlayPause, isPlaying } = useSetInterval(advanceImageIndex, 250);
+
+watch(simulationOpactiy, (newOpacity) => {
+  const currentLayer = layers.value[imageIndex.value];
+  if (currentLayer) {
+    currentLayer.set_opacity(newOpacity);
+  }
+});
 
 const ready = computed(() => layersLoaded.value && positionSet.value);
 
