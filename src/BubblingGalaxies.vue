@@ -31,6 +31,12 @@
           <div id="center-buttons">
           </div>
           <div id="right-buttons">
+            <!-- 
+            <ImagesetOffset
+              v-model:rotation="rotationDegrees"
+              v-model:offset="radialOffsetDegrees"
+            /> 
+            -->
           </div>
         </div>
 
@@ -94,10 +100,12 @@ import { GotoRADecZoomParams, engineStore } from "@wwtelescope/engine-pinia";
 import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, CreditLogos, IconButton, useFullscreen } from "@cosmicds/vue-toolkit";
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
-import { Place, ImageSetLayer } from "@wwtelescope/engine";
+import { Place, ImageSetLayer, Imageset } from "@wwtelescope/engine";
 import SplashGesture from "./components/SplashGesture.vue";
+import ImagesetOffset from "./components/ImagesetOffset.vue";
 
 import { WWTControl } from "@wwtelescope/engine";
+
 
 
 import SplashScreen from "./components/SplashScreen.vue";
@@ -127,7 +135,9 @@ const store = engineStore();
 useWWTKeyboardControls(store);
 
 const touchscreen = supportsTouchscreen();
-const { smAndDown } = useDisplay();
+const  { smAndDown, width: viewportWidth, height: viewportHeight } = useDisplay();
+const isVertical = computed(() => viewportHeight.value > viewportWidth.value);
+
 
 const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
   wwtNamespace: "wwt-playground",
@@ -153,7 +163,49 @@ const buttonColor = ref("#ffffff");
 
 
 const layers = ref<ImageSetLayer[]>([]);
+const isets = ref<Imageset[]>([]);
+import { useImageSetManipulation } from "./imageset_manipulation";
 
+const {rotationDegrees, radialOffsetDegrees} = useImageSetManipulation(layers, {rotation: isVertical.value ? -90 : 0, offset: 10 / 60});
+
+watch(isVertical, (v) => {
+  rotationDegrees.value = isVertical.value ? 90 : 0;
+});
+
+function moveToEdge(imageset: Imageset, edge: 'top' | 'right' | 'bottom' | 'left' | 'center' ) {
+  const centerX = imageset.get_centerX(); // degrees
+  const centerY = imageset.get_centerY(); // degrees
+  const offsetX = imageset.get_offsetX(); // pixel
+  const offsetY = imageset.get_offsetY(); // pixel
+  const baseDegrees = imageset.get_baseTileDegrees(); // degrees per pixel
+  
+  const xOff = {
+    left: offsetX * baseDegrees,
+    right: -offsetX * baseDegrees,
+    top: 0,
+    bottom: 0,
+    center: 0,
+  };
+  const yOff = {
+    top: -offsetY * baseDegrees,
+    bottom: offsetY * baseDegrees,
+    left: 0,
+    right: 0,
+    center: 0,
+  };
+  
+  const newCenterX = centerX + xOff[edge];
+  const newCenterY = centerY + yOff[edge];
+  console.log(`Moving to edge ${edge} with new center: (${newCenterX}, ${newCenterY})`);
+  // const rotationRadians = rotationDegrees.value * D2R;
+  return store.gotoRADecZoom({
+    raRad: newCenterX * D2R,
+    decRad: newCenterY * D2R,
+    zoomDeg: 100 / 60,
+    instant: true
+  });
+  
+}
 
 onMounted(() => {
 
@@ -178,6 +230,7 @@ onMounted(() => {
       if (!(child instanceof Place)) return;
       const imageset = child.get_studyImageset();
       if (imageset == null) return;
+      isets.value.push(imageset);
       store.addImageSetLayer({
         url: imageset.get_url(),
         mode: "autodetect",
@@ -190,18 +243,14 @@ onMounted(() => {
         if (index === 0) {
           console.log("setting position to first layer");
           const iset = layers.value[0].get_imageSet();
-          store.gotoRADecZoom({
-            raRad: iset.get_centerX() * D2R,
-            decRad: iset.get_centerY() * D2R,
-            zoomDeg: 100 / 60,
-            instant: true
-          }).then(() => positionSet.value = true);
+          moveToEdge(iset, isVertical.value ? 'top' : 'left').then(() => positionSet.value = true);
         };
       });
     }); 
     layersLoaded.value = true;
   });
 });
+
 
 
 const imageIndex = ref(0);
