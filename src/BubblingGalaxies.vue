@@ -207,9 +207,9 @@ const layers = ref<ImageSetLayer[]>([]);
 const isets = ref<Imageset[]>([]);
 // Store a single original center (all layers share the same center)
 const originalCenter = ref<{ x: number; y: number } | null>(null);
-const simulationOpactiy = ref(1);
+const simulationOpactiy = ref(0.55);
 
-const offsetSim = ref(true);
+const offsetSim = ref(false);
 const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
 
 import { useImageSetManipulation } from "./imageset_manipulation";
@@ -323,7 +323,7 @@ onMounted(() => {
             x: iset.get_centerX(),
             y: iset.get_centerY(),
           };
-          moveToEdge(iset, 'left').then(() => positionSet.value = true);
+          moveToEdge(iset, offsetSim.value ? 'left' : 'center', offsetSim.value).then(() => positionSet.value = true);
         };
       });
     }); 
