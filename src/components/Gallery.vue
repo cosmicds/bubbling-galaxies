@@ -249,10 +249,12 @@ function setOpacity(place: Place, event: Event) {
 }
 
 function extractPlaces(folder: Folder): Place[] {
+  console.log("Extracting places from folder", folder);
   let places: Place[] = [];
   for (const child of folder.get_children() ?? []) {
     if (child instanceof Place) {
       const iset = getImageset(child);
+      console.log("Extracting place", child.get_name(), "with imageset", iset ? iset.get_name() : "none");
       if (iset !== null) {
         places.push(child);
       }
