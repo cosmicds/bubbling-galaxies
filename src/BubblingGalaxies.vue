@@ -51,12 +51,6 @@
             />
           </div>
           <div id="center-buttons">
-            <v-select
-              v-model="backgroundImageset"
-              :items="skyBackgroundImagesets"
-              item-title="displayName"
-              label="Background"
-            />
           </div>
           <div id="right-buttons">
             <ImagesetOffset
