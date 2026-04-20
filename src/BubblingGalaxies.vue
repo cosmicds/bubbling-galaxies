@@ -235,7 +235,7 @@ watch(selectedGalleryItems, (newPlaces, oldPlaces) => {
 const galleryPlaces = ref<Place[]>([]);
 // Store a single original center (all layers share the same center)
 const originalCenter = ref<{ x: number; y: number } | null>(null);
-const simulationOpactiy = ref(0.55);
+const simulationOpactiy = ref(1);
 
 const offsetSim = ref(true);
 const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
