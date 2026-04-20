@@ -83,10 +83,6 @@
 import { ref, computed, onBeforeMount, nextTick } from "vue";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { Folder, Imageset, Place, ImageSetLayer } from "@wwtelescope/engine";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-library.add(faTimes);
 
 
 /* Gallery */
@@ -168,7 +164,9 @@ const cssVars = computed(() => {
 
 onBeforeMount(() => {
   store.waitForReady().then(async () => {
-    places.value = await placesFromWtml(props.wtmlUrl);
+    const _places = await placesFromWtml(props.wtmlUrl);
+    places.value = _places;
+    _places.slice().reverse().forEach(loadImagesetLayerForPlace);
   });
 });
 
@@ -232,7 +230,6 @@ function getOpacity(place: Place): number {
 function applySelectedPlaceOpacity(place: Place) {
   const layer = getImagesetLayerForPlace(place);
   if (!layer) return;
-  console.log("Applying opacity for place", place.get_name(), "with opacity", getOpacity(place));
   layer.set_opacity(getOpacity(place));
 }
 
@@ -249,12 +246,10 @@ function setOpacity(place: Place, event: Event) {
 }
 
 function extractPlaces(folder: Folder): Place[] {
-  console.log("Extracting places from folder", folder);
   let places: Place[] = [];
   for (const child of folder.get_children() ?? []) {
     if (child instanceof Place) {
       const iset = getImageset(child);
-      console.log("Extracting place", child.get_name(), "with imageset", iset ? iset.get_name() : "none");
       if (iset !== null) {
         places.push(child);
       }
@@ -273,7 +268,6 @@ async function placesFromWtml(wtmlUrl: string): Promise<Place[]> {
 }
 
 async function selectPlace(place: Place) {
-  console.log("Selecting place", place.get_name());
   const layer = getImagesetLayerForPlace(place);
   if (!layer) {
     await loadImagesetLayerForPlace(place);
@@ -281,12 +275,10 @@ async function selectPlace(place: Place) {
   if (props.singleSelect) {
     // if we're already selected, deselect
     if (selectedPlace.value === place) {
-      console.log("Deselecting place", place.get_name());
       emit("deselect", place);
       selectedPlaces.value = [];
       selectedPlace.value = null;
     } else {
-      console.log("Selecting place", place.get_name(), "and deselecting all others");
       selectedPlaces.value.forEach(p => emit("deselect", p));
       selectedPlaces.value = [place]; // note this is only available after nextTick
       selectedPlace.value = place;
@@ -326,7 +318,6 @@ function setSelectedImagesetVisibility(places: Place[], selectedPlaces: Place[])
     const layer = getImagesetLayerForPlace(place);
     if (!layer) continue;
     const visible = selectedPlaces.includes(place);
-    console.log("Setting visibility for place", place.get_name(), "to", visible);
     setLayerVisibility(layer, visible);
   }
 }
