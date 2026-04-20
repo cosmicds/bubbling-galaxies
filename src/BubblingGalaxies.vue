@@ -345,7 +345,7 @@ onMounted(() => {
           layers.value.push(newLayer);
           if (index === 0) {
             console.log("setting position to first layer");
-            const iset = layers.value[0].get_imageSet();
+            const iset = newLayer.get_imageSet();
             originalCenter.value = {
               x: iset.get_centerX(),
               y: iset.get_centerY(),
@@ -362,9 +362,23 @@ onMounted(() => {
 
 
 const imageIndex = ref(0);
+
+watch(store.imagesetLayers, (l) => {
+  if (layers.value.length > imageIndex.value) {
+    store.setImageSetLayerOrder({
+      id: layers.value[imageIndex.value].id.toString(),
+      order: Object.keys(store.imagesetLayers).length
+    });
+  }
+});
+
 function setOnlyLayerAtIndexVisible(index: number) {
   layers.value.forEach((layer, idx) => {
     layer.set_opacity(idx === index ? simulationOpactiy.value : 0);
+    store.setImageSetLayerOrder({
+      id: layer.id.toString(),
+      order: Object.keys(store.imagesetLayers).length
+    });
   });
 }
 watch(imageIndex, (newIndex) => {
