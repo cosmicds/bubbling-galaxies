@@ -27,10 +27,23 @@
       <div id="wwt-overlay">
         <div id="top-content">
           <div id="left-buttons">
+            <v-checkbox
+              v-model="offsetSim"
+              label="Offset sim"
+              color="white"
+              density="compact"
+              class="icon-wrapper"
+              :aria-label="'Toggle simulation offset'"
+              pointer-events="auto"
+            />
           </div>
           <div id="center-buttons">
           </div>
           <div id="right-buttons">
+            <ImagesetOffset
+              v-model:rotation="angle"
+              v-model:offset="offset"
+            /> 
           </div>
         </div>
 
@@ -48,6 +61,37 @@
               :min="0"
               :max="layers.length - 1"
               step="1"
+            >
+              <template #prepend>
+                <v-tooltip
+                  location="top"
+                >
+                  <template #activator="{ props: tooltipProps }">
+                    <v-btn
+                      class="mr-3 play-pause-icon"
+                      v-bind="tooltipProps"
+                      size="large"
+                      density="compact"
+                      variant="outlined"
+                      color="white"
+                      :icon="isPlaying ? 'mdi-pause' : 'mdi-play'"
+                      :aria-label="isPlaying ? 'Pause animation' : 'Play animation'"
+                      @click="togglePlayPause"
+                    >
+                    </v-btn>
+                  </template>
+                  {{ isPlaying ? 'Pause simulation' : 'Play simulation' }}
+                </v-tooltip>
+              </template>
+            </v-slider>
+            <v-slider 
+              v-if="ready"
+              v-model="simulationOpactiy"
+              class="image-opacity-control-slider"
+              :min="0"
+              :max="1"
+              step="0.01"
+              label="Opacity"
             >
             </v-slider>
           </div>
@@ -89,15 +133,17 @@
 
 <script setup lang="ts">
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ref, reactive, computed, onMounted, watch } from "vue";
+import { ref, reactive, computed, onMounted, watch, nextTick } from "vue";
 import { GotoRADecZoomParams, engineStore } from "@wwtelescope/engine-pinia";
 import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, CreditLogos, IconButton, useFullscreen } from "@cosmicds/vue-toolkit";
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
-import { Place, ImageSetLayer } from "@wwtelescope/engine";
+import { Place, ImageSetLayer, Imageset } from "@wwtelescope/engine";
 import SplashGesture from "./components/SplashGesture.vue";
+import ImagesetOffset from "./components/ImagesetOffset.vue";
 
 import { WWTControl } from "@wwtelescope/engine";
+
 
 
 import SplashScreen from "./components/SplashScreen.vue";
@@ -106,6 +152,7 @@ import InformationSheet from "./components/InformationSheet.vue";
 import WebGlTest from "./components/WebGlTest.vue";
 const webglDisabled = ref(false);
 
+import { useSetInterval } from "./composables/useSetInterval";
 
 type SheetType = "text" | "video";
 
@@ -127,7 +174,9 @@ const store = engineStore();
 useWWTKeyboardControls(store);
 
 const touchscreen = supportsTouchscreen();
-const { smAndDown } = useDisplay();
+const  { smAndDown, width: viewportWidth, height: viewportHeight } = useDisplay();
+const isVertical = computed(() => viewportHeight.value > viewportWidth.value);
+
 
 const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
   wwtNamespace: "wwt-playground",
@@ -153,7 +202,79 @@ const buttonColor = ref("#ffffff");
 
 
 const layers = ref<ImageSetLayer[]>([]);
+const isets = ref<Imageset[]>([]);
+// Store a single original center (all layers share the same center)
+const originalCenter = ref<{ x: number; y: number } | null>(null);
+const simulationOpactiy = ref(0.55);
 
+const offsetSim = ref(true);
+const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
+
+import { useImageSetManipulation } from "./imageset_manipulation";
+const { angle, offset } = useImageSetManipulation(layers, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
+
+
+function rollView(angleDegrees: number) {
+  const currentRA = store.raRad;
+  const currentDec = store.decRad;
+  const currentZoom = store.zoomDeg;
+  const newRoll = store.rollRad + angleDegrees * D2R;
+  return store.gotoRADecZoom({
+    raRad: currentRA,
+    decRad: currentDec,
+    zoomDeg: currentZoom,
+    rollRad: newRoll,
+    instant: true,
+  });
+} 
+
+/** 
+ * Let's only set the rotation on the initial load.
+ * It is od to have it swtiching when you rotate the screem
+ * It looks ok when objects are centered, but when not centered
+ * they end up in non-inuitive locations.
+ */
+// watch(isVertical, (v) => {
+//   if (isVertical.value) {
+//     rollView(90);
+//   } else {
+//     rollView(-90);
+//   }
+// });
+
+function moveToEdge(imageset: Imageset, edge: 'top' | 'right' | 'bottom' | 'left' | 'center', roll = true) {
+  const centerX = originalCenter.value?.x ?? imageset.get_centerX(); // degrees
+  const centerY = originalCenter.value?.y ?? imageset.get_centerY(); // degrees
+  const offsetX = imageset.get_offsetX(); // pixel
+  const offsetY = imageset.get_offsetY(); // pixel
+  const baseDegrees = imageset.get_baseTileDegrees(); // degrees per pixel
+  const xOff = {
+    left: offsetX * baseDegrees,
+    right: -offsetX * baseDegrees,
+    top: 0,
+    bottom: 0,
+    center: 0,
+  };
+  const yOff = {
+    top: offsetY * baseDegrees,
+    bottom: -offsetY * baseDegrees,
+    left: 0,
+    right: 0,
+    center: 0,
+  };
+  
+  const newCenterX = centerX + xOff[edge];
+  const newCenterY = centerY + yOff[edge];
+  console.log(`Moving to edge ${edge} with new center: (x, y) = (${xOff[edge]}, ${yOff[edge]})`);
+  // const rotationRadians = rotationDegrees.value * D2R;
+  return store.gotoRADecZoom({
+    raRad: newCenterX * D2R,
+    decRad: newCenterY * D2R,
+    zoomDeg: 100 / 60,
+    rollRad: (roll && isVertical.value) ? 90 * D2R : 0,
+    instant: true
+  });
+}
 
 onMounted(() => {
 
@@ -168,52 +289,79 @@ onMounted(() => {
   }
 
   store.waitForReady().then(async () => {
-    const folder =  await store.loadImageCollection({
+    
+    store.applySetting(['showGrid', true]);
+    store.applySetting(['showEquatorialGridText', true]);
+    
+
+    store.loadImageCollection({
       url: "i5_all.wtml",
       loadChildFolders: false,
+    }).then(folder => {
+      const children = folder.get_children();
+      if (children == null) return;
+      children.forEach((child: Place | unknown, index: number) => {
+        if (!(child instanceof Place)) return;
+        const imageset = child.get_studyImageset();
+        if (imageset == null) return;
+        isets.value.push(imageset);
+        store.addImageSetLayer({
+          url: imageset.get_url(),
+          mode: "preloaded",
+          name: imageset.get_name(),
+          goto: false,
+        }).then(newLayer => {
+          newLayer.set_enabled(true); 
+          newLayer.set_opacity(index === 0 ? simulationOpactiy.value : 0); // show only the first layer initially
+          layers.value.push(newLayer);
+          if (index === 0) {
+            console.log("setting position to first layer");
+            const iset = layers.value[0].get_imageSet();
+            originalCenter.value = {
+              x: iset.get_centerX(),
+              y: iset.get_centerY(),
+            };
+            moveToEdge(iset, offsetSim.value ? 'left' : 'center', offsetSim.value).then(() => positionSet.value = true);
+          };
+        });
+      }); 
     });
-    const children = folder.get_children();
-    if (children == null) return;
-    children.forEach((child: Place | unknown, index: number) => {
-      if (!(child instanceof Place)) return;
-      const imageset = child.get_studyImageset();
-      if (imageset == null) return;
-      store.addImageSetLayer({
-        url: imageset.get_url(),
-        mode: "autodetect",
-        name: imageset.get_name(),
-        goto: false,
-      }).then(newLayer => {
-        newLayer.set_enabled(true); 
-        newLayer.set_opacity(index === 0 ? 1 : 0); // show only the first layer initially
-        layers.value.push(newLayer);
-        if (index === 0) {
-          console.log("setting position to first layer");
-          const iset = layers.value[0].get_imageSet();
-          store.gotoRADecZoom({
-            raRad: iset.get_centerX() * D2R,
-            decRad: iset.get_centerY() * D2R,
-            zoomDeg: 100 / 60,
-            instant: true
-          }).then(() => positionSet.value = true);
-        };
-      });
-    }); 
     layersLoaded.value = true;
   });
 });
 
 
+
 const imageIndex = ref(0);
 function setOnlyLayerAtIndexVisible(index: number) {
   layers.value.forEach((layer, idx) => {
-    layer.set_opacity(idx === index ? 1 : 0);
+    layer.set_opacity(idx === index ? simulationOpactiy.value : 0);
   });
 }
 watch(imageIndex, (newIndex) => {
   setOnlyLayerAtIndexVisible(newIndex);
 });
 
+function advanceImageIndex() {
+  imageIndex.value = (imageIndex.value + 1) % layers.value.length;
+}
+const { togglePlayPause, isPlaying } = useSetInterval(advanceImageIndex, 250);
+
+watch(simulationOpactiy, (newOpacity) => {
+  const currentLayer = layers.value[imageIndex.value];
+  if (currentLayer) {
+    currentLayer.set_opacity(newOpacity);
+  }
+});
+
+watch(offsetSim, async (enabled) => {
+  offset.value = enabled ? SIM_OFFSET : 0;
+  await nextTick();
+  const currentLayer = layers.value[imageIndex.value];
+  if (currentLayer) {
+    moveToEdge(currentLayer.get_imageSet(), enabled ? 'left' : 'center', false);
+  }
+});
 
 const ready = computed(() => layersLoaded.value && positionSet.value);
 
