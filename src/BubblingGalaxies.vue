@@ -143,7 +143,8 @@
       <InformationSheet
         v-if="showInfoSheet"
         v-model="showInfoSheet"
-        :text-color="accentColor"
+        :tab-color="accentColor"
+        text-color="#f6e368"
       />
     </div>
     <WebGlTest
@@ -218,7 +219,7 @@ const showSplashScreen = ref(false);
 const splashIsClosed = ref(false);
 const layersLoaded = ref(false);
 const positionSet = ref(false);
-const accentColor = ref("#f6de65");
+const accentColor = ref("#d957db");
 const buttonColor = ref("#ffffff");
 
 

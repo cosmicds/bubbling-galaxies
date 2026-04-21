@@ -1,4 +1,4 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
+a<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <v-card
     class="info-sheet"
@@ -8,8 +8,8 @@
       id="tabs"
       v-model="tab"
       height="32px"
-      :color="textColor"
-      :slider-color="textColor"
+      :color="tabColor"
+      :slider-color="tabColor"
       dense
       align-tabs="end"
     >
@@ -42,6 +42,7 @@
       id="tab-items"
       v-model="tab"
       class="pb-2"
+      :stlye="cssVars"
     >
       <v-window-item>
         <v-card class="scrollable">
@@ -49,6 +50,15 @@
             <h4 class="user-guide-header">
               Galaxy
             </h4>
+            CosmicDS in collaboration with Scott Lucchini. 
+            
+            <a 
+              href="https://www.scottlucchini.com/" 
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn more about his work
+            </a>
           </v-card-text>
         </v-card>
       </v-window-item>
@@ -172,7 +182,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref , computed} from 'vue';
 import { supportsTouchscreen, FundingAcknowledgement } from '@cosmicds/vue-toolkit';
 
 const tab = ref(0);
@@ -183,10 +193,22 @@ const touchscreen = supportsTouchscreen();
 const showTextSheet = defineModel<boolean>();
 
 interface Props {
-  textColor: string
+  tabColor: string,
+  textColor?: string,
+  headingColor?: string,
+  accentColor?:string,
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+  
+const cssVars = computed(() => {
+  return {
+    '--info-sheet-text-color': props.textColor ?? '#ffffff',
+    '--info-sheet-heading-color': props.headingColor ?? props.textColor,
+    '--info-sheet-accent-color': props.accentColor ?? props.tabColor,
+    
+  };
+});
 
 </script>
 
@@ -197,27 +219,28 @@ defineProps<Props>();
 }
 
 .info-text {
-  color: #8adcf9;
+  color: var(--info-sheet-text-color);
   
   a {
-    // color: white;
+    color: currentColor;
+    text-decoration-style: dotted;
   }
 
   h3 {
     font-size: 1.4em;
-    color: #9ee1fa
+    color: var(--info-sheet-heading-color);
   }
 
   h4 {
     font-size: 1.2em;
-    color: #9ee1fa
+    color: var(--info-sheet-heading-color);
   }
 
   h5 {
     font-size: 1em;
     font-weight: bold;
     margin-top: 1em;
-    color: #9ee1fa
+    color: var(--info-sheet-heading-color);
   }
 
   li {
@@ -245,7 +268,7 @@ defineProps<Props>();
 }
 
 .bullet-icon {
-  color: var(--border-color);
+  color: currentColor;
   width: 1.2em;
   padding-right: 0.5em;
 }
