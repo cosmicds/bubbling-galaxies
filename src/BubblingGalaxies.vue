@@ -27,6 +27,14 @@
       <div id="wwt-overlay">
         <div id="top-content">
           <div id="left-buttons">
+            <icon-button
+              v-model="showInfoSheet"
+              icon="book-open"
+              :color="buttonColor"
+              :tooltip-text="showInfoSheet ? 'Hide Info' : 'Learn More'"
+              tooltip-location="start"
+            >
+            </icon-button>
             <v-checkbox
               v-model="offsetSim"
               label="Offset sim"
@@ -36,6 +44,10 @@
               :aria-label="'Toggle simulation offset'"
               pointer-events="auto"
             />
+          </div>
+          <div id="center-buttons">
+          </div>
+          <div id="right-buttons">
             <Gallery
               v-if="ready"
               v-model:selected-place="selectedGalleryItem"
@@ -49,10 +61,6 @@
               :columns="1"
               width="125px"
             />
-          </div>
-          <div id="center-buttons">
-          </div>
-          <div id="right-buttons">
             <!-- <ImagesetOffset
               v-model:rotation="angle"
               v-model:offset="offset"
@@ -135,7 +143,8 @@
       <InformationSheet
         v-if="showInfoSheet"
         v-model="showInfoSheet"
-        :text-color="accentColor"
+        :tab-color="accentColor"
+        text-color="#f6e368"
       />
     </div>
     <WebGlTest
@@ -210,12 +219,20 @@ const showSplashScreen = ref(false);
 const splashIsClosed = ref(false);
 const layersLoaded = ref(false);
 const positionSet = ref(false);
-const accentColor = ref("#ffa000");
+const accentColor = ref("#d957db");
 const buttonColor = ref("#ffffff");
 
 
 
 const layers = ref<ImageSetLayer[]>([]);
+const backingLayer = ref<ImageSetLayer | null>(null);
+const layersToMove = computed(() => {
+  let _layers = layers.value.slice();
+  if (backingLayer.value) {
+    _layers.push(backingLayer.value);
+  }
+  return _layers;
+});
 const isets = ref<Imageset[]>([]);
 const selectedGalleryItem = ref<Place | null>(null);
 const selectedGalleryItems = ref<Place[]>([]);
@@ -241,7 +258,7 @@ const offsetSim = ref(true);
 const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
 
 import { useImageSetManipulation } from "./imageset_manipulation";
-const { angle, offset } = useImageSetManipulation(layers, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
+const { angle, offset } = useImageSetManipulation(layersToMove, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
 
 
 function rollView(angleDegrees: number) {
@@ -323,7 +340,7 @@ onMounted(() => {
     store.applySetting(['showGrid', true]);
     store.applySetting(['showEquatorialGridText', true]);
 
-    store.loadImageCollection({
+    const loadFrames = store.loadImageCollection({
       url: "i5_all.wtml",
       loadChildFolders: false,
     }).then(folder => {
@@ -355,7 +372,32 @@ onMounted(() => {
         });
       }); 
     });
-    layersLoaded.value = true;
+    
+    const loadBacking = store.loadImageCollection({
+      url: isVertical.value ? "i5_backing_rot.wtml" :"i5_backing.wtml",
+      loadChildFolders: false,
+    }).then(folder => {
+      (folder.get_children() ?? []).forEach((child: Place | unknown) => {
+        if (!(child instanceof Place)) return;
+        const imageset = child.get_studyImageset()!;
+        store.addImageSetLayer({
+          url: imageset.get_url(),
+          mode: "preloaded",
+          name: imageset.get_name(),
+          goto: false,
+        }).then(newLayer => {
+          newLayer.set_enabled(true); 
+          newLayer.set_opacity(simulationOpactiy.value); // show only the first layer initially
+          backingLayer.value = newLayer;
+        });
+      }); 
+    });
+    
+    Promise.all([loadFrames, loadBacking])
+      .then(() => {
+        layersLoaded.value = true;
+      });
+    
   });
 });
 
@@ -394,6 +436,9 @@ watch(simulationOpactiy, (newOpacity) => {
   const currentLayer = layers.value[imageIndex.value];
   if (currentLayer) {
     currentLayer.set_opacity(newOpacity);
+  }
+  if (backingLayer.value) {
+    backingLayer.value.set_opacity(newOpacity);
   }
 });
 
@@ -615,14 +660,6 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 .icon-wrapper {
     pointer-events: auto;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    border-radius: 4px !important;
-    color: #fff;
-    font-size: 0.8rem;
-    padding: 4px 10px;
-    cursor: pointer;
-    &:hover { background: rgba(255, 255, 255, 0.25); }
   }
 
 
