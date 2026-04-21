@@ -60,7 +60,7 @@
         ZoomLevel="0.16502620979681673"
         DataSetType="Sky"
         Opacity="100"
-        Thumbnail="/thumbnail.jpeg"
+        Thumbnail="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/thumbnail.jpeg"
         Constellation="">
         <ForegroundImageSet>
             <ImageSet DataSetType="Sky"
@@ -92,7 +92,7 @@
                         provides a very different view, instead highlighting the patterns of gas spread throughout the galaxy.
                     </p>
                 </Description>
-                <ThumbnailUrl>/thumbnail.jpeg</ThumbnailUrl>
+                <ThumbnailUrl>https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/thumbnail.jpeg</ThumbnailUrl>
             </ImageSet>
         </ForegroundImageSet>
     </Place>
