@@ -1,0 +1,12 @@
+<Folder Browseable="True" Group="Mine" Name="Scott" Searchable="True">
+<Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="-36.101083333333335" Magnitude="0" Name="IC 5332 BACKING" Opacity="100" RA="23.574302777777778" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="353.61454166666664" CenterY="-36.101083333333335" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="IC 5332 BACKING" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="True" StockSet="False" TileLevels="0" Url="./backing.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galacy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place></Folder>
