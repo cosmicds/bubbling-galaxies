@@ -36,14 +36,27 @@
               :aria-label="'Toggle simulation offset'"
               pointer-events="auto"
             />
+            <Gallery
+              v-if="ready"
+              v-model:selected-place="selectedGalleryItem"
+              v-model:selected-places="selectedGalleryItems"
+              v-model:places="galleryPlaces"
+              start-open
+              wtml-url="./public_datasets.wtml"
+              :single-select="false"
+              selected-color="limegreen"
+              show-opacity
+              :columns="1"
+              width="125px"
+            />
           </div>
           <div id="center-buttons">
           </div>
           <div id="right-buttons">
-            <ImagesetOffset
+            <!-- <ImagesetOffset
               v-model:rotation="angle"
               v-model:offset="offset"
-            /> 
+            />  -->
           </div>
         </div>
 
@@ -144,6 +157,7 @@ import ImagesetOffset from "./components/ImagesetOffset.vue";
 
 import { WWTControl } from "@wwtelescope/engine";
 
+import Gallery from "./components/Gallery.vue";
 
 
 import SplashScreen from "./components/SplashScreen.vue";
@@ -203,9 +217,25 @@ const buttonColor = ref("#ffffff");
 
 const layers = ref<ImageSetLayer[]>([]);
 const isets = ref<Imageset[]>([]);
+const selectedGalleryItem = ref<Place | null>(null);
+const selectedGalleryItems = ref<Place[]>([]);
+watch(selectedGalleryItem, (newPlace, oldPlace) => {
+  if (oldPlace) {
+    console.log("Deselecting place", oldPlace.get_name());
+  }
+  if (newPlace) {
+    console.log("Selected place", newPlace.get_name());
+  }
+});
+watch(selectedGalleryItems, (newPlaces, oldPlaces) => {
+  const oldNames = oldPlaces.map(p => p.get_name());
+  const newNames = newPlaces.map(p => p.get_name());
+  console.log("Selected places changed from", oldNames, "to", newNames);
+});
+const galleryPlaces = ref<Place[]>([]);
 // Store a single original center (all layers share the same center)
 const originalCenter = ref<{ x: number; y: number } | null>(null);
-const simulationOpactiy = ref(0.55);
+const simulationOpactiy = ref(1);
 
 const offsetSim = ref(true);
 const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
@@ -292,7 +322,6 @@ onMounted(() => {
     
     store.applySetting(['showGrid', true]);
     store.applySetting(['showEquatorialGridText', true]);
-    
 
     store.loadImageCollection({
       url: "i5_all.wtml",
@@ -316,7 +345,7 @@ onMounted(() => {
           layers.value.push(newLayer);
           if (index === 0) {
             console.log("setting position to first layer");
-            const iset = layers.value[0].get_imageSet();
+            const iset = newLayer.get_imageSet();
             originalCenter.value = {
               x: iset.get_centerX(),
               y: iset.get_centerY(),
@@ -333,9 +362,23 @@ onMounted(() => {
 
 
 const imageIndex = ref(0);
+
+watch(store.imagesetLayers, (l) => {
+  if (layers.value.length > imageIndex.value) {
+    store.setImageSetLayerOrder({
+      id: layers.value[imageIndex.value].id.toString(),
+      order: Object.keys(store.imagesetLayers).length
+    });
+  }
+});
+
 function setOnlyLayerAtIndexVisible(index: number) {
   layers.value.forEach((layer, idx) => {
     layer.set_opacity(idx === index ? simulationOpactiy.value : 0);
+    store.setImageSetLayerOrder({
+      id: layer.id.toString(),
+      order: Object.keys(store.imagesetLayers).length
+    });
   });
 }
 watch(imageIndex, (newIndex) => {
@@ -521,7 +564,7 @@ and remember, position:absolute is still a positioned parent, so children can be
   display: flex;
   flex-direction: column;
   gap: 10px;
-  align-items: center;
+  align-items: flex-start;
 
   .zoom-slider {
     writing-mode: vertical-lr;
@@ -551,9 +594,11 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 #center-buttons {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
   align-items: center;
+  pointer-events: auto;
+  width: 300px;
 }
 #right-buttons {
   display: flex;
