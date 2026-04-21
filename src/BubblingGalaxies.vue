@@ -27,6 +27,14 @@
       <div id="wwt-overlay">
         <div id="top-content">
           <div id="left-buttons">
+            <icon-button
+              v-model="showInfoSheet"
+              icon="book-open"
+              :color="buttonColor"
+              :tooltip-text="showInfoSheet ? 'Hide Info' : 'Learn More'"
+              tooltip-location="start"
+            >
+            </icon-button>
             <v-checkbox
               v-model="offsetSim"
               label="Offset sim"
@@ -36,6 +44,10 @@
               :aria-label="'Toggle simulation offset'"
               pointer-events="auto"
             />
+          </div>
+          <div id="center-buttons">
+          </div>
+          <div id="right-buttons">
             <Gallery
               v-if="ready"
               v-model:selected-place="selectedGalleryItem"
@@ -49,10 +61,6 @@
               :columns="1"
               width="125px"
             />
-          </div>
-          <div id="center-buttons">
-          </div>
-          <div id="right-buttons">
             <!-- <ImagesetOffset
               v-model:rotation="angle"
               v-model:offset="offset"
@@ -210,7 +218,7 @@ const showSplashScreen = ref(false);
 const splashIsClosed = ref(false);
 const layersLoaded = ref(false);
 const positionSet = ref(false);
-const accentColor = ref("#ffa000");
+const accentColor = ref("#f6de65");
 const buttonColor = ref("#ffffff");
 
 
@@ -651,14 +659,6 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 .icon-wrapper {
     pointer-events: auto;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    border-radius: 4px !important;
-    color: #fff;
-    font-size: 0.8rem;
-    padding: 4px 10px;
-    cursor: pointer;
-    &:hover { background: rgba(255, 255, 255, 0.25); }
   }
 
 
