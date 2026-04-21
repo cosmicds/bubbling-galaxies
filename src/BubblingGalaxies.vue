@@ -216,6 +216,14 @@ const buttonColor = ref("#ffffff");
 
 
 const layers = ref<ImageSetLayer[]>([]);
+const backingLayer = ref<ImageSetLayer | null>(null);
+const layersToMove = computed(() => {
+  let _layers = layers.value.slice();
+  if (backingLayer.value) {
+    _layers.push(backingLayer.value);
+  }
+  return _layers;
+});
 const isets = ref<Imageset[]>([]);
 const selectedGalleryItem = ref<Place | null>(null);
 const selectedGalleryItems = ref<Place[]>([]);
@@ -241,7 +249,7 @@ const offsetSim = ref(true);
 const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
 
 import { useImageSetManipulation } from "./imageset_manipulation";
-const { angle, offset } = useImageSetManipulation(layers, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
+const { angle, offset } = useImageSetManipulation(layersToMove, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
 
 
 function rollView(angleDegrees: number) {
@@ -323,7 +331,7 @@ onMounted(() => {
     store.applySetting(['showGrid', true]);
     store.applySetting(['showEquatorialGridText', true]);
 
-    store.loadImageCollection({
+    const loadFrames = store.loadImageCollection({
       url: "i5_all.wtml",
       loadChildFolders: false,
     }).then(folder => {
@@ -355,7 +363,32 @@ onMounted(() => {
         });
       }); 
     });
-    layersLoaded.value = true;
+    
+    const loadBacking = store.loadImageCollection({
+      url: isVertical.value ? "i5_backing_rot.wtml" :"i5_backing.wtml",
+      loadChildFolders: false,
+    }).then(folder => {
+      (folder.get_children() ?? []).forEach((child: Place | unknown) => {
+        if (!(child instanceof Place)) return;
+        const imageset = child.get_studyImageset()!;
+        store.addImageSetLayer({
+          url: imageset.get_url(),
+          mode: "preloaded",
+          name: imageset.get_name(),
+          goto: false,
+        }).then(newLayer => {
+          newLayer.set_enabled(true); 
+          newLayer.set_opacity(simulationOpactiy.value); // show only the first layer initially
+          backingLayer.value = newLayer;
+        });
+      }); 
+    });
+    
+    Promise.all([loadFrames, loadBacking])
+      .then(() => {
+        layersLoaded.value = true;
+      });
+    
   });
 });
 
@@ -394,6 +427,9 @@ watch(simulationOpactiy, (newOpacity) => {
   const currentLayer = layers.value[imageIndex.value];
   if (currentLayer) {
     currentLayer.set_opacity(newOpacity);
+  }
+  if (backingLayer.value) {
+    backingLayer.value.set_opacity(newOpacity);
   }
 });
 
