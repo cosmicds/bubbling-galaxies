@@ -192,6 +192,78 @@
     <WebGlTest
       @webgl2-disabled="webglDisabled = true"
     />
+
+    <v-dialog
+      id="privacy-popup-dialog"
+      v-model="showPrivacyDialog"
+      max-width="400px"
+      :scrim="false"
+    >
+      <v-card>
+        <v-card-text>
+          To evaluate usage of this app, <strong>anonymized</strong> data may be collected. Personal Data is never collected.
+        </v-card-text>
+        <v-card-actions class="pt-3">
+          <v-spacer></v-spacer>
+          <v-btn
+            color="#BDBDBD"
+            href="https://www.cfa.harvard.edu/privacy-statement"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Privacy Policy
+          </v-btn>
+          <v-btn
+            color="#ff6666"
+            @click="privacy.optOut"
+          >
+            Opt out
+          </v-btn>
+          <v-btn
+            color="green"
+            @click="privacy.allow"
+          >
+            Allow
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    
+    <AttentionHook
+      v-show="showRating && !actuallyShowRating"
+      base-color="black"
+      @click.prevent="actuallyShowRating = true"
+    >
+    </AttentionHook>
+
+    <UserExperience
+      v-show="actuallyShowRating"
+      :question="question"
+      icon-size="2x"
+      density="compact"
+      rounded="lg"
+      @dismiss="() => {rating.dismiss(); actuallyShowRating = false;}"
+      @finish="(r: UserExperienceRating | null, c: string | null) => rating.updateUserExperienceInfo(r, c)"
+    >
+      <template #footer>
+        <v-btn
+          variant="text"
+          size="small"
+          @click="rating.optOut"
+        >
+          Don't ask again
+        </v-btn>
+        <v-btn
+          variant="text"
+          size="small"
+          @click="() => showRatingPrivacyPolicy = true"
+        >
+          Privacy
+        </v-btn>
+      </template>
+    </UserExperience>
+
+    <CDSPrivacyPolicy v-model="showRatingPrivacyPolicy" />
   </v-app>
 </template>
 
@@ -199,7 +271,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ref, reactive, computed, onMounted, watch, nextTick } from "vue";
 import { GotoRADecZoomParams, engineStore } from "@wwtelescope/engine-pinia";
-import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, CreditLogos, IconButton, useFullscreen } from "@cosmicds/vue-toolkit";
+import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, CreditLogos, IconButton, useFullscreen, UserExperience, type UserExperienceRating, AttentionHook } from "@cosmicds/vue-toolkit";
+import { usePrivacy } from "./privacy-and-tracking/usePrivacy";
+import { useDataCollection } from "./privacy-and-tracking/useDataCollection";
+import { useUserExperienceRating } from "./privacy-and-tracking/useUserExperienceRating";
+import CDSPrivacyPolicy from "./privacy-and-tracking/CDSPrivacyPolicy.vue";
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
 import { Place, ImageSetLayer, Imageset } from "@wwtelescope/engine";
@@ -255,10 +331,60 @@ const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
 });
 
 
+const STORY_PREFIX = "bubbling-galaxies";
+
+const privacy = usePrivacy(STORY_PREFIX);
+const tracking = useDataCollection(STORY_PREFIX, privacy.uuid, {
+  responseOptOut: privacy.responseOptOut,
+});
+const rating = useUserExperienceRating(STORY_PREFIX, privacy.uuid, {
+  responseOptOut: privacy.responseOptOut,
+  timeout: 3_000,
+});
+
+const { showPrivacyDialog } = privacy;
+const { showRating, showRatingPrivacyPolicy, question } = rating;
+const actuallyShowRating = ref(false);
+
+watch(privacy.responseOptOut, (optOut) => {
+  if (optOut === false) {
+    console.log("User allowed tracking, creating user entry and setting up rating dialog");
+    tracking.createUserEntry().then(() => rating.setupRatingDialog());
+  }
+}, { immediate: true });
+
+// Story-specific tracking fields — populate and mutate directly:
+// tracking.trackingValues.some_counter = 0;
+const { trackingValues, canTrackStory, updateUrl, apiKey } = tracking;
+
+function sendUpdateData() {
+  if (!canTrackStory.value || privacy.responseOptOut.value) return;
+  fetch(updateUrl.value, {
+    method: "PATCH",
+    headers: {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      "Authorization": apiKey,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(trackingValues),
+    keepalive: true,
+  }).then(response => {
+    if (!response.ok) console.error("Failed to send tracking data");
+  });
+}
+
+
+
 const backgroundImagesets = reactive<BackgroundImageset[]>([]);
 const showInfoSheet = ref(false);
 const showSplashScreen = ref(false);
 const splashIsClosed = ref(false);
+
+watch(showSplashScreen, (show) => {
+  if (!show && privacy.responseOptOut.value === null) {
+    showPrivacyDialog.value = true;
+  }
+}, { immediate: true });
 const layersLoaded = ref(false);
 const positionSet = ref(false);
 const accentColor = ref("#d957db");
@@ -381,6 +507,14 @@ onMounted(() => {
     WWTControl.singleton.renderOneFrame = function() {};
     return;
   }
+
+  window.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+      sendUpdateData();
+    }
+  });
+  
+  
 
   store.waitForReady().then(async () => {
 
@@ -800,6 +934,67 @@ model-viewer {
   .v-toolbar {
     padding: 0.3rem 1rem;
   }
+}
+#privacy-popup-dialog {
+  .v-overlay__content {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  
+  .v-overlay__content:focus-visible {
+    outline: none;
+    border: none;
+  }
+}
+  
+.v-card.rating-root {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  gap: 0;
+  
+  > div {
+    padding-block: 0;
+  }
+  
+  .v-card-title > .rating-title {
+    font-size: 1rem;
+    margin-right: 2rem;
+  }
+  
+  .v-card-actions {
+    display: flex !important;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    
+    > button:first-child {
+      background-color: rgba(117, 22, 22, 0.589);
+    }
+    
+    > button:nth-child(2) {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+    }
+    
+  }
+  
+  
+}
+
+#user-experience-footer {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  font-size: 1rem;
+}
+
+
+.attention-hook {
+  position: absolute;
+  left: 0;
 }
 
 </style>

@@ -10,6 +10,7 @@
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
+    "types": ["node"],
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     
     // add so we don't need to use 'type' for type imports
