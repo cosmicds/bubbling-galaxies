@@ -1,4 +1,9 @@
 <template>
+  <!--
+    NB:
+    The source and alt attributes MUST be marked with the .attr tag.
+    Otherwise Vue will attempt to pass them as props and model-viewer won't recognize them
+  -->
   <model-viewer
     :src.attr="src"
     :alt.attr="alt"
