@@ -83,7 +83,7 @@
             <template #title>
               <v-toolbar>
                 3D Model of the Simulated Galaxy
-                <v-spacer/>
+                <v-spacer />
                 <IconButton
                   icon="mdi-window-close"
                   :color="buttonColor"

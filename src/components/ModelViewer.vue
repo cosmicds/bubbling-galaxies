@@ -1,3 +1,5 @@
+<!-- eslint-disable vue/no-deprecated-slot-attribute -->
+
 <template>
   <!--
     NB:
@@ -7,7 +9,7 @@
   <model-viewer
     :src.attr="src"
     :alt.attr="alt"
-    :ios-src="iosSrc"
+    :ios-src.attr="iosSrc"
     ar
     camera-orbit="0.9677rad 1.2427rad auto"
     :shadow-intensity="shadowIntensity"
@@ -30,8 +32,9 @@ export interface ModelViewerProps {
   cameraControls?: boolean;
 }
 
-const props = withDefaults(defineProps<ModelViewerProps>(), {
+withDefaults(defineProps<ModelViewerProps>(), {
   shadowIntensity: 1,
   cameraControls: true,
+  iosSrc: undefined,
 });
 </script>
