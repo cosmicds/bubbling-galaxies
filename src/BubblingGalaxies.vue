@@ -22,11 +22,6 @@
         @close="() => splashIsClosed = true"
       />
 
-
-      <!--
-      <model-viewer style="position: fixed; top: 25%; left: 10%;" :alt.attr="`Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum`" :src.attr="'https://modelviewer.dev/shared-assets/models/NeilArmstrong.glb'" ar shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>
-    -->
-
       <!-- This block contains the elements (e.g. icon buttons displayed at/near the top of the screen -->
       <div id="wwt-overlay">
         <div id="top-content">
