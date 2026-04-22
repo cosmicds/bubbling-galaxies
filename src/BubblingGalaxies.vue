@@ -47,7 +47,7 @@
           <div id="center-buttons">
             <IconButton
               icon="mdi-cube-scan"
-              color="white"
+              :color="buttonColor"
               @activate="showModel = !showModel"
             />
           </div>
@@ -75,11 +75,23 @@
         <!-- Display the 3D model -->
         <v-dialog
           v-model="showModel"
+          class="model-viewer-dialog"
+          fullscreen
           eager
         >
           <v-card>
             <template #title>
-              3D Model of the Simulated Galaxy
+              <v-toolbar>
+                3D Model of the Simulated Galaxy
+                <v-spacer/>
+                <IconButton
+                  icon="mdi-window-close"
+                  :color="buttonColor"
+                  size="x-large"
+                  @activate="showModel = false"
+                >
+                </IconButton>
+              </v-toolbar>
             </template>
             <template #text>
               <ModelViewerComponent
@@ -777,6 +789,17 @@ model-viewer {
   margin: auto;
   width: 70vw;
   height: 70vh;
+}
+
+.model-viewer-dialog {
+
+  .v-overlay__content > .v-card > .v-card-item {
+    padding: 0;
+  }
+
+  .v-toolbar {
+    padding: 0.3rem 1rem;
+  }
 }
 
 </style>
