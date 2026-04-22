@@ -23,6 +23,10 @@
       />
 
 
+      <!--
+      <model-viewer style="position: fixed; top: 25%; left: 10%;" :alt.attr="`Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum`" :src.attr="'https://modelviewer.dev/shared-assets/models/NeilArmstrong.glb'" ar shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>
+    -->
+
       <!-- This block contains the elements (e.g. icon buttons displayed at/near the top of the screen -->
       <div id="wwt-overlay">
         <div id="top-content">
@@ -80,11 +84,13 @@
         >
           <v-card>
             <ModelViewerComponent
-              src="https://glueviz.org/glue-ar/examples/edenhofer-voxel-350.glb"
+              src="model.glb"
               alt="A 3D model of the simulated galaxy"
             >
               <template #ar-button>
-                <v-btn>
+                <v-btn
+                  color="success"
+                >
                   Show in AR
                 </v-btn>
               </template>
@@ -348,6 +354,11 @@ function moveToEdge(imageset: Imageset, edge: 'top' | 'right' | 'bottom' | 'left
 }
 
 onMounted(() => {
+
+  const modelViewer = document.querySelector("model-viewer") as HTMLElement;
+  modelViewer.addEventListener('error', (event) => {
+    console.error('Error loading model:', event.detail);
+  });
 
   if (webglDisabled.value) {
     showSplashScreen.value = false;
