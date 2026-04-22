@@ -83,18 +83,23 @@
           eager
         >
           <v-card>
-            <ModelViewerComponent
-              src="model.glb"
-              alt="A 3D model of the simulated galaxy"
-            >
-              <template #ar-button>
-                <v-btn
-                  color="success"
-                >
-                  Show in AR
-                </v-btn>
-              </template>
-            </ModelViewerComponent>
+            <template #title>
+              3D Model of the Simulated Galaxy
+            </template>
+            <template #text>
+              <ModelViewerComponent
+                src="model.glb"
+                alt="A 3D model of the simulated galaxy"
+              >
+                <template #ar-button>
+                  <v-btn
+                    color="success"
+                  >
+                    Show in AR
+                  </v-btn>
+                </template>
+              </ModelViewerComponent>
+            </template>
           </v-card>
         </v-dialog>
 
