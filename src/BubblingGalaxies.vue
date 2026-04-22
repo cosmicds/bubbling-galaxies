@@ -368,8 +368,8 @@ function moveToEdge(imageset: Imageset, edge: 'top' | 'right' | 'bottom' | 'left
 onMounted(() => {
 
   const modelViewer = document.querySelector("model-viewer") as HTMLElement;
-  modelViewer.addEventListener('error', (event: CustomEventInit<{type: string, sourceError: Event}>) => {
-    console.error('Error loading model:', event.detail);
+  modelViewer.addEventListener('error', (event: Event) => {
+    console.error('Error loading model:', event);
   });
 
   if (webglDisabled.value) {
