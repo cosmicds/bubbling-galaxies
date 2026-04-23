@@ -34,7 +34,7 @@ export default typescriptEslint.config(
       "@typescript-eslint/naming-convention": [
         "error", {
           selector: ["variable", "memberLike", "function"],
-          format: ["camelCase"],
+          format: ["camelCase","UPPER_CASE"],
           leadingUnderscore: "allow"
         },
         {
