@@ -22,7 +22,6 @@
         @close="() => splashIsClosed = true"
       />
 
-
       <!-- This block contains the elements (e.g. icon buttons displayed at/near the top of the screen -->
       <div id="wwt-overlay">
         <div id="top-content">
@@ -46,6 +45,11 @@
             />
           </div>
           <div id="center-buttons">
+            <IconButton
+              icon="mdi-cube-scan"
+              :color="buttonColor"
+              @activate="showModel = !showModel"
+            />
           </div>
           <div id="right-buttons">
             <Gallery
@@ -68,6 +72,44 @@
           </div>
         </div>
 
+        <!-- Display the 3D model -->
+        <v-dialog
+          v-model="showModel"
+          class="model-viewer-dialog"
+          fullscreen
+          eager
+        >
+          <v-card>
+            <template #title>
+              <v-toolbar>
+                3D Model of the Simulated Galaxy
+                <v-spacer />
+                <IconButton
+                  icon="mdi-window-close"
+                  :color="buttonColor"
+                  size="x-large"
+                  @activate="showModel = false"
+                >
+                </IconButton>
+              </v-toolbar>
+            </template>
+            <template #text>
+              <ModelViewerComponent
+                src="model.glb"
+                alt="A 3D model of the simulated galaxy"
+              >
+                <template #ar-button>
+                  <v-btn
+                    color="success"
+                  >
+                    Show in AR
+                  </v-btn>
+                </template>
+              </ModelViewerComponent>
+            </template>
+          </v-card>
+        </v-dialog>
+
 
         <!-- This block contains the elements (e.g. the project icons) displayed along the bottom of the screen -->
 
@@ -75,7 +117,7 @@
           <!-- <GesturePreview /> -->
           <SplashGesture v-if="splashIsClosed && !isLoading" />
           <div id="image-index-control">
-            <v-slider 
+            <v-slider
               v-if="ready"
               v-model="imageIndex"
               class="image-index-control-slider"
@@ -105,7 +147,7 @@
                 </v-tooltip>
               </template>
             </v-slider>
-            <v-slider 
+            <v-slider
               v-if="ready"
               v-model="simulationOpactiy"
               class="image-opacity-control-slider"
@@ -222,7 +264,7 @@ const positionSet = ref(false);
 const accentColor = ref("#d957db");
 const buttonColor = ref("#ffffff");
 
-
+const showModel = ref(false);
 
 const layers = ref<ImageSetLayer[]>([]);
 const backingLayer = ref<ImageSetLayer | null>(null);
@@ -273,9 +315,9 @@ function rollView(angleDegrees: number) {
     rollRad: newRoll,
     instant: true,
   });
-} 
+}
 
-/** 
+/**
  * Let's only set the rotation on the initial load.
  * It is od to have it swtiching when you rotate the screem
  * It looks ok when objects are centered, but when not centered
@@ -309,7 +351,7 @@ function moveToEdge(imageset: Imageset, edge: 'top' | 'right' | 'bottom' | 'left
     right: 0,
     center: 0,
   };
-  
+
   const newCenterX = centerX + xOff[edge];
   const newCenterY = centerY + yOff[edge];
   console.log(`Moving to edge ${edge} with new center: (x, y) = (${xOff[edge]}, ${yOff[edge]})`);
@@ -325,6 +367,11 @@ function moveToEdge(imageset: Imageset, edge: 'top' | 'right' | 'bottom' | 'left
 
 onMounted(() => {
 
+  const modelViewer = document.querySelector("model-viewer") as HTMLElement;
+  modelViewer.addEventListener('error', (event: Event) => {
+    console.error('Error loading model:', event);
+  });
+
   if (webglDisabled.value) {
     showSplashScreen.value = false;
     // eslint-disable-next-lint @typescript-eslint/ban-ts-comment
@@ -336,7 +383,7 @@ onMounted(() => {
   }
 
   store.waitForReady().then(async () => {
-    
+
     store.applySetting(['showGrid', true]);
     store.applySetting(['showEquatorialGridText', true]);
 
@@ -357,7 +404,7 @@ onMounted(() => {
           name: imageset.get_name(),
           goto: false,
         }).then(newLayer => {
-          newLayer.set_enabled(true); 
+          newLayer.set_enabled(true);
           newLayer.set_opacity(index === 0 ? simulationOpactiy.value : 0); // show only the first layer initially
           layers.value.push(newLayer);
           if (index === 0) {
@@ -370,9 +417,9 @@ onMounted(() => {
             moveToEdge(iset, offsetSim.value ? 'left' : 'center', offsetSim.value).then(() => positionSet.value = true);
           };
         });
-      }); 
+      });
     });
-    
+
     const loadBacking = store.loadImageCollection({
       url: isVertical.value ? "i5_backing_rot.wtml" :"i5_backing.wtml",
       loadChildFolders: false,
@@ -386,18 +433,18 @@ onMounted(() => {
           name: imageset.get_name(),
           goto: false,
         }).then(newLayer => {
-          newLayer.set_enabled(true); 
+          newLayer.set_enabled(true);
           newLayer.set_opacity(simulationOpactiy.value); // show only the first layer initially
           backingLayer.value = newLayer;
         });
-      }); 
+      });
     });
-    
+
     Promise.all([loadFrames, loadBacking])
       .then(() => {
         layersLoaded.value = true;
       });
-    
+
   });
 });
 
@@ -738,6 +785,21 @@ and remember, position:absolute is still a positioned parent, so children can be
   pointer-events: auto;
 }
 
+model-viewer {
+  margin: auto;
+  width: 70vw;
+  height: 70vh;
+}
 
+.model-viewer-dialog {
+
+  .v-overlay__content > .v-card > .v-card-item {
+    padding: 0;
+  }
+
+  .v-toolbar {
+    padding: 0.3rem 1rem;
+  }
+}
 
 </style>

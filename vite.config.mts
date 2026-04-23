@@ -14,7 +14,12 @@ export default defineConfig({
   base: './',
   plugins: [
     Vue({
-      template: { transformAssetUrls },
+      template: {
+        transformAssetUrls,
+        compilerOptions: {
+          isCustomElement: (tag) => ["model-viewer"].includes(tag)
+        }
+      },
     }),
     // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     Vuetify({

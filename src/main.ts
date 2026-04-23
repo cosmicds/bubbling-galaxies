@@ -3,6 +3,7 @@ import { FundingAcknowledgement, IconButton, CreditLogos } from "@cosmicds/vue-t
 import BubblingGalaxies from "./BubblingGalaxies.vue";
 import Loader from "./components/Loader.vue";
 import BrightnessContrast from "./components/BrightnessContrast.vue";
+import ModelViewer from "./components/ModelViewer.vue";
 
 
 import vuetify from "@/plugins/vuetify";
@@ -23,6 +24,8 @@ library.add(faTimes);
 library.add(faVideo);
 
 import "./styles/main.css";
+
+import "@google/model-viewer";
 
 /** @Carifio24 v-hide directive taken from https://www.ryansouthgate.com/2020/01/30/vue-js-v-hide-element-whilst-keeping-occupied-space/ */
 // Extract the function out, up here, so I'm not writing it twice
@@ -60,6 +63,7 @@ createApp(BubblingGalaxies, {
   .component('credit-logos', CreditLogos)
   .component('wwt-loader', Loader)
   .component('brightness-contrast', BrightnessContrast)
+  .component('ModelViewerComponent', ModelViewer)  // we don't want to shadow the model-viewer web component
 
   // Mount
   .mount("#app-mount");
