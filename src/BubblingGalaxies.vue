@@ -302,6 +302,8 @@ const offsetSim = ref(true);
 const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
 
 import { useImageSetManipulation } from "./imageset_manipulation";
+import { BoxGeometry, Camera, Mesh, MeshBasicMaterial, Scene } from "three";
+import { createTHREERenderer, renderTHREE, updateTHREECamera, updateTHREEObject } from "./threeWWT";
 const { angle, offset } = useImageSetManipulation(layersToMove, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
 
 
@@ -318,6 +320,17 @@ function rollView(angleDegrees: number) {
     instant: true,
   });
 }
+
+const scene = new Scene();
+const camera = new Camera();
+const renderer = createTHREERenderer(WWTControl.singleton);
+
+function frameUpdateTHREE(control: WWTControl) {
+  updateTHREECamera(camera, control.renderContext);
+  scene.children.forEach(obj => updateTHREEObject(obj, control.renderContext));
+  renderTHREE(renderer, scene, camera);
+}
+
 
 /**
  * Let's only set the rotation on the initial load.
@@ -388,6 +401,28 @@ onMounted(() => {
 
     store.applySetting(['showGrid', true]);
     store.applySetting(['showEquatorialGridText', true]);
+
+    // eslint-disable-next-lint @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const renderOneFrame = WWTControl.singleton.renderOneFrame.bind(WWTControl.singleton);
+    WWTControl.singleton.renderOneFrame = function() {
+      renderOneFrame();
+      frameUpdateTHREE(WWTControl.singleton);
+    }.bind(WWTControl.singleton);
+
+    const size = 100;
+    const geometry = new BoxGeometry(size, size, size);
+    const material = new MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new Mesh(geometry, material);
+    scene.add(cube);
+
+    // eslint-disable-next-lint @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.wwt = WWTControl.singleton; window.rc = window.wwt.renderContext; window.cube = cube;
+
+    const iset = "Solar System";
+    store.setBackgroundImageByName(iset);
+    store.setForegroundImageByName(iset);
 
     const loadFrames = store.loadImageCollection({
       url: "i5_all.wtml",
