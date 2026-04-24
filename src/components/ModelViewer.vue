@@ -16,6 +16,8 @@
     ar-modes="webxr quick-look"
     :camera-controls="cameraControls"
     :tone-mapping="toneMapping"
+    :min-field-of-view="minFieldOfView"
+    :max-field-of-view="maxFieldOfView"
   >
     <div slot="ar-button">
       <slot name="ar-button"></slot>
@@ -32,6 +34,8 @@ export interface ModelViewerProps {
   shadowIntensity?: number;
   cameraControls?: boolean;
   toneMapping?: "neutral" | "aces" | "agx" | "reinhard" | "cineon" | "linear" | "none";
+  minFieldOfView?: `${number}deg` | "auto";
+  maxFieldOfView?: `${number}deg` | "auto";
 }
 
 withDefaults(defineProps<ModelViewerProps>(), {
@@ -39,5 +43,7 @@ withDefaults(defineProps<ModelViewerProps>(), {
   cameraControls: true,
   iosSrc: undefined,
   toneMapping: "none",
+  minFieldOfView: "25deg",
+  maxFieldOfView: "auto",
 });
 </script>
