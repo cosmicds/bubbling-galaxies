@@ -97,6 +97,7 @@
               <ModelViewerComponent
                 src="model.glb"
                 alt="A 3D model of the simulated galaxy"
+                :shadow-intensity="0"
               >
                 <template #ar-button>
                   <v-btn
