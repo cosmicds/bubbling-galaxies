@@ -58,7 +58,7 @@
               v-model:selected-places="selectedGalleryItems"
               v-model:places="galleryPlaces"
               start-open
-              wtml-url="./public_datasets.wtml"
+              wtml-url="./ngc628_datasets.wtml"
               :single-select="false"
               selected-color="limegreen"
               show-opacity
@@ -386,6 +386,7 @@ onMounted(() => {
 
     store.applySetting(['showGrid', true]);
     store.applySetting(['showEquatorialGridText', true]);
+    store.setBackgroundImageByName("PAN");
 
     const loadFrames = store.loadImageCollection({
       url: "i5_all.wtml",

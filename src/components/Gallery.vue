@@ -351,6 +351,7 @@ function syncSelectedLayerVisibility() {
     overflow-y: auto;
     max-height: var(--gallery-max-height);
     width: fit-content;
+    min-width: calc(var(--gallery-width) + 10px)
 
   }
 
