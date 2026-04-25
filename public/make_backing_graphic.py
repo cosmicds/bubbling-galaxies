@@ -2,7 +2,7 @@ import os
 from PIL import Image, ImageFont, ImageDraw
 import numpy as np
 
-template_frame = Image.open("./I5_pngs/frame_100.png")
+template_frame = Image.open("./simulation_a_pngs/frame_100.png")
 
 size = template_frame.size # (w, h), 0,0 is upper left
 
@@ -31,6 +31,6 @@ draw.text((BORDER_WIDTH + 10 +  PADDING // 2, BORDER_WIDTH + 10 + PADDING // 2),
 im = im.transpose(Image.FLIP_LEFT_RIGHT)
 
 # # merge frame0 smack in them middle
-# frame0 = Image.open("./I5_pngs/frame_100.png")
+# frame0 = Image.open("./simulation_a_pngs/frame_100.png")
 # im.paste(frame0, (BORDER_WIDTH + PADDING, BORDER_WIDTH + PADDING), frame0)
 im.save("./backing.png")
