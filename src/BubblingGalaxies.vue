@@ -34,17 +34,6 @@
               tooltip-location="start"
             >
             </icon-button>
-            <v-checkbox
-              v-model="offsetSim"
-              label="Offset sim"
-              color="white"
-              density="compact"
-              class="icon-wrapper"
-              :aria-label="'Toggle simulation offset'"
-              pointer-events="auto"
-            />
-          </div>
-          <div id="center-buttons">
             <IconButton
               icon="mdi-cube-scan"
               :color="buttonColor"
@@ -65,10 +54,6 @@
               :columns="1"
               width="125px"
             />
-            <!-- <ImagesetOffset
-              v-model:rotation="angle"
-              v-model:offset="offset"
-            />  -->
           </div>
         </div>
 
@@ -204,7 +189,6 @@ import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
 import { Place, ImageSetLayer, Imageset } from "@wwtelescope/engine";
 import SplashGesture from "./components/SplashGesture.vue";
-import ImagesetOffset from "./components/ImagesetOffset.vue";
 
 import { WWTControl } from "@wwtelescope/engine";
 
@@ -292,15 +276,7 @@ watch(selectedGalleryItems, (newPlaces, oldPlaces) => {
   console.log("Selected places changed from", oldNames, "to", newNames);
 });
 const galleryPlaces = ref<Place[]>([]);
-// Store a single original center (all layers share the same center)
-const originalCenter = ref<{ x: number; y: number } | null>(null);
 const simulationOpactiy = ref(1);
-
-const offsetSim = ref(true);
-const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
-
-import { useImageSetManipulation } from "./imageset_manipulation";
-const { angle, offset } = useImageSetManipulation(layersToMove, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
 
 
 function rollView(angleDegrees: number) {
@@ -331,37 +307,15 @@ function rollView(angleDegrees: number) {
 //   }
 // });
 
-function moveToEdge(imageset: Imageset, edge: 'top' | 'right' | 'bottom' | 'left' | 'center', roll = true) {
-  const centerX = originalCenter.value?.x ?? imageset.get_centerX(); // degrees
-  const centerY = originalCenter.value?.y ?? imageset.get_centerY(); // degrees
-  const offsetX = imageset.get_offsetX(); // pixel
-  const offsetY = imageset.get_offsetY(); // pixel
-  const baseDegrees = imageset.get_baseTileDegrees(); // degrees per pixel
-  const xOff = {
-    left: offsetX * baseDegrees,
-    right: -offsetX * baseDegrees,
-    top: 0,
-    bottom: 0,
-    center: 0,
-  };
-  const yOff = {
-    top: offsetY * baseDegrees,
-    bottom: -offsetY * baseDegrees,
-    left: 0,
-    right: 0,
-    center: 0,
-  };
-
-  const newCenterX = centerX + xOff[edge];
-  const newCenterY = centerY + yOff[edge];
-  console.log(`Moving to edge ${edge} with new center: (x, y) = (${xOff[edge]}, ${yOff[edge]})`);
-  // const rotationRadians = rotationDegrees.value * D2R;
+function moveToImageset(imageset: Imageset, instant = true) {
+  const centerX = imageset.get_centerX(); // degrees
+  const centerY = imageset.get_centerY(); // degrees
   return store.gotoRADecZoom({
-    raRad: newCenterX * D2R,
-    decRad: newCenterY * D2R,
+    raRad: centerX * D2R,
+    decRad: centerY * D2R,
     zoomDeg: 100 / 60,
-    rollRad: (roll && isVertical.value) ? 90 * D2R : 0,
-    instant: true
+    rollRad: 0,
+    instant: instant
   });
 }
 
@@ -386,7 +340,6 @@ onMounted(() => {
 
     store.applySetting(['showGrid', true]);
     store.applySetting(['showEquatorialGridText', true]);
-    store.setBackgroundImageByName("PAN");
 
     const loadFrames = store.loadImageCollection({
       url: "i5_all.wtml",
@@ -399,6 +352,7 @@ onMounted(() => {
         const imageset = child.get_studyImageset();
         if (imageset == null) return;
         isets.value.push(imageset);
+        ///////////////////////////
         store.addImageSetLayer({
           url: imageset.get_url(),
           mode: "preloaded",
@@ -409,20 +363,16 @@ onMounted(() => {
           newLayer.set_opacity(index === 0 ? simulationOpactiy.value : 0); // show only the first layer initially
           layers.value.push(newLayer);
           if (index === 0) {
-            console.log("setting position to first layer");
             const iset = newLayer.get_imageSet();
-            originalCenter.value = {
-              x: iset.get_centerX(),
-              y: iset.get_centerY(),
-            };
-            moveToEdge(iset, offsetSim.value ? 'left' : 'center', offsetSim.value).then(() => positionSet.value = true);
+            moveToImageset(iset);
           };
-        });
+        }).then(() => positionSet.value = true);
+        ///////////////////////////
       });
     });
 
     const loadBacking = store.loadImageCollection({
-      url: isVertical.value ? "i5_backing_rot.wtml" :"i5_backing.wtml",
+      url: "i5_backing.wtml",
       loadChildFolders: false,
     }).then(folder => {
       (folder.get_children() ?? []).forEach((child: Place | unknown) => {
@@ -478,7 +428,7 @@ watch(imageIndex, (newIndex) => {
 function advanceImageIndex() {
   imageIndex.value = (imageIndex.value + 1) % layers.value.length;
 }
-const { togglePlayPause, isPlaying } = useSetInterval(advanceImageIndex, 250);
+const { togglePlayPause, isPlaying } = useSetInterval(advanceImageIndex, 150);
 
 watch(simulationOpactiy, (newOpacity) => {
   const currentLayer = layers.value[imageIndex.value];
@@ -490,14 +440,6 @@ watch(simulationOpactiy, (newOpacity) => {
   }
 });
 
-watch(offsetSim, async (enabled) => {
-  offset.value = enabled ? SIM_OFFSET : 0;
-  await nextTick();
-  const currentLayer = layers.value[imageIndex.value];
-  if (currentLayer) {
-    moveToEdge(currentLayer.get_imageSet(), enabled ? 'left' : 'center', false);
-  }
-});
 
 const ready = computed(() => layersLoaded.value && positionSet.value);
 
