@@ -52,9 +52,13 @@
         class="gallery-content"
       >
         <div
-          v-for="[index, place] of places.entries()"
+          v-for="[index, place] of shownPlaces.entries()"
           :key="index"
-          :class="['gallery-item', {'gallery-selected': highlightLastOnly ? selectedPlace === place : selectedPlaces.includes(place)}]"
+          :class="[
+            'gallery-item', 
+            {'gallery-selected': highlightLastOnly ? selectedPlace === place : selectedPlaces.includes(place)},
+            {'galaxy-persisted': isPersistantLayer(place)}
+          ]"
           @click="selectPlace(place)"
         >
           <img
@@ -80,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount, nextTick } from "vue";
+import { ref, computed, onBeforeMount, nextTick, watch } from "vue";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { Folder, Imageset, Place, ImageSetLayer } from "@wwtelescope/engine";
 
@@ -117,6 +121,12 @@ export interface GalleryProps {
   showOpacity?: boolean;
   /** start open */
   startOpen?: boolean;
+  /** name if layer to always show */
+  persist?: string | null;
+  /** hide the layer that is persistantly shown */
+  hidePersisted?: boolean;
+  /** keep the gallery layers not visible */
+  hideGalleryLayers?: boolean;
 }
 
 
@@ -133,6 +143,9 @@ const props = withDefaults(defineProps<GalleryProps>(), {
   closedText: "Image Gallery",
   showOpacity: false,
   startOpen: false,
+  persist: null,
+  hidePersist: false,
+  hideGalleryLayers: false,
 });
 
 const defaultThumbnailUrl = "https://cdn.worldwidetelescope.org/wwtweb/thumbnail.aspx?name=test";
@@ -152,6 +165,11 @@ const selectedPlaces = defineModel<Place[]>("selectedPlaces", { required: false,
 const placeOpacities = ref<Record<string, number>>({});
 const imagesetLayers = ref<Record<string, ImageSetLayer>>({});
 
+const shownPlaces = computed(() => {
+  if (!props.hidePersist) return places.value;
+  return places.value.filter(p => getImageset(p)?.get_name() !== props.persist);
+});
+
 const cssVars = computed(() => {
   return {
     "--column-count": props.columns,
@@ -162,9 +180,12 @@ const cssVars = computed(() => {
   };
 });
 
+
+ 
 onBeforeMount(() => {
   store.waitForReady().then(async () => {
-    const _places = await placesFromWtml(props.wtmlUrl);
+    let _places = await placesFromWtml(props.wtmlUrl);
+    showPersistantPlace(_places);
     places.value = _places;
     _places.slice().reverse().forEach(loadImagesetLayerForPlace);
   });
@@ -199,6 +220,23 @@ async function loadImagesetLayerForPlace(place: Place): Promise<ImageSetLayer | 
   });
 }
 
+function showPersistantPlace(places: Place[]) {
+  if (props.persist === null) return places;
+  if (props.hideGalleryLayers) return;
+  // eslint-disable-next-line @typescript-eslint/prefer-for-of
+  for (let i = 0; i < places.length; i++) {
+    const place = places[i];
+    const iset = getImageset(place);
+    if (!iset) continue;
+    if (props.persist === iset.get_name()) {
+      loadImagesetLayerForPlace(place).then(layer => {
+        if (!layer) return;
+        setLayerVisibility(layer, true);
+      });
+    }
+  }
+}
+
 function getImagesetLayerForPlace(place: Place): ImageSetLayer | null {
   const imageset = getImageset(place);
   if (!imageset) return null;
@@ -230,6 +268,7 @@ function getOpacity(place: Place): number {
 function applySelectedPlaceOpacity(place: Place) {
   const layer = getImagesetLayerForPlace(place);
   if (!layer) return;
+  layer.set_opacity(0);
   layer.set_opacity(getOpacity(place));
 }
 
@@ -313,21 +352,38 @@ function setLayerVisibility(layer: ImageSetLayer, visible: boolean): void {
   layer.set_opacity(visible ? 1 : 0);
 }
 
+function isPersistantLayer(place: Place) {
+  if (!props.persist) return false;
+  const iset = getImageset(place);
+  if (!iset) return false;
+  return iset.get_name() === props.persist;
+}
+
 function setSelectedImagesetVisibility(places: Place[], selectedPlaces: Place[]) {
   for (const place of places) {
     const layer = getImagesetLayerForPlace(place);
     if (!layer) continue;
-    const visible = selectedPlaces.includes(place);
+    const visible = (selectedPlaces.includes(place) || isPersistantLayer(place)) ;
     setLayerVisibility(layer, visible);
   }
 }
 
 function syncSelectedLayerVisibility() {
+  if (props.hideGalleryLayers) return;
   nextTick(async () => {
     await setSelectedImagesetVisibility(places.value, selectedPlaces.value);
     selectedPlaces.value.forEach(applySelectedPlaceOpacity);
   });
 }
+
+watch(() => props.hideGalleryLayers, (hide) => {
+  if (hide) {
+    console.log('hiding gallery layers');
+    places.value.forEach(place => setLayerVisibility(getImagesetLayerForPlace(place)!, false));
+  } else {
+    syncSelectedLayerVisibility();
+  }
+});
 
 </script>
 
@@ -452,6 +508,14 @@ function syncSelectedLayerVisibility() {
 
     span {
       color: var(--selected-color);
+    }
+  }
+  
+  .galaxy-persisted {
+    pointer-events: none;
+    border: 1px solid var(--selected-color);
+    input {
+      display: none;
     }
   }
 
