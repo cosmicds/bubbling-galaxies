@@ -48,11 +48,14 @@
               v-model:places="galleryPlaces"
               start-open
               wtml-url="./ngc628_datasets.wtml"
-              :single-select="false"
+              :single-select="true"
               selected-color="limegreen"
               show-opacity
               :columns="1"
               width="125px"
+              persist="Optical (NOAO)"
+              :hide-persisted="false"
+              :hide-gallery-layers="showSimulation"
             />
           </div>
         </div>
@@ -132,7 +135,7 @@
                 </v-tooltip>
               </template>
             </v-slider>
-            <v-slider
+            <!-- <v-slider
               v-if="ready"
               v-model="simulationOpactiy"
               class="image-opacity-control-slider"
@@ -141,7 +144,15 @@
               step="0.01"
               label="Opacity"
             >
-            </v-slider>
+            </v-slider> -->
+            <v-btn-toggle v-model="showSimulation">
+              <v-btn :value="true">
+                Simulation
+              </v-btn>
+              <v-btn :value="false">
+                Real
+              </v-btn>
+            </v-btn-toggle>
           </div>
           <div
             v-if="!smallSize"
@@ -202,6 +213,7 @@ import WebGlTest from "./components/WebGlTest.vue";
 const webglDisabled = ref(false);
 
 import { useSetInterval } from "./composables/useSetInterval";
+import { moveImageset, moveLayer } from "./imageset_manipulation";
 
 type SheetType = "text" | "video";
 
@@ -276,36 +288,12 @@ watch(selectedGalleryItems, (newPlaces, oldPlaces) => {
   console.log("Selected places changed from", oldNames, "to", newNames);
 });
 const galleryPlaces = ref<Place[]>([]);
-const simulationOpactiy = ref(1);
+
+const showSimulation = ref(true);
+// const simulationOpactiy = ref(+showSimulation.value);
+const simulationOpactiy = computed(() => +showSimulation.value);
 
 
-function rollView(angleDegrees: number) {
-  const currentRA = store.raRad;
-  const currentDec = store.decRad;
-  const currentZoom = store.zoomDeg;
-  const newRoll = store.rollRad + angleDegrees * D2R;
-  return store.gotoRADecZoom({
-    raRad: currentRA,
-    decRad: currentDec,
-    zoomDeg: currentZoom,
-    rollRad: newRoll,
-    instant: true,
-  });
-}
-
-/**
- * Let's only set the rotation on the initial load.
- * It is od to have it swtiching when you rotate the screem
- * It looks ok when objects are centered, but when not centered
- * they end up in non-inuitive locations.
- */
-// watch(isVertical, (v) => {
-//   if (isVertical.value) {
-//     rollView(90);
-//   } else {
-//     rollView(-90);
-//   }
-// });
 
 function moveToImageset(imageset: Imageset, instant = true) {
   const centerX = imageset.get_centerX(); // degrees
@@ -318,6 +306,13 @@ function moveToImageset(imageset: Imageset, instant = true) {
     instant: instant
   });
 }
+
+const coordinates = {
+  'ic5332':  [15 * (23 + 34 / 60 + 27.49 / 3600), -(36 + 6 / 60 + 3.9 / 3600)],
+  'm74': [15 * (1 + 36 / 60 + 41.79 / 3600), +(15 + 47 / 60 + 1.3 / 3600)]
+};
+
+import { useWtmlLoader } from "./composables/useWtmlLoader";
 
 onMounted(() => {
 
@@ -341,54 +336,31 @@ onMounted(() => {
     store.applySetting(['showGrid', true]);
     store.applySetting(['showEquatorialGridText', true]);
 
-    const loadFrames = store.loadImageCollection({
-      url: "i5_all.wtml",
-      loadChildFolders: false,
-    }).then(folder => {
-      const children = folder.get_children();
-      if (children == null) return;
-      children.forEach((child: Place | unknown, index: number) => {
-        if (!(child instanceof Place)) return;
-        const imageset = child.get_studyImageset();
-        if (imageset == null) return;
+    const { ready: loadFrames } = useWtmlLoader("simulation_all.wtml", {
+      onNewImageset: (imageset, index) => {
+        // the imagesets are all at 0,0 [ they are simulations]
+        // here would also be a good place to set its size, but we don't know it yet
+        moveImageset(imageset, coordinates['m74'][0], coordinates['m74'][1]);
         isets.value.push(imageset);
-        ///////////////////////////
-        store.addImageSetLayer({
-          url: imageset.get_url(),
-          mode: "preloaded",
-          name: imageset.get_name(),
-          goto: false,
-        }).then(newLayer => {
-          newLayer.set_enabled(true);
-          newLayer.set_opacity(index === 0 ? simulationOpactiy.value : 0); // show only the first layer initially
-          layers.value.push(newLayer);
-          if (index === 0) {
-            const iset = newLayer.get_imageSet();
-            moveToImageset(iset);
-          };
-        }).then(() => positionSet.value = true);
-        ///////////////////////////
-      });
+      },
+      onNewLayer: (newLayer, index) => {
+        newLayer.set_enabled(true);
+        newLayer.set_opacity(index === 0 ? simulationOpactiy.value : 0);
+        layers.value.push(newLayer);
+        if (index === 0) moveToImageset(newLayer.get_imageSet());
+        positionSet.value = true;
+      },
+      // goTo: false, goTo is false by default if undefined
     });
 
-    const loadBacking = store.loadImageCollection({
-      url: "i5_backing.wtml",
-      loadChildFolders: false,
-    }).then(folder => {
-      (folder.get_children() ?? []).forEach((child: Place | unknown) => {
-        if (!(child instanceof Place)) return;
-        const imageset = child.get_studyImageset()!;
-        store.addImageSetLayer({
-          url: imageset.get_url(),
-          mode: "preloaded",
-          name: imageset.get_name(),
-          goto: false,
-        }).then(newLayer => {
-          newLayer.set_enabled(true);
-          newLayer.set_opacity(simulationOpactiy.value); // show only the first layer initially
-          backingLayer.value = newLayer;
-        });
-      });
+
+    const {ready: loadBacking} = useWtmlLoader("galaxyless_m74.wtml", {
+      onNewImageset: (imageset) => moveImageset(imageset, coordinates['m74'][0], coordinates['m74'][1]),
+      onNewLayer: (newLayer: ImageSetLayer, _index) => {
+        newLayer.set_enabled(true);
+        newLayer.set_opacity(simulationOpactiy.value); // show only the first layer initially
+        backingLayer.value = newLayer;
+      },
     });
 
     Promise.all([loadFrames, loadBacking])
@@ -428,16 +400,16 @@ watch(imageIndex, (newIndex) => {
 function advanceImageIndex() {
   imageIndex.value = (imageIndex.value + 1) % layers.value.length;
 }
-const { togglePlayPause, isPlaying } = useSetInterval(advanceImageIndex, 150);
+const { togglePlayPause, isPlaying } = useSetInterval(advanceImageIndex, 50);
 
 watch(simulationOpactiy, (newOpacity) => {
   const currentLayer = layers.value[imageIndex.value];
   if (currentLayer) {
     currentLayer.set_opacity(newOpacity);
   }
-  if (backingLayer.value) {
-    backingLayer.value.set_opacity(newOpacity);
-  }
+  // if (backingLayer.value) {
+  //   backingLayer.value.set_opacity(newOpacity);
+  // }
 });
 
 

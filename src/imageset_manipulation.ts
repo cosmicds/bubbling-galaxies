@@ -76,3 +76,21 @@ export function useImageSetTranslation(layers: Ref<ImageSetLayer[] | null>, opti
     offset: radialOffsetDegrees,
   };
 };
+
+
+
+export function moveLayer(layer: ImageSetLayer, raDeg: number, decDeg: number) {
+  const iset = layer.get_imageSet() as Imageset;
+  iset.set_centerX(raDeg);
+  iset.set_centerY(decDeg);
+  resetGeometryForImagesetTiles(iset);
+  return {layer, iset};
+};
+
+export function moveImageset(iset: Imageset, raDeg: number, decDeg: number) {
+  iset.set_centerX(raDeg);
+  iset.set_centerY(decDeg);
+  resetGeometryForImagesetTiles(iset);
+  WWTControl.singleton.renderOneFrame();
+  return iset;
+};
