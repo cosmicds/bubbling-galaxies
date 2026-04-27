@@ -427,6 +427,7 @@ onMounted(() => {
     });
     cube = new Mesh(geometry, material);
     cube.matrixAutoUpdate = true;
+    // Units are in AU
     cube.position.set(10, 2, 0);
     cube.matrixWorldNeedsUpdate = true;
     scene.add(cube);
