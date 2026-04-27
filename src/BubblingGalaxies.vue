@@ -256,7 +256,6 @@ const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
   }
 });
 
-
 const backgroundImagesets = reactive<BackgroundImageset[]>([]);
 const showInfoSheet = ref(false);
 const showSplashScreen = ref(false);
@@ -302,7 +301,7 @@ const offsetSim = ref(true);
 const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
 
 import { useImageSetManipulation } from "./imageset_manipulation";
-import { BoxGeometry, Camera, Mesh, MeshBasicMaterial, Scene } from "three";
+import { BoxGeometry, Camera, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 import { createTHREERenderer, renderTHREE, updateTHREECamera, updateTHREEObject } from "./threeWWT";
 const { angle, offset } = useImageSetManipulation(layersToMove, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
 
@@ -322,8 +321,9 @@ function rollView(angleDegrees: number) {
 }
 
 const scene = new Scene();
-const camera = new Camera();
-const renderer = createTHREERenderer(WWTControl.singleton);
+const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, -1, 1000);
+camera.position.z = 5;
+let renderer: WebGLRenderer;
 
 function frameUpdateTHREE(control: WWTControl) {
   updateTHREECamera(camera, control.renderContext);
@@ -405,20 +405,28 @@ onMounted(() => {
     // eslint-disable-next-lint @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const renderOneFrame = WWTControl.singleton.renderOneFrame.bind(WWTControl.singleton);
+    WWTControl.singleton.renderOneFrame();
+    renderer = createTHREERenderer(WWTControl.singleton);
     WWTControl.singleton.renderOneFrame = function() {
       renderOneFrame();
       frameUpdateTHREE(WWTControl.singleton);
     }.bind(WWTControl.singleton);
 
-    const size = 100;
+
+    const size = 10;
     const geometry = new BoxGeometry(size, size, size);
-    const material = new MeshBasicMaterial({ color: 0x00ff00 });
+    const material = new MeshBasicMaterial({
+      color: 0x00ff00,
+      transparent: true,
+      opacity: 1,
+    });
     const cube = new Mesh(geometry, material);
+    cube.position.set(1, 1, 0);
     scene.add(cube);
 
     // eslint-disable-next-lint @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    window.wwt = WWTControl.singleton; window.rc = window.wwt.renderContext; window.cube = cube;
+    window.wwt = WWTControl.singleton; window.rc = window.wwt.renderContext; window.cube = cube; window.camera = camera; window.scene = scene;
 
     const iset = "Solar System";
     store.setBackgroundImageByName(iset);
