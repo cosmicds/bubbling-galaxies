@@ -301,8 +301,8 @@ const offsetSim = ref(true);
 const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
 
 import { useImageSetManipulation } from "./imageset_manipulation";
-import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, WebGLRenderer } from "three";
-import { createTHREECamera, createTHREERenderer, renderTHREE, updateTHREECamera, updateTHREEObject } from "./threeWWT";
+import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, Object3D, PerspectiveCamera, Scene, SpotLight, WebGLRenderer } from "three";
+import { createLoader, createTHREECamera, createTHREERenderer, createTHREEScene, renderTHREE, updateTHREECamera } from "./threeWWT";
 const { angle, offset } = useImageSetManipulation(layersToMove, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
 
 
@@ -320,17 +320,15 @@ function rollView(angleDegrees: number) {
   });
 }
 
-const scene = new Scene();
+const scene = createTHREEScene();
 let camera: PerspectiveCamera;
 let renderer: WebGLRenderer;
 let cube: Mesh;
 
+const loader = createLoader();
+
 function frameUpdateTHREE(control: WWTControl) {
   updateTHREECamera(camera, control.renderContext);
-  // scene.children.forEach(obj => updateTHREEObject(obj, control.renderContext));
-  if (cube) {
-    updateTHREEObject(cube, control.renderContext);
-  }
   renderTHREE(renderer, scene, camera);
 }
 
@@ -417,7 +415,7 @@ onMounted(() => {
     }.bind(WWTControl.singleton);
 
 
-    const size = 0.1;
+    const size = 0.5;
     const geometry = new BoxGeometry(size, size, size);
     const material = new MeshBasicMaterial({
       color: 0x0000ff,
@@ -431,6 +429,37 @@ onMounted(() => {
     cube.position.set(10, 2, 0);
     cube.matrixWorldNeedsUpdate = true;
     scene.add(cube);
+
+    loader.load(
+      "./model.glb",
+      gltf => {
+        const size = 1;
+        const modelScene = gltf.scene;
+        modelScene.matrixAutoUpdate = true;
+        modelScene.position.set(0, 0, 0);
+        modelScene.scale.set(size, size, size);
+        modelScene.matrixWorldNeedsUpdate = true;
+
+        modelScene.children.forEach((mesh: Object3D) => {
+          if (mesh instanceof Mesh) {
+            // mesh.geometry.computeVertexNormals();
+            const oldMaterial = mesh.material;
+            const newMaterial = new MeshBasicMaterial({
+                map: oldMaterial.map,
+                color: oldMaterial.color,
+                side: oldMaterial.side,
+                opacity: oldMaterial.opacity,
+            });
+            mesh.material = newMaterial;
+          }
+        });
+
+        scene.add(modelScene);
+        (scene.children[0] as SpotLight).targer = modelScene;
+      },
+      xhr => console.log(`${(xhr.loaded / xhr.total * 100)} % loaded`),
+      error => console.error(error),
+    );
 
     // eslint-disable-next-lint @typescript-eslint/ban-ts-comment
     // @ts-ignore

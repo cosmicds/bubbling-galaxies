@@ -1,5 +1,18 @@
 import { Matrix3d, RenderContext, Vector3d, WWTControl } from "@wwtelescope/engine";
-import { Camera, Matrix4, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
+import { ACESFilmicToneMapping, Camera, Matrix4, Object3D, PerspectiveCamera, Scene, SpotLight, Vector3, WebGLRenderer } from "three";
+import * as THREE from "three";
+
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+
+// Encapsulate the DRACO setup into this utility function
+export function createLoader(): GLTFLoader {
+  const loader = new GLTFLoader();
+  const dracoLoader = new DRACOLoader();
+  dracoLoader.setDecoderPath("./draco/");
+  loader.setDRACOLoader(dracoLoader);
+  return loader;
+}
 
 function matchDimensions(source: HTMLCanvasElement, target: HTMLCanvasElement) {
   target.style.width = source.style.width;
@@ -33,6 +46,17 @@ export function createTHREECamera(renderContext: RenderContext): PerspectiveCame
   return camera;
 }
 
+export function createTHREEScene(): Scene {
+  const scene = new Scene();
+
+  const ambient = new SpotLight(0xFFD500, 2);
+  ambient.castShadow = true;
+  ambient.position.set(0, 0, 0);
+  scene.add(ambient);
+
+  return scene;
+}
+
 export function createTHREERenderer(window: Window, control: WWTControl): WebGLRenderer {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error WWTControl does have a canvas
@@ -49,6 +73,11 @@ export function createTHREERenderer(window: Window, control: WWTControl): WebGLR
   renderer.setPixelRatio(window.devicePixelRatio)
   // renderer.autoClear = false;
   renderer.setClearColor(0x000000, 0);
+
+  renderer.toneMapping = ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1;
+  renderer.shadowMap.enabled = true;
+  renderer.outputEncoding = THREE.sRGBEncoding;
 
   return renderer;
 }
@@ -81,11 +110,9 @@ export function updateTHREECamera(camera: PerspectiveCamera, renderContext: Rend
   // camera.near = renderContext.nearPlane;
 }
 
-export function updateTHREEObject(object: Object3D, renderContext: RenderContext) {
-  // object.matrix.copy(wwtMatrixToTHREE(renderContext.get_world()));
-  // object.matrixWorldNeedsUpdate = true;
-}
-
 export function renderTHREE(renderer: WebGLRenderer, scene: Scene, camera: Camera) {
   renderer.render(scene, camera);
+}
+
+export function loadModel(url: string) {
 }
