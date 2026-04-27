@@ -301,7 +301,7 @@ const offsetSim = ref(true);
 const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
 
 import { useImageSetManipulation } from "./imageset_manipulation";
-import { BoxGeometry, Camera, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 import { createTHREERenderer, renderTHREE, updateTHREECamera, updateTHREEObject } from "./threeWWT";
 const { angle, offset } = useImageSetManipulation(layersToMove, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
 
@@ -321,8 +321,9 @@ function rollView(angleDegrees: number) {
 }
 
 const scene = new Scene();
-const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, -1, 1000);
-camera.position.z = 5;
+const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, -1, 1);
+camera.position.z = -2;
+camera.lookAt(0, 0, 0);
 let renderer: WebGLRenderer;
 
 function frameUpdateTHREE(control: WWTControl) {
@@ -413,12 +414,13 @@ onMounted(() => {
     }.bind(WWTControl.singleton);
 
 
-    const size = 1;
+    const size = 5;
     const geometry = new BoxGeometry(size, size, size);
     const material = new MeshBasicMaterial({
       color: 0x00ff00,
       transparent: true,
       opacity: 0.7,
+      side: DoubleSide,
     });
     const cube = new Mesh(geometry, material);
     cube.position.set(0, 0, 0);

@@ -69,6 +69,7 @@ export function updateTHREECamera(camera: PerspectiveCamera, renderContext: Rend
   camera.position.set(wwtCameraPosition.x, wwtCameraPosition.y, wwtCameraPosition.z);
 
   camera.fov = renderContext.viewCamera.zoom;
+  camera.near = renderContext.nearPlane;
 }
 
 export function updateTHREEObject(object: Object3D, renderContext: RenderContext) {
