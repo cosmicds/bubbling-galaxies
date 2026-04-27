@@ -302,7 +302,7 @@ const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
 
 import { useImageSetManipulation } from "./imageset_manipulation";
 import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, WebGLRenderer } from "three";
-import { createTHREERenderer, renderTHREE, updateTHREECamera, updateTHREEObject } from "./threeWWT";
+import { createTHREECamera, createTHREERenderer, renderTHREE, updateTHREECamera, updateTHREEObject } from "./threeWWT";
 const { angle, offset } = useImageSetManipulation(layersToMove, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
 
 
@@ -321,14 +321,16 @@ function rollView(angleDegrees: number) {
 }
 
 const scene = new Scene();
-const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, -1, 1);
-camera.position.z = -2;
-camera.lookAt(0, 0, 0);
+let camera: PerspectiveCamera;
 let renderer: WebGLRenderer;
+let cube: Mesh;
 
 function frameUpdateTHREE(control: WWTControl) {
   updateTHREECamera(camera, control.renderContext);
-  scene.children.forEach(obj => updateTHREEObject(obj, control.renderContext));
+  // scene.children.forEach(obj => updateTHREEObject(obj, control.renderContext));
+  if (cube) {
+    updateTHREEObject(cube, control.renderContext);
+  }
   renderTHREE(renderer, scene, camera);
 }
 
@@ -407,23 +409,26 @@ onMounted(() => {
     // @ts-ignore
     const renderOneFrame = WWTControl.singleton.renderOneFrame.bind(WWTControl.singleton);
     WWTControl.singleton.renderOneFrame();
-    renderer = createTHREERenderer(WWTControl.singleton);
+    renderer = createTHREERenderer(window, WWTControl.singleton);
+    camera = createTHREECamera(WWTControl.singleton.renderContext);
     WWTControl.singleton.renderOneFrame = function() {
       renderOneFrame();
       frameUpdateTHREE(WWTControl.singleton);
     }.bind(WWTControl.singleton);
 
 
-    const size = 5;
+    const size = 1;
     const geometry = new BoxGeometry(size, size, size);
     const material = new MeshBasicMaterial({
-      color: 0x00ff00,
+      color: 0x0000ff,
       transparent: true,
       opacity: 0.7,
       side: DoubleSide,
     });
-    const cube = new Mesh(geometry, material);
-    cube.position.set(0, 0, 0);
+    cube = new Mesh(geometry, material);
+    cube.matrixAutoUpdate = false;
+    cube.matrix.identity();
+    cube.matrixWorldNeedsUpdate = true;
     scene.add(cube);
 
     // eslint-disable-next-lint @typescript-eslint/ban-ts-comment
