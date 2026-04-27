@@ -417,7 +417,7 @@ onMounted(() => {
     }.bind(WWTControl.singleton);
 
 
-    const size = 1;
+    const size = 0.1;
     const geometry = new BoxGeometry(size, size, size);
     const material = new MeshBasicMaterial({
       color: 0x0000ff,
@@ -426,8 +426,8 @@ onMounted(() => {
       side: DoubleSide,
     });
     cube = new Mesh(geometry, material);
-    cube.matrixAutoUpdate = false;
-    cube.matrix.identity();
+    cube.matrixAutoUpdate = true;
+    cube.position.set(10, 2, 0);
     cube.matrixWorldNeedsUpdate = true;
     scene.add(cube);
 
