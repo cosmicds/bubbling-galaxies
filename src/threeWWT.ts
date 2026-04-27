@@ -52,7 +52,7 @@ export function wwtMatrixToTHREE(mat: Matrix3d): Matrix4 {
     mat.get_m21(), mat.get_m22(), mat.get_m23(), mat.get_m24(),
     mat.get_m31(), mat.get_m32(), mat.get_m33(), mat.get_m34(),
     mat.get_m41(), mat.get_m42(), mat.get_m43(), mat.get_m44(),
-  );
+  ).transpose();
   return matrix;
 }
 

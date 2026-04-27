@@ -418,10 +418,11 @@ onMounted(() => {
     const material = new MeshBasicMaterial({
       color: 0x00ff00,
       transparent: true,
-      opacity: 1,
+      opacity: 0.7,
     });
     const cube = new Mesh(geometry, material);
     cube.position.set(1, 1, 0);
+    cube.scale.set(100, 100, 100);
     scene.add(cube);
 
     // eslint-disable-next-lint @typescript-eslint/ban-ts-comment
