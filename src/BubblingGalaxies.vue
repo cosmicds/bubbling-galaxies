@@ -413,7 +413,7 @@ onMounted(() => {
     }.bind(WWTControl.singleton);
 
 
-    const size = 10;
+    const size = 1;
     const geometry = new BoxGeometry(size, size, size);
     const material = new MeshBasicMaterial({
       color: 0x00ff00,
@@ -421,8 +421,7 @@ onMounted(() => {
       opacity: 0.7,
     });
     const cube = new Mesh(geometry, material);
-    cube.position.set(1, 1, 0);
-    cube.scale.set(100, 100, 100);
+    cube.position.set(0, 0, 0);
     scene.add(cube);
 
     // eslint-disable-next-lint @typescript-eslint/ban-ts-comment
