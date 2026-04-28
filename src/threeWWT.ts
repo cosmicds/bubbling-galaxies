@@ -1,16 +1,11 @@
 import { Matrix3d, RenderContext, Vector3d, WWTControl } from "@wwtelescope/engine";
-import { ACESFilmicToneMapping, Camera, Matrix4, Object3D, PerspectiveCamera, Scene, SpotLight, Vector3, WebGLRenderer } from "three";
+import { ACESFilmicToneMapping, Camera, Matrix4, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 import * as THREE from "three";
 
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
-// Encapsulate the DRACO setup into this utility function
 export function createLoader(): GLTFLoader {
   const loader = new GLTFLoader();
-  const dracoLoader = new DRACOLoader();
-  dracoLoader.setDecoderPath("./draco/");
-  loader.setDRACOLoader(dracoLoader);
   return loader;
 }
 
