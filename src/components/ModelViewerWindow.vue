@@ -27,6 +27,8 @@
         <ModelViewerComponent
           src="model.glb"
           alt="A 3D model of the simulated galaxy"
+          tone-mapping="none"
+          min-field-of-view="2deg"
         >
           <template #ar-button>
             <v-btn
