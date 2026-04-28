@@ -62,7 +62,7 @@
 
       <!-- This block contains the elements (e.g. icon buttons displayed at/near the top of the screen -->
       <div 
-        v-if="!(showSplashScreen || showCrawl)" 
+        v-show="!(showSplashScreen || showCrawl)" 
         id="wwt-overlay"
       >
         <div id="top-content">
