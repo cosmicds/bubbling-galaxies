@@ -139,12 +139,12 @@ const props = withDefaults(defineProps<GalleryProps>(), {
   width: "300px",
   maxHeight: "500px",
   itemHeight: "auto",
-  title: "Gallery",
+  title: "Choose View",
   selectedColor: "dodgerblue",
   singleSelect: true,
   highlightLastOnly: false,
   previewIndex: 0,
-  closedText: "Image Gallery",
+  closedText: "Choose View",
   showOpacity: false,
   startOpen: false,
   persist: null,
@@ -450,7 +450,7 @@ watch(() => props.hideGalleryLayers, (hide) => {
 
   .gallery-content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
     align-items:flex-start;
     flex-wrap: wrap;

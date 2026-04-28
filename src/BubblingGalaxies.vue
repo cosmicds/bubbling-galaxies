@@ -23,7 +23,7 @@
       />
       
       <StarWarsCrawl
-        v-if="true"
+        v-if="false"
         no-title
         audio-src="star-wars-opening-theme.mp3"
       >
@@ -160,11 +160,11 @@
             v-model="showSimulation"
             class="align-self-center mt-4"
           >
-            <v-btn :value="true">
-              Simulation
-            </v-btn>
             <v-btn :value="false">
               Real
+            </v-btn>
+            <v-btn :value="true">
+              Simulated
             </v-btn>
           </v-btn-toggle>
           
@@ -309,7 +309,7 @@ watch(selectedGalleryItems, (newPlaces, oldPlaces) => {
 });
 const galleryPlaces = ref<Place[]>([]);
 
-const showSimulation = ref(true);
+const showSimulation = ref(false);
 const simulationOpactiy = ref(+showSimulation.value);
 // const simulationOpactiy = computed(() => +showSimulation.value);
 watch(showSimulation, (show) => {
