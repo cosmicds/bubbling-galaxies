@@ -14,21 +14,37 @@ declare module "@wwtelescope/engine" {
     export function removeFromQueue(key: string, complete: boolean): void;
   }
 
-  export namespace Matrix3d {
-    function multiplyMatrix(a: Matrix3d, b: Matrix3d): Matrix3d;
-    function invertMatrix(m: Matrix3d): Matrix3d;
-    function get_identity(): Matrix3d;
-    function clone(): Matrix3d;
-    function invert(): void;
-    function floatArray(): number[];
+  export class Matrix3d {
+    multiplyMatrix(a: Matrix3d, b: Matrix3d): Matrix3d;
+    invertMatrix(m: Matrix3d): Matrix3d;
+    get_identity(): Matrix3d;
+    clone(): Matrix3d;
+    invert(): void;
+    floatArray(): number[];
+    get_m11(): number;
+    get_m12(): number;
+    get_m13(): number;
+    get_m14(): number;
+    get_m21(): number;
+    get_m22(): number;
+    get_m23(): number;
+    get_m24(): number;
+    get_m31(): number;
+    get_m32(): number;
+    get_m33(): number;
+    get_m34(): number;
+    get_m41(): number;
+    get_m42(): number;
+    get_m43(): number;
+    get_m44(): number;
   }
 
-  export namespace RenderContext {
-    export function getTilesXForLevel(imageset: Imageset, level: number): number;
-    export function getTilesYForLevel(imageset: Imageset, level: number): number;
-    export function get_projection(): Matrix3d;
-    export function get_view(): Matrix3d;
-    export function get_world(): Matrix3d;
+  export class RenderContext {
+    getTilesXForLevel(imageset: Imageset, level: number): number;
+    getTilesYForLevel(imageset: Imageset, level: number): number;
+    get_projection(): Matrix3d;
+    get_view(): Matrix3d;
+    get_world(): Matrix3d;
   }
 
   interface Tile {

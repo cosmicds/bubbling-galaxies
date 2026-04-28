@@ -1,6 +1,5 @@
-import { RenderContext, WWTControl } from "@wwtelescope/engine";
+import { Matrix3d, RenderContext, WWTControl } from "@wwtelescope/engine";
 import { ACESFilmicToneMapping, Camera, Matrix4, PerspectiveCamera, Scene, WebGLRenderer } from "three";
-import * as THREE from "three";
 
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
@@ -53,6 +52,8 @@ export function createTHREEScene(): Scene {
 }
 
 export function createTHREERenderer(control: WWTControl): WebGLRenderer {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error `canvas` exists
   const canvas: HTMLCanvasElement = control.canvas;
   const dummy = createDummyCanvas(canvas);
   document.body.appendChild(dummy);
@@ -70,7 +71,6 @@ export function createTHREERenderer(control: WWTControl): WebGLRenderer {
   renderer.toneMapping = ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1;
   renderer.shadowMap.enabled = true;
-  renderer.outputEncoding = THREE.sRGBEncoding;
 
   return renderer;
 }
@@ -87,9 +87,13 @@ export function wwtMatrixToTHREE(mat: Matrix3d): Matrix4 {
 }
 
 export function updateTHREECamera(camera: PerspectiveCamera, renderContext: RenderContext) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error `get_projection` exists
   camera.projectionMatrix.copy(wwtMatrixToTHREE(renderContext.get_projection()));
   camera.projectionMatrixInverse.copy(camera.projectionMatrix).invert();
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error `get_view` exists
   camera.matrixWorldInverse.copy(wwtMatrixToTHREE(renderContext.get_view()));
   camera.matrixWorld.copy(camera.matrixWorldInverse).invert();
   camera.matrixWorldNeedsUpdate = false;
