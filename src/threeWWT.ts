@@ -41,7 +41,7 @@ function createDummyCanvas(canvas: HTMLCanvasElement): HTMLCanvasElement {
 }
 
 export function createTHREECamera(renderContext: RenderContext): PerspectiveCamera {
-  const camera = new PerspectiveCamera(75, renderContext.width / renderContext.height, renderContext.nearPlane, 1000);
+  const camera = new PerspectiveCamera(75, renderContext.width / renderContext.height, renderContext.nearPlane, 1000000000);
   camera.matrixAutoUpdate = false;
   return camera;
 }
