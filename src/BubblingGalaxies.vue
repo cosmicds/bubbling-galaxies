@@ -245,7 +245,8 @@ const kiosk = searchParams.get("kiosk")?.toLowerCase() === "true";
 if (kiosk) {
   document.body.classList.add("kiosk");
 }
-
+const skipScrawl = searchParams.get("crawl")?.toLowerCase() === "false";
+const skipSplash = searchParams.get("splash")?.toLowerCase() === "false";
 const store = engineStore();
 
 useWWTKeyboardControls(store);
@@ -269,11 +270,13 @@ const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
 
 const backgroundImagesets = reactive<BackgroundImageset[]>([]);
 const showInfoSheet = ref(false);
-const showSplashScreen = ref(true);
+const showSplashScreen = ref(!skipSplash);
 const showCrawl = ref(false);
 const splashIsClosed = ref(false);
 watch(splashIsClosed, (closed) => {
-  showCrawl.value = true;
+  if (closed && !skipScrawl) {
+    showCrawl.value = true;
+  }
 });
 const layersLoaded = ref(false);
 const positionSet = ref(false);
@@ -339,6 +342,7 @@ const coordinates = {
 };
 
 import { useWtmlLoader } from "./composables/useWtmlLoader";
+import { sk } from "vuetify/locale";
 
 onMounted(() => {
 
