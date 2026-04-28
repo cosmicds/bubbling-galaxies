@@ -49,10 +49,10 @@ export function createTHREECamera(renderContext: RenderContext): PerspectiveCame
 export function createTHREEScene(): Scene {
   const scene = new Scene();
 
-  const ambient = new SpotLight(0xFFD500, 2);
-  ambient.castShadow = true;
-  ambient.position.set(0, 0, 0);
-  scene.add(ambient);
+  // const ambient = new SpotLight(0xFFD500, 2);
+  // ambient.castShadow = true;
+  // ambient.position.set(0, 0, 0);
+  // scene.add(ambient);
 
   return scene;
 }

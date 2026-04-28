@@ -50,6 +50,11 @@
               :color="buttonColor"
               @activate="showModel = !showModel"
             />
+            <IconButton
+              :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
+              :color="buttonColor"
+              @activate="isWWT3D = !isWWT3D"
+            />
           </div>
           <div id="right-buttons">
             <Gallery
@@ -205,6 +210,7 @@ import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, Credit
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
 import { Place, ImageSetLayer, Imageset } from "@wwtelescope/engine";
+import { ImageSetType } from "@wwtelescope/engine-types";
 import SplashGesture from "./components/SplashGesture.vue";
 import ImagesetOffset from "./components/ImagesetOffset.vue";
 
@@ -237,6 +243,21 @@ if (kiosk) {
 }
 
 const store = engineStore();
+
+const { backgroundImageset } = storeToRefs(store);
+
+const background3D = "Solar System";
+const background2D = "Digitized Sky Survey";
+const isWWT3D = ref(false);
+watch(isWWT3D, (mode3D: boolean) => {
+  const iset = mode3D ? background3D : background2D;
+  store.setBackgroundImageByName(iset);
+  store.applySetting(["showGrid", !isWWT3D.value]);
+  store.applySetting(["showEquatorialGridText", !isWWT3D.value]);
+  if (!mode3D) {
+    renderer.clear();
+  }
+});
 
 useWWTKeyboardControls(store);
 
@@ -301,8 +322,9 @@ const offsetSim = ref(true);
 const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
 
 import { useImageSetManipulation } from "./imageset_manipulation";
-import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, Object3D, PerspectiveCamera, Scene, SpotLight, WebGLRenderer } from "three";
+import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Object3D, PerspectiveCamera, Scene, SpotLight, WebGLRenderer } from "three";
 import { createLoader, createTHREECamera, createTHREERenderer, createTHREEScene, renderTHREE, updateTHREECamera } from "./threeWWT";
+import { storeToRefs } from "pinia";
 const { angle, offset } = useImageSetManipulation(layersToMove, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
 
 
@@ -328,8 +350,10 @@ let cube: Mesh;
 const loader = createLoader();
 
 function frameUpdateTHREE(control: WWTControl) {
-  updateTHREECamera(camera, control.renderContext);
-  renderTHREE(renderer, scene, camera);
+  if (isWWT3D.value) {
+    updateTHREECamera(camera, control.renderContext);
+    renderTHREE(renderer, scene, camera);
+  }
 }
 
 
@@ -400,8 +424,8 @@ onMounted(() => {
 
   store.waitForReady().then(async () => {
 
-    store.applySetting(['showGrid', true]);
-    store.applySetting(['showEquatorialGridText', true]);
+    store.applySetting(["showGrid", !isWWT3D.value]);
+    store.applySetting(["showEquatorialGridText", !isWWT3D.value]);
 
     // eslint-disable-next-lint @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -436,14 +460,15 @@ onMounted(() => {
         const size = 1;
         const modelScene = gltf.scene;
         modelScene.matrixAutoUpdate = true;
-        modelScene.position.set(0, 0, 0);
+        const distance = 100;
+        modelScene.position.set(distance, distance, distance);
         modelScene.scale.set(size, size, size);
         modelScene.matrixWorldNeedsUpdate = true;
 
-        modelScene.children.forEach((mesh: Object3D) => {
+        modelScene.traverse((mesh: Object3D) => {
           if (mesh instanceof Mesh) {
             // mesh.geometry.computeVertexNormals();
-            const oldMaterial = mesh.material;
+            const oldMaterial = mesh.material as MeshPhysicalMaterial;
             const newMaterial = new MeshBasicMaterial({
                 map: oldMaterial.map,
                 color: oldMaterial.color,
@@ -451,11 +476,11 @@ onMounted(() => {
                 opacity: oldMaterial.opacity,
             });
             mesh.material = newMaterial;
+            oldMaterial.dispose();
           }
         });
 
         scene.add(modelScene);
-        (scene.children[0] as SpotLight).targer = modelScene;
       },
       xhr => console.log(`${(xhr.loaded / xhr.total * 100)} % loaded`),
       error => console.error(error),
@@ -465,9 +490,7 @@ onMounted(() => {
     // @ts-ignore
     window.wwt = WWTControl.singleton; window.rc = window.wwt.renderContext; window.cube = cube; window.camera = camera; window.scene = scene;
 
-    const iset = "Solar System";
-    store.setBackgroundImageByName(iset);
-    store.setForegroundImageByName(iset);
+    store.setBackgroundImageByName(isWWT3D.value ? background3D : background2D);
 
     const loadFrames = store.loadImageCollection({
       url: "i5_all.wtml",
