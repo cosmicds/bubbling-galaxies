@@ -15,15 +15,15 @@
 
       <!-- This contains the splash screen content -->
       <SplashScreen
-        v-if="showSplashScreen"
+        v-model="showSplashScreen"
         :color="accentColor"
         highlight-color="red"
         :loaded="!isLoading"
-        @close="() => splashIsClosed = true"
       />
       
+      <!-- disabled for now. needs refinement -->
       <StarWarsCrawl
-        v-if="false"
+        v-if="showCrawl"
         no-title
         audio-src="star-wars-opening-theme.mp3"
       >
@@ -51,9 +51,20 @@
           in the Phantom.
         </p>
       </StarWarsCrawl>
+      <v-btn
+        v-if="showCrawl"
+        class="crawl-skip-button"
+        @click="showCrawl = false"
+        @keyup.enter="showCrawl = false"
+      >
+        Skip Intro
+      </v-btn>
 
       <!-- This block contains the elements (e.g. icon buttons displayed at/near the top of the screen -->
-      <div id="wwt-overlay">
+      <div 
+        v-if="!showSplashScreen" 
+        id="wwt-overlay"
+      >
         <div id="top-content">
           <div id="left-buttons">
             <!-- <icon-button
@@ -159,6 +170,7 @@
           <v-btn-toggle 
             v-model="showSimulation"
             class="align-self-center mt-4"
+            density="compact"
           >
             <v-btn :value="false">
               Real
@@ -202,7 +214,7 @@
     <WebGlTest
       @webgl2-disabled="webglDisabled = true"
     />
-    <SplashGesture v-if="splashIsClosed && !isLoading" />
+    <SplashGesture v-if="!showSplashScreen && !isLoading && !showCrawl" />
   </v-app>
 </template>
 
@@ -272,9 +284,11 @@ const backgroundImagesets = reactive<BackgroundImageset[]>([]);
 const showInfoSheet = ref(false);
 const showSplashScreen = ref(!skipSplash);
 const showCrawl = ref(false);
-const splashIsClosed = ref(false);
-watch(splashIsClosed, (closed) => {
-  if (closed && !skipScrawl) {
+if (skipSplash && !skipScrawl) {
+  showCrawl.value = true;
+}
+watch(showSplashScreen, (showing) => {
+  if (!showing && !skipScrawl) {
     showCrawl.value = true;
   }
 });
@@ -729,5 +743,14 @@ and remember, position:absolute is still a positioned parent, so children can be
   max-width: 400px;
   pointer-events: auto;
 }
+
+
+.crawl-skip-button {
+  position: absolute;
+  bottom: 5rem;
+  right: 1rem;
+  z-index: 9999;
+}
+
 
 </style>

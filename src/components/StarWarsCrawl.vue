@@ -1,22 +1,3 @@
-<script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import AudioPlayer from './AudioPlayer.vue';
-
-defineProps<{
-  noLogo?: boolean;
-  noTitle?: boolean;
-  audioSrc?: string;
-}>();
-
-const show = ref(true);
-const duration = 86 * 1000; // 1 minutes 26 seconds
-onMounted(() => {
-  setInterval(() => {
-    show.value = false;
-  }, duration);
-});
-</script>
-
 <template>
   <!-- Place in Body where you'd like intro to appear -->
   <div 
@@ -28,6 +9,8 @@ onMounted(() => {
       :src="audioSrc"
       class="audio-player"
     />
+    <!-- close v-btn crawl -->
+    
     <!-- Blue Intro Text -->
     <p class="intro-text">
       <slot name="intro">
@@ -45,31 +28,44 @@ onMounted(() => {
 
     <!-- All Scrolling Content Goes in here -->
     <div class="main-content">
+      <div class="content-body-overlay-gradient"></div>
       <div class="title-content">
         <p
           v-if="!noTitle"
           class="content-header"
         >
           <slot name="title">
-            EPISODES IV-VI<br />A Movie Marathon
+            EPISODES I<br />A New Hope
           </slot>
         </p>
 
         <br>
-
-        <p class="content-body">
+        <div class="content-body">
           <slot />
-        </p>
-
-        <!-- button or link or whatever -->
-        <!-- <a
-          href=""
-          class="space-button"
-        >Download The Code Now!</a> -->
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import AudioPlayer from './AudioPlayer.vue';
+
+defineProps<{
+  noLogo?: boolean;
+  noTitle?: boolean;
+  audioSrc?: string;
+}>();
+
+const show = ref(true);
+const duration = 86 * 1000; // 1 minutes 26 seconds
+onMounted(() => {
+  setInterval(() => {
+    // show.value = false;
+  }, duration);
+});
+</script>
 
 <style scoped>
 .audio-player {
@@ -105,27 +101,38 @@ Version: 1.0
   --sw-yellow: #EBD71C;
   --sw-blue: #4ee;
   
+  --bottom-offset: 10rem;
+  
   background: url("img/stars-bg.jpg") center center;
-  width: 100%;
-  height: 100%;
+  /* width: 100%; */
+  /* height: 50em; */
+  /* bottom: var(--bottom-offset); */
   flex-grow: 1;
   font-family: "Droid Sans", arial, verdana, sans-serif;
   font-weight: 700;
   color: var(--sw-yellow);
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.5);
   overflow: hidden;
-  position: relative;
+  position: absolute;
+  top: 10%;
+  bottom: var(--bottom-offset);
+  left: 0;
+  right: 0;
+  
+  contain: strict;
+  z-index: 1;
 }
+
 
 .star-wars-intro p.intro-text {
   position: relative;
   max-width: 16em;
   font-size: 200%;
   font-weight: 400;
-  margin: 20% auto;
+  margin: 30% auto;
   color: var(--sw-blue);
   opacity: 0;
-  z-index: 1;
+  z-index: 10;
   text-align: center;
   -webkit-animation: intro var(--speed-intro) ease-out;
   -moz-animation: intro var(--speed-intro) ease-out;
@@ -148,6 +155,7 @@ Version: 1.0
   overflow: hidden;
   transform-origin: 50% 100%;
   transform: perspective(450px) rotateX(25deg);
+  outline: 2px solid yellow;
 }
 
 .star-wars-intro .main-content:after {
@@ -157,30 +165,6 @@ Version: 1.0
   bottom: 60%;
   pointer-events: none;
   
-}
-
-.star-wars-intro .space-button {
-  color: var(--sw-yellow);
-  border: 12px solid var(--sw-yellow);
-  padding: 20px;
-  background: transparent;
-  text-decoration: none;
-  margin: 0 auto;
-  display: block;
-  text-align: center;
-}
-
-.star-wars-intro .space-button:hover {
-  background-color: #D2BE03;
-  border-color: #D2BE03;
-  color: black;
-}
-
-.star-wars-intro .space-button:active,
-.star-wars-intro .space-button:focus {
-  background-color: #B8A40A;
-  border-color: #B8A40A;
-  color: black;
 }
 
 .star-wars-intro .title-content {
@@ -193,22 +177,40 @@ Version: 1.0
   text-align: center;
 }
 
+.star-wars-intro .content-body {
+  position: relative;
+}
+
+.star-wars-intro .content-body-overlay-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, 
+    rgba(0, 0, 0, 0) 0%, 
+    rgba(0, 0, 0, 0) 30%, 
+    rgba(0, 0, 0, 1) 50%, 
+    rgba(0, 0, 0, 1) 100%);
+    z-index: 9
+}
+
 /* Main Image Styles */
 
 .star-wars-intro .main-logo {
   position: absolute;
   width: 2.6em;
   left: 50%;
-  top: 20vh;
-  font-size: 10em;
+  top: -0.5em;
+  font-size: 8em;
   text-align: center;
   margin-left: -1.3em;
-  line-height: 0.8em;
+  line-height: 1;
   letter-spacing: -0.05em;
-  color: #000;
+  color: var(--sw-yellow);
   text-shadow: -2px -2px 0 var(--sw-yellow), 2px -2px 0 var(--sw-yellow), -2px 2px 0 var(--sw-yellow), 2px 2px 0 var(--sw-yellow);
   opacity: 0;
-  z-index: 1;
+  z-index: 10;
   -webkit-animation: logo var(--speed-logo-in) ease-out var(--speed-logo-out);
   -moz-animation: logo var(--speed-logo-in) ease-out var(--speed-logo-out);
   -ms-animation: logo var(--speed-logo-in) ease-out var(--speed-logo-out);
@@ -282,8 +284,19 @@ Version: 1.0
 }
 
 @keyframes scroll {
-  0% { top: 100%; }
-  100% { top: -170%; }
+  0% { 
+    top: 100%; 
+    opacity: 0;
+  }
+  
+  10% { 
+    opacity: 1;
+  }
+  
+  100% { 
+    top: -170%; 
+    
+  }
 }
 
 @media screen and (max-width: 720px) {

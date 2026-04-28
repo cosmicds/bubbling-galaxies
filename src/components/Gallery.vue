@@ -385,6 +385,29 @@ function syncSelectedLayerVisibility() {
   });
 }
 
+watch(() => props.persist, (newPersist, oldPersist) => {
+  if (oldPersist !== null && oldPersist !== undefined) {
+    const oldPlace = places.value.find(p => getImageset(p)?.get_name() === oldPersist);
+    if (oldPlace) {
+      const layer = getImagesetLayerForPlace(oldPlace);
+      if (layer) setLayerVisibility(layer, false);
+    }
+  }
+  if (newPersist !== null && newPersist !== undefined) {
+    const newPlace = places.value.find(p => getImageset(p)?.get_name() === newPersist);
+    if (newPlace) {
+      const layer = getImagesetLayerForPlace(newPlace);
+      if (layer) {
+        setLayerVisibility(layer, true);
+      } else {
+        loadImagesetLayerForPlace(newPlace).then(layer => {
+          if (layer) setLayerVisibility(layer, true);
+        });
+      }
+    }
+  }
+});
+
 watch(() => props.hideGalleryLayers, (hide) => {
   if (hide) {
     console.log('hiding gallery layers');
