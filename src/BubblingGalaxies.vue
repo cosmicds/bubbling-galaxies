@@ -21,6 +21,36 @@
         :loaded="!isLoading"
         @close="() => splashIsClosed = true"
       />
+      
+      <StarWarsCrawl
+        v-if="true"
+        no-title
+        audio-src="star-wars-opening-theme.mp3"
+      >
+        <template #logo>
+          <h2 class="main-logo">
+            The Phantom Galaxy
+          </h2>
+        </template>
+        <p>
+          On this device, you can
+          investigate the Phantom's
+          secrets.
+        </p>
+        <p>
+          Visuals show what the Phantom looked like at just one moment time 
+          32 million years ago. 
+        </p>
+        <p>        
+          Clever astronomers use many wavelenghts and
+          telescopes to reveal the Phantom's inner secrets. 
+        </p>
+        <p>
+          But only simulators can provide
+          you with 3D, moving views of the billion-year-long drama unfolding
+          in the Phantom.
+        </p>
+      </StarWarsCrawl>
 
       <!-- This block contains the elements (e.g. icon buttons displayed at/near the top of the screen -->
       <div id="wwt-overlay">
@@ -186,7 +216,7 @@ import { D2R  } from "@wwtelescope/astro";
 import { Place, ImageSetLayer, Imageset } from "@wwtelescope/engine";
 import SplashGesture from "./components/SplashGesture.vue";
 import ModelViewerWindow from "./components/ModelViewerWindow.vue";
-
+import StarWarsCrawl from "./components/StarWarsCrawl.vue";
 import { WWTControl } from "@wwtelescope/engine";
 
 import Gallery from "./components/Gallery.vue";
@@ -239,8 +269,12 @@ const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
 
 const backgroundImagesets = reactive<BackgroundImageset[]>([]);
 const showInfoSheet = ref(false);
-const showSplashScreen = ref(false);
+const showSplashScreen = ref(true);
+const showCrawl = ref(false);
 const splashIsClosed = ref(false);
+watch(splashIsClosed, (closed) => {
+  showCrawl.value = true;
+});
 const layersLoaded = ref(false);
 const positionSet = ref(false);
 const accentColor = ref("#d957db");

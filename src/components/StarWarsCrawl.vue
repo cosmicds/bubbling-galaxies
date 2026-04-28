@@ -1,23 +1,58 @@
-<script setup></script>
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import AudioPlayer from './AudioPlayer.vue';
+
+defineProps<{
+  noLogo?: boolean;
+  noTitle?: boolean;
+  audioSrc?: string;
+}>();
+
+const show = ref(true);
+const duration = 86 * 1000; // 1 minutes 26 seconds
+onMounted(() => {
+  setInterval(() => {
+    show.value = false;
+  }, duration);
+});
+</script>
 
 <template>
   <!-- Place in Body where you'd like intro to appear -->
-  <div class="star-wars-intro">
+  <div 
+    v-if="show" 
+    class="star-wars-intro"
+  >
+    <AudioPlayer
+      v-if="audioSrc"
+      :src="audioSrc"
+      class="audio-player"
+    />
     <!-- Blue Intro Text -->
     <p class="intro-text">
-      A few days ago, during...
+      <slot name="intro">
+        A long time ago in a galaxy far, far away....
+      </slot>
     </p>
 
     <!-- Logo Image or Text goes in here -->
-    <h2 class="main-logo">
-      Main Logo
-    </h2>
+    <div
+      v-if="!noLogo"
+      class="main-logo"
+    >
+      <slot name="logo" />
+    </div>
 
     <!-- All Scrolling Content Goes in here -->
     <div class="main-content">
       <div class="title-content">
-        <p class="content-header">
-          EPISODES IV-VI<br />A Movie Marathon
+        <p
+          v-if="!noTitle"
+          class="content-header"
+        >
+          <slot name="title">
+            EPISODES IV-VI<br />A Movie Marathon
+          </slot>
         </p>
 
         <br>
@@ -27,16 +62,30 @@
         </p>
 
         <!-- button or link or whatever -->
-        <a
+        <!-- <a
           href=""
           class="space-button"
-        >Download The Code Now!</a>
+        >Download The Code Now!</a> -->
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.audio-player {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  animation: bounce-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
+}
+
+@keyframes bounce-in {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+
 /*
 Name: StarWarsIntro.css
 URI: polarnotion.github.io/starwarsintro
@@ -58,11 +107,12 @@ Version: 1.0
   
   background: url("img/stars-bg.jpg") center center;
   width: 100%;
+  height: 100%;
   flex-grow: 1;
   font-family: "Droid Sans", arial, verdana, sans-serif;
   font-weight: 700;
   color: var(--sw-yellow);
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.25);
   overflow: hidden;
   position: relative;
 }
@@ -94,10 +144,10 @@ Version: 1.0
   bottom: 0;
   font-size: 64px;
   font-weight: bold;
-  text-align: justify;
+  text-align: center;
   overflow: hidden;
   transform-origin: 50% 100%;
-  transform: perspective(350px) rotateX(25deg);
+  transform: perspective(450px) rotateX(25deg);
 }
 
 .star-wars-intro .main-content:after {

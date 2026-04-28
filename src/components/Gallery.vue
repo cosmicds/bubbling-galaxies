@@ -459,7 +459,6 @@ watch(() => props.hideGalleryLayers, (hide) => {
     column-gap: 0;
     row-gap: 5px;
     padding: 5px;
-    background-color: pink;
   }
 
   .default-activator {

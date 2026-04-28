@@ -34,3 +34,8 @@ im = im.transpose(Image.FLIP_LEFT_RIGHT)
 # frame0 = Image.open("./simulation_a_pngs/frame_100.png")
 # im.paste(frame0, (BORDER_WIDTH + PADDING, BORDER_WIDTH + PADDING), frame0)
 im.save("./backing.png")
+
+
+
+# 16 kpc ic 5332
+# 30 kpc ngc 628

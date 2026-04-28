@@ -33,7 +33,7 @@
           >
             <p>See the </p>
             <p class="highlight">
-              Bubbling Galaxies
+              The Phantom Galaxy
             </p>
           </div>
         </div>
