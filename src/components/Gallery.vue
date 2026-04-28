@@ -11,6 +11,8 @@
       <slot
         v-if="!open"
         name="closed"
+        @click="open = true"
+        @keyup.enter="open = true"
       >
         <div
           class="default-activator blurred"
@@ -127,6 +129,8 @@ export interface GalleryProps {
   hidePersisted?: boolean;
   /** keep the gallery layers not visible */
   hideGalleryLayers?: boolean;
+  /** if in single-select mode, collapse on selection. default: false */
+  collapseOnSelect?: boolean
 }
 
 
@@ -146,6 +150,8 @@ const props = withDefaults(defineProps<GalleryProps>(), {
   persist: null,
   hidePersist: false,
   hideGalleryLayers: false,
+  collapseOnSelect: false,
+  
 });
 
 const defaultThumbnailUrl = "https://cdn.worldwidetelescope.org/wwtweb/thumbnail.aspx?name=test";
@@ -166,7 +172,7 @@ const placeOpacities = ref<Record<string, number>>({});
 const imagesetLayers = ref<Record<string, ImageSetLayer>>({});
 
 const shownPlaces = computed(() => {
-  if (!props.hidePersist) return places.value;
+  if (!props.hidePersisted) return places.value;
   return places.value.filter(p => getImageset(p)?.get_name() !== props.persist);
 });
 
@@ -326,6 +332,9 @@ async function selectPlace(place: Place) {
 
     emit("listAllSelected", [...selectedPlaces.value]);
     syncSelectedLayerVisibility();
+    if (props.collapseOnSelect) {
+      open.value = false;
+    }
     return;
   }
   
@@ -406,8 +415,8 @@ watch(() => props.hideGalleryLayers, (hide) => {
     flex-direction: column;
     overflow-y: auto;
     max-height: var(--gallery-max-height);
-    width: fit-content;
-    min-width: calc(var(--gallery-width) + 10px)
+    // width: fit-content;
+    // min-width: calc(var(--gallery-width) + 10px)
 
   }
 
@@ -426,13 +435,11 @@ watch(() => props.hideGalleryLayers, (hide) => {
   }
 
   .gallery-title {
-    font-size: 16pt;
+    font-size: 1em;
   }
 
   .gallery-close {
     float: right;
-    // position: absolute;
-    // right: 3px;
     cursor: pointer;
   }
   
@@ -442,11 +449,17 @@ watch(() => props.hideGalleryLayers, (hide) => {
   }
 
   .gallery-content {
-    display: grid;
-    grid-template-columns: repeat(var(--column-count), minmax(100px, 1fr));
-    column-gap: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items:flex-start;
+    flex-wrap: wrap;
+    // display: grid;
+    // grid-template-columns: repeat(auto-fill, minmax(var(--gallery-width), 1fr));
+    column-gap: 0;
     row-gap: 5px;
-    padding: 5px
+    padding: 5px;
+    background-color: pink;
   }
 
   .default-activator {
@@ -478,6 +491,7 @@ watch(() => props.hideGalleryLayers, (hide) => {
     width: var(--gallery-width);
     height: var(--gallery-item-height);
     padding-top: 5px;
+    position:relative;
 
     img {
       margin-left: auto;
@@ -518,9 +532,21 @@ watch(() => props.hideGalleryLayers, (hide) => {
       display: none;
     }
   }
+  
+  .gallery-item.galaxy-persisted::after {
+    content: "Base Layer";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-100%);
+    white-space: nowrap;
+    background: hsla(120, 100%, 25%, 0.5);
+    width: 100%;
+    text-align: center;
+}
 
   .place-name {
-    font-size: 10pt;
+    font-size: 0.8em;
   }
 
 }

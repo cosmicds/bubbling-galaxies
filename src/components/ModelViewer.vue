@@ -7,6 +7,7 @@
     Otherwise Vue will attempt to pass them as props and model-viewer won't recognize them
   -->
   <model-viewer
+    ref="model-viewer"
     :src.attr="src"
     :alt.attr="alt"
     :ios-src.attr="iosSrc"
@@ -24,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+import {onMounted, useTemplateRef} from 'vue';
 export interface ModelViewerProps {
   src: string;
   alt: string;
@@ -36,5 +38,14 @@ withDefaults(defineProps<ModelViewerProps>(), {
   shadowIntensity: 1,
   cameraControls: true,
   iosSrc: undefined,
+});
+
+const modelViewer = useTemplateRef('model-viewer');
+onMounted(() => {
+  if (modelViewer.value) {
+    (modelViewer.value as unknown as HTMLElement).addEventListener('error', (event: Event) => {
+      console.error('Error loading model:', event);
+    });
+  }
 });
 </script>
