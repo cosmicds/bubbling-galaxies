@@ -14,18 +14,31 @@ import { RenderContext, TileCache, Imageset } from "@wwtelescope/engine";
 //   return imageset.get_imageSetID().toString() + '\\' + level.toString() + '\\' + y.toString() + '_' + x.toString();
 // }
 
-export function removeTilesForImageset(imageset: Imageset) {
+function _deleteTile(tile) {
+  if (!tile) return;
+  tile.cleanUp(true);
+  delete TileCache._tiles[tile._key];
+}
+
+// Tile's all have a createGeometry function
+// that short circuits if geometry is already created
+// this forces it to re-derive and set the geometry
+// without deleting the Texture which then needs 
+// to be recreated which is slow
+function deleteTileGeometry(tile) {
+  if (!tile) return;
+  //just say it has none
+  tile.geometryCreated = false;
+}
+
+export function resetGeometryForImagesetTiles(imageset: Imageset) {
   const maxX = RenderContext.getTilesXForLevel(imageset, imageset.get_baseLevel());
   const maxY = RenderContext.getTilesYForLevel(imageset, imageset.get_baseLevel());
   for (let x = 0; x < maxX; x++) {
     for (let y = 0; y < maxY; y++) {
       const tile = TileCache.getTile(imageset.get_baseLevel(), x, y, imageset, null);
-      if (!tile) continue;
-      // console.log('Removing tile:', tile.dataset?.get_name(), 'Level:', imageset.get_baseLevel(), 'X:', x, 'Y:', y);
-      tile.cleanUp(true);
-      delete TileCache._tiles[tile._key];
-      // TileCache.removeFromQueue(tile._key, true);
+      // deleteTile(tile); // bad, slow
+      deleteTileGeometry(tile); 
     }
   }
-    
 }

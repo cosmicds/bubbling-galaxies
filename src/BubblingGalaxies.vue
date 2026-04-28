@@ -15,18 +15,59 @@
 
       <!-- This contains the splash screen content -->
       <SplashScreen
-        v-if="showSplashScreen"
+        v-model="showSplashScreen"
         :color="accentColor"
         highlight-color="red"
         :loaded="!isLoading"
-        @close="() => splashIsClosed = true"
       />
+      
+      <!-- disabled for now. needs refinement -->
+      <StarWarsCrawl
+        v-model="showCrawl"
+        no-title
+        audio-src="star-wars-opening-theme.mp3"
+      >
+        <template #logo>
+          <h2 class="main-logo">
+            The Phantom Galaxy
+          </h2>
+        </template>
+        <p>
+          On this device, you can
+          investigate the Phantom's
+          secrets.
+        </p>
+        <p>
+          Visuals show what the Phantom looked like at just one moment time 
+          32 million years ago. 
+        </p>
+        <p>        
+          Clever astronomers use many wavelenghts and
+          telescopes to reveal the Phantom's inner secrets. 
+        </p>
+        <p>
+          But only simulators can provide
+          you with 3D, moving views of the billion-year-long drama unfolding
+          in the Phantom.
+        </p>
+      </StarWarsCrawl>
+      <v-btn
+        v-if="showCrawl"
+        class="crawl-skip-button"
+        @click="showCrawl = false"
+        @keyup.enter="showCrawl = false"
+      >
+        Skip Intro
+      </v-btn>
 
       <!-- This block contains the elements (e.g. icon buttons displayed at/near the top of the screen -->
-      <div id="wwt-overlay">
+      <div 
+        v-show="!(showSplashScreen || showCrawl)" 
+        id="wwt-overlay"
+      >
         <div id="top-content">
           <div id="left-buttons">
-            <icon-button
+            <!-- <icon-button
               v-model="showInfoSheet"
               icon="book-open"
               :color="buttonColor"
@@ -34,89 +75,42 @@
               tooltip-location="start"
             >
             </icon-button>
-            <v-checkbox
-              v-model="offsetSim"
-              label="Offset sim"
-              color="white"
-              density="compact"
-              class="icon-wrapper"
-              :aria-label="'Toggle simulation offset'"
-              pointer-events="auto"
-            />
-          </div>
-          <div id="center-buttons">
             <IconButton
               icon="mdi-cube-scan"
               :color="buttonColor"
               @activate="showModel = !showModel"
-            />
-          </div>
-          <div id="right-buttons">
-            <Gallery
-              v-if="ready"
-              v-model:selected-place="selectedGalleryItem"
-              v-model:selected-places="selectedGalleryItems"
-              v-model:places="galleryPlaces"
-              start-open
-              wtml-url="./public_datasets.wtml"
-              :single-select="false"
-              selected-color="limegreen"
-              show-opacity
-              :columns="1"
-              width="125px"
-            />
-            <!-- <ImagesetOffset
-              v-model:rotation="angle"
-              v-model:offset="offset"
-            />  -->
+            /> -->
+            <v-btn
+              class="icon-button"
+              @click="showInfoSheet = !showInfoSheet"
+            >
+              Learn More
+            </v-btn>
+            <v-btn
+              class="icon-button"
+              @click="showModel = !showModel"
+            >
+              View Simulation in 3D!
+            </v-btn>
           </div>
         </div>
 
         <!-- Display the 3D model -->
-        <v-dialog
-          v-model="showModel"
-          class="model-viewer-dialog"
-          fullscreen
-          eager
-        >
-          <v-card>
-            <template #title>
-              <v-toolbar>
-                3D Model of the Simulated Galaxy
-                <v-spacer />
-                <IconButton
-                  icon="mdi-window-close"
-                  :color="buttonColor"
-                  size="x-large"
-                  @activate="showModel = false"
-                >
-                </IconButton>
-              </v-toolbar>
-            </template>
-            <template #text>
-              <ModelViewerComponent
-                src="model.glb"
-                alt="A 3D model of the simulated galaxy"
-              >
-                <template #ar-button>
-                  <v-btn
-                    color="success"
-                  >
-                    Show in AR
-                  </v-btn>
-                </template>
-              </ModelViewerComponent>
-            </template>
-          </v-card>
-        </v-dialog>
+        <ModelViewerWindow 
+          v-model="showModel" 
+          :button-color="buttonColor"
+        />
 
 
         <!-- This block contains the elements (e.g. the project icons) displayed along the bottom of the screen -->
 
         <div id="bottom-content">
           <!-- <GesturePreview /> -->
-          <SplashGesture v-if="splashIsClosed && !isLoading" />
-          <div id="image-index-control">
+          
+          <div 
+            v-show="showSimulation"
+            id="image-index-control"
+          >
             <v-slider
               v-if="ready"
               v-model="imageIndex"
@@ -147,17 +141,45 @@
                 </v-tooltip>
               </template>
             </v-slider>
-            <v-slider
-              v-if="ready"
-              v-model="simulationOpactiy"
-              class="image-opacity-control-slider"
-              :min="0"
-              :max="1"
-              step="0.01"
-              label="Opacity"
-            >
-            </v-slider>
           </div>
+          
+          <Gallery
+            v-show="ready && !showSimulation"
+            v-model:selected-place="selectedGalleryItem"
+            v-model:selected-places="selectedGalleryItems"
+            v-model:places="galleryPlaces"
+            wtml-url="./ngc628_datasets.wtml"
+            :single-select="true"
+            selected-color="limegreen"
+            show-opacity
+            :columns="1"
+            width="125px"
+            persist="Optical (NOAO)"
+            :hide-persisted="true"
+            :hide-gallery-layers="showSimulation"
+            collapse-on-select
+          />
+          <!-- <template #closed="galleryProps">
+            <div v-bind="galleryProps">
+              Open
+            </div>
+          </template>
+          </Gallery> -->
+          
+          
+          <v-btn-toggle 
+            v-model="showSimulation"
+            class="align-self-center mt-4"
+            density="compact"
+          >
+            <v-btn :value="false">
+              Real
+            </v-btn>
+            <v-btn :value="true">
+              Simulated
+            </v-btn>
+          </v-btn-toggle>
+          
           <div
             v-if="!smallSize"
             id="body-logos"
@@ -192,6 +214,7 @@
     <WebGlTest
       @webgl2-disabled="webglDisabled = true"
     />
+    <SplashGesture v-if="!showSplashScreen && !isLoading && !showCrawl" />
   </v-app>
 </template>
 
@@ -204,8 +227,8 @@ import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
 import { Place, ImageSetLayer, Imageset } from "@wwtelescope/engine";
 import SplashGesture from "./components/SplashGesture.vue";
-import ImagesetOffset from "./components/ImagesetOffset.vue";
-
+import ModelViewerWindow from "./components/ModelViewerWindow.vue";
+import StarWarsCrawl from "./components/StarWarsCrawl.vue";
 import { WWTControl } from "@wwtelescope/engine";
 
 import Gallery from "./components/Gallery.vue";
@@ -218,6 +241,7 @@ import WebGlTest from "./components/WebGlTest.vue";
 const webglDisabled = ref(false);
 
 import { useSetInterval } from "./composables/useSetInterval";
+import { moveImageset, moveLayer } from "./imageset_manipulation";
 
 type SheetType = "text" | "video";
 
@@ -233,7 +257,11 @@ const kiosk = searchParams.get("kiosk")?.toLowerCase() === "true";
 if (kiosk) {
   document.body.classList.add("kiosk");
 }
-
+const skipScrawl = searchParams.get("crawl")?.toLowerCase() === "false";
+const skipSplash = searchParams.get("splash")?.toLowerCase() === "false";
+console.log("kiosk mode?", kiosk);
+console.log("skip crawl?", skipScrawl);
+console.log("skip splash?", skipSplash);
 const store = engineStore();
 
 useWWTKeyboardControls(store);
@@ -257,8 +285,16 @@ const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
 
 const backgroundImagesets = reactive<BackgroundImageset[]>([]);
 const showInfoSheet = ref(false);
-const showSplashScreen = ref(false);
-const splashIsClosed = ref(false);
+const showSplashScreen = ref(!skipSplash);
+const showCrawl = ref(false);
+if (skipSplash && !skipScrawl) {
+  showCrawl.value = true;
+}
+watch(showSplashScreen, (showing) => {
+  if (!showing && !skipScrawl) {
+    showCrawl.value = true;
+  }
+});
 const layersLoaded = ref(false);
 const positionSet = ref(false);
 const accentColor = ref("#d957db");
@@ -292,85 +328,40 @@ watch(selectedGalleryItems, (newPlaces, oldPlaces) => {
   console.log("Selected places changed from", oldNames, "to", newNames);
 });
 const galleryPlaces = ref<Place[]>([]);
-// Store a single original center (all layers share the same center)
-const originalCenter = ref<{ x: number; y: number } | null>(null);
-const simulationOpactiy = ref(1);
 
-const offsetSim = ref(true);
-const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
+const showSimulation = ref(false);
+const simulationOpactiy = ref(+showSimulation.value);
+// const simulationOpactiy = computed(() => +showSimulation.value);
+watch(showSimulation, (show) => {
+  simulationOpactiy.value = +show;
+});
+watch(simulationOpactiy, (val) => {
+  showSimulation.value = val === 1;
+});
 
-import { useImageSetManipulation } from "./imageset_manipulation";
-const { angle, offset } = useImageSetManipulation(layersToMove, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
 
 
-function rollView(angleDegrees: number) {
-  const currentRA = store.raRad;
-  const currentDec = store.decRad;
-  const currentZoom = store.zoomDeg;
-  const newRoll = store.rollRad + angleDegrees * D2R;
+function moveToImageset(imageset: Imageset, instant = true) {
+  const centerX = imageset.get_centerX(); // degrees
+  const centerY = imageset.get_centerY(); // degrees
   return store.gotoRADecZoom({
-    raRad: currentRA,
-    decRad: currentDec,
-    zoomDeg: currentZoom,
-    rollRad: newRoll,
-    instant: true,
-  });
-}
-
-/**
- * Let's only set the rotation on the initial load.
- * It is od to have it swtiching when you rotate the screem
- * It looks ok when objects are centered, but when not centered
- * they end up in non-inuitive locations.
- */
-// watch(isVertical, (v) => {
-//   if (isVertical.value) {
-//     rollView(90);
-//   } else {
-//     rollView(-90);
-//   }
-// });
-
-function moveToEdge(imageset: Imageset, edge: 'top' | 'right' | 'bottom' | 'left' | 'center', roll = true) {
-  const centerX = originalCenter.value?.x ?? imageset.get_centerX(); // degrees
-  const centerY = originalCenter.value?.y ?? imageset.get_centerY(); // degrees
-  const offsetX = imageset.get_offsetX(); // pixel
-  const offsetY = imageset.get_offsetY(); // pixel
-  const baseDegrees = imageset.get_baseTileDegrees(); // degrees per pixel
-  const xOff = {
-    left: offsetX * baseDegrees,
-    right: -offsetX * baseDegrees,
-    top: 0,
-    bottom: 0,
-    center: 0,
-  };
-  const yOff = {
-    top: offsetY * baseDegrees,
-    bottom: -offsetY * baseDegrees,
-    left: 0,
-    right: 0,
-    center: 0,
-  };
-
-  const newCenterX = centerX + xOff[edge];
-  const newCenterY = centerY + yOff[edge];
-  console.log(`Moving to edge ${edge} with new center: (x, y) = (${xOff[edge]}, ${yOff[edge]})`);
-  // const rotationRadians = rotationDegrees.value * D2R;
-  return store.gotoRADecZoom({
-    raRad: newCenterX * D2R,
-    decRad: newCenterY * D2R,
+    raRad: centerX * D2R,
+    decRad: centerY * D2R,
     zoomDeg: 100 / 60,
-    rollRad: (roll && isVertical.value) ? 90 * D2R : 0,
-    instant: true
+    rollRad: 0,
+    instant: instant
   });
 }
+
+const coordinates = {
+  'ic5332':  [15 * (23 + 34 / 60 + 27.49 / 3600), -(36 + 6 / 60 + 3.9 / 3600)],
+  'm74': [15 * (1 + 36 / 60 + 41.79 / 3600), +(15 + 47 / 60 + 1.3 / 3600)]
+};
+
+import { useWtmlLoader } from "./composables/useWtmlLoader";
+import { sk } from "vuetify/locale";
 
 onMounted(() => {
-
-  const modelViewer = document.querySelector("model-viewer") as HTMLElement;
-  modelViewer.addEventListener('error', (event: Event) => {
-    console.error('Error loading model:', event);
-  });
 
   if (webglDisabled.value) {
     showSplashScreen.value = false;
@@ -387,57 +378,31 @@ onMounted(() => {
     store.applySetting(['showGrid', true]);
     store.applySetting(['showEquatorialGridText', true]);
 
-    const loadFrames = store.loadImageCollection({
-      url: "i5_all.wtml",
-      loadChildFolders: false,
-    }).then(folder => {
-      const children = folder.get_children();
-      if (children == null) return;
-      children.forEach((child: Place | unknown, index: number) => {
-        if (!(child instanceof Place)) return;
-        const imageset = child.get_studyImageset();
-        if (imageset == null) return;
+    const { ready: loadFrames } = useWtmlLoader("simulation_all.wtml", {
+      onNewImageset: (imageset, index) => {
+        // the imagesets are all at 0,0 [ they are simulations]
+        // here would also be a good place to set its size, but we don't know it yet
+        moveImageset(imageset, coordinates['m74'][0], coordinates['m74'][1]);
         isets.value.push(imageset);
-        store.addImageSetLayer({
-          url: imageset.get_url(),
-          mode: "preloaded",
-          name: imageset.get_name(),
-          goto: false,
-        }).then(newLayer => {
-          newLayer.set_enabled(true);
-          newLayer.set_opacity(index === 0 ? simulationOpactiy.value : 0); // show only the first layer initially
-          layers.value.push(newLayer);
-          if (index === 0) {
-            console.log("setting position to first layer");
-            const iset = newLayer.get_imageSet();
-            originalCenter.value = {
-              x: iset.get_centerX(),
-              y: iset.get_centerY(),
-            };
-            moveToEdge(iset, offsetSim.value ? 'left' : 'center', offsetSim.value).then(() => positionSet.value = true);
-          };
-        });
-      });
+      },
+      onNewLayer: (newLayer, index) => {
+        newLayer.set_enabled(true);
+        newLayer.set_opacity(index === 0 ? simulationOpactiy.value : 0);
+        layers.value.push(newLayer);
+        if (index === 0) moveToImageset(newLayer.get_imageSet());
+        positionSet.value = true;
+      },
+      // goTo: false, goTo is false by default if undefined
     });
 
-    const loadBacking = store.loadImageCollection({
-      url: isVertical.value ? "i5_backing_rot.wtml" :"i5_backing.wtml",
-      loadChildFolders: false,
-    }).then(folder => {
-      (folder.get_children() ?? []).forEach((child: Place | unknown) => {
-        if (!(child instanceof Place)) return;
-        const imageset = child.get_studyImageset()!;
-        store.addImageSetLayer({
-          url: imageset.get_url(),
-          mode: "preloaded",
-          name: imageset.get_name(),
-          goto: false,
-        }).then(newLayer => {
-          newLayer.set_enabled(true);
-          newLayer.set_opacity(simulationOpactiy.value); // show only the first layer initially
-          backingLayer.value = newLayer;
-        });
-      });
+
+    const {ready: loadBacking} = useWtmlLoader("galaxyless_m74.wtml", {
+      onNewImageset: (imageset) => moveImageset(imageset, coordinates['m74'][0], coordinates['m74'][1]),
+      onNewLayer: (newLayer: ImageSetLayer, _index) => {
+        newLayer.set_enabled(true);
+        newLayer.set_opacity(simulationOpactiy.value); // show only the first layer initially
+        backingLayer.value = newLayer;
+      },
     });
 
     Promise.all([loadFrames, loadBacking])
@@ -477,24 +442,22 @@ watch(imageIndex, (newIndex) => {
 function advanceImageIndex() {
   imageIndex.value = (imageIndex.value + 1) % layers.value.length;
 }
-const { togglePlayPause, isPlaying } = useSetInterval(advanceImageIndex, 250);
+const { togglePlayPause, isPlaying, playing } = useSetInterval(advanceImageIndex, 50);
 
 watch(simulationOpactiy, (newOpacity) => {
   const currentLayer = layers.value[imageIndex.value];
   if (currentLayer) {
     currentLayer.set_opacity(newOpacity);
   }
-  if (backingLayer.value) {
-    backingLayer.value.set_opacity(newOpacity);
-  }
+  // if (backingLayer.value) {
+  //   backingLayer.value.set_opacity(newOpacity);
+  // }
 });
 
-watch(offsetSim, async (enabled) => {
-  offset.value = enabled ? SIM_OFFSET : 0;
-  await nextTick();
-  const currentLayer = layers.value[imageIndex.value];
-  if (currentLayer) {
-    moveToEdge(currentLayer.get_imageSet(), enabled ? 'left' : 'center', false);
+watch(showSimulation, (showingSimulation) => {
+  // if we are switching off the simulation while playing, pause it
+  if (!showingSimulation && playing.value) {
+    playing.value = false;
   }
 });
 
@@ -713,8 +676,8 @@ and remember, position:absolute is still a positioned parent, so children can be
 #bottom-content {
   display: flex;
   flex-direction: column;
-  pointer-events: none;
-  align-items: center;
+  pointer-events: auto;
+  align-items: flex-start;
   gap: 5px;
 }
 
@@ -739,8 +702,7 @@ and remember, position:absolute is still a positioned parent, so children can be
 }
 
 #app.app-is-small #bottom-content {
-  margin-bottom: 1rem;
-  padding-inline: 1rem;
+  padding: 0;
 }
 
 // From Sara Soueidan (https://www.sarasoueidan.com/blog/focus-indicators/) & Erik Kroes (https://www.erikkroes.nl/blog/the-universal-focus-state/)
@@ -785,21 +747,13 @@ and remember, position:absolute is still a positioned parent, so children can be
   pointer-events: auto;
 }
 
-model-viewer {
-  margin: auto;
-  width: 70vw;
-  height: 70vh;
+
+.crawl-skip-button {
+  position: absolute;
+  bottom: 5rem;
+  right: 1rem;
+  z-index: 9999;
 }
 
-.model-viewer-dialog {
-
-  .v-overlay__content > .v-card > .v-card-item {
-    padding: 0;
-  }
-
-  .v-toolbar {
-    padding: 0.3rem 1rem;
-  }
-}
 
 </style>
