@@ -1,8 +1,9 @@
 <template>
   <!-- Place in Body where you'd like intro to appear -->
-  <div 
-    v-if="show" 
+  <div
+    v-if="show"
     class="star-wars-intro"
+    :class="{ 'fade-out': fadeOut }"
   >
     <AudioPlayer
       v-if="audioSrc"
@@ -52,18 +53,27 @@
 import { onMounted, ref } from 'vue';
 import AudioPlayer from './AudioPlayer.vue';
 
+const show = defineModel({
+  type: Boolean,
+  default: true,
+});
+
 defineProps<{
   noLogo?: boolean;
   noTitle?: boolean;
   audioSrc?: string;
 }>();
 
-const show = ref(true);
-const duration = 86 * 1000; // 1 minutes 26 seconds
+
+const fadeOut = ref(false);
+
 onMounted(() => {
-  setInterval(() => {
-    // show.value = false;
-  }, duration);
+  setTimeout(() => {
+    fadeOut.value = true;
+    setTimeout(() => {
+      show.value = false;
+    }, 1000);
+  }, 23000);
 });
 </script>
 
@@ -90,6 +100,11 @@ Author URI: http://polarnotion.com/
 Description: A simple CSS library for creating a Star Wars Intro Crawl. May the Force be with you.
 Version: 1.0
 */
+
+.star-wars-intro.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
 
 .star-wars-intro {
   --speed-intro: 2s;

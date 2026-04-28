@@ -23,7 +23,7 @@
       
       <!-- disabled for now. needs refinement -->
       <StarWarsCrawl
-        v-if="showCrawl"
+        v-model="showCrawl"
         no-title
         audio-src="star-wars-opening-theme.mp3"
       >
@@ -62,7 +62,7 @@
 
       <!-- This block contains the elements (e.g. icon buttons displayed at/near the top of the screen -->
       <div 
-        v-if="!showSplashScreen" 
+        v-if="!(showSplashScreen || showCrawl)" 
         id="wwt-overlay"
       >
         <div id="top-content">
@@ -259,6 +259,9 @@ if (kiosk) {
 }
 const skipScrawl = searchParams.get("crawl")?.toLowerCase() === "false";
 const skipSplash = searchParams.get("splash")?.toLowerCase() === "false";
+console.log("kiosk mode?", kiosk);
+console.log("skip crawl?", skipScrawl);
+console.log("skip splash?", skipSplash);
 const store = engineStore();
 
 useWWTKeyboardControls(store);
