@@ -50,6 +50,11 @@
               :color="buttonColor"
               @activate="showModel = !showModel"
             />
+            <IconButton
+              :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
+              :color="buttonColor"
+              @activate="isWWT3D = !isWWT3D"
+            />
           </div>
           <div id="right-buttons">
             <Gallery
@@ -97,6 +102,8 @@
               <ModelViewerComponent
                 src="model.glb"
                 alt="A 3D model of the simulated galaxy"
+                tone-mapping="none"
+                min-field-of-view="2deg"
               >
                 <template #ar-button>
                   <v-btn
@@ -203,6 +210,7 @@ import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, Credit
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
 import { Place, ImageSetLayer, Imageset } from "@wwtelescope/engine";
+import { ImageSetType } from "@wwtelescope/engine-types";
 import SplashGesture from "./components/SplashGesture.vue";
 import ImagesetOffset from "./components/ImagesetOffset.vue";
 
@@ -236,6 +244,21 @@ if (kiosk) {
 
 const store = engineStore();
 
+const { backgroundImageset } = storeToRefs(store);
+
+const background3D = "Solar System";
+const background2D = "Digitized Sky Survey";
+const isWWT3D = ref(false);
+watch(isWWT3D, (mode3D: boolean) => {
+  const iset = mode3D ? background3D : background2D;
+  store.setBackgroundImageByName(iset);
+  store.applySetting(["showGrid", !isWWT3D.value]);
+  store.applySetting(["showEquatorialGridText", !isWWT3D.value]);
+  if (!mode3D) {
+    renderer.clear();
+  }
+});
+
 useWWTKeyboardControls(store);
 
 const touchscreen = supportsTouchscreen();
@@ -253,7 +276,6 @@ const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
     };
   }
 });
-
 
 const backgroundImagesets = reactive<BackgroundImageset[]>([]);
 const showInfoSheet = ref(false);
@@ -300,6 +322,9 @@ const offsetSim = ref(true);
 const SIM_OFFSET = 10 / 60; // 10 arcminutes in degrees
 
 import { useImageSetManipulation } from "./imageset_manipulation";
+import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Object3D, PerspectiveCamera, Scene, SpotLight, WebGLRenderer } from "three";
+import { createLoader, createTHREECamera, createTHREERenderer, createTHREEScene, renderTHREE, updateTHREECamera } from "./threeWWT";
+import { storeToRefs } from "pinia";
 const { angle, offset } = useImageSetManipulation(layersToMove, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
 
 
@@ -316,6 +341,21 @@ function rollView(angleDegrees: number) {
     instant: true,
   });
 }
+
+const scene = createTHREEScene();
+let camera: PerspectiveCamera;
+let renderer: WebGLRenderer;
+let cube: Mesh;
+
+const loader = createLoader();
+
+function frameUpdateTHREE(control: WWTControl) {
+  if (isWWT3D.value) {
+    updateTHREECamera(camera, control.renderContext);
+    renderTHREE(renderer, scene, camera);
+  }
+}
+
 
 /**
  * Let's only set the rotation on the initial load.
@@ -384,8 +424,67 @@ onMounted(() => {
 
   store.waitForReady().then(async () => {
 
-    store.applySetting(['showGrid', true]);
-    store.applySetting(['showEquatorialGridText', true]);
+    store.applySetting(["showGrid", !isWWT3D.value]);
+    store.applySetting(["showEquatorialGridText", !isWWT3D.value]);
+
+    const renderOneFrame = WWTControl.singleton.renderOneFrame.bind(WWTControl.singleton);
+    WWTControl.singleton.renderOneFrame();
+    renderer = createTHREERenderer(WWTControl.singleton);
+    camera = createTHREECamera(WWTControl.singleton.renderContext);
+    WWTControl.singleton.renderOneFrame = function() {
+      renderOneFrame();
+      frameUpdateTHREE(WWTControl.singleton);
+    }.bind(WWTControl.singleton);
+
+
+    const size = 0.5;
+    const geometry = new BoxGeometry(size, size, size);
+    const material = new MeshBasicMaterial({
+      color: 0x0000ff,
+      transparent: true,
+      opacity: 0.7,
+      side: DoubleSide,
+    });
+    cube = new Mesh(geometry, material);
+    cube.matrixAutoUpdate = true;
+    // Units are in AU
+    cube.position.set(10, 2, 0);
+    cube.matrixWorldNeedsUpdate = true;
+    scene.add(cube);
+
+    loader.load(
+      "./model.glb",
+      gltf => {
+        const size = 1;
+        const modelScene = gltf.scene;
+        modelScene.matrixAutoUpdate = true;
+        const distance = 100;
+        modelScene.position.set(distance, distance, distance);
+        modelScene.scale.set(size, size, size);
+        modelScene.matrixWorldNeedsUpdate = true;
+
+        modelScene.traverse((mesh: Object3D) => {
+          if (mesh instanceof Mesh) {
+            // mesh.geometry.computeVertexNormals();
+            const oldMaterial = mesh.material as MeshPhysicalMaterial;
+            const newMaterial = new MeshBasicMaterial({
+              map: oldMaterial.map,
+              color: oldMaterial.color,
+              side: oldMaterial.side,
+              opacity: oldMaterial.opacity,
+            });
+            mesh.material = newMaterial;
+            oldMaterial.dispose();
+          }
+        });
+
+        scene.add(modelScene);
+      },
+      xhr => console.log(`${(xhr.loaded / xhr.total * 100)} % loaded`),
+      error => console.error(error),
+    );
+
+    store.setBackgroundImageByName(isWWT3D.value ? background3D : background2D);
 
     const loadFrames = store.loadImageCollection({
       url: "i5_all.wtml",
