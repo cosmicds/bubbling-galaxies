@@ -70,7 +70,7 @@ export function createTHREERenderer(window: Window, control: WWTControl): WebGLR
     alpha: true,
   });
   renderer.setSize(dummy.clientWidth, dummy.clientHeight, false);
-  renderer.setPixelRatio(window.devicePixelRatio)
+  renderer.setPixelRatio(canvas.width / canvas.clientWidth);
   // renderer.autoClear = false;
   renderer.setClearColor(0x000000, 0);
 
