@@ -427,11 +427,9 @@ onMounted(() => {
     store.applySetting(["showGrid", !isWWT3D.value]);
     store.applySetting(["showEquatorialGridText", !isWWT3D.value]);
 
-    // eslint-disable-next-lint @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     const renderOneFrame = WWTControl.singleton.renderOneFrame.bind(WWTControl.singleton);
     WWTControl.singleton.renderOneFrame();
-    renderer = createTHREERenderer(window, WWTControl.singleton);
+    renderer = createTHREERenderer(WWTControl.singleton);
     camera = createTHREECamera(WWTControl.singleton.renderContext);
     WWTControl.singleton.renderOneFrame = function() {
       renderOneFrame();
@@ -470,10 +468,10 @@ onMounted(() => {
             // mesh.geometry.computeVertexNormals();
             const oldMaterial = mesh.material as MeshPhysicalMaterial;
             const newMaterial = new MeshBasicMaterial({
-                map: oldMaterial.map,
-                color: oldMaterial.color,
-                side: oldMaterial.side,
-                opacity: oldMaterial.opacity,
+              map: oldMaterial.map,
+              color: oldMaterial.color,
+              side: oldMaterial.side,
+              opacity: oldMaterial.opacity,
             });
             mesh.material = newMaterial;
             oldMaterial.dispose();
@@ -485,10 +483,6 @@ onMounted(() => {
       xhr => console.log(`${(xhr.loaded / xhr.total * 100)} % loaded`),
       error => console.error(error),
     );
-
-    // eslint-disable-next-lint @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    window.wwt = WWTControl.singleton; window.rc = window.wwt.renderContext; window.cube = cube; window.camera = camera; window.scene = scene;
 
     store.setBackgroundImageByName(isWWT3D.value ? background3D : background2D);
 

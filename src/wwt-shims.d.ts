@@ -1,3 +1,6 @@
+// There are some method names in here (from the WWT engine) that we have no control over
+/* eslint-disable @typescript-eslint/naming-convention */
+
 import "@wwtelescope/engine";
 
 declare module "@wwtelescope/engine" {

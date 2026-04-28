@@ -1,4 +1,4 @@
-import { Matrix3d, RenderContext, Vector3d, WWTControl } from "@wwtelescope/engine";
+import { RenderContext, WWTControl } from "@wwtelescope/engine";
 import { ACESFilmicToneMapping, Camera, Matrix4, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 import * as THREE from "three";
 
@@ -52,9 +52,7 @@ export function createTHREEScene(): Scene {
   return scene;
 }
 
-export function createTHREERenderer(window: Window, control: WWTControl): WebGLRenderer {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error WWTControl does have a canvas
+export function createTHREERenderer(control: WWTControl): WebGLRenderer {
   const canvas: HTMLCanvasElement = control.canvas;
   const dummy = createDummyCanvas(canvas);
   document.body.appendChild(dummy);
@@ -95,19 +93,8 @@ export function updateTHREECamera(camera: PerspectiveCamera, renderContext: Rend
   camera.matrixWorldInverse.copy(wwtMatrixToTHREE(renderContext.get_view()));
   camera.matrixWorld.copy(camera.matrixWorldInverse).invert();
   camera.matrixWorldNeedsUpdate = false;
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error `cameraPosition` exists
-  // const wwtCameraPosition: Vector3d = renderContext.cameraPosition;
-  // camera.position.set(wwtCameraPosition.x, wwtCameraPosition.y, wwtCameraPosition.z);
-
-  // camera.fov = renderContext.viewCamera.zoom / 6;
-  // camera.near = renderContext.nearPlane;
 }
 
 export function renderTHREE(renderer: WebGLRenderer, scene: Scene, camera: Camera) {
   renderer.render(scene, camera);
-}
-
-export function loadModel(url: string) {
 }
