@@ -10,9 +10,9 @@
       <v-btn
         :icon="playing ? 'mdi-pause' : 'mdi-play'"
         variant="outlined"
-        @click="playing = !playing"
         density="comfortable"
         :color="color"
+        @click="playing = !playing"
       ></v-btn>
       <v-slider
         v-model="index"
@@ -32,20 +32,20 @@ import { computed, ref, watch } from "vue";
 const index = defineModel<number>();
 
 const playing = ref(false);
-let interval: ReturnType<typeof setInterval> | null = null;
+let intervalHandle: ReturnType<typeof setInterval> | null = null;
 
 watch(playing, (play: boolean) => {
   if (play) {
-    interval = setInterval(() => {
+    intervalHandle = setInterval(() => {
       if (index.value !== undefined && index.value < props.max - 1) {
         index.value += 1;
       } else {
         index.value = props.min;
       }
     }, props.interval);
-  } else if (interval != null) {
-    clearInterval(interval);
-    interval = null;
+  } else if (intervalHandle != null) {
+    clearInterval(intervalHandle);
+    intervalHandle = null;
   }
 });
 
