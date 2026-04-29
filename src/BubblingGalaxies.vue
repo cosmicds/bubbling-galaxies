@@ -20,11 +20,11 @@
           ></v-btn>
         </div>
       </template>
-      <ImageFlipbook
+      <image-flipbook
         v-model="imageCardIndex"
-        :min="imageCardMin"
-        :max="imageCardMax"
-        :frames="index => `simulation_a_pngs/frame_${index}.png`"
+        :min="imageCardIndexMin"
+        :max="imageCardIndexMax"
+        :frames="(index: number) => `simulation_a_pngs/frame_${index}.png`"
       />
     </v-card>
 
@@ -894,6 +894,10 @@ and remember, position:absolute is still a positioned parent, so children can be
 
   .v-card-item {
     padding: 0;
+  }
+
+  .image-flipbook {
+    margin: auto;
   }
 }
 

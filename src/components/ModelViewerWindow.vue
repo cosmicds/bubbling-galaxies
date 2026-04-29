@@ -2,14 +2,13 @@
   <v-dialog
     v-model="showModel"
     class="model-viewer-dialog"
-    fullscreen
     eager
-    transition="dialog-bottom-transition"
+    transition="dialog-top-transition"
     :scrim="false"
   >
     <v-card color="black">
       <v-card-title class="model-view-dialog__card-title">
-        <div 
+        <div
           class="model-view-dialog__title"
         >
           3D Model of the Simulated Galaxy
@@ -62,8 +61,8 @@ model-viewer {
 }
 
 .model-viewer-dialog {
-  
-  .model-view-dialog__card-title { 
+
+  .model-view-dialog__card-title {
     display: flex;
     border-bottom: 1px solid white;
   }

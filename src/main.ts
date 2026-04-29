@@ -4,6 +4,7 @@ import BubblingGalaxies from "./BubblingGalaxies.vue";
 import Loader from "./components/Loader.vue";
 import BrightnessContrast from "./components/BrightnessContrast.vue";
 import ModelViewer from "./components/ModelViewer.vue";
+import ImageFlipbook from "./components/ImageFlipbook.vue";
 
 
 import vuetify from "@/plugins/vuetify";
@@ -63,6 +64,7 @@ createApp(BubblingGalaxies, {
   .component('credit-logos', CreditLogos)
   .component('wwt-loader', Loader)
   .component('brightness-contrast', BrightnessContrast)
+  .component('image-flipbook', ImageFlipbook)
   .component('ModelViewerComponent', ModelViewer)  // we don't want to shadow the model-viewer web component
 
   // Mount
