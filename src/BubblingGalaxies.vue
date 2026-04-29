@@ -4,6 +4,39 @@
     :style="cssVars"
     :class="[smallSize ? 'app-is-small' : '']"
   >
+    <!-- Display the 3D model -->
+    <v-card
+      v-show="showModel"
+      :class="['model-card', 'flex-column', {'d-flex': showModel}]"
+      :height="smallSize ? '50%' : '100%'"
+      :width="smallSize ? '100%' : '50%'"
+    >
+      <template #title>
+        <div class="d-flex justify-end">
+          <v-btn
+            size="small"
+            icon="mdi-close"
+            @click="showModel = false"
+          ></v-btn>
+        </div>
+      </template>
+      <ModelViewerComponent
+        src="model.glb"
+        alt="A 3D model of the simulated galaxy"
+        class="model-viewer"
+        tone-mapping="none"
+        min-field-of-view="2deg"
+      >
+        <template #ar-button>
+          <v-btn
+            color="success"
+          >
+            Show in AR
+          </v-btn>
+        </template>
+      </ModelViewerComponent>
+    </v-card>
+
     <div
       id="main-content"
     >
@@ -101,12 +134,6 @@
             </v-btn>
           </div>
         </div>
-
-        <!-- Display the 3D model -->
-        <ModelViewerWindow
-          v-model="showModel"
-          :button-color="buttonColor"
-        />
 
 
         <!-- This block contains the elements (e.g. the project icons) displayed along the bottom of the screen -->
@@ -595,12 +622,12 @@ const cssVars = computed(() => {
 
 // while #app is a flex, the direct parent
 // is .v-application__wrap
-// this takes the size of it's children
+// this takes the size of its children
 // so we need to apply height definitions here
 // for a display with a side-panel this is generally
 // what we want
 .v-application__wrap {
-  flex-direction: row-reverse;  // add for the side panel
+  flex-direction: row;
   max-height: 100svh;  // force the application to be 100%
 }
 
@@ -611,6 +638,7 @@ const cssVars = computed(() => {
   }
 }
 
+
 #main-content {
   // This is the containing block for the absolutely positioned WWT host and overlay.
   position: relative;
@@ -618,12 +646,17 @@ const cssVars = computed(() => {
   // Its height is determined by the flex layout in `#app`.
   flex: 1 0 auto;
   overflow: hidden;
-
+  order: 2;
   transition: height 0.1s ease-in-out;
+}
+
+#app.app-is-small #main-content {
+  order: 1;
 }
 
 #side-drawer {
   flex: 0 0 auto;
+  order: 0;
   overflow: hidden;
   width: 0;
   // transition: width 0.3s ease-in-out;
@@ -636,6 +669,7 @@ const cssVars = computed(() => {
 #app.app-is-small {
   #side-drawer {
   flex: 0 0 auto;
+  order: 2;
   overflow: hidden;
   height: 0;
   width: 100%;
@@ -854,5 +888,20 @@ and remember, position:absolute is still a positioned parent, so children can be
   z-index: 9999;
 }
 
+.model-card {
+  order: 1;
+}
 
+#app.app-is-small .model-card {
+  order: 0;
+}
+
+.model-card .v-card-item {
+  padding: 0;
+}
+
+.model-viewer {
+  width: 100%;
+  height: 100%;
+}
 </style>
