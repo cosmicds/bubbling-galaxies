@@ -1,0 +1,492 @@
+<Folder Browseable="True" Group="Mine" Name="Scott" Searchable="True">
+<Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 0" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 0" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_100.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 1" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 1" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_101.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 2" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 2" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_102.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 3" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 3" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_103.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 4" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 4" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_104.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 5" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 5" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_105.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 6" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 6" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_106.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 7" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 7" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_107.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 8" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 8" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_108.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 9" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 9" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_109.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 10" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 10" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_110.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 11" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 11" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_111.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 12" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 12" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_112.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 13" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 13" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_113.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 14" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 14" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_114.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 15" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 15" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_115.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 16" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 16" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_116.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 17" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 17" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_117.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 18" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 18" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_118.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 19" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 19" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_119.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 20" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 20" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_120.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 21" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 21" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_121.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 22" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 22" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_122.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 23" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 23" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_123.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 24" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 24" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_124.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 25" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 25" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_125.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 26" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 26" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_126.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 27" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 27" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_127.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 28" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 28" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_128.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 29" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 29" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_129.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 30" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 30" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_130.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 31" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 31" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_131.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 32" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 32" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_132.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 33" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 33" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_133.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 34" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 34" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_134.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 35" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 35" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_135.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 36" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 36" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_136.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 37" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 37" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_137.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 38" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 38" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_138.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 39" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 39" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_139.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 40" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 40" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_140.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 41" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 41" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_141.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 42" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 42" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_142.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 43" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 43" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_143.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 44" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 44" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_144.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 45" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 45" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_145.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 46" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 46" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_146.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 47" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 47" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_147.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 48" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0001953712052900511" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 48" OffsetX="554.5" OffsetY="554.5" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/I5_pngs/frame_148.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place></Folder>
