@@ -1,8 +1,8 @@
 import { ref, watch, Ref, nextTick }  from 'vue';
 import { ImageSetLayer, Imageset, WWTControl } from '@wwtelescope/engine';
-import { removeTilesForImageset } from './edit_tile_cache';
+import { resetGeometryForImagesetTiles } from './edit_tile_cache';
 
-export function useImageSetManipulation(layers: Ref<ImageSetLayer[] | null>, options?: { angleDeg?: number, offsetDeg?: number }) {
+export function useImageSetTranslation(layers: Ref<ImageSetLayer[] | null>, options?: { angleDeg?: number, offsetDeg?: number }) {
   const rotationDegrees = ref(options?.angleDeg ?? 0);
   const radialOffsetDegrees = ref(options?.offsetDeg ?? 0);
   console.log('Initial layers:', layers.value);
@@ -32,30 +32,30 @@ export function useImageSetManipulation(layers: Ref<ImageSetLayer[] | null>, opt
   });
   
   
+  function updateImageset(layer: ImageSetLayer) {
+    const iset = layer.get_imageSet() as Imageset;
+    const originalSettings = originalLayerSettings.value.get(layer.id.toString());
+    if (!originalSettings) return;
+    
+    const rotationRadians = rotationDegrees.value * Math.PI / 180;
+    const newCenterX = originalSettings.centerX + radialOffsetDegrees.value * Math.cos(rotationRadians);
+    const newCenterY = originalSettings.centerY - radialOffsetDegrees.value * Math.sin(rotationRadians);
+    
+    iset.set_centerX(newCenterX);
+    iset.set_centerY(newCenterY);
+    return iset;
+  }
   
-  
+
   
   function updateImageSets() {
     if (!layers.value) return;
-    const rotationRadians = rotationDegrees.value * Math.PI / 180;
-
     layers.value.forEach((layer) => {
-      const iset = layer.get_imageSet() as Imageset;
-      layer.version = (layer.version ?? 0) + 1; // Force update
-      layer.set_overrideDefaultLayer(true);
-      const originalSettings = originalLayerSettings.value.get(layer.id.toString());
-      if (!originalSettings) return;
-
-      const newCenterX = originalSettings.centerX + radialOffsetDegrees.value * Math.cos(rotationRadians);
-      const newCenterY = originalSettings.centerY - radialOffsetDegrees.value * Math.sin(rotationRadians);
-      
-      iset.set_centerX(newCenterX);
-      iset.set_centerY(newCenterY);
-      // iset.set_rotation(rotationRadians);
-      removeTilesForImageset(iset);
-
+      const iset = updateImageset(layer);
+      if (!iset) return;
+      resetGeometryForImagesetTiles(iset);
     });
-    
+
     // i don't think we really need this
     WWTControl.singleton.renderOneFrame();
   }
@@ -64,10 +64,33 @@ export function useImageSetManipulation(layers: Ref<ImageSetLayer[] | null>, opt
     getOriginalLayerSettings();
     nextTick(updateImageSets);
   });
+  
+  
+
+
+
   watch([rotationDegrees, radialOffsetDegrees], updateImageSets);
   
   return {
     angle: rotationDegrees,
     offset: radialOffsetDegrees,
   };
+};
+
+
+
+export function moveLayer(layer: ImageSetLayer, raDeg: number, decDeg: number) {
+  const iset = layer.get_imageSet() as Imageset;
+  iset.set_centerX(raDeg);
+  iset.set_centerY(decDeg);
+  resetGeometryForImagesetTiles(iset);
+  return {layer, iset};
+};
+
+export function moveImageset(iset: Imageset, raDeg: number, decDeg: number) {
+  iset.set_centerX(raDeg);
+  iset.set_centerY(decDeg);
+  resetGeometryForImagesetTiles(iset);
+  WWTControl.singleton.renderOneFrame();
+  return iset;
 };

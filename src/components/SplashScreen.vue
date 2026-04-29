@@ -2,7 +2,8 @@
   <v-overlay
     id="splash-overlay"
     :model-value="showSplashScreen"
-    :scrim="false"
+    :scrim="true"
+    
 
     absolute
     :style="cssVars"
@@ -33,7 +34,7 @@
           >
             <p>See the </p>
             <p class="highlight">
-              Bubbling Galaxies
+              The Phantom Galaxy
             </p>
           </div>
         </div>
@@ -96,28 +97,15 @@ const cssVars = computed(() => {
   };
 });
 
-const emits = defineEmits(['close']);
-
-const showSplashScreen = defineModel<boolean>({ default: true });
+const showSplashScreen = defineModel<boolean>({ default: false });
 const splash = new URLSearchParams(window.location.search).get("splash")?.toLowerCase() !== "false";
 if (!splash) {
   showSplashScreen.value = false;
-  emits('close');
 }
-
-
-// watch(() => props.loaded, (l) =>{
-//   if (l) {
-//     setTimeout( () => {
-//       showSplashScreen.value = false;
-//     }, 5000)
-//   }
-// })
 
 
 function closeSplashScreen() {
   showSplashScreen.value = false;
-  emits('close');
 }
 
 
@@ -131,6 +119,10 @@ function closeSplashScreen() {
   justify-content: center;
   font-size: min(8vw, 5vh);
   transition: width 0.5s, height 0.5s;
+}
+
+#splash-overlay > :deep(.v-overlay__scrim) {
+  backdrop-filter: blur(15px);
 }
 
 :deep(.v-fade-transition-enter-active),
@@ -151,6 +143,7 @@ function closeSplashScreen() {
   @media (min-width: 700px) {
     max-height: 85vh;
     max-width: min(70vw, 800px);
+    
   }
   --border-radius: 30px;
 
@@ -158,7 +151,7 @@ function closeSplashScreen() {
   .background {
     position: fixed;
     inset: 0;
-    background-image: url('../assets/moon.jpg');
+    background-image: url('../assets/noao-m74mortfieldw.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     contain: strict;
@@ -187,7 +180,7 @@ function closeSplashScreen() {
   border-radius: var(--border-radius);
   border: min(1.2vw, 0.9vh) solid var(--accent-color);
   overflow: auto;
-  font-family: 'Source Sans 3', 'Roboto', sans-serif;
+  font-family: "Highway Gothic Narrow", sans-serif;
 
   div {
     margin-inline: auto;
@@ -199,7 +192,6 @@ function closeSplashScreen() {
   }
   // make a paragraph inside the div centered horizontally and vertically
   p {
-    font-family: 'Source Sans 3', 'Roboto', sans-serif;
     font-weight: regular;
     vertical-align: middle;
   }
