@@ -6,8 +6,8 @@
   >
     <!-- Display the 3D model -->
     <v-card
-      v-show="showModel"
-      :class="['model-card', 'flex-column', {'d-flex': showModel}]"
+      v-show="showImageCard"
+      :class="['image-card', 'flex-column', {'d-flex': showImageCard}]"
       :height="smallSize ? '50%' : '100%'"
       :width="smallSize ? '100%' : '50%'"
     >
@@ -16,25 +16,16 @@
           <v-btn
             size="small"
             icon="mdi-close"
-            @click="showModel = false"
+            @click="showImageCard = false"
           ></v-btn>
         </div>
       </template>
-      <ModelViewerComponent
-        src="model.glb"
-        alt="A 3D model of the simulated galaxy"
-        class="model-viewer"
-        tone-mapping="none"
-        min-field-of-view="2deg"
-      >
-        <template #ar-button>
-          <v-btn
-            color="success"
-          >
-            Show in AR
-          </v-btn>
-        </template>
-      </ModelViewerComponent>
+      <ImageFlipbook
+        v-model="imageCardIndex"
+        :min="imageCardMin"
+        :max="imageCardMax"
+        :frames="index => `simulation_a_pngs/frame_${index}.png`"
+      />
     </v-card>
 
     <div
@@ -110,9 +101,9 @@
             </icon-button>
             -->
             <IconButton
-              icon="mdi-cube-scan"
+              :icon="`mdi-${showImageCard ? 'vector-combine' : (smallSize ? 'view-split-horizontal' : 'view-split-vertical')}`"
               :color="buttonColor"
-              @activate="showModel = !showModel"
+              @activate="showImageCard = !showImageCard"
             />
             <IconButton
               :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
@@ -135,6 +126,11 @@
           </div>
         </div>
 
+        <!-- Display the 3D model -->
+        <ModelViewerWindow
+          v-model="showModel"
+          :button-color="buttonColor"
+        />
 
         <!-- This block contains the elements (e.g. the project icons) displayed along the bottom of the screen -->
 
@@ -350,6 +346,11 @@ const accentColor = ref("#d957db");
 const buttonColor = ref("#ffffff");
 
 const showModel = ref(false);
+
+const showImageCard = ref(false);
+const imageCardIndex = ref(100);
+const imageCardIndexMin = 100;
+const imageCardIndexMax = 148;
 
 const layers = ref<ImageSetLayer[]>([]);
 const backingLayer = ref<ImageSetLayer | null>(null);
@@ -888,20 +889,20 @@ and remember, position:absolute is still a positioned parent, so children can be
   z-index: 9999;
 }
 
-.model-card {
+.image-card {
   order: 1;
+
+  .v-card-item {
+    padding: 0;
+  }
 }
 
-#app.app-is-small .model-card {
+#app.app-is-small .image-card {
   order: 0;
-}
 
-.model-card .v-card-item {
-  padding: 0;
-}
-
-.model-viewer {
-  width: 100%;
-  height: 100%;
+  img {
+    object-fit: contain;
+    width: 100%;
+  }
 }
 </style>
