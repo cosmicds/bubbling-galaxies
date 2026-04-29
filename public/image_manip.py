@@ -11,7 +11,7 @@ if shutil.which('magick') is None or shutil.which('mogrify') is None:
         'On a mac with Homebrew, you can run: brew install imagemagick'
     )
 
-path = Path('./I5_pngs')
+path = Path('./simulation_a_pngs')
 
 pngs = path.glob('*.png')
 
