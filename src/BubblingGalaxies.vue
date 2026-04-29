@@ -4,7 +4,6 @@
     :style="cssVars"
     :class="[smallSize ? 'app-is-small' : '']"
   >
-    <!-- Display the 3D model -->
     <v-card
       v-show="showImageCard"
       :class="['image-card', 'flex-column', {'d-flex': showImageCard}]"
