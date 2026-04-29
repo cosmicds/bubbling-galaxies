@@ -399,7 +399,55 @@ const coordinates = {
 
 
 import { useWtmlLoader } from "./composables/useWtmlLoader";
-import { sk } from "vuetify/locale";
+
+function threeJsModelLoader() {
+  const size = 0.5;
+  const geometry = new BoxGeometry(size, size, size);
+  const material = new MeshBasicMaterial({
+    color: 0x0000ff,
+    transparent: true,
+    opacity: 0.7,
+    side: DoubleSide,
+  });
+  cube = new Mesh(geometry, material);
+  cube.matrixAutoUpdate = true;
+  // Units are in AU
+  cube.position.set(10, 2, 0);
+  cube.matrixWorldNeedsUpdate = true;
+  scene.add(cube);
+
+  loader.load(
+    "./model.glb",
+    gltf => {
+      const size = 1;
+      const modelScene = gltf.scene;
+      modelScene.matrixAutoUpdate = true;
+      const distance = 100;
+      modelScene.position.set(distance, distance, distance);
+      modelScene.scale.set(size, size, size);
+      modelScene.matrixWorldNeedsUpdate = true;
+
+      modelScene.traverse((mesh: Object3D) => {
+        if (mesh instanceof Mesh) {
+          // mesh.geometry.computeVertexNormals();
+          const oldMaterial = mesh.material as MeshPhysicalMaterial;
+          const newMaterial = new MeshBasicMaterial({
+            map: oldMaterial.map,
+            color: oldMaterial.color,
+            side: oldMaterial.side,
+            opacity: oldMaterial.opacity,
+          });
+          mesh.material = newMaterial;
+          oldMaterial.dispose();
+        }
+      });
+
+      scene.add(modelScene);
+    },
+    xhr => console.log(`${(xhr.loaded / xhr.total * 100)} % loaded`),
+    error => console.error(error),
+  );
+}
 
 onMounted(() => {
 
@@ -428,52 +476,7 @@ onMounted(() => {
     }.bind(WWTControl.singleton);
 
 
-    const size = 0.5;
-    const geometry = new BoxGeometry(size, size, size);
-    const material = new MeshBasicMaterial({
-      color: 0x0000ff,
-      transparent: true,
-      opacity: 0.7,
-      side: DoubleSide,
-    });
-    cube = new Mesh(geometry, material);
-    cube.matrixAutoUpdate = true;
-    // Units are in AU
-    cube.position.set(10, 2, 0);
-    cube.matrixWorldNeedsUpdate = true;
-    scene.add(cube);
-
-    loader.load(
-      "./model.glb",
-      gltf => {
-        const size = 1;
-        const modelScene = gltf.scene;
-        modelScene.matrixAutoUpdate = true;
-        const distance = 100;
-        modelScene.position.set(distance, distance, distance);
-        modelScene.scale.set(size, size, size);
-        modelScene.matrixWorldNeedsUpdate = true;
-
-        modelScene.traverse((mesh: Object3D) => {
-          if (mesh instanceof Mesh) {
-            // mesh.geometry.computeVertexNormals();
-            const oldMaterial = mesh.material as MeshPhysicalMaterial;
-            const newMaterial = new MeshBasicMaterial({
-              map: oldMaterial.map,
-              color: oldMaterial.color,
-              side: oldMaterial.side,
-              opacity: oldMaterial.opacity,
-            });
-            mesh.material = newMaterial;
-            oldMaterial.dispose();
-          }
-        });
-
-        scene.add(modelScene);
-      },
-      xhr => console.log(`${(xhr.loaded / xhr.total * 100)} % loaded`),
-      error => console.error(error),
-    );
+    
 
     store.setBackgroundImageByName(isWWT3D.value ? background3D : background2D);
 
@@ -507,6 +510,7 @@ onMounted(() => {
     Promise.all([loadFrames, loadBacking])
       .then(() => {
         layersLoaded.value = true;
+        threeJsModelLoader();
       });
 
   });
