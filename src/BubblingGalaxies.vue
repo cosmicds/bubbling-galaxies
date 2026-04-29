@@ -20,7 +20,7 @@
         highlight-color="red"
         :loaded="!isLoading"
       />
-      
+
       <!-- disabled for now. needs refinement -->
       <StarWarsCrawl
         v-model="showCrawl"
@@ -38,12 +38,12 @@
           secrets.
         </p>
         <p>
-          Visuals show what the Phantom looked like at just one moment time 
-          32 million years ago. 
+          Visuals show what the Phantom looked like at just one moment time
+          32 million years ago.
         </p>
-        <p>        
+        <p>
           Clever astronomers use many wavelenghts and
-          telescopes to reveal the Phantom's inner secrets. 
+          telescopes to reveal the Phantom's inner secrets.
         </p>
         <p>
           But only simulators can provide
@@ -61,8 +61,8 @@
       </v-btn>
 
       <!-- This block contains the elements (e.g. icon buttons displayed at/near the top of the screen -->
-      <div 
-        v-show="!(showSplashScreen || showCrawl)" 
+      <div
+        v-show="!(showSplashScreen || showCrawl)"
         id="wwt-overlay"
       >
         <div id="top-content">
@@ -75,6 +75,7 @@
               tooltip-location="start"
             >
             </icon-button>
+            -->
             <IconButton
               icon="mdi-cube-scan"
               :color="buttonColor"
@@ -85,7 +86,6 @@
               :color="buttonColor"
               @activate="isWWT3D = !isWWT3D"
             />
-          </div>
 
             <v-btn
               class="icon-button"
@@ -103,8 +103,8 @@
         </div>
 
         <!-- Display the 3D model -->
-        <ModelViewerWindow 
-          v-model="showModel" 
+        <ModelViewerWindow
+          v-model="showModel"
           :button-color="buttonColor"
         />
 
@@ -113,8 +113,8 @@
 
         <div id="bottom-content">
           <!-- <GesturePreview /> -->
-          
-          <div 
+
+          <div
             v-show="showSimulation"
             id="image-index-control"
           >
@@ -149,7 +149,7 @@
               </template>
             </v-slider>
           </div>
-          
+
           <Gallery
             v-show="ready && !showSimulation"
             v-model:selected-place="selectedGalleryItem"
@@ -172,9 +172,9 @@
             </div>
           </template>
           </Gallery> -->
-          
-          
-          <v-btn-toggle 
+
+
+          <v-btn-toggle
             v-model="showSimulation"
             class="align-self-center mt-4"
             density="compact"
@@ -186,7 +186,7 @@
               Simulated
             </v-btn>
           </v-btn-toggle>
-          
+
           <div
             v-if="!smallSize"
             id="body-logos"
@@ -362,11 +362,9 @@ watch(simulationOpactiy, (val) => {
 });
 
 
-import { useImageSetManipulation } from "./imageset_manipulation";
 import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Object3D, PerspectiveCamera, Scene, SpotLight, WebGLRenderer } from "three";
 import { createLoader, createTHREECamera, createTHREERenderer, createTHREEScene, renderTHREE, updateTHREECamera } from "./threeWWT";
 import { storeToRefs } from "pinia";
-const { angle, offset } = useImageSetManipulation(layersToMove, {offsetDeg: offsetSim.value ? SIM_OFFSET : 0}); // 90deg rot points one down
 
 function moveToImageset(imageset: Imageset, instant = true) {
   const centerX = imageset.get_centerX(); // degrees
