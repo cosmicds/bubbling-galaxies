@@ -20,7 +20,7 @@
         highlight-color="red"
         :loaded="!isLoading"
       />
-      
+
       <!-- disabled for now. needs refinement -->
       <StarWarsCrawl
         v-model="showCrawl"
@@ -38,12 +38,12 @@
           secrets.
         </p>
         <p>
-          Visuals show what the Phantom looked like at just one moment time 
-          32 million years ago. 
+          Visuals show what the Phantom looked like at just one moment time
+          32 million years ago.
         </p>
-        <p>        
+        <p>
           Clever astronomers use many wavelenghts and
-          telescopes to reveal the Phantom's inner secrets. 
+          telescopes to reveal the Phantom's inner secrets.
         </p>
         <p>
           But only simulators can provide
@@ -61,8 +61,8 @@
       </v-btn>
 
       <!-- This block contains the elements (e.g. icon buttons displayed at/near the top of the screen -->
-      <div 
-        v-show="!(showSplashScreen || showCrawl)" 
+      <div
+        v-show="!(showSplashScreen || showCrawl)"
         id="wwt-overlay"
       >
         <div id="top-content">
@@ -75,11 +75,18 @@
               tooltip-location="start"
             >
             </icon-button>
+            -->
             <IconButton
               icon="mdi-cube-scan"
               :color="buttonColor"
               @activate="showModel = !showModel"
-            /> -->
+            />
+            <IconButton
+              :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
+              :color="buttonColor"
+              @activate="isWWT3D = !isWWT3D"
+            />
+
             <v-btn
               class="icon-button"
               @click="showInfoSheet = !showInfoSheet"
@@ -96,8 +103,8 @@
         </div>
 
         <!-- Display the 3D model -->
-        <ModelViewerWindow 
-          v-model="showModel" 
+        <ModelViewerWindow
+          v-model="showModel"
           :button-color="buttonColor"
         />
 
@@ -106,8 +113,8 @@
 
         <div id="bottom-content">
           <!-- <GesturePreview /> -->
-          
-          <div 
+
+          <div
             v-show="showSimulation"
             id="image-index-control"
           >
@@ -142,7 +149,7 @@
               </template>
             </v-slider>
           </div>
-          
+
           <Gallery
             v-show="ready && !showSimulation"
             v-model:selected-place="selectedGalleryItem"
@@ -165,9 +172,9 @@
             </div>
           </template>
           </Gallery> -->
-          
-          
-          <v-btn-toggle 
+
+
+          <v-btn-toggle
             v-model="showSimulation"
             class="align-self-center mt-4"
             density="compact"
@@ -179,7 +186,7 @@
               Simulated
             </v-btn>
           </v-btn-toggle>
-          
+
           <div
             v-if="!smallSize"
             id="body-logos"
@@ -226,6 +233,7 @@ import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, Credit
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
 import { Place, ImageSetLayer, Imageset } from "@wwtelescope/engine";
+import { ImageSetType } from "@wwtelescope/engine-types";
 import SplashGesture from "./components/SplashGesture.vue";
 import ModelViewerWindow from "./components/ModelViewerWindow.vue";
 import StarWarsCrawl from "./components/StarWarsCrawl.vue";
@@ -264,6 +272,21 @@ console.log("skip crawl?", skipScrawl);
 console.log("skip splash?", skipSplash);
 const store = engineStore();
 
+const { backgroundImageset } = storeToRefs(store);
+
+const background3D = "Solar System";
+const background2D = "Digitized Sky Survey";
+const isWWT3D = ref(false);
+watch(isWWT3D, (mode3D: boolean) => {
+  const iset = mode3D ? background3D : background2D;
+  store.setBackgroundImageByName(iset);
+  store.applySetting(["showGrid", !isWWT3D.value]);
+  store.applySetting(["showEquatorialGridText", !isWWT3D.value]);
+  if (!mode3D) {
+    renderer.clear();
+  }
+});
+
 useWWTKeyboardControls(store);
 
 const touchscreen = supportsTouchscreen();
@@ -281,7 +304,6 @@ const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
     };
   }
 });
-
 
 const backgroundImagesets = reactive<BackgroundImageset[]>([]);
 const showInfoSheet = ref(false);
@@ -340,6 +362,9 @@ watch(simulationOpactiy, (val) => {
 });
 
 
+import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Object3D, PerspectiveCamera, Scene, SpotLight, WebGLRenderer } from "three";
+import { createLoader, createTHREECamera, createTHREERenderer, createTHREEScene, renderTHREE, updateTHREECamera } from "./threeWWT";
+import { storeToRefs } from "pinia";
 
 function moveToImageset(imageset: Imageset, instant = true) {
   const centerX = imageset.get_centerX(); // degrees
@@ -353,10 +378,25 @@ function moveToImageset(imageset: Imageset, instant = true) {
   });
 }
 
+const scene = createTHREEScene();
+let camera: PerspectiveCamera;
+let renderer: WebGLRenderer;
+let cube: Mesh;
+
+const loader = createLoader();
+
+function frameUpdateTHREE(control: WWTControl) {
+  if (isWWT3D.value) {
+    updateTHREECamera(camera, control.renderContext);
+    renderTHREE(renderer, scene, camera);
+  }
+}
+
 const coordinates = {
   'ic5332':  [15 * (23 + 34 / 60 + 27.49 / 3600), -(36 + 6 / 60 + 3.9 / 3600)],
   'm74': [15 * (1 + 36 / 60 + 41.79 / 3600), +(15 + 47 / 60 + 1.3 / 3600)]
 };
+
 
 import { useWtmlLoader } from "./composables/useWtmlLoader";
 import { sk } from "vuetify/locale";
@@ -375,8 +415,67 @@ onMounted(() => {
 
   store.waitForReady().then(async () => {
 
-    store.applySetting(['showGrid', true]);
-    store.applySetting(['showEquatorialGridText', true]);
+    store.applySetting(["showGrid", !isWWT3D.value]);
+    store.applySetting(["showEquatorialGridText", !isWWT3D.value]);
+
+    const renderOneFrame = WWTControl.singleton.renderOneFrame.bind(WWTControl.singleton);
+    WWTControl.singleton.renderOneFrame();
+    renderer = createTHREERenderer(WWTControl.singleton);
+    camera = createTHREECamera(WWTControl.singleton.renderContext);
+    WWTControl.singleton.renderOneFrame = function() {
+      renderOneFrame();
+      frameUpdateTHREE(WWTControl.singleton);
+    }.bind(WWTControl.singleton);
+
+
+    const size = 0.5;
+    const geometry = new BoxGeometry(size, size, size);
+    const material = new MeshBasicMaterial({
+      color: 0x0000ff,
+      transparent: true,
+      opacity: 0.7,
+      side: DoubleSide,
+    });
+    cube = new Mesh(geometry, material);
+    cube.matrixAutoUpdate = true;
+    // Units are in AU
+    cube.position.set(10, 2, 0);
+    cube.matrixWorldNeedsUpdate = true;
+    scene.add(cube);
+
+    loader.load(
+      "./model.glb",
+      gltf => {
+        const size = 1;
+        const modelScene = gltf.scene;
+        modelScene.matrixAutoUpdate = true;
+        const distance = 100;
+        modelScene.position.set(distance, distance, distance);
+        modelScene.scale.set(size, size, size);
+        modelScene.matrixWorldNeedsUpdate = true;
+
+        modelScene.traverse((mesh: Object3D) => {
+          if (mesh instanceof Mesh) {
+            // mesh.geometry.computeVertexNormals();
+            const oldMaterial = mesh.material as MeshPhysicalMaterial;
+            const newMaterial = new MeshBasicMaterial({
+              map: oldMaterial.map,
+              color: oldMaterial.color,
+              side: oldMaterial.side,
+              opacity: oldMaterial.opacity,
+            });
+            mesh.material = newMaterial;
+            oldMaterial.dispose();
+          }
+        });
+
+        scene.add(modelScene);
+      },
+      xhr => console.log(`${(xhr.loaded / xhr.total * 100)} % loaded`),
+      error => console.error(error),
+    );
+
+    store.setBackgroundImageByName(isWWT3D.value ? background3D : background2D);
 
     const { ready: loadFrames } = useWtmlLoader("simulation_all.wtml", {
       onNewImageset: (imageset, index) => {
