@@ -195,9 +195,9 @@ const cssVars = computed(() => {
 onBeforeMount(() => {
   store.waitForReady().then(async () => {
     let _places = await placesFromWtml(props.wtmlUrl);
-    showPersistantPlace(_places);
     places.value = _places;
-    _places.slice().reverse().forEach(loadImagesetLayerForPlace);
+    await Promise.all(_places.slice().reverse().map(loadImagesetLayerForPlace));
+    showPersistantPlace(_places);
     if (props.defaultStarting) {
       const defaultPlace = _places.find(p => p.get_name() === props.defaultStarting);
       if (defaultPlace) {
@@ -237,18 +237,13 @@ async function loadImagesetLayerForPlace(place: Place): Promise<ImageSetLayer | 
 }
 
 function showPersistantPlace(places: Place[]) {
-  if (props.persist === null) return places;
-  if (props.hideGalleryLayers) return;
-  // eslint-disable-next-line @typescript-eslint/prefer-for-of
-  for (let i = 0; i < places.length; i++) {
-    const place = places[i];
+  if (props.persist === null || props.hideGalleryLayers) return;
+  for (const place of places) {
     const iset = getImageset(place);
     if (!iset) continue;
     if (props.persist === iset.get_name()) {
-      loadImagesetLayerForPlace(place).then(layer => {
-        if (!layer) return;
-        setLayerVisibility(layer, true);
-      });
+      const layer = getImagesetLayerForPlace(place);
+      if (layer) setLayerVisibility(layer, true);
     }
   }
 }
@@ -426,8 +421,10 @@ watch(() => props.persist, (newPersist, oldPersist) => {
 
 watch(() => props.hideGalleryLayers, (hide) => {
   if (hide) {
-    console.log('hiding gallery layers');
-    places.value.forEach(place => setLayerVisibility(getImagesetLayerForPlace(place)!, false));
+    places.value.forEach(place => {
+      const layer = getImagesetLayerForPlace(place);
+      if (layer) setLayerVisibility(layer, false);
+    });
   } else {
     syncSelectedLayerVisibility();
   }
