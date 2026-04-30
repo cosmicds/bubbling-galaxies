@@ -22,10 +22,13 @@
     <!-- Logo Image or Text goes in here -->
     <div
       v-if="!noLogo"
-      class="main-logo main-logo-animation"
+      class="main-logo-positioner"
     >
-      <slot name="logo" />
+      <div class="main-logo main-logo-animation">
+        <slot name="logo" />
+      </div>
     </div>
+
 
     <!-- All Scrolling Content Goes in here -->
     <div class="main-content">
@@ -149,7 +152,7 @@ Version: 1.0
   --speed-logo-in: 5s;
   --speed-logo-out: 2.5s;
   --speed-title: 26s;
-  --title-delay: 4s;
+  --title-delay: calc(0.9 * var(--speed-logo-in));
   
   --sw-yellow: #EBD71C;
   --sw-blue: #4ee;
@@ -160,7 +163,7 @@ Version: 1.0
   font-family: "Droid Sans", arial, verdana, sans-serif;
   font-weight: 700;
   color: var(--sw-yellow);
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.65);
   overflow: hidden;
   position: absolute;
   top: 0;
@@ -210,7 +213,7 @@ Version: 1.0
   overflow: hidden;
   transform-origin: 50% 50%;
   transform: perspective(450px) rotateX(25deg) translateY(-20vh);
-  outline: 2px solid var(--sw-yellow)
+  /* outline: 2px solid var(--sw-yellow); */
 }
 
 .star-wars-intro .main-content:after {
@@ -255,20 +258,33 @@ Version: 1.0
 
 /* Main Image Styles */
 
-.star-wars-intro .main-logo {
+.star-wars-intro .main-logo-positioner {
   position: absolute;
-  width: 2.6em;
-  left: 50%;
+  left: 0;
+  right: 0;
   top: -0.5em;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.star-wars-intro .main-logo {
+  /* position: absolute; */
+  width: 2.6em;
+  /* left: 50%; */
+  /* top: -0.5em; */
   font-size: 8em;
   text-align: center;
-  margin-left: -1.3em;
+  /* margin-left: -1.3em; */
+  margin-left: 0;
   line-height: 1;
   letter-spacing: -0.05em;
   color: var(--sw-yellow);
   text-shadow: -2px -2px 0 var(--sw-yellow), 2px -2px 0 var(--sw-yellow), -2px 2px 0 var(--sw-yellow), 2px 2px 0 var(--sw-yellow);
   opacity: 0;
-  z-index: 10;
+  /* z-index: 10; */
+  width:fit-content;
 }
 
 .star-wars-intro .main-logo.main-logo-animation {
@@ -373,7 +389,7 @@ Version: 1.0
   }
   
   .star-wars-intro .title-content.title-content-animation {
-    animation: scroll 100s linear 4s forwards;
+    animation: scroll var(--speed-title) linear var(--title-delay) forwards;
   }
 }
 

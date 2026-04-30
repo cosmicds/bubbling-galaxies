@@ -28,7 +28,7 @@
         audio-src="star-wars-opening-theme-short.mp3"
       >
         <template #logo>
-          <h2 class="main-logo">
+          <h2 class="main-logo-text">
             The Phantom Galaxy
           </h2>
         </template>
@@ -923,6 +923,11 @@ and remember, position:absolute is still a positioned parent, so children can be
   bottom: 5rem;
   right: 1rem;
   z-index: 9999;
+}
+
+.main-logo-text {
+  text-align: center;
+  width:fit-content;
 }
 
 
