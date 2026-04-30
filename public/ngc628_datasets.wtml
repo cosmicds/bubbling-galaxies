@@ -1,46 +1,173 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<Folder Browseable="True" Group="Explorer" Name="Folder" Searchable="True">
-  <Place Angle="0" AngularSize="0" Constellation="PSC" DataSetType="Sky" Dec="15.782705186226885" Magnitude="0" Name="Mid-Infrared (JWST)" Opacity="100" RA="1.6115656316788582" Rotation="0" Thumbnail="https://raw.githubusercontent.com/johnarban/data_repo/main/potm2208a/thumb.jpg" ZoomLevel="0.3554855807776947">
+<Folder Browseable="True"
+  Group="Explorer"
+  Name="Folder"
+  Searchable="True">
+  <Place Angle="0"
+    AngularSize="0"
+    Constellation="PSC"
+    DataSetType="Sky"
+    Dec="15.782705186226885"
+    Magnitude="0"
+    Name="Mid-Infrared (JWST)"
+    Opacity="100"
+    RA="1.6115656316788582"
+    Rotation="0"
+    Thumbnail="https://raw.githubusercontent.com/johnarban/data_repo/main/potm2208a/thumb.jpg"
+    ZoomLevel="0.3554855807776947">
     <ForegroundImageSet>
-      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.06316453838562544" BaseTileLevel="0" BottomsUp="False" CenterX="24.173488522348" CenterY="15.782739448057" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Mid-Infrared (JWST)" OffsetX="4.626308963790926e-05" OffsetY="1.5421029879303086e-05" Projection="Tan" QuadTreeMap="" Rotation="-110.07999999999933" Sparse="True" StockSet="False" TileLevels="3" Url="https://raw.githubusercontent.com/johnarban/data_repo/main/potm2208a/{1}/{3}/{3}_{2}.png" WidthFactor="2">
+      <ImageSet BandPass="Visible"
+        BaseDegreesPerTile="0.06316453838562544"
+        BaseTileLevel="0"
+        BottomsUp="False"
+        CenterX="24.173488522348"
+        CenterY="15.782739448057"
+        DataSetType="Sky"
+        ElevationModel="False"
+        FileType=".png"
+        Generic="False"
+        Name="Mid-Infrared (JWST)"
+        OffsetX="4.626308963790926e-05"
+        OffsetY="1.5421029879303086e-05"
+        Projection="Tan"
+        QuadTreeMap=""
+        Rotation="-110.07999999999933"
+        Sparse="True"
+        StockSet="False"
+        TileLevels="3"
+        Url="https://raw.githubusercontent.com/johnarban/data_repo/main/potm2208a/{1}/{3}/{3}_{2}.png"
+        WidthFactor="2">
         <ThumbnailUrl>https://raw.githubusercontent.com/johnarban/data_repo/main/potm2208a/thumb.jpg</ThumbnailUrl>
-<Description>This image from the NASA/ESA/CSA James Webb Space Telescope shows the heart of M74, otherwise known as the Phantom Galaxy. Webb’s sharp vision has revealed delicate filaments of gas and dust in the grandiose spiral arms which wind outwards from the centre of this image. A lack of gas in the nuclear region also provides an unobscured view of the nuclear star cluster at the galaxy's centre. M74 is a particular class of spiral galaxy known as a ‘grand design spiral’, meaning that its spiral arms are prominent and well-defined, unlike the patchy and ragged structure seen in some spiral galaxies. The Phantom Galaxy is around 32 million light-years away from Earth in the constellation Pisces, and lies almost face-on to Earth. This, coupled with its well-defined spiral arms, makes it a favourite target for astronomers studying the origin and structure of galactic spirals. Webb gazed into M74 with its Mid-InfraRed Instrument (MIRI) in order to learn more about the earliest phases of star formation in the local Universe. These observations are part of a larger effort to chart 19 nearby star-forming galaxies in the infrared by the international PHANGS collaboration. Those galaxies have already been observed using the NASA/ESA Hubble Space Telescope and ground-based observatories. The addition of crystal-clear Webb observations at longer wavelengths will allow astronomers to pinpoint star-forming regions in the galaxies, accurately measure the masses and ages of star clusters, and gain insights into the nature of the small grains of dust drifting in interstellar space.Hubble observations of M74 have revealed particularly bright areas of star formation known as HII regions. Hubble’s sharp vision at ultraviolet and visible wavelengths complements Webb’s unparalleled sensitivity at infrared wavelengths, as do observations from ground-based radio telescopes such as the Atacama Large Millimeter/submillimeter Array, ALMA. By combining data from telescopes operating across the electromagnetic spectrum, scientists can gain greater insight into astronomical objects than by using a single observatory — even one as powerful as Webb! MIRI was contributed by ESA and NASA, with the instrument designed and built by a consortium of nationally funded European Institutes (the MIRI European Consortium) in partnership with JPL and the University of Arizona. Links  Pan of the Phantom Galaxy Hubble and Webb Showcase M74 Pan of Combined optical/mid-infrared image of M74 (Hubble and Webb) Image B Image C </Description>
-<Credits>ESA/Webb, NASA &amp; CSA, J. Lee and the PHANGS-JWST Team. Acknowledgement: J. Schmidt</Credits>
-<CreditsUrl>https://esawebb.org/images/potm2208a/</CreditsUrl>
+        <Description>This image from the NASA/ESA/CSA James Webb Space Telescope shows the heart of M74, otherwise known as the Phantom Galaxy. Webb’s sharp vision has revealed delicate filaments of gas and dust in the grandiose spiral arms which wind outwards from the centre of this image. A lack of gas in the nuclear region also provides an unobscured view of the nuclear star cluster at the galaxy's centre. M74 is a particular class of spiral galaxy known as a ‘grand design spiral’, meaning that its spiral arms are prominent and well-defined, unlike the patchy and ragged structure seen in some spiral galaxies. The Phantom Galaxy is around 32 million light-years away from Earth in the constellation Pisces, and lies almost face-on to Earth. This, coupled with its well-defined spiral arms, makes it a favourite target for astronomers studying the origin and structure of galactic spirals. Webb gazed into M74 with its Mid-InfraRed Instrument (MIRI) in order to learn more about the earliest phases of star formation in the local Universe. These observations are part of a larger effort to chart 19 nearby star-forming galaxies in the infrared by the international PHANGS collaboration. Those galaxies have already been observed using the NASA/ESA Hubble Space Telescope and ground-based observatories. The addition of crystal-clear Webb observations at longer wavelengths will allow astronomers to pinpoint star-forming regions in the galaxies, accurately measure the masses and ages of star clusters, and gain insights into the nature of the small grains of dust drifting in interstellar space.Hubble observations of M74 have revealed particularly bright areas of star formation known as HII regions. Hubble’s sharp vision at ultraviolet and visible wavelengths complements Webb’s unparalleled sensitivity at infrared wavelengths, as do observations from ground-based radio telescopes such as the Atacama Large Millimeter/submillimeter Array, ALMA. By combining data from telescopes operating across the electromagnetic spectrum, scientists can gain greater insight into astronomical objects than by using a single observatory — even one as powerful as Webb! MIRI was contributed by ESA and NASA, with the instrument designed and built by a consortium of nationally funded European Institutes (the MIRI European Consortium) in partnership with JPL and the University of Arizona. Links  Pan of the Phantom Galaxy Hubble and Webb Showcase M74 Pan of Combined optical/mid-infrared image of M74 (Hubble and Webb) Image B Image C </Description>
+        <Credits>ESA/Webb, NASA &amp; CSA, J. Lee and the PHANGS-JWST Team. Acknowledgement: J. Schmidt</Credits>
+        <CreditsUrl>https://esawebb.org/images/potm2208a/</CreditsUrl>
 
       </ImageSet>
     </ForegroundImageSet>
   </Place>
-  
-  <Place Angle="0" AngularSize="0" Constellation="PSC" DataSetType="Sky" Dec="15.780624690000144" Magnitude="0" Name="Infrared (JWST)" Opacity="100" RA="1.6116251366495928" Rotation="0" Thumbnail="https://raw.githubusercontent.com/johnarban/data_repo/main/weic2403c/thumb.jpg" ZoomLevel="0.34961828050193716">
+
+  <Place Angle="0"
+    AngularSize="0"
+    Constellation="PSC"
+    DataSetType="Sky"
+    Dec="15.780624690000144"
+    Magnitude="0"
+    Name="Infrared (JWST)"
+    Opacity="100"
+    RA="1.6116251366495928"
+    Rotation="0"
+    Thumbnail="https://raw.githubusercontent.com/johnarban/data_repo/main/weic2403c/thumb.jpg"
+    ZoomLevel="0.34961828050193716">
     <ForegroundImageSet>
-      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.07177695962828975" BaseTileLevel="0" BottomsUp="False" CenterX="24.174371502246" CenterY="15.780613507832" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Infrared (JWST)" OffsetX="8.761835892124743e-06" OffsetY="8.761835892125214e-06" Projection="Tan" QuadTreeMap="" Rotation="70.51999999999907" Sparse="True" StockSet="False" TileLevels="4" Url="https://raw.githubusercontent.com/johnarban/data_repo/main/weic2403c/{1}/{3}/{3}_{2}.png" WidthFactor="2">
+      <ImageSet BandPass="Visible"
+        BaseDegreesPerTile="0.07177695962828975"
+        BaseTileLevel="0"
+        BottomsUp="False"
+        CenterX="24.174371502246"
+        CenterY="15.780613507832"
+        DataSetType="Sky"
+        ElevationModel="False"
+        FileType=".png"
+        Generic="False"
+        Name="Infrared (JWST)"
+        OffsetX="8.761835892124743e-06"
+        OffsetY="8.761835892125214e-06"
+        Projection="Tan"
+        QuadTreeMap=""
+        Rotation="70.51999999999907"
+        Sparse="True"
+        StockSet="False"
+        TileLevels="4"
+        Url="https://raw.githubusercontent.com/johnarban/data_repo/main/weic2403c/{1}/{3}/{3}_{2}.png"
+        WidthFactor="2">
         <ThumbnailUrl>https://raw.githubusercontent.com/johnarban/data_repo/main/weic2403c/thumb.jpg</ThumbnailUrl>
-<Description>This spiral galaxy was observed as part of the Physics at High Angular resolution in Nearby GalaxieS (PHANGS) program, a large project that includes observations from several space- and ground-based telescopes of many galaxies to help researchers study all phases of the star formation cycle, from the formation of stars within dusty gas clouds to the energy released in the process that creates the intricate structures revealed by Webb’s new images. NGC 628 is 32 million light-years away in the constellation Pisces. Learn more about what can be seen in this vast collection of Webb images here. [Image description: Webb’s image of NGC 628 shows a densely populated face-on spiral galaxy anchored by a central region that has a light blue haze. Spine-like f spiral orange arms extend to the edges and rotate counterclockwise.]</Description>
-<Credits>NASA, ESA, CSA, STScI, J. Lee (STScI), T. Williams (Oxford), PHANGS Team</Credits>
-<CreditsUrl>https://esawebb.org/images/weic2403c/</CreditsUrl>
+        <Description>This spiral galaxy was observed as part of the Physics at High Angular resolution in Nearby GalaxieS (PHANGS) program, a large project that includes observations from several space- and ground-based telescopes of many galaxies to help researchers study all phases of the star formation cycle, from the formation of stars within dusty gas clouds to the energy released in the process that creates the intricate structures revealed by Webb’s new images. NGC 628 is 32 million light-years away in the constellation Pisces. Learn more about what can be seen in this vast collection of Webb images here. [Image description: Webb’s image of NGC 628 shows a densely populated face-on spiral galaxy anchored by a central region that has a light blue haze. Spine-like f spiral orange arms extend to the edges and rotate counterclockwise.]</Description>
+        <Credits>NASA, ESA, CSA, STScI, J. Lee (STScI), T. Williams (Oxford), PHANGS Team</Credits>
+        <CreditsUrl>https://esawebb.org/images/weic2403c/</CreditsUrl>
       </ImageSet>
     </ForegroundImageSet>
   </Place>
-  <Place Angle="0" AngularSize="0" Constellation="PSC" DataSetType="Sky" Dec="15.780799801122493" Magnitude="0" Name="Optical (Hubble)" Opacity="100" RA="1.611621883017132" Rotation="0" Thumbnail="https://raw.githubusercontent.com/johnarban/data_repo/main/hubble_ngc628/thumb.jpg" ZoomLevel="0.3488489402080298">
+  <Place Angle="0"
+    AngularSize="0"
+    Constellation="PSC"
+    DataSetType="Sky"
+    Dec="15.780799801122493"
+    Magnitude="0"
+    Name="Optical (Hubble)"
+    Opacity="100"
+    RA="1.611621883017132"
+    Rotation="0"
+    Thumbnail="https://raw.githubusercontent.com/johnarban/data_repo/main/hubble_ngc628/thumb.jpg"
+    ZoomLevel="0.3488489402080298">
     <ForegroundImageSet>
-      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.0716190133471716" BaseTileLevel="0" BottomsUp="False" CenterX="24.17164113282" CenterY="15.78810718812" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Optical (Hubble)" OffsetX="-0.00775139865252075" OffsetY="3.938659734189573e-06" Projection="Tan" QuadTreeMap="" Rotation="70.5419521644074" Sparse="True" StockSet="False" TileLevels="4" Url="https://raw.githubusercontent.com/johnarban/data_repo/main/hubble_ngc628/{1}/{3}/{3}_{2}.png" WidthFactor="2">
+      <ImageSet BandPass="Visible"
+        BaseDegreesPerTile="0.0716190133471716"
+        BaseTileLevel="0"
+        BottomsUp="False"
+        CenterX="24.17164113282"
+        CenterY="15.78810718812"
+        DataSetType="Sky"
+        ElevationModel="False"
+        FileType=".png"
+        Generic="False"
+        Name="Optical (Hubble)"
+        OffsetX="-0.00775139865252075"
+        OffsetY="3.938659734189573e-06"
+        Projection="Tan"
+        QuadTreeMap=""
+        Rotation="70.5419521644074"
+        Sparse="True"
+        StockSet="False"
+        TileLevels="4"
+        Url="https://raw.githubusercontent.com/johnarban/data_repo/main/hubble_ngc628/{1}/{3}/{3}_{2}.png"
+        WidthFactor="2">
         <Credits>NASA, ESA, and the Hubble Heritage (STScI/AURA)-ESA/Hubble Collaboration</Credits>
         <CreditsUrl>https://webbtelescope.org/contents/news-releases/2024/news-2024-105</CreditsUrl>
         <ThumbnailUrl>https://raw.githubusercontent.com/johnarban/data_repo/main/hubble_ngc628/thumb.jpg</ThumbnailUrl>
-<Description>This image is a composite of separate exposures acquired by the Hubble Space Telescope using the ACS/WFC instrument. Several filters were used to sample specific wavelength ranges. The color results from assigning different hues (colors) to each monochromatic (grayscale) image associated with an individual filter. In this case, the assigned colors are:   Red = F814W Red = F656N Green = F555W Blue = F435W</Description>
-<Credits>NASA, ESA, and the Hubble Heritage (STScI/AURA)-ESA/Hubble Collaboration</Credits>
-<CreditsUrl>https://webbtelescope.org/contents/news-releases/2024/news-2024-105</CreditsUrl>
+        <Description>This image is a composite of separate exposures acquired by the Hubble Space Telescope using the ACS/WFC instrument. Several filters were used to sample specific wavelength ranges. The color results from assigning different hues (colors) to each monochromatic (grayscale) image associated with an individual filter. In this case, the assigned colors are:   Red = F814W Red = F656N Green = F555W Blue = F435W</Description>
+        <Credits>NASA, ESA, and the Hubble Heritage (STScI/AURA)-ESA/Hubble Collaboration</Credits>
+        <CreditsUrl>https://webbtelescope.org/contents/news-releases/2024/news-2024-105</CreditsUrl>
       </ImageSet>
     </ForegroundImageSet>
   </Place>
-  <Place Angle="0" AngularSize="0" Constellation="PSC" DataSetType="Sky" Dec="15.785020499799176" Magnitude="0" Name="Optical (NOAO)" Opacity="100" RA="1.6112476836901979" Rotation="0" Thumbnail="https://raw.githubusercontent.com/johnarban/data_repo/main/noao_ngc628/thumb.jpg" ZoomLevel="1.3459097832539282">
+  <Place Angle="0"
+    AngularSize="0"
+    Constellation="PSC"
+    DataSetType="Sky"
+    Dec="15.785020499799176"
+    Magnitude="0"
+    Name="Optical (NOAO)"
+    Opacity="100"
+    RA="1.6112476836901979"
+    Rotation="0"
+    Thumbnail="https://raw.githubusercontent.com/johnarban/data_repo/main/noao_ngc628/thumb.jpg"
+    ZoomLevel="1.3459097832539282">
     <ForegroundImageSet>
-      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.2167101621227452" BaseTileLevel="0" BottomsUp="False" CenterX="24.1712825361" CenterY="15.7868634046" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Optical (NOAO)" OffsetX="0.0022327248360550704" OffsetY="-0.00217761635924773" Projection="Tan" QuadTreeMap="" Rotation="6.858214625903561" Sparse="True" StockSet="False" TileLevels="3" Url="https://raw.githubusercontent.com/johnarban/data_repo/main/noao_ngc628/{1}/{3}/{3}_{2}.png" WidthFactor="2">
+      <ImageSet BandPass="Visible"
+        BaseDegreesPerTile="0.2167101621227452"
+        BaseTileLevel="0"
+        BottomsUp="False"
+        CenterX="24.1712825361"
+        CenterY="15.7868634046"
+        DataSetType="Sky"
+        ElevationModel="False"
+        FileType=".png"
+        Generic="False"
+        Name="Optical (NOAO)"
+        OffsetX="0.0022327248360550704"
+        OffsetY="-0.00217761635924773"
+        Projection="Tan"
+        QuadTreeMap=""
+        Rotation="6.858214625903561"
+        Sparse="True"
+        StockSet="False"
+        TileLevels="3"
+        Url="https://raw.githubusercontent.com/johnarban/data_repo/main/noao_ngc628/{1}/{3}/{3}_{2}.png"
+        WidthFactor="2">
         <ThumbnailUrl>https://raw.githubusercontent.com/johnarban/data_repo/main/noao_ngc628/thumb.jpg</ThumbnailUrl>
-<Description>M74 is one of the dimmer galaxies in the Messier catalogue. The galaxy is estimated to be 35 million light years away and about the same size as our own galaxy (100,000 light years across). Many bright pink spots line the blue spiral arms. These pink regions are the stellar nurseries from which the bright blue stars in the spiral arms are born. This image was taken as part of Advanced Observing Program (AOP) program at Kitt Peak Visitor Center during 2014.</Description>
-<Credits>KPNO/NOIRLab/NSF/AURA/Paul Mortfield and Deitmar Kupke/Flynn Haase</Credits>
-<CreditsUrl>https://noirlab.edu/public/images/noao-m74mortfieldw/</CreditsUrl>
+        <Description>M74 is one of the dimmer galaxies in the Messier catalogue. The galaxy is estimated to be 35 million light years away and about the same size as our own galaxy (100,000 light years across). Many bright pink spots line the blue spiral arms. These pink regions are the stellar nurseries from which the bright blue stars in the spiral arms are born. This image was taken as part of Advanced Observing Program (AOP) program at Kitt Peak Visitor Center during 2014.</Description>
+        <Credits>KPNO/NOIRLab/NSF/AURA/Paul Mortfield and Deitmar Kupke/Flynn Haase</Credits>
+        <CreditsUrl>https://noirlab.edu/public/images/noao-m74mortfieldw/</CreditsUrl>
       </ImageSet>
     </ForegroundImageSet>
   </Place>

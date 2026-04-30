@@ -26,7 +26,7 @@
           </span>
           <img
             class="noselect"
-            :src="places[previewIndex] ? getThumbnailUrl(places[previewIndex]) : defaultThumbnailUrl"
+            :src="selectedPlace ? getThumbnailUrl(selectedPlace) : (places[previewIndex] ? getThumbnailUrl(places[previewIndex]) : defaultThumbnailUrl)"
           />
         </div>
       </slot>
@@ -131,6 +131,8 @@ export interface GalleryProps {
   hideGalleryLayers?: boolean;
   /** if in single-select mode, collapse on selection. default: false */
   collapseOnSelect?: boolean
+  /** should there be one selected at startup */
+  defaultStarting?: string | null;
 }
 
 
@@ -151,6 +153,7 @@ const props = withDefaults(defineProps<GalleryProps>(), {
   hidePersist: false,
   hideGalleryLayers: false,
   collapseOnSelect: false,
+  defaultStarting: null,
   
 });
 
@@ -170,6 +173,7 @@ const selectedPlace = defineModel<Place | null>("selectedPlace", { required: fal
 const selectedPlaces = defineModel<Place[]>("selectedPlaces", { required: false, default: () => [] });
 const placeOpacities = ref<Record<string, number>>({});
 const imagesetLayers = ref<Record<string, ImageSetLayer>>({});
+let _internallySelecting = false;
 
 const shownPlaces = computed(() => {
   if (!props.hidePersisted) return places.value;
@@ -194,6 +198,12 @@ onBeforeMount(() => {
     showPersistantPlace(_places);
     places.value = _places;
     _places.slice().reverse().forEach(loadImagesetLayerForPlace);
+    if (props.defaultStarting) {
+      const defaultPlace = _places.find(p => p.get_name() === props.defaultStarting);
+      if (defaultPlace) {
+        selectPlace(defaultPlace);
+      }
+    }
   });
 });
 
@@ -312,19 +322,23 @@ async function placesFromWtml(wtmlUrl: string): Promise<Place[]> {
   }).then((folder) => extractPlaces(folder));
 }
 
-async function selectPlace(place: Place) {
+
+async function selectPlace(place: Place, letDeselect = true) {
+  _internallySelecting = true;
   const layer = getImagesetLayerForPlace(place);
   if (!layer) {
     await loadImagesetLayerForPlace(place);
   }
   if (props.singleSelect) {
     // if we're already selected, deselect
-    if (selectedPlace.value === place) {
+    if (selectedPlace.value === place && letDeselect) {
       emit("deselect", place);
       selectedPlaces.value = [];
       selectedPlace.value = null;
     } else {
-      selectedPlaces.value.forEach(p => emit("deselect", p));
+      if (letDeselect) {
+        selectedPlaces.value.forEach(p => emit("deselect", p));
+      }
       selectedPlaces.value = [place]; // note this is only available after nextTick
       selectedPlace.value = place;
       emit("select", place);
@@ -335,16 +349,17 @@ async function selectPlace(place: Place) {
     if (props.collapseOnSelect) {
       open.value = false;
     }
+    nextTick(() => { _internallySelecting = false; });
     return;
   }
-  
+
   // for multi-select
   // if we're already selected, deselect
-  if (selectedPlaces.value.includes(place)) {
+  if (selectedPlaces.value.includes(place) && letDeselect) {
     emit("deselect", place);
     selectedPlaces.value = selectedPlaces.value.filter((selected) => selected !== place);
   } else {
-    selectedPlaces.value = [...selectedPlaces.value, place];
+    selectedPlaces.value = selectedPlaces.value.includes(place) ? selectedPlaces.value : [...selectedPlaces.value, place];
     selectedPlace.value = place;
     emit("select", place);
   }
@@ -352,6 +367,7 @@ async function selectPlace(place: Place) {
   selectedPlace.value = selectedPlaces.value[selectedPlaces.value.length - 1] ?? null;
   emit("listAllSelected", [...selectedPlaces.value]);
   syncSelectedLayerVisibility();
+  nextTick(() => { _internallySelecting = false; });
 }
 
 function setLayerVisibility(layer: ImageSetLayer, visible: boolean): void {
@@ -415,6 +431,28 @@ watch(() => props.hideGalleryLayers, (hide) => {
   } else {
     syncSelectedLayerVisibility();
   }
+});
+
+// React to selectedPlace being set from outside the component.
+watch(selectedPlace, async (newPlace) => {
+  if (_internallySelecting) return;
+  _internallySelecting = true;
+  if (newPlace) {
+    selectPlace(newPlace, false);
+  } else {
+    selectedPlaces.value = [];
+  }
+  syncSelectedLayerVisibility();
+  nextTick(() => { _internallySelecting = false; });
+});
+
+// React to selectedPlaces being replaced from outside the component.
+watch(selectedPlaces, (newPlaces) => {
+  if (_internallySelecting) return;
+  _internallySelecting = true;
+  selectedPlace.value = newPlaces[newPlaces.length - 1] ?? null;
+  syncSelectedLayerVisibility();
+  nextTick(() => { _internallySelecting = false; });
 });
 
 </script>

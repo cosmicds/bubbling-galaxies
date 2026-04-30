@@ -126,7 +126,7 @@ Version: 1.0
   font-family: "Droid Sans", arial, verdana, sans-serif;
   font-weight: 700;
   color: var(--sw-yellow);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.75);
   overflow: hidden;
   position: absolute;
   top: 10%;

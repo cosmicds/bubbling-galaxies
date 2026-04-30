@@ -165,6 +165,7 @@
             :hide-persisted="true"
             :hide-gallery-layers="showSimulation"
             collapse-on-select
+            :preview-index="3"
           />
           <!-- <template #closed="galleryProps">
             <div v-bind="galleryProps">
@@ -233,7 +234,7 @@ import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, Credit
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
 import { Place, ImageSetLayer, Imageset } from "@wwtelescope/engine";
-import { ImageSetType } from "@wwtelescope/engine-types";
+import { ImageSetType, ProjectionType } from "@wwtelescope/engine-types";
 import SplashGesture from "./components/SplashGesture.vue";
 import ModelViewerWindow from "./components/ModelViewerWindow.vue";
 import StarWarsCrawl from "./components/StarWarsCrawl.vue";
@@ -293,14 +294,20 @@ const touchscreen = supportsTouchscreen();
 const  { smAndDown, width: viewportWidth, height: viewportHeight } = useDisplay();
 const isVertical = computed(() => viewportHeight.value > viewportWidth.value);
 
+const coordinates = {
+  'ic5332':  [15 * (23 + 34 / 60 + 27.49 / 3600), -(36 + 6 / 60 + 3.9 / 3600)],
+  'm74': [24.174371502246, 15.780613507832]
+};
+
 
 const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
   wwtNamespace: "wwt-playground",
   initialCameraParams: () => {
     return {
-      raRad: 0,
-      decRad: 0,
-      zoomDeg: 360
+      raRad: 24.174371502246 * D2R,
+      decRad: 15.780613507832 * D2R,
+      zoomDeg: 1.5,
+      rollRad: (70.51999999999907 + 90) * D2R,
     };
   }
 });
@@ -366,15 +373,35 @@ import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial,
 import { createLoader, createTHREECamera, createTHREERenderer, createTHREEScene, renderTHREE, updateTHREECamera } from "./threeWWT";
 import { storeToRefs } from "pinia";
 
-function moveToImageset(imageset: Imageset, instant = true) {
+function moveToImageset(imageset: Imageset, options: {instant?: boolean, roll?: boolean, extraRoll?: number} = {instant: true, roll: false,}) {
   const centerX = imageset.get_centerX(); // degrees
   const centerY = imageset.get_centerY(); // degrees
+  const offsetX = imageset.get_offsetX();
+  const offsetY = imageset.get_offsetY();
+  const roll = imageset.get_rotation();
+  // const isTan = imageset.get_projection() === ProjectionType.tan;
+  const rollRad = options.roll ? roll * Math.PI / 180 : store.rollRad;
+  
+  // const diagonalSize = 2 * Math.sqrt(offsetX * offsetX + offsetY * offsetY);
+  // const zoom = isTan ? 2 * imageset.get_baseTileDegrees() * diagonalSize / offsetY : 1.7 * imageset.get_baseTileDegrees() * diagonalSize;
+  const s = Math.sin(rollRad);
+  const c = Math.cos(rollRad);
+  
+
+  const angularHeight = imageset.get_baseTileDegrees();
+  const angularWidth = angularHeight * (imageset.get_widthFactor() === 1 ? 2 : 1);
+  const diagonalSize = Math.sqrt(angularWidth * angularWidth + angularHeight * angularHeight);
+  const xSize = Math.abs(c * angularHeight) + Math.abs(s * angularWidth);
+  const ySize = Math.abs(s * angularHeight) + Math.abs(c * angularWidth);
+  
+
+  
   return store.gotoRADecZoom({
     raRad: centerX * D2R,
     decRad: centerY * D2R,
-    zoomDeg: 100 / 60,
-    rollRad: 0,
-    instant: instant
+    zoomDeg: Math.max(xSize, ySize) * (isVertical.value ? 6 : 6),
+    rollRad: options.roll ? rollRad + (options.extraRoll ?? 0) * D2R : store.rollRad,
+    instant: !!options.instant
   });
 }
 
@@ -392,10 +419,6 @@ function frameUpdateTHREE(control: WWTControl) {
   }
 }
 
-const coordinates = {
-  'ic5332':  [15 * (23 + 34 / 60 + 27.49 / 3600), -(36 + 6 / 60 + 3.9 / 3600)],
-  'm74': [15 * (1 + 36 / 60 + 41.79 / 3600), +(15 + 47 / 60 + 1.3 / 3600)]
-};
 
 
 import { useWtmlLoader } from "./composables/useWtmlLoader";
@@ -444,7 +467,7 @@ function threeJsModelLoader() {
 
       scene.add(modelScene);
     },
-    xhr => console.log(`${(xhr.loaded / xhr.total * 100)} % loaded`),
+    xhr => {return;}, //console.log(`${(xhr.loaded / xhr.total * 100)} % loaded`),
     error => console.error(error),
   );
 }
@@ -465,6 +488,17 @@ onMounted(() => {
 
     store.applySetting(["showGrid", !isWWT3D.value]);
     store.applySetting(["showEquatorialGridText", !isWWT3D.value]);
+    store.gotoRADecZoom({
+      ...props.initialCameraParams,
+      instant: true,
+    }).then(() => {
+      positionSet.value = true;
+    });
+    // const rollAngle = -19.480565034447988; // degrees
+    // rollView(
+    //   rollAngle + (isVertical.value ? 0 : 90), 
+    //   0.7,
+    // );
 
     const renderOneFrame = WWTControl.singleton.renderOneFrame.bind(WWTControl.singleton);
     WWTControl.singleton.renderOneFrame();
@@ -491,8 +525,7 @@ onMounted(() => {
         newLayer.set_enabled(true);
         newLayer.set_opacity(index === 0 ? simulationOpactiy.value : 0);
         layers.value.push(newLayer);
-        if (index === 0) moveToImageset(newLayer.get_imageSet());
-        positionSet.value = true;
+        // if (index === 0) moveToImageset(newLayer.get_imageSet());
       },
       // goTo: false, goTo is false by default if undefined
     });
@@ -512,7 +545,6 @@ onMounted(() => {
         layersLoaded.value = true;
         threeJsModelLoader();
       });
-
   });
 });
 
@@ -566,6 +598,29 @@ watch(showSimulation, (showingSimulation) => {
 
 const ready = computed(() => layersLoaded.value && positionSet.value);
 
+function goToGalleryItem(name: string) {
+  const place = galleryPlaces.value.find(p => p.get_name() === name) || null;
+  if (place === null) {
+    return;
+  }
+  selectedGalleryItem.value = place;
+  
+  const iset = place.get_studyImageset() ?? place.get_backgroundImageset();
+  if (iset) {
+    moveToImageset(iset, {instant: false, roll: true, extraRoll: isVertical.value ? 90 : 0});
+  }
+}
+
+watch([showSplashScreen, showCrawl, galleryPlaces, ready], ([splashShowing, crawlShowing, places, isReady]) => {
+  console.log("Watching for splash/crawl to finish and gallery places to load...", {splashShowing, crawlShowing, placesLoaded: !!places.length, isReady});
+  if (!splashShowing && !crawlShowing && places && isReady) {
+    console.log("Splash and crawl finished, moving to gallery item");
+    // moveToImageset(galleryPlaces.value)
+    const item = "Infrared (JWST)";
+    goToGalleryItem(item);
+  }
+});
+
 /* `isLoading` is a bit redundant here, but it could potentially have independent logic */
 const isLoading = computed(() => !ready.value);
 
@@ -580,7 +635,19 @@ const cssVars = computed(() => {
   };
 });
 
-
+function rollView(angleDegrees: number, zoomDeg: number | null = null) {
+  const currentRA = store.raRad;
+  const currentDec = store.decRad;
+  const currentZoom = store.zoomDeg;
+  const newRoll = store.rollRad + angleDegrees * D2R;
+  return store.gotoRADecZoom({
+    raRad: currentRA,
+    decRad: currentDec,
+    zoomDeg: zoomDeg ?? currentZoom,
+    rollRad: newRoll,
+    instant: true,
+  });
+}
 </script>
 
 <style lang="less">

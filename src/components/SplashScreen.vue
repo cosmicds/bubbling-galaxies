@@ -156,11 +156,10 @@ function closeSplashScreen() {
     background-repeat: no-repeat;
     contain: strict;
     z-index: -1;
-    border-radius: var(--border-radius);
   }
 
   .background-blur {
-    backdrop-filter: blur(0px) saturate(2);
+    backdrop-filter: blur(1px) saturate(2);
     position: fixed;
     inset: 0;
     margin-top: 2rem;
