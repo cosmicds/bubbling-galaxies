@@ -199,7 +199,7 @@
           >
             <CreditLogos
               :default-logos="['cosmicds', 'wwt', 'sciact', 'nasa']"
-              logo-size="0.5em"
+              logo-size="2.5em"
             />
             <p class="toolkit-credit">
               Interactive developed using the
