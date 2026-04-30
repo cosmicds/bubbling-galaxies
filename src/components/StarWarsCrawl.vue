@@ -70,14 +70,14 @@ defineProps<{
 
 const fadeOut = ref(false);
 
-function addClass(selector: string, className: string) {
+function _addClass(selector: string, className: string) {
   const element = document.querySelector(selector);
   if (element) {
     element.classList.add(className);
   }
 }
 
-function removeClass(selector: string, className: string) {
+function _removeClass(selector: string, className: string) {
   const element = document.querySelector(selector);
   if (element) {
     element.classList.remove(className);
@@ -98,7 +98,7 @@ function startCrawl() {
 
 
 
-function runAnimation() {
+function _runAnimation() {
   startIntro();
   setTimeout(() => {
     startMainLogo();
@@ -114,7 +114,7 @@ onMounted(() => {
     setTimeout(() => {
       // show.value = false;
     }, 1000);
-  }, 23000);
+  }, 33500);
 });
 </script>
 
@@ -204,15 +204,16 @@ Version: 1.0
   margin-right: auto;
   position: absolute;
   z-index: 3;
-  width: 100%;
-  height: 60vh;
+  width: 95%;
+  left: 50%;
+  height: 80vh;
   bottom: 0;
   font-size: 64px;
   font-weight: bold;
   text-align: center;
   overflow: hidden;
   transform-origin: 50% 50%;
-  transform: perspective(450px) rotateX(25deg) translateY(-20vh);
+  transform: translateX(-50%) perspective(250px) rotateX(15deg) translateY(-20vh);
   /* outline: 2px solid var(--sw-yellow); */
 }
 
@@ -228,10 +229,13 @@ Version: 1.0
 .star-wars-intro .title-content {
   position: absolute;
   top: 100%;
+
+  z-index:10;
+  isolation: isolate;
 }
 
 .star-wars-intro .title-content.title-content-animation {
-  animation: scroll var(--speed-title) linear var(--title-delay) forwards; /* name duration easing delay directoin */
+  animation: scroll var(--speed-title) linear var(--title-delay) forwards;
 }
 
 .star-wars-intro .title-content > .content-header {
@@ -240,9 +244,26 @@ Version: 1.0
 
 .star-wars-intro .content-body {
   position: relative;
+  background: linear-gradient(#EBD71C00, #EBD71C, #EBD71C00);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.star-wars-intro .content-body-overlay-gradient {
+@keyframes rollingOpacity {
+  0% {
+    background: linear-gradient(#EBD71C00, #EBD71C, #EBD71C);
+  }
+  50% {
+    background: linear-gradient(#EBD71C00, #EBD71C, #EBD71C00);
+  }
+  
+  100% {
+    background: linear-gradient(#EBD71C00, #EBD71C00, #EBD71C00);
+  }
+  
+}
+
+/* .star-wars-intro .content-body-overlay-gradient {
   position: absolute;
   top: 0;
   left: 0;
@@ -254,7 +275,7 @@ Version: 1.0
     rgba(0, 0, 0, 1) 90%, 
     rgba(0, 0, 0, 1) 100%);
     z-index: 9
-}
+} */
 
 /* Main Image Styles */
 
@@ -281,10 +302,14 @@ Version: 1.0
   line-height: 1;
   letter-spacing: -0.05em;
   color: var(--sw-yellow);
-  text-shadow: -2px -2px 0 var(--sw-yellow), 2px -2px 0 var(--sw-yellow), -2px 2px 0 var(--sw-yellow), 2px 2px 0 var(--sw-yellow);
+  --s: 2px; /* shadow size */
+  --ns: calc(-1*var(--s)); /* negative shadow size */
+  /* text-shadow: var(--ns) 0 var(--sw-yellow), var(--s) var(--ns) 0 var(--sw-yellow), var(--ns) var(--s) 0 var(--sw-yellow), var(--s) var(--s) 0 var(--sw-yellow); */
+  font-family: "SF Distant Galaxy Outline";
   opacity: 0;
   /* z-index: 10; */
   width:fit-content;
+  pointer-events: auto;
 }
 
 .star-wars-intro .main-logo.main-logo-animation {

@@ -29,26 +29,20 @@
       >
         <template #logo>
           <h2 class="main-logo-text">
-            The Phantom Galaxy
+            the phantom galaxy
           </h2>
         </template>
         <p>
-          On this device, you can
-          investigate the Phantom's
-          secrets.
+          ...32 million light years from Earth, exploding stars blew giant bubbles in the Phantom galaxy.
         </p>
         <p>
-          Visuals show what the Phantom looked like at just one moment time
-          32 million years ago.
+          Today's earthbound astronomers are using all kinds of powerful telescopes in their quest to uncover and understand the origins of the explosions that sculpt the Phantom galaxy's life story.
         </p>
         <p>
-          Clever astronomers use many wavelenghts and
-          telescopes to reveal the Phantom's inner secrets.
+          But only simulators, whose computers have the power to probe regions of space and time inaccessible to humans, have even a chance to reveal the Phantom's changes over hundreds millions of years, in 3D...
         </p>
         <p>
-          But only simulators can provide
-          you with 3D, moving views of the billion-year-long drama unfolding
-          in the Phantom.
+          Have they done it?
         </p>
       </StarWarsCrawl>
       <v-btn
@@ -163,7 +157,7 @@
             width="125px"
             persist="Optical (NOAO)"
             :hide-persisted="true"
-            :hide-gallery-layers="showSimulation"
+            :hide-gallery-layers="showSimulation || showSplashScreen"
             collapse-on-select
             :preview-index="3"
           />
@@ -514,7 +508,7 @@ onMounted(() => {
 
     store.setBackgroundImageByName(isWWT3D.value ? background3D : background2D);
 
-    const { ready: loadFrames } = useWtmlLoader("simulation_all.wtml", {
+    const { ready: loadFrames } = useWtmlLoader("interpolated_simulation_every_5.wtml", {
       onNewImageset: (imageset, index) => {
         // the imagesets are all at 0,0 [ they are simulations]
         // here would also be a good place to set its size, but we don't know it yet
@@ -584,9 +578,9 @@ watch(simulationOpactiy, (newOpacity) => {
   if (currentLayer) {
     currentLayer.set_opacity(newOpacity);
   }
-  // if (backingLayer.value) {
-  //   backingLayer.value.set_opacity(newOpacity);
-  // }
+  if (backingLayer.value) {
+    backingLayer.value.set_opacity(newOpacity);
+  }
 });
 
 watch(showSimulation, (showingSimulation) => {
