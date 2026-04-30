@@ -25,7 +25,7 @@
       <StarWarsCrawl
         v-model="showCrawl"
         no-title
-        audio-src="star-wars-opening-theme.mp3"
+        audio-src="star-wars-opening-theme-short.mp3"
       >
         <template #logo>
           <h2 class="main-logo">

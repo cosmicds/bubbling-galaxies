@@ -13,7 +13,7 @@
     <!-- close v-btn crawl -->
     
     <!-- Blue Intro Text -->
-    <p class="intro-text">
+    <p class="intro-text intro-animation">
       <slot name="intro">
         A long time ago in a galaxy far, far away....
       </slot>
@@ -22,7 +22,7 @@
     <!-- Logo Image or Text goes in here -->
     <div
       v-if="!noLogo"
-      class="main-logo"
+      class="main-logo main-logo-animation"
     >
       <slot name="logo" />
     </div>
@@ -30,7 +30,7 @@
     <!-- All Scrolling Content Goes in here -->
     <div class="main-content">
       <div class="content-body-overlay-gradient"></div>
-      <div class="title-content">
+      <div class="title-content title-content-animation">
         <p
           v-if="!noTitle"
           class="content-header"
@@ -66,6 +66,44 @@ defineProps<{
 
 
 const fadeOut = ref(false);
+
+function addClass(selector: string, className: string) {
+  const element = document.querySelector(selector);
+  if (element) {
+    element.classList.add(className);
+  }
+}
+
+function removeClass(selector: string, className: string) {
+  const element = document.querySelector(selector);
+  if (element) {
+    element.classList.remove(className);
+  }
+}
+
+function startIntro() {
+  return;
+}
+
+function startMainLogo() {
+  return;
+}
+
+function startCrawl() {
+  return;
+}
+
+
+
+function runAnimation() {
+  startIntro();
+  setTimeout(() => {
+    startMainLogo();
+  }, 2000);
+  setTimeout(() => {
+    startCrawl();
+  }, 7000);
+}
 
 onMounted(() => {
   setTimeout(() => {
@@ -110,7 +148,7 @@ Version: 1.0
   --speed-intro: 2s;
   --speed-logo-in: 5s;
   --speed-logo-out: 2.5s;
-  --speed-title: 120s;
+  --speed-title: 26s;
   --title-delay: 4s;
   
   --sw-yellow: #EBD71C;
@@ -145,12 +183,18 @@ Version: 1.0
   opacity: 0;
   z-index: 10;
   text-align: center;
+}
+
+.star-wars-intro p.intro-text.intro-animation {
+  /* --speed-intro: 2s duration */
   -webkit-animation: intro var(--speed-intro) ease-out;
   -moz-animation: intro var(--speed-intro) ease-out;
   -ms-animation: intro var(--speed-intro) ease-out;
   -o-animation: intro var(--speed-intro) ease-out;
   animation: intro var(--speed-intro) ease-out;
+  
 }
+
 
 .star-wars-intro .main-content{
   margin-left: auto;
@@ -165,7 +209,8 @@ Version: 1.0
   text-align: center;
   overflow: hidden;
   transform-origin: 50% 50%;
-  transform: perspective(650px) rotateX(25deg) translateY(-20vh);
+  transform: perspective(450px) rotateX(25deg) translateY(-20vh);
+  outline: 2px solid var(--sw-yellow)
 }
 
 .star-wars-intro .main-content:after {
@@ -180,6 +225,9 @@ Version: 1.0
 .star-wars-intro .title-content {
   position: absolute;
   top: 100%;
+}
+
+.star-wars-intro .title-content.title-content-animation {
   animation: scroll var(--speed-title) linear var(--title-delay) forwards; /* name duration easing delay directoin */
 }
 
@@ -221,6 +269,9 @@ Version: 1.0
   text-shadow: -2px -2px 0 var(--sw-yellow), 2px -2px 0 var(--sw-yellow), -2px 2px 0 var(--sw-yellow), 2px 2px 0 var(--sw-yellow);
   opacity: 0;
   z-index: 10;
+}
+
+.star-wars-intro .main-logo.main-logo-animation {
   -webkit-animation: logo var(--speed-logo-in) ease-out var(--speed-logo-out);
   -moz-animation: logo var(--speed-logo-in) ease-out var(--speed-logo-out);
   -ms-animation: logo var(--speed-logo-in) ease-out var(--speed-logo-out);
@@ -232,6 +283,8 @@ Version: 1.0
   max-width: 100%;
 }
 
+/* intro animation */
+/* just a fade-out */
 @-webkit-keyframes intro {
   0% { opacity: 1; }
   90% { opacity: 1; }
@@ -262,7 +315,7 @@ Version: 1.0
   100% { opacity: 0; }
 }
 
-
+/** logo animation - scale and fade */
 @-webkit-keyframes logo {
   0% { -webkit-transform: scale(1); opacity: 1; }
   50% { opacity: 1; }
@@ -293,6 +346,7 @@ Version: 1.0
   100% { transform: scale(0.1); opacity: 0; }
 }
 
+/** the scroll shifts the top position to slide it up past the top */
 @keyframes scroll {
   0% { 
     top: 100%; 
@@ -316,6 +370,9 @@ Version: 1.0
   .star-wars-intro .title-content {
     position: absolute;
     top: 100%;
+  }
+  
+  .star-wars-intro .title-content.title-content-animation {
     animation: scroll 100s linear 4s forwards;
   }
 }
