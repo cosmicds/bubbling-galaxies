@@ -52,7 +52,7 @@
             @click="closeSplashScreen"
             @keyup.enter="closeSplashScreen"
           >
-            Get Started
+            {{ loaded ? 'Get Started' : 'Loading...' }}
           </v-btn>
         </div>
 
@@ -105,7 +105,9 @@ if (!splash) {
 
 
 function closeSplashScreen() {
-  showSplashScreen.value = false;
+  if (props.loaded) {
+    showSplashScreen.value = false;
+  }
 }
 
 
@@ -159,12 +161,10 @@ function closeSplashScreen() {
   }
 
   .background-blur {
-    backdrop-filter: blur(1px) saturate(2);
+    backdrop-filter: blur(0px) saturate(2) brightness(0.8);
     position: fixed;
     inset: 0;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    margin-inline: 1rem;
+    margin: 0;
     border-radius: var(--border-radius);
   }
 
