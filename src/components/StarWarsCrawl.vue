@@ -71,7 +71,7 @@ onMounted(() => {
   setTimeout(() => {
     fadeOut.value = true;
     setTimeout(() => {
-      show.value = false;
+      // show.value = false;
     }, 1000);
   }, 23000);
 });
@@ -118,10 +118,6 @@ Version: 1.0
   
   --bottom-offset: 10rem;
   
-  background: url("img/stars-bg.jpg") center center;
-  /* width: 100%; */
-  /* height: 50em; */
-  /* bottom: var(--bottom-offset); */
   flex-grow: 1;
   font-family: "Droid Sans", arial, verdana, sans-serif;
   font-weight: 700;
@@ -129,8 +125,8 @@ Version: 1.0
   background-color: rgba(0, 0, 0, 0.75);
   overflow: hidden;
   position: absolute;
-  top: 10%;
-  bottom: var(--bottom-offset);
+  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
   
@@ -161,16 +157,15 @@ Version: 1.0
   margin-right: auto;
   position: absolute;
   z-index: 3;
-  width: 98%;
-  height: 50em;
+  width: 100%;
+  height: 60vh;
   bottom: 0;
   font-size: 64px;
   font-weight: bold;
   text-align: center;
   overflow: hidden;
-  transform-origin: 50% 100%;
-  transform: perspective(450px) rotateX(25deg);
-  outline: 2px solid yellow;
+  transform-origin: 50% 50%;
+  transform: perspective(650px) rotateX(25deg) translateY(-20vh);
 }
 
 .star-wars-intro .main-content:after {
@@ -204,8 +199,8 @@ Version: 1.0
   bottom: 0;
   background: linear-gradient(to top, 
     rgba(0, 0, 0, 0) 0%, 
-    rgba(0, 0, 0, 0) 30%, 
-    rgba(0, 0, 0, 1) 50%, 
+    rgba(0, 0, 0, 0) 70%, 
+    rgba(0, 0, 0, 1) 90%, 
     rgba(0, 0, 0, 1) 100%);
     z-index: 9
 }
