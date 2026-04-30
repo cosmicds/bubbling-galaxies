@@ -133,6 +133,7 @@
                   </v-tooltip>
                 </template>
               </v-slider>
+              <span>Time: {{ simulationTime.toFixed(2) }} million years</span>
             </div>
 
             <Gallery
@@ -194,14 +195,17 @@
           </div>
 
           <div
-            v-if="!smallSize"
             id="body-logos"
+            :class="{'small-logos': smallSize}"
           >
             <CreditLogos
               :default-logos="['cosmicds', 'wwt', 'sciact', 'nasa']"
-              logo-size="2.5em"
+              :logo-size="smallSize ? '1em' : '2.5em'"
             />
-            <p class="toolkit-credit">
+            <p 
+              v-if="!smallSize" 
+              class="toolkit-credit"
+            >
               Interactive developed using the
               <a
                 href="https://github.com/cosmicds/vue-toolkit"
@@ -594,6 +598,7 @@ onMounted(() => {
 
 
 const imageIndex = ref(0);
+const simulationTime = computed(() => imageIndex.value * 0.19);
 
 watch(store.imagesetLayers, (l) => {
   if (layers.value.length > imageIndex.value) {
@@ -887,8 +892,6 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 
 #bottom-content {
-  // display: flex;
-  // flex-direction: column;
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto auto auto;
@@ -915,6 +918,11 @@ and remember, position:absolute is still a positioned parent, so children can be
   #body-logos {
     align-self: flex-end;
     grid-row:  3 / 4;
+  }
+  
+  #body-logos.small-logos {
+    display: none;
+    margin-top: 0.5em;
   }
 
   #icons-container {
