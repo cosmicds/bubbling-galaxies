@@ -112,7 +112,7 @@ onMounted(() => {
   setTimeout(() => {
     fadeOut.value = true;
     setTimeout(() => {
-      // show.value = false;
+      show.value = false;
     }, 1000);
   }, 33500);
 });
