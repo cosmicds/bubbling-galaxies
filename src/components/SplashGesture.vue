@@ -12,11 +12,8 @@
       <div :class="['gesture-preview-container', smallScreen ? 'my-1 small' : 'my-2']">
         <div class="gesture-icon">
           <div class="gesture-icon__icon">
-            <v-icon
-              size="small"
-            >
-              <!-- {{ touchscreen ? 'mdi-gesture-swipe-horizontal' : 'mdi-cursor-default-gesture' }} -->
-              mdi-cursor-move
+            <v-icon size="small">
+              {{ touchscreen ? 'mdi-gesture-swipe' : 'mdi-cursor-move' }}
             </v-icon>
           </div>
           <div class="gesture-icon__label">
@@ -26,7 +23,16 @@
         <span class="gesture-and">&</span>
         <div class="gesture-icon">
           <div class="gesture-icon__icon">
-            <div class="two-icons">
+            <v-icon
+              v-if="touchscreen"
+              size="small"
+            >
+              mdi-gesture-pinch
+            </v-icon>
+            <div
+              v-else
+              class="two-icons"
+            >
               <v-icon
                 size="small"
               >
@@ -66,6 +72,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
+import { supportsTouchscreen } from '@cosmicds/vue-toolkit';
+const touchscreen = supportsTouchscreen();
 import { useDisplay } from 'vuetify';
 const show = ref(true);
 const smallScreen = useDisplay().smAndDown;
