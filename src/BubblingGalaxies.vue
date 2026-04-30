@@ -70,25 +70,16 @@
             >
             </icon-button>
             -->
-            <IconButton
-              icon="mdi-cube-scan"
-              :color="buttonColor"
-              @activate="showModel = !showModel"
-            />
-            <IconButton
-              :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
-              :color="buttonColor"
-              @activate="isWWT3D = !isWWT3D"
-            />
-
             <v-btn
-              class="icon-button"
+              class="blur-button"
+              variant="outlined"
               @click="showInfoSheet = !showInfoSheet"
             >
               Learn More
             </v-btn>
             <v-btn
-              class="icon-button"
+              class="blur-button"
+              variant="outlined"
               @click="showModel = !showModel"
             >
               View Simulation in 3D!
@@ -107,80 +98,100 @@
 
         <div id="bottom-content">
           <!-- <GesturePreview /> -->
-
-          <div
-            v-show="showSimulation"
-            id="image-index-control"
-          >
-            <v-slider
-              v-if="ready"
-              v-model="imageIndex"
-              class="image-index-control-slider"
-              :min="0"
-              :max="layers.length - 1"
-              step="1"
+          <div class="bottom-row-1">
+            <div
+              v-show="showSimulation"
+              id="image-index-control"
             >
-              <template #prepend>
-                <v-tooltip
-                  location="top"
-                >
-                  <template #activator="{ props: tooltipProps }">
-                    <v-btn
-                      class="mr-3 play-pause-icon"
-                      v-bind="tooltipProps"
-                      size="large"
-                      density="compact"
-                      variant="outlined"
-                      color="white"
-                      :icon="isPlaying ? 'mdi-pause' : 'mdi-play'"
-                      :aria-label="isPlaying ? 'Pause animation' : 'Play animation'"
-                      @click="togglePlayPause"
-                    >
-                    </v-btn>
-                  </template>
-                  {{ isPlaying ? 'Pause simulation' : 'Play simulation' }}
-                </v-tooltip>
-              </template>
-            </v-slider>
+              <v-slider
+                v-if="ready"
+                v-model="imageIndex"
+                class="image-index-control-slider"
+                :min="0"
+                :max="layers.length - 1"
+                step="1"
+              >
+                <template #prepend>
+                  <v-tooltip
+                    location="top"
+                  >
+                    <template #activator="{ props: tooltipProps }">
+                      <v-btn
+                        class="mr-3 play-pause-icon"
+                        v-bind="tooltipProps"
+                        size="large"
+                        density="compact"
+                        variant="outlined"
+                        color="white"
+                        :icon="isPlaying ? 'mdi-pause' : 'mdi-play'"
+                        :aria-label="isPlaying ? 'Pause animation' : 'Play animation'"
+                        @click="togglePlayPause"
+                      >
+                      </v-btn>
+                    </template>
+                    {{ isPlaying ? 'Pause simulation' : 'Play simulation' }}
+                  </v-tooltip>
+                </template>
+              </v-slider>
+            </div>
+
+            <Gallery
+              v-show="ready && !showSimulation"
+              v-model:selected-place="selectedGalleryItem"
+              v-model:selected-places="selectedGalleryItems"
+              v-model:places="galleryPlaces"
+              wtml-url="./ngc628_datasets.wtml"
+              :single-select="true"
+              selected-color="limegreen"
+              show-opacity
+              :columns="1"
+              width="125px"
+              persist="Optical (NOAO)"
+              :hide-persisted="true"
+              :hide-gallery-layers="showSimulation || showSplashScreen"
+              collapse-on-select
+              :preview-index="3"
+            />
+            
+            <DetailSummary
+              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem)"
+              v-model="labelOpen"
+              :title="currentLabel.title"
+            >
+              <div>
+                {{ currentLabel.content }}
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium sequi repudiandae porro sed facilis laboriosam impedit eius dolore, praesentium dolor, voluptate vero? Totam, sunt in iusto temporibus similique ipsam. Dolorem.
+                Unde ex porro sunt sit incidunt dignissimos perspiciatis voluptate ducimus quibusdam, earum est doloremque accusamus qui quae, exercitationem deleniti perferendis ut mollitia officia numquam quidem voluptatum. Deleniti praesentium eius voluptatum.
+                Unde veniam, nesciunt quia obcaecati ipsum modi vitae ea ab, commodi perferendis officia eaque blanditiis ullam voluptates beatae reiciendis aliquam laudantium rem? Sed enim optio possimus eligendi dolores asperiores fuga?
+                Nemo, aut nam, qui deleniti esse veritatis ea vel nihil repellendus natus cupiditate explicabo quo odio accusantium debitis iure illum in consequuntur quas dolorem placeat enim vero quisquam. Voluptatum, expedita?
+                Quia praesentium quisquam laborum delectus distinctio dolorum ratione impedit dolorem sapiente hic libero, consequuntur quod ad laudantium veritatis mollitia eveniet neque accusantium vitae provident, quam adipisci repudiandae? Nihil, laborum nobis.
+                Deleniti, accusamus numquam? Libero minima animi dolore deserunt eos dolores maiores neque nobis, facilis, quia veniam eveniet in modi tempore corrupti. Repellat velit facilis voluptatem reprehenderit? Reiciendis itaque distinctio illo!
+              </div>
+            </DetailSummary>
           </div>
 
-          <Gallery
-            v-show="ready && !showSimulation"
-            v-model:selected-place="selectedGalleryItem"
-            v-model:selected-places="selectedGalleryItems"
-            v-model:places="galleryPlaces"
-            wtml-url="./ngc628_datasets.wtml"
-            :single-select="true"
-            selected-color="limegreen"
-            show-opacity
-            :columns="1"
-            width="125px"
-            persist="Optical (NOAO)"
-            :hide-persisted="true"
-            :hide-gallery-layers="showSimulation || showSplashScreen"
-            collapse-on-select
-            :preview-index="3"
-          />
-          <!-- <template #closed="galleryProps">
-            <div v-bind="galleryProps">
-              Open
-            </div>
-          </template>
-          </Gallery> -->
-
-
-          <v-btn-toggle
-            v-model="showSimulation"
-            class="align-self-center mt-4"
-            density="compact"
-          >
-            <v-btn :value="false">
-              Real
-            </v-btn>
-            <v-btn :value="true">
-              Simulated
-            </v-btn>
-          </v-btn-toggle>
+          <div class="bottom-row-2">
+            <v-btn-toggle
+              v-model="showSimulation"
+              class="align-self-center mt-4"
+              density="compact"
+            >
+              <v-btn
+                class="blur-button"
+                variant="outlined"
+                :value="false"
+              >
+                Real
+              </v-btn>
+              <v-btn
+                class="blur-button"
+                variant="outlined"
+                :value="true"
+              >
+                Simulated
+              </v-btn>
+            </v-btn-toggle>
+          </div>
 
           <div
             v-if="!smallSize"
@@ -188,7 +199,7 @@
           >
             <CreditLogos
               :default-logos="['cosmicds', 'wwt', 'sciact', 'nasa']"
-              logo-size="2.5em"
+              logo-size="0.5em"
             />
             <p class="toolkit-credit">
               Interactive developed using the
@@ -232,6 +243,8 @@ import { ImageSetType, ProjectionType } from "@wwtelescope/engine-types";
 import SplashGesture from "./components/SplashGesture.vue";
 import ModelViewerWindow from "./components/ModelViewerWindow.vue";
 import StarWarsCrawl from "./components/StarWarsCrawl.vue";
+import DetailSummary from "./components/DetailSummary.vue";
+
 import { WWTControl } from "@wwtelescope/engine";
 
 import Gallery from "./components/Gallery.vue";
@@ -352,6 +365,41 @@ watch(selectedGalleryItems, (newPlaces, oldPlaces) => {
 });
 const galleryPlaces = ref<Place[]>([]);
 
+const labelOpen = ref(false);
+
+interface LabelInfo {
+  title: string;
+  content: string;
+}
+
+const labelTitles: Record<string, LabelInfo> = {
+  'Infrared (JWST)': {
+    title: 'JWST Infrared Image',
+    content: 'Placeholder 1',
+  },
+  'Colder Infrared (JWST)': {
+    title: 'JWST Colder Infrared Image',
+    content: 'Placeholder 1',
+  },
+  'Visible (Hubble)': {
+    title: 'Hubble Visible light Image',
+    content: 'Placeholder 1',
+  },
+  'Optical (NOAO)': {
+    title: 'NOAO Optical Image',
+    content: 'Placeholder 1',
+  },
+  'Simulation on Sky': {
+    title: 'Simulation on Sky',
+    content: 'Placeholder 4',
+  }
+};
+
+const currentLabel = computed(() => {
+  if (showSimulation.value) return labelTitles['Simulation on Sky'];
+  return labelTitles[selectedGalleryItem.value?.get_name() ?? ''] ?? { title: '', content: '' };
+});
+
 const showSimulation = ref(false);
 const simulationOpactiy = ref(+showSimulation.value);
 // const simulationOpactiy = computed(() => +showSimulation.value);
@@ -416,6 +464,7 @@ function frameUpdateTHREE(control: WWTControl) {
 
 
 import { useWtmlLoader } from "./composables/useWtmlLoader";
+import { label } from "three/tsl";
 
 function threeJsModelLoader() {
   const size = 0.5;
@@ -838,16 +887,34 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 
 #bottom-content {
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto auto;
   pointer-events: auto;
-  align-items: flex-start;
-  gap: 5px;
+  align-items: flex-end;
 }
 
 #bottom-content {
+  .bottom-row-1 {
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: space-between;
+    align-items:flex-end;
+    gap: 1em;
+  }
+  
+  .bottom-row-2 {
+    grid-row: 2 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
   #body-logos {
     align-self: flex-end;
+    grid-row:  3 / 4;
   }
 
   #icons-container {
@@ -922,6 +989,11 @@ and remember, position:absolute is still a positioned parent, so children can be
 .main-logo-text {
   text-align: center;
   width:fit-content;
+}
+
+.v-btn.blur-button.v-btn--variant-outlined {
+  // background-color: black;
+  backdrop-filter: blur(6px);
 }
 
 

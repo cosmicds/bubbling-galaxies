@@ -1,6 +1,7 @@
 <template>
   <div
     :class="['this-gallery-root', {'gallery-open': open}]"
+    :style="cssVars"
   >
     <div
       class="just-holding-events"
@@ -33,7 +34,6 @@
     </div>
     <div
       v-if="open"
-      :style="cssVars"
       class="gallery blurred"
     >
       <div
@@ -474,7 +474,6 @@ watch(selectedPlaces, (newPlaces) => {
     overflow-y: auto;
     max-height: var(--gallery-max-height);
     // width: fit-content;
-    // min-width: calc(var(--gallery-width) + 10px)
 
   }
 
@@ -524,7 +523,7 @@ watch(selectedPlaces, (newPlaces) => {
     border: solid 1px white;
     position: relative;
     height: fit-content;
-    width: fit-content;
+    width: calc(var(--gallery-width) + 10px);
     display: flex;
     flex-direction: column;
     cursor: pointer;
@@ -537,6 +536,7 @@ watch(selectedPlaces, (newPlaces) => {
 
   .default-activator-title {
     margin: auto;
+    font-weight: bold;
   }
 
   .gallery-item {

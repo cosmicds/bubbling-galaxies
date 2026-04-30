@@ -309,7 +309,6 @@ Version: 1.0
   opacity: 0;
   /* z-index: 10; */
   width:fit-content;
-  pointer-events: auto;
 }
 
 .star-wars-intro .main-logo.main-logo-animation {
