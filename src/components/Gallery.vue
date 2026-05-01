@@ -26,8 +26,17 @@
             {{ closedText }}
           </span>
           <img
+            v-if="selectedPlace === null"
             class="noselect"
             :src="selectedPlace ? getThumbnailUrl(selectedPlace) : (places[previewIndex] ? getThumbnailUrl(places[previewIndex]) : defaultThumbnailUrl)"
+          />
+          <GalleryItem
+            v-else
+            :place="selectedPlace"
+            :show-opacity="showOpacity"
+            :opacity="getOpacity(selectedPlace)"
+            borderless
+            @update:opacity="(v) => setOpacity(selectedPlace!, v)"
           />
         </div>
       </slot>
@@ -53,33 +62,17 @@
       <div
         class="gallery-content"
       >
-        <div
+        <GalleryItem
           v-for="[index, place] of shownPlaces.entries()"
           :key="index"
-          :class="[
-            'gallery-item', 
-            {'gallery-selected': highlightLastOnly ? selectedPlace === place : selectedPlaces.includes(place)},
-            {'galaxy-persisted': isPersistantLayer(place)}
-          ]"
+          :place="place"
+          :selected="highlightLastOnly ? selectedPlace === place : selectedPlaces.includes(place)"
+          :persistent="isPersistantLayer(place)"
+          :show-opacity="showOpacity && selectedPlaces.includes(place)"
+          :opacity="placeOpacities[getPlaceKey(place)] ?? getOpacity(place) ?? 1"
           @click="selectPlace(place)"
-        >
-          <img
-            class="noselect"
-            :src="getThumbnailUrl(place)"
-          />
-          <span class="place-name noselect">{{ place.get_name() }}</span>
-          <input
-            v-if="showOpacity && selectedPlaces.includes(place)"
-            class="gallery-opacity"
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            :value="placeOpacities[getPlaceKey(place)] ?? getOpacity(place) ?? 1"
-            @click.stop
-            @input="setOpacity(place, $event)"
-          />
-        </div>
+          @update:opacity="(v) => setOpacity(place, v)"
+        />
       </div>
     </div>
   </div>
@@ -89,6 +82,7 @@
 import { ref, computed, onBeforeMount, nextTick, watch } from "vue";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { Folder, Imageset, Place, ImageSetLayer } from "@wwtelescope/engine";
+import GalleryItem from "./GalleryItem.vue";
 
 
 /* Gallery */
@@ -283,9 +277,7 @@ function applySelectedPlaceOpacity(place: Place) {
   layer.set_opacity(getOpacity(place));
 }
 
-function setOpacity(place: Place, event: Event) {
-  const target = event.target as HTMLInputElement;
-  const opacity = Number(target.value);
+function setOpacity(place: Place, opacity: number) {
   placeOpacities.value[getPlaceKey(place)] = opacity;
 
   const layer = getImagesetLayerForPlace(place);
@@ -318,8 +310,14 @@ async function placesFromWtml(wtmlUrl: string): Promise<Place[]> {
 }
 
 
+function closeOnSelect() {
+  if (!props.collapseOnSelect) return;
+  open.value = false;
+}
+
 async function selectPlace(place: Place, letDeselect = true) {
   _internallySelecting = true;
+  let deselect = false;
   const layer = getImagesetLayerForPlace(place);
   if (!layer) {
     await loadImagesetLayerForPlace(place);
@@ -330,6 +328,7 @@ async function selectPlace(place: Place, letDeselect = true) {
       emit("deselect", place);
       selectedPlaces.value = [];
       selectedPlace.value = null;
+      deselect = true;
     } else {
       if (letDeselect) {
         selectedPlaces.value.forEach(p => emit("deselect", p));
@@ -341,10 +340,10 @@ async function selectPlace(place: Place, letDeselect = true) {
 
     emit("listAllSelected", [...selectedPlaces.value]);
     syncSelectedLayerVisibility();
-    if (props.collapseOnSelect) {
-      open.value = false;
-    }
     nextTick(() => { _internallySelecting = false; });
+    if (!deselect) {
+      closeOnSelect();
+    }
     return;
   }
 
@@ -353,6 +352,7 @@ async function selectPlace(place: Place, letDeselect = true) {
   if (selectedPlaces.value.includes(place) && letDeselect) {
     emit("deselect", place);
     selectedPlaces.value = selectedPlaces.value.filter((selected) => selected !== place);
+    deselect = true;
   } else {
     selectedPlaces.value = selectedPlaces.value.includes(place) ? selectedPlaces.value : [...selectedPlaces.value, place];
     selectedPlace.value = place;
@@ -363,6 +363,9 @@ async function selectPlace(place: Place, letDeselect = true) {
   emit("listAllSelected", [...selectedPlaces.value]);
   syncSelectedLayerVisibility();
   nextTick(() => { _internallySelecting = false; });
+  if (!deselect) {
+    closeOnSelect();
+  }
 }
 
 function setLayerVisibility(layer: ImageSetLayer, visible: boolean): void {
@@ -549,6 +552,10 @@ watch(selectedPlaces, (newPlaces) => {
     height: var(--gallery-item-height);
     padding-top: 5px;
     position:relative;
+    
+    &.gallery-item__borderless {
+      border: none;
+    }
 
     img {
       margin-left: auto;
