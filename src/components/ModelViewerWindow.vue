@@ -4,6 +4,7 @@
     class="model-viewer-dialog"
     eager
     transition="dialog-top-transition"
+    fullscreen
     :scrim="false"
   >
     <v-card color="black">
