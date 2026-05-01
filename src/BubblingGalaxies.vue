@@ -680,12 +680,14 @@ function sleep(ms: number) {
 watch(imageIndex, async (newIndex: number, oldIndex: number) => {
   const newLayer = layers.value[newIndex];
   newLayer.set_enabled(true);
-  newLayer.set_opacity(0);
 
-  // Hackery!
-  WWTControl.singleton.renderOneFrame();
-  while (TileCache.get_queueCount() > 0) {
-    await sleep(10);
+  if (playing.value) {
+    // Hackery!
+    newLayer.set_opacity(0);
+    WWTControl.singleton.renderOneFrame();
+    while (TileCache.get_queueCount() > 0) {
+      await sleep(10);
+    }
   }
   newLayer.set_opacity(1);
 
