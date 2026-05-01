@@ -17,6 +17,11 @@
         <slot name="title">
           <strong>{{ title }}</strong>
         </slot>
+        <button
+          class="ds__click-to-learn-more mt-2 text-small"
+        >
+          Learn about this image
+        </button>
       </div>
     </template>
     <v-card>
@@ -89,6 +94,16 @@ withDefaults(defineProps<Props>(), {
   font-size: 1em;
 }
 
-.expansion-panel-close {
+
+.ds__click-to-learn-more {
+  font-size: 0.8em;
+  margin-top: 5px;
+  color: white;
+  text-decoration: dotted underline;
+  pointer-events: none;
+  text-align: left;
+  
 }
+
+
 </style>

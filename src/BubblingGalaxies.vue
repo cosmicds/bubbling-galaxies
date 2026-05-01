@@ -159,14 +159,8 @@
               v-model="labelOpen"
               :title="currentLabel.title"
             >
-              <div>
-                {{ currentLabel.content }}
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium sequi repudiandae porro sed facilis laboriosam impedit eius dolore, praesentium dolor, voluptate vero? Totam, sunt in iusto temporibus similique ipsam. Dolorem.
-                Unde ex porro sunt sit incidunt dignissimos perspiciatis voluptate ducimus quibusdam, earum est doloremque accusamus qui quae, exercitationem deleniti perferendis ut mollitia officia numquam quidem voluptatum. Deleniti praesentium eius voluptatum.
-                Unde veniam, nesciunt quia obcaecati ipsum modi vitae ea ab, commodi perferendis officia eaque blanditiis ullam voluptates beatae reiciendis aliquam laudantium rem? Sed enim optio possimus eligendi dolores asperiores fuga?
-                Nemo, aut nam, qui deleniti esse veritatis ea vel nihil repellendus natus cupiditate explicabo quo odio accusantium debitis iure illum in consequuntur quas dolorem placeat enim vero quisquam. Voluptatum, expedita?
-                Quia praesentium quisquam laborum delectus distinctio dolorum ratione impedit dolorem sapiente hic libero, consequuntur quod ad laudantium veritatis mollitia eveniet neque accusantium vitae provident, quam adipisci repudiandae? Nihil, laborum nobis.
-                Deleniti, accusamus numquam? Libero minima animi dolore deserunt eos dolores maiores neque nobis, facilis, quia veniam eveniet in modi tempore corrupti. Repellat velit facilis voluptatem reprehenderit? Reiciendis itaque distinctio illo!
+              <div v-if="currentLabel.title == 'Colder Infrared (JWST)'">
+                hi
               </div>
             </DetailSummary>
           </div>
@@ -379,23 +373,23 @@ interface LabelInfo {
 const labelTitles: Record<string, LabelInfo> = {
   'Infrared (JWST)': {
     title: 'JWST Infrared Image',
-    content: 'Placeholder 1',
+    content: ""
   },
   'Colder Infrared (JWST)': {
     title: 'JWST Colder Infrared Image',
-    content: 'Placeholder 1',
+    content: '',
   },
   'Visible (Hubble)': {
     title: 'Hubble Visible light Image',
-    content: 'Placeholder 1',
+    content: '',
   },
   'Optical (NOAO)': {
     title: 'NOAO Optical Image',
-    content: 'Placeholder 1',
+    content: '',
   },
   'Simulation on Sky': {
     title: 'Simulation on Sky',
-    content: 'Placeholder 4',
+    content: '',
   }
 };
 
