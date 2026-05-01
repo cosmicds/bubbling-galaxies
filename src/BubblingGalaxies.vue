@@ -129,6 +129,12 @@
             >
               Learn More
             </v-btn>
+            <IconButton
+              v-if="!showImageCard"
+              icon="mdi-home"
+              :color="buttonColor"
+              @activate="goToCoordinates('m74')"
+            />
           </div>
         </div>
 
@@ -187,7 +193,7 @@
               v-model:selected-places="selectedGalleryItems"
               v-model:places="galleryPlaces"
               wtml-url="./ngc628_datasets.wtml"
-              :single-select="false"
+              :single-select="true"
               selected-color="limegreen"
               show-opacity
               :columns="1"
@@ -273,7 +279,6 @@
     <WebGlTest
       @webgl2-disabled="webglDisabled = true"
     />
-    <SplashGesture v-if="!showSplashScreen && !isLoading && !showCrawl" />
   </v-app>
 </template>
 
