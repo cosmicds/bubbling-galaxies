@@ -282,7 +282,7 @@ import { GotoRADecZoomParams, engineStore } from "@wwtelescope/engine-pinia";
 import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, CreditLogos, IconButton, useFullscreen } from "@cosmicds/vue-toolkit";
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
-import { Place, ImageSetLayer, Imageset, TileCache } from "@wwtelescope/engine";
+import { LayerManager, Place, ImageSetLayer, Imageset, TileCache } from "@wwtelescope/engine";
 import { ImageSetType, ProjectionType } from "@wwtelescope/engine-types";
 import SplashGesture from "./components/SplashGesture.vue";
 import ModelViewerWindow from "./components/ModelViewerWindow.vue";
@@ -651,6 +651,15 @@ onMounted(() => {
   });
 });
 
+watch(layersLoaded, (_loaded: boolean) => {
+  const backing = backingLayer.value;
+  if (backing != null) {
+    store.setImageSetLayerOrder({
+      id: backing.id.toString(),
+      order: 0,
+    });
+  }
+});
 
 
 const imageIndex = ref(0);
