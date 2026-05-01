@@ -1,0 +1,502 @@
+<Folder Browseable="True" Group="Mine" Name="Scott" Searchable="True">
+<Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 100" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 100" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_100.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 101" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 101" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_101.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 102" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 102" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_102.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 103" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 103" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_103.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 104" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 104" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_104.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 105" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 105" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_105.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 106" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 106" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_106.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 107" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 107" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_107.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 108" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 108" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_108.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 109" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 109" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_109.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 110" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 110" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_110.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 111" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 111" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_111.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 112" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 112" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_112.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 113" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 113" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_113.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 114" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 114" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_114.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 115" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 115" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_115.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 116" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 116" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_116.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 117" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 117" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_117.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 118" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 118" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_118.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 119" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 119" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_119.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 120" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 120" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_120.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 121" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 121" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_121.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 122" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 122" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_122.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 123" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 123" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_123.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 124" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 124" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_124.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 125" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 125" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_125.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 126" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 126" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_126.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 127" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 127" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_127.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 128" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 128" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_128.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 129" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 129" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_129.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 130" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 130" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_130.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 131" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 131" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_131.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 132" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 132" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_132.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 133" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 133" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_133.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 134" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 134" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_134.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 135" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 135" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_135.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 136" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 136" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_136.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 137" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 137" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_137.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 138" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 138" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_138.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 139" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 139" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_139.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 140" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 140" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_140.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 141" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 141" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_141.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 142" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 142" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_142.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 143" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 143" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_143.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 144" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 144" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_144.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 145" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 145" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_145.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 146" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 146" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_146.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 147" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 147" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_147.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 148" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 148" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_148.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place><Place Angle="0" AngularSize="0" Constellation="SCL" DataSetType="Sky" Dec="0.0" Magnitude="0" Name="Frame 149" Opacity="100" RA="0.0" Rotation="0" Thumbnail="http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg" ZoomLevel="100">
+    <Description>Example Images</Description>
+    <ForegroundImageSet>
+      <ImageSet BandPass="Visible" BaseDegreesPerTile="0.00015655725238564462" BaseTileLevel="0" BottomsUp="True" CenterX="0.0" CenterY="0.0" DataSetType="Sky" ElevationModel="False" FileType=".png" Generic="False" Name="Frame 149" OffsetX="512.0" OffsetY="512.0" Projection="SkyImage" QuadTreeMap="" Rotation="0" Sparse="False" StockSet="False" TileLevels="0" Url="https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_149.png">
+        <Credits>Scott Lucchini</Credits>
+        <CreditsUrl>https://www.scottlucchini.com/</CreditsUrl>
+        <Description>Simulated Image of IC 5332 like galaxy</Description>
+        <ThumbnailUrl>http://data1.wwtassets.org/feeds/jwst/potm2502a/thumb.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place></Folder>
