@@ -4,6 +4,29 @@
     :style="cssVars"
     :class="[smallSize ? 'app-is-small' : '']"
   >
+    <v-card
+      v-show="showImageCard"
+      :class="['image-card', 'flex-column', {'d-flex': showImageCard}]"
+      :height="smallSize ? '50%' : '100%'"
+      :width="smallSize ? '100%' : '50%'"
+    >
+      <template #title>
+        <div class="d-flex justify-end">
+          <v-btn
+            size="small"
+            icon="mdi-close"
+            @click="showImageCard = false"
+          ></v-btn>
+        </div>
+      </template>
+      <image-flipbook
+        v-model="imageCardIndex"
+        :min="imageCardIndexMin"
+        :max="imageCardIndexMax"
+        :frames="(index: number) => `simulation_a_pngs/frame_${index}.png`"
+      />
+    </v-card>
+
     <div
       id="main-content"
     >
@@ -77,28 +100,37 @@
             </icon-button>
             -->
             <IconButton
-              icon="mdi-cube-scan"
+              :icon="`mdi-${showImageCard ? 'vector-combine' : (smallSize ? 'view-split-horizontal' : 'view-split-vertical')}`"
               :color="buttonColor"
-              @activate="showModel = !showModel"
+              @activate="showImageCard = !showImageCard"
             />
             <IconButton
+              v-if="!showImageCard"
               :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
               :color="buttonColor"
               @activate="isWWT3D = !isWWT3D"
             />
 
             <v-btn
+              v-show="!showImageCard"
               class="icon-button"
               @click="showInfoSheet = !showInfoSheet"
             >
               Learn More
             </v-btn>
             <v-btn
+              v-show="!showImageCard"
               class="icon-button"
               @click="showModel = !showModel"
             >
               View Simulation in 3D!
             </v-btn>
+            <IconButton
+              v-show="showImageCard"
+              icon="mdi-home"
+              :color="buttonColor"
+              @activate="goToCoordinates('m74')"
+            />
           </div>
         </div>
 
@@ -107,7 +139,6 @@
           v-model="showModel"
           :button-color="buttonColor"
         />
-
 
         <!-- This block contains the elements (e.g. the project icons) displayed along the bottom of the screen -->
 
@@ -324,6 +355,11 @@ const buttonColor = ref("#ffffff");
 
 const showModel = ref(false);
 
+const showImageCard = ref(false);
+const imageCardIndex = ref(100);
+const imageCardIndexMin = 100;
+const imageCardIndexMax = 148;
+
 const layers = ref<ImageSetLayer[]>([]);
 const backingLayer = ref<ImageSetLayer | null>(null);
 const layersToMove = computed(() => {
@@ -396,6 +432,16 @@ const coordinates = {
   'ic5332':  [15 * (23 + 34 / 60 + 27.49 / 3600), -(36 + 6 / 60 + 3.9 / 3600)],
   'm74': [15 * (1 + 36 / 60 + 41.79 / 3600), +(15 + 47 / 60 + 1.3 / 3600)]
 };
+
+function goToCoordinates(item: keyof typeof coordinates, instant=true) {
+  const coords = coordinates[item];
+  store.gotoRADecZoom({
+    raRad: coords[0] * D2R,
+    decRad: coords[1] * D2R,
+    zoomDeg: 100 / 60,
+    instant,
+  });
+}
 
 
 import { useWtmlLoader } from "./composables/useWtmlLoader";
@@ -595,12 +641,12 @@ const cssVars = computed(() => {
 
 // while #app is a flex, the direct parent
 // is .v-application__wrap
-// this takes the size of it's children
+// this takes the size of its children
 // so we need to apply height definitions here
 // for a display with a side-panel this is generally
 // what we want
 .v-application__wrap {
-  flex-direction: row-reverse;  // add for the side panel
+  flex-direction: row;
   max-height: 100svh;  // force the application to be 100%
 }
 
@@ -611,6 +657,7 @@ const cssVars = computed(() => {
   }
 }
 
+
 #main-content {
   // This is the containing block for the absolutely positioned WWT host and overlay.
   position: relative;
@@ -618,12 +665,17 @@ const cssVars = computed(() => {
   // Its height is determined by the flex layout in `#app`.
   flex: 1 0 auto;
   overflow: hidden;
-
+  order: 2;
   transition: height 0.1s ease-in-out;
+}
+
+#app.app-is-small #main-content {
+  order: 1;
 }
 
 #side-drawer {
   flex: 0 0 auto;
+  order: 0;
   overflow: hidden;
   width: 0;
   // transition: width 0.3s ease-in-out;
@@ -636,6 +688,7 @@ const cssVars = computed(() => {
 #app.app-is-small {
   #side-drawer {
   flex: 0 0 auto;
+  order: 2;
   overflow: hidden;
   height: 0;
   width: 100%;
@@ -854,5 +907,24 @@ and remember, position:absolute is still a positioned parent, so children can be
   z-index: 9999;
 }
 
+.image-card {
+  order: 1;
 
+  .v-card-item {
+    padding: 0;
+  }
+
+  .image-flipbook {
+    margin: auto;
+  }
+}
+
+#app.app-is-small .image-card {
+  order: 0;
+
+  img {
+    object-fit: contain;
+    width: 100%;
+  }
+}
 </style>
