@@ -46,7 +46,7 @@
       <StarWarsCrawl
         v-model="showCrawl"
         no-title
-        audio-src="star-wars-opening-theme-short.mp3"
+        audio-src="luis_humanoide-space-adventures-orchestral-music-star-wars-style-139660.mp3"
       >
         <template #logo>
           <h2 class="main-logo-text">
