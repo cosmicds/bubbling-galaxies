@@ -94,6 +94,7 @@
             </icon-button>
             -->
             <v-btn
+              v-if="!showImageCard"
               class="blur-button"
               variant="outlined"
               @click="showInfoSheet = !showInfoSheet"
@@ -101,6 +102,7 @@
               Learn More
             </v-btn>
             <v-btn
+              v-if="!showImageCard"
               class="blur-button"
               variant="outlined"
               @click="showModel = !showModel"
@@ -180,12 +182,12 @@
             </div>
 
             <Gallery
-              v-show="ready && !showSimulation"
+              v-show="ready && !showSimulation && !showImageCard"
               v-model:selected-place="selectedGalleryItem"
               v-model:selected-places="selectedGalleryItems"
               v-model:places="galleryPlaces"
               wtml-url="./ngc628_datasets.wtml"
-              :single-select="true"
+              :single-select="false"
               selected-color="limegreen"
               show-opacity
               :columns="1"
@@ -208,7 +210,10 @@
             </DetailSummary>
           </div>
 
-          <div class="bottom-row-2">
+          <div
+            v-if="!showImageCard"
+            class="bottom-row-2"
+          >
             <v-btn-toggle
               v-model="showSimulation"
               class="align-self-center mt-4"
@@ -650,7 +655,7 @@ onMounted(() => {
 
 
 const imageIndex = ref(0);
-const simulationTime = computed(() => imageIndex.value * 0.19);
+const simulationTime = computed(() => imageIndex.value * 0.19 * 2 + 0.19 * 100);
 
 watch(store.imagesetLayers, (l) => {
   if (layers.value.length > imageIndex.value) {
