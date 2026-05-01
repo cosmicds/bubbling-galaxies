@@ -13,7 +13,7 @@
     <!-- close v-btn crawl -->
     
     <!-- Blue Intro Text -->
-    <p class="intro-text">
+    <p class="intro-text intro-animation">
       <slot name="intro">
         A long time ago in a galaxy far, far away....
       </slot>
@@ -22,15 +22,18 @@
     <!-- Logo Image or Text goes in here -->
     <div
       v-if="!noLogo"
-      class="main-logo"
+      class="main-logo-positioner"
     >
-      <slot name="logo" />
+      <div class="main-logo main-logo-animation">
+        <slot name="logo" />
+      </div>
     </div>
+
 
     <!-- All Scrolling Content Goes in here -->
     <div class="main-content">
       <div class="content-body-overlay-gradient"></div>
-      <div class="title-content">
+      <div class="title-content title-content-animation">
         <p
           v-if="!noTitle"
           class="content-header"
@@ -67,13 +70,51 @@ defineProps<{
 
 const fadeOut = ref(false);
 
+function _addClass(selector: string, className: string) {
+  const element = document.querySelector(selector);
+  if (element) {
+    element.classList.add(className);
+  }
+}
+
+function _removeClass(selector: string, className: string) {
+  const element = document.querySelector(selector);
+  if (element) {
+    element.classList.remove(className);
+  }
+}
+
+function startIntro() {
+  return;
+}
+
+function startMainLogo() {
+  return;
+}
+
+function startCrawl() {
+  return;
+}
+
+
+
+function _runAnimation() {
+  startIntro();
+  setTimeout(() => {
+    startMainLogo();
+  }, 2000);
+  setTimeout(() => {
+    startCrawl();
+  }, 7000);
+}
+
 onMounted(() => {
   setTimeout(() => {
     fadeOut.value = true;
     setTimeout(() => {
       show.value = false;
     }, 1000);
-  }, 23000);
+  }, 33500);
 });
 </script>
 
@@ -110,27 +151,23 @@ Version: 1.0
   --speed-intro: 2s;
   --speed-logo-in: 5s;
   --speed-logo-out: 2.5s;
-  --speed-title: 120s;
-  --title-delay: 4s;
+  --speed-title: 26s;
+  --title-delay: calc(0.9 * var(--speed-logo-in));
   
   --sw-yellow: #EBD71C;
   --sw-blue: #4ee;
   
   --bottom-offset: 10rem;
   
-  background: url("img/stars-bg.jpg") center center;
-  /* width: 100%; */
-  /* height: 50em; */
-  /* bottom: var(--bottom-offset); */
   flex-grow: 1;
   font-family: "Droid Sans", arial, verdana, sans-serif;
   font-weight: 700;
   color: var(--sw-yellow);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.65);
   overflow: hidden;
   position: absolute;
-  top: 10%;
-  bottom: var(--bottom-offset);
+  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
   
@@ -149,28 +186,35 @@ Version: 1.0
   opacity: 0;
   z-index: 10;
   text-align: center;
+}
+
+.star-wars-intro p.intro-text.intro-animation {
+  /* --speed-intro: 2s duration */
   -webkit-animation: intro var(--speed-intro) ease-out;
   -moz-animation: intro var(--speed-intro) ease-out;
   -ms-animation: intro var(--speed-intro) ease-out;
   -o-animation: intro var(--speed-intro) ease-out;
   animation: intro var(--speed-intro) ease-out;
+  
 }
+
 
 .star-wars-intro .main-content{
   margin-left: auto;
   margin-right: auto;
   position: absolute;
   z-index: 3;
-  width: 98%;
-  height: 50em;
+  width: 95%;
+  left: 50%;
+  height: 80vh;
   bottom: 0;
   font-size: 64px;
   font-weight: bold;
   text-align: center;
   overflow: hidden;
-  transform-origin: 50% 100%;
-  transform: perspective(450px) rotateX(25deg);
-  outline: 2px solid yellow;
+  transform-origin: 50% 50%;
+  transform: translateX(-50%) perspective(250px) rotateX(15deg) translateY(-20vh);
+  /* outline: 2px solid var(--sw-yellow); */
 }
 
 .star-wars-intro .main-content:after {
@@ -185,7 +229,13 @@ Version: 1.0
 .star-wars-intro .title-content {
   position: absolute;
   top: 100%;
-  animation: scroll var(--speed-title) linear var(--title-delay) forwards; /* name duration easing delay directoin */
+
+  z-index:10;
+  isolation: isolate;
+}
+
+.star-wars-intro .title-content.title-content-animation {
+  animation: scroll var(--speed-title) linear var(--title-delay) forwards;
 }
 
 .star-wars-intro .title-content > .content-header {
@@ -194,9 +244,26 @@ Version: 1.0
 
 .star-wars-intro .content-body {
   position: relative;
+  background: linear-gradient(#EBD71C00, #EBD71C, #EBD71C00);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.star-wars-intro .content-body-overlay-gradient {
+@keyframes rollingOpacity {
+  0% {
+    background: linear-gradient(#EBD71C00, #EBD71C, #EBD71C);
+  }
+  50% {
+    background: linear-gradient(#EBD71C00, #EBD71C, #EBD71C00);
+  }
+  
+  100% {
+    background: linear-gradient(#EBD71C00, #EBD71C00, #EBD71C00);
+  }
+  
+}
+
+/* .star-wars-intro .content-body-overlay-gradient {
   position: absolute;
   top: 0;
   left: 0;
@@ -204,28 +271,47 @@ Version: 1.0
   bottom: 0;
   background: linear-gradient(to top, 
     rgba(0, 0, 0, 0) 0%, 
-    rgba(0, 0, 0, 0) 30%, 
-    rgba(0, 0, 0, 1) 50%, 
+    rgba(0, 0, 0, 0) 70%, 
+    rgba(0, 0, 0, 1) 90%, 
     rgba(0, 0, 0, 1) 100%);
     z-index: 9
-}
+} */
 
 /* Main Image Styles */
 
-.star-wars-intro .main-logo {
+.star-wars-intro .main-logo-positioner {
   position: absolute;
-  width: 2.6em;
-  left: 50%;
+  left: 0;
+  right: 0;
   top: -0.5em;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.star-wars-intro .main-logo {
+  /* position: absolute; */
+  width: 2.6em;
+  /* left: 50%; */
+  /* top: -0.5em; */
   font-size: 8em;
   text-align: center;
-  margin-left: -1.3em;
+  /* margin-left: -1.3em; */
+  margin-left: 0;
   line-height: 1;
   letter-spacing: -0.05em;
   color: var(--sw-yellow);
-  text-shadow: -2px -2px 0 var(--sw-yellow), 2px -2px 0 var(--sw-yellow), -2px 2px 0 var(--sw-yellow), 2px 2px 0 var(--sw-yellow);
+  --s: 2px; /* shadow size */
+  --ns: calc(-1*var(--s)); /* negative shadow size */
+  /* text-shadow: var(--ns) 0 var(--sw-yellow), var(--s) var(--ns) 0 var(--sw-yellow), var(--ns) var(--s) 0 var(--sw-yellow), var(--s) var(--s) 0 var(--sw-yellow); */
+  font-family: "SF Distant Galaxy Outline";
   opacity: 0;
-  z-index: 10;
+  /* z-index: 10; */
+  width:fit-content;
+}
+
+.star-wars-intro .main-logo.main-logo-animation {
   -webkit-animation: logo var(--speed-logo-in) ease-out var(--speed-logo-out);
   -moz-animation: logo var(--speed-logo-in) ease-out var(--speed-logo-out);
   -ms-animation: logo var(--speed-logo-in) ease-out var(--speed-logo-out);
@@ -237,6 +323,8 @@ Version: 1.0
   max-width: 100%;
 }
 
+/* intro animation */
+/* just a fade-out */
 @-webkit-keyframes intro {
   0% { opacity: 1; }
   90% { opacity: 1; }
@@ -267,7 +355,7 @@ Version: 1.0
   100% { opacity: 0; }
 }
 
-
+/** logo animation - scale and fade */
 @-webkit-keyframes logo {
   0% { -webkit-transform: scale(1); opacity: 1; }
   50% { opacity: 1; }
@@ -298,6 +386,7 @@ Version: 1.0
   100% { transform: scale(0.1); opacity: 0; }
 }
 
+/** the scroll shifts the top position to slide it up past the top */
 @keyframes scroll {
   0% { 
     top: 100%; 
@@ -321,7 +410,10 @@ Version: 1.0
   .star-wars-intro .title-content {
     position: absolute;
     top: 100%;
-    animation: scroll 100s linear 4s forwards;
+  }
+  
+  .star-wars-intro .title-content.title-content-animation {
+    animation: scroll var(--speed-title) linear var(--title-delay) forwards;
   }
 }
 

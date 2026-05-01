@@ -8,6 +8,80 @@
   src: url("../assets/HighwayGothicNarrow.ttf");
 }
 
+@font-face {
+  font-family: "Star Jedi";
+  src: url("../assets/Starjedi.ttf");
+}
+@font-face {
+  font-family: "Star Jedi Hollow";
+  src: url("../assets/Starjhol.ttf");
+}
+
+@font-face {
+  font-family: "SF Distant Galaxy";
+  src: url("../assets/sf-distant-galaxy/SF Distant Galaxy.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Distant Galaxy";
+  src: url("../assets/sf-distant-galaxy/SF Distant Galaxy Italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Distant Galaxy Alternate";
+  src: url("../assets/sf-distant-galaxy/SF Distant Galaxy Alternate.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Distant Galaxy Alternate";
+  src: url("../assets/sf-distant-galaxy/SF Distant Galaxy Alternate Italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Distant Galaxy AltOutline";
+  src: url("../assets/sf-distant-galaxy/SF Distant Galaxy AltOutline.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Distant Galaxy AltOutline";
+  src: url("../assets/sf-distant-galaxy/SF Distant Galaxy AltOutline Italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Distant Galaxy Outline";
+  src: url("../assets/sf-distant-galaxy/SF Distant Galaxy Outline.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Distant Galaxy Outline";
+  src: url("../assets/sf-distant-galaxy/SF Distant Galaxy Outline Italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+
 :root {
   line-height: 1.2;
 }
@@ -50,5 +124,3 @@ fieldset > legend,
 fieldset label {
   user-select: none;
 }
-
-

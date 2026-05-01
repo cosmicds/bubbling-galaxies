@@ -48,30 +48,24 @@
       <StarWarsCrawl
         v-model="showCrawl"
         no-title
-        audio-src="star-wars-opening-theme.mp3"
+        audio-src="star-wars-opening-theme-short.mp3"
       >
         <template #logo>
-          <h2 class="main-logo">
-            The Phantom Galaxy
+          <h2 class="main-logo-text">
+            the phantom galaxy
           </h2>
         </template>
         <p>
-          On this device, you can
-          investigate the Phantom's
-          secrets.
+          ...32 million light years from Earth, exploding stars blew giant bubbles in the Phantom galaxy.
         </p>
         <p>
-          Visuals show what the Phantom looked like at just one moment time
-          32 million years ago.
+          Today's earthbound astronomers are using all kinds of powerful telescopes in their quest to uncover and understand the origins of the explosions that sculpt the Phantom galaxy's life story.
         </p>
         <p>
-          Clever astronomers use many wavelenghts and
-          telescopes to reveal the Phantom's inner secrets.
+          But only simulators, whose computers have the power to probe regions of space and time inaccessible to humans, have even a chance to reveal the Phantom's changes over hundreds millions of years, in 3D...
         </p>
         <p>
-          But only simulators can provide
-          you with 3D, moving views of the billion-year-long drama unfolding
-          in the Phantom.
+          Have they done it?
         </p>
       </StarWarsCrawl>
       <v-btn
@@ -99,38 +93,41 @@
             >
             </icon-button>
             -->
-            <IconButton
-              :icon="`mdi-${showImageCard ? 'vector-combine' : (smallSize ? 'view-split-horizontal' : 'view-split-vertical')}`"
-              :color="buttonColor"
-              @activate="showImageCard = !showImageCard"
-            />
-            <IconButton
-              v-if="!showImageCard"
-              :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
-              :color="buttonColor"
-              @activate="isWWT3D = !isWWT3D"
-            />
-
             <v-btn
-              v-show="!showImageCard"
-              class="icon-button"
+              class="blur-button"
+              variant="outlined"
               @click="showInfoSheet = !showInfoSheet"
             >
               Learn More
             </v-btn>
             <v-btn
-              v-show="!showImageCard"
-              class="icon-button"
+              class="blur-button"
+              variant="outlined"
               @click="showModel = !showModel"
             >
               View Simulation in 3D!
             </v-btn>
-            <IconButton
-              v-show="showImageCard"
-              icon="mdi-home"
-              :color="buttonColor"
-              @activate="goToCoordinates('m74')"
-            />
+            <div class="d-flex flex-row ga-2">
+              <IconButton
+                :icon="`mdi-${showImageCard ? 'vector-combine' : (smallSize ? 'view-split-horizontal' : 'view-split-vertical')}`"
+                :color="buttonColor"
+                @activate="showImageCard = !showImageCard"
+              />
+              <IconButton
+                v-if="!showImageCard"
+                :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
+                :color="buttonColor"
+                @activate="isWWT3D = !isWWT3D"
+              />
+
+              
+              <IconButton
+                v-show="showImageCard"
+                icon="mdi-home"
+                :color="buttonColor"
+                @activate="goToCoordinates('m74')"
+              />
+            </div>
           </div>
         </div>
 
@@ -144,89 +141,108 @@
 
         <div id="bottom-content">
           <!-- <GesturePreview /> -->
-
-          <div
-            v-show="showSimulation"
-            id="image-index-control"
-          >
-            <v-slider
-              v-if="ready"
-              v-model="imageIndex"
-              class="image-index-control-slider"
-              :min="0"
-              :max="layers.length - 1"
-              step="1"
+          <div class="bottom-row-1">
+            <div
+              v-show="showSimulation"
+              id="image-index-control"
             >
-              <template #prepend>
-                <v-tooltip
-                  location="top"
-                >
-                  <template #activator="{ props: tooltipProps }">
-                    <v-btn
-                      class="mr-3 play-pause-icon"
-                      v-bind="tooltipProps"
-                      size="large"
-                      density="compact"
-                      variant="outlined"
-                      color="white"
-                      :icon="isPlaying ? 'mdi-pause' : 'mdi-play'"
-                      :aria-label="isPlaying ? 'Pause animation' : 'Play animation'"
-                      @click="togglePlayPause"
-                    >
-                    </v-btn>
-                  </template>
-                  {{ isPlaying ? 'Pause simulation' : 'Play simulation' }}
-                </v-tooltip>
-              </template>
-            </v-slider>
+              <v-slider
+                v-if="ready"
+                v-model="imageIndex"
+                class="image-index-control-slider"
+                :min="0"
+                :max="layers.length - 1"
+                step="1"
+              >
+                <template #prepend>
+                  <v-tooltip
+                    location="top"
+                  >
+                    <template #activator="{ props: tooltipProps }">
+                      <v-btn
+                        class="mr-3 play-pause-icon"
+                        v-bind="tooltipProps"
+                        size="large"
+                        density="compact"
+                        variant="outlined"
+                        color="white"
+                        :icon="isPlaying ? 'mdi-pause' : 'mdi-play'"
+                        :aria-label="isPlaying ? 'Pause animation' : 'Play animation'"
+                        @click="togglePlayPause"
+                      >
+                      </v-btn>
+                    </template>
+                    {{ isPlaying ? 'Pause simulation' : 'Play simulation' }}
+                  </v-tooltip>
+                </template>
+              </v-slider>
+              <span>Time: {{ simulationTime.toFixed(2) }} million years</span>
+            </div>
+
+            <Gallery
+              v-show="ready && !showSimulation"
+              v-model:selected-place="selectedGalleryItem"
+              v-model:selected-places="selectedGalleryItems"
+              v-model:places="galleryPlaces"
+              wtml-url="./ngc628_datasets.wtml"
+              :single-select="true"
+              selected-color="limegreen"
+              show-opacity
+              :columns="1"
+              width="125px"
+              persist="Optical (NOAO)"
+              :hide-persisted="true"
+              :hide-gallery-layers="showSimulation || showSplashScreen"
+              collapse-on-select
+              :preview-index="3"
+            />
+            
+            <DetailSummary
+              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem)"
+              v-model="labelOpen"
+              :title="currentLabel.title"
+            >
+              <div v-if="currentLabel.title == 'Colder Infrared (JWST)'">
+                hi
+              </div>
+            </DetailSummary>
           </div>
 
-          <Gallery
-            v-show="ready && !showSimulation"
-            v-model:selected-place="selectedGalleryItem"
-            v-model:selected-places="selectedGalleryItems"
-            v-model:places="galleryPlaces"
-            wtml-url="./ngc628_datasets.wtml"
-            :single-select="true"
-            selected-color="limegreen"
-            show-opacity
-            :columns="1"
-            width="125px"
-            persist="Optical (NOAO)"
-            :hide-persisted="true"
-            :hide-gallery-layers="showSimulation"
-            collapse-on-select
-          />
-          <!-- <template #closed="galleryProps">
-            <div v-bind="galleryProps">
-              Open
-            </div>
-          </template>
-          </Gallery> -->
-
-
-          <v-btn-toggle
-            v-model="showSimulation"
-            class="align-self-center mt-4"
-            density="compact"
-          >
-            <v-btn :value="false">
-              Real
-            </v-btn>
-            <v-btn :value="true">
-              Simulated
-            </v-btn>
-          </v-btn-toggle>
+          <div class="bottom-row-2">
+            <v-btn-toggle
+              v-model="showSimulation"
+              class="align-self-center mt-4"
+              density="compact"
+            >
+              <v-btn
+                class="blur-button"
+                variant="outlined"
+                :value="false"
+              >
+                Real
+              </v-btn>
+              <v-btn
+                class="blur-button"
+                variant="outlined"
+                :value="true"
+              >
+                Simulated
+              </v-btn>
+            </v-btn-toggle>
+          </div>
 
           <div
-            v-if="!smallSize"
             id="body-logos"
+            :class="{'small-logos': smallSize}"
           >
             <CreditLogos
               :default-logos="['cosmicds', 'wwt', 'sciact', 'nasa']"
-              logo-size="2.5em"
+              :logo-size="smallSize ? '1em' : '2.5em'"
             />
-            <p class="toolkit-credit">
+            <p 
+              v-if="!smallSize" 
+              class="toolkit-credit"
+            >
               Interactive developed using the
               <a
                 href="https://github.com/cosmicds/vue-toolkit"
@@ -264,10 +280,12 @@ import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, Credit
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
 import { Place, ImageSetLayer, Imageset } from "@wwtelescope/engine";
-import { ImageSetType } from "@wwtelescope/engine-types";
+import { ImageSetType, ProjectionType } from "@wwtelescope/engine-types";
 import SplashGesture from "./components/SplashGesture.vue";
 import ModelViewerWindow from "./components/ModelViewerWindow.vue";
 import StarWarsCrawl from "./components/StarWarsCrawl.vue";
+import DetailSummary from "./components/DetailSummary.vue";
+
 import { WWTControl } from "@wwtelescope/engine";
 
 import Gallery from "./components/Gallery.vue";
@@ -324,14 +342,20 @@ const touchscreen = supportsTouchscreen();
 const  { smAndDown, width: viewportWidth, height: viewportHeight } = useDisplay();
 const isVertical = computed(() => viewportHeight.value > viewportWidth.value);
 
+const coordinates = {
+  'ic5332':  [15 * (23 + 34 / 60 + 27.49 / 3600), -(36 + 6 / 60 + 3.9 / 3600)],
+  'm74': [24.174371502246, 15.780613507832]
+};
+
 
 const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
   wwtNamespace: "wwt-playground",
   initialCameraParams: () => {
     return {
-      raRad: 0,
-      decRad: 0,
-      zoomDeg: 360
+      raRad: 24.174371502246 * D2R,
+      decRad: 15.780613507832 * D2R,
+      zoomDeg: 1.5,
+      rollRad: (70.51999999999907 + 90) * D2R,
     };
   }
 });
@@ -387,6 +411,41 @@ watch(selectedGalleryItems, (newPlaces, oldPlaces) => {
 });
 const galleryPlaces = ref<Place[]>([]);
 
+const labelOpen = ref(false);
+
+interface LabelInfo {
+  title: string;
+  content: string;
+}
+
+const labelTitles: Record<string, LabelInfo> = {
+  'Infrared (JWST)': {
+    title: 'JWST Infrared Image',
+    content: ""
+  },
+  'Colder Infrared (JWST)': {
+    title: 'JWST Colder Infrared Image',
+    content: '',
+  },
+  'Visible (Hubble)': {
+    title: 'Hubble Visible light Image',
+    content: '',
+  },
+  'Optical (NOAO)': {
+    title: 'NOAO Optical Image',
+    content: '',
+  },
+  'Simulation on Sky': {
+    title: 'Simulation on Sky',
+    content: '',
+  }
+};
+
+const currentLabel = computed(() => {
+  if (showSimulation.value) return labelTitles['Simulation on Sky'];
+  return labelTitles[selectedGalleryItem.value?.get_name() ?? ''] ?? { title: '', content: '' };
+});
+
 const showSimulation = ref(false);
 const simulationOpactiy = ref(+showSimulation.value);
 // const simulationOpactiy = computed(() => +showSimulation.value);
@@ -402,15 +461,35 @@ import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial,
 import { createLoader, createTHREECamera, createTHREERenderer, createTHREEScene, renderTHREE, updateTHREECamera } from "./threeWWT";
 import { storeToRefs } from "pinia";
 
-function moveToImageset(imageset: Imageset, instant = true) {
+function moveToImageset(imageset: Imageset, options: {instant?: boolean, roll?: boolean, extraRoll?: number} = {instant: true, roll: false,}) {
   const centerX = imageset.get_centerX(); // degrees
   const centerY = imageset.get_centerY(); // degrees
+  const offsetX = imageset.get_offsetX();
+  const offsetY = imageset.get_offsetY();
+  const roll = imageset.get_rotation();
+  // const isTan = imageset.get_projection() === ProjectionType.tan;
+  const rollRad = options.roll ? roll * Math.PI / 180 : store.rollRad;
+  
+  // const diagonalSize = 2 * Math.sqrt(offsetX * offsetX + offsetY * offsetY);
+  // const zoom = isTan ? 2 * imageset.get_baseTileDegrees() * diagonalSize / offsetY : 1.7 * imageset.get_baseTileDegrees() * diagonalSize;
+  const s = Math.sin(rollRad);
+  const c = Math.cos(rollRad);
+  
+
+  const angularHeight = imageset.get_baseTileDegrees();
+  const angularWidth = angularHeight * (imageset.get_widthFactor() === 1 ? 2 : 1);
+  const diagonalSize = Math.sqrt(angularWidth * angularWidth + angularHeight * angularHeight);
+  const xSize = Math.abs(c * angularHeight) + Math.abs(s * angularWidth);
+  const ySize = Math.abs(s * angularHeight) + Math.abs(c * angularWidth);
+  
+
+  
   return store.gotoRADecZoom({
     raRad: centerX * D2R,
     decRad: centerY * D2R,
-    zoomDeg: 100 / 60,
-    rollRad: 0,
-    instant: instant
+    zoomDeg: Math.max(xSize, ySize) * (isVertical.value ? 6 : 6),
+    rollRad: options.roll ? rollRad + (options.extraRoll ?? 0) * D2R : store.rollRad,
+    instant: !!options.instant
   });
 }
 
@@ -428,10 +507,6 @@ function frameUpdateTHREE(control: WWTControl) {
   }
 }
 
-const coordinates = {
-  'ic5332':  [15 * (23 + 34 / 60 + 27.49 / 3600), -(36 + 6 / 60 + 3.9 / 3600)],
-  'm74': [15 * (1 + 36 / 60 + 41.79 / 3600), +(15 + 47 / 60 + 1.3 / 3600)]
-};
 
 function goToCoordinates(item: keyof typeof coordinates, instant=true) {
   const coords = coordinates[item];
@@ -445,7 +520,56 @@ function goToCoordinates(item: keyof typeof coordinates, instant=true) {
 
 
 import { useWtmlLoader } from "./composables/useWtmlLoader";
-import { sk } from "vuetify/locale";
+import { label } from "three/tsl";
+
+function threeJsModelLoader() {
+  const size = 0.5;
+  const geometry = new BoxGeometry(size, size, size);
+  const material = new MeshBasicMaterial({
+    color: 0x0000ff,
+    transparent: true,
+    opacity: 0.7,
+    side: DoubleSide,
+  });
+  cube = new Mesh(geometry, material);
+  cube.matrixAutoUpdate = true;
+  // Units are in AU
+  cube.position.set(10, 2, 0);
+  cube.matrixWorldNeedsUpdate = true;
+  scene.add(cube);
+
+  loader.load(
+    "./model.glb",
+    gltf => {
+      const size = 1;
+      const modelScene = gltf.scene;
+      modelScene.matrixAutoUpdate = true;
+      const distance = 100;
+      modelScene.position.set(distance, distance, distance);
+      modelScene.scale.set(size, size, size);
+      modelScene.matrixWorldNeedsUpdate = true;
+
+      modelScene.traverse((mesh: Object3D) => {
+        if (mesh instanceof Mesh) {
+          // mesh.geometry.computeVertexNormals();
+          const oldMaterial = mesh.material as MeshPhysicalMaterial;
+          const newMaterial = new MeshBasicMaterial({
+            map: oldMaterial.map,
+            color: oldMaterial.color,
+            side: oldMaterial.side,
+            opacity: oldMaterial.opacity,
+          });
+          mesh.material = newMaterial;
+          oldMaterial.dispose();
+        }
+      });
+
+      scene.add(modelScene);
+    },
+    xhr => {return;}, //console.log(`${(xhr.loaded / xhr.total * 100)} % loaded`),
+    error => console.error(error),
+  );
+}
 
 onMounted(() => {
 
@@ -463,6 +587,17 @@ onMounted(() => {
 
     store.applySetting(["showGrid", !isWWT3D.value]);
     store.applySetting(["showEquatorialGridText", !isWWT3D.value]);
+    store.gotoRADecZoom({
+      ...props.initialCameraParams,
+      instant: true,
+    }).then(() => {
+      positionSet.value = true;
+    });
+    // const rollAngle = -19.480565034447988; // degrees
+    // rollView(
+    //   rollAngle + (isVertical.value ? 0 : 90), 
+    //   0.7,
+    // );
 
     const renderOneFrame = WWTControl.singleton.renderOneFrame.bind(WWTControl.singleton);
     WWTControl.singleton.renderOneFrame();
@@ -474,56 +609,11 @@ onMounted(() => {
     }.bind(WWTControl.singleton);
 
 
-    const size = 0.5;
-    const geometry = new BoxGeometry(size, size, size);
-    const material = new MeshBasicMaterial({
-      color: 0x0000ff,
-      transparent: true,
-      opacity: 0.7,
-      side: DoubleSide,
-    });
-    cube = new Mesh(geometry, material);
-    cube.matrixAutoUpdate = true;
-    // Units are in AU
-    cube.position.set(10, 2, 0);
-    cube.matrixWorldNeedsUpdate = true;
-    scene.add(cube);
-
-    loader.load(
-      "./model.glb",
-      gltf => {
-        const size = 1;
-        const modelScene = gltf.scene;
-        modelScene.matrixAutoUpdate = true;
-        const distance = 100;
-        modelScene.position.set(distance, distance, distance);
-        modelScene.scale.set(size, size, size);
-        modelScene.matrixWorldNeedsUpdate = true;
-
-        modelScene.traverse((mesh: Object3D) => {
-          if (mesh instanceof Mesh) {
-            // mesh.geometry.computeVertexNormals();
-            const oldMaterial = mesh.material as MeshPhysicalMaterial;
-            const newMaterial = new MeshBasicMaterial({
-              map: oldMaterial.map,
-              color: oldMaterial.color,
-              side: oldMaterial.side,
-              opacity: oldMaterial.opacity,
-            });
-            mesh.material = newMaterial;
-            oldMaterial.dispose();
-          }
-        });
-
-        scene.add(modelScene);
-      },
-      xhr => console.log(`${(xhr.loaded / xhr.total * 100)} % loaded`),
-      error => console.error(error),
-    );
+    
 
     store.setBackgroundImageByName(isWWT3D.value ? background3D : background2D);
 
-    const { ready: loadFrames } = useWtmlLoader("simulation_all.wtml", {
+    const { ready: loadFrames } = useWtmlLoader("interpolated_simulation_every_5.wtml", {
       onNewImageset: (imageset, index) => {
         // the imagesets are all at 0,0 [ they are simulations]
         // here would also be a good place to set its size, but we don't know it yet
@@ -534,8 +624,7 @@ onMounted(() => {
         newLayer.set_enabled(true);
         newLayer.set_opacity(index === 0 ? simulationOpactiy.value : 0);
         layers.value.push(newLayer);
-        if (index === 0) moveToImageset(newLayer.get_imageSet());
-        positionSet.value = true;
+        // if (index === 0) moveToImageset(newLayer.get_imageSet());
       },
       // goTo: false, goTo is false by default if undefined
     });
@@ -553,14 +642,15 @@ onMounted(() => {
     Promise.all([loadFrames, loadBacking])
       .then(() => {
         layersLoaded.value = true;
+        threeJsModelLoader();
       });
-
   });
 });
 
 
 
 const imageIndex = ref(0);
+const simulationTime = computed(() => imageIndex.value * 0.19);
 
 watch(store.imagesetLayers, (l) => {
   if (layers.value.length > imageIndex.value) {
@@ -594,9 +684,9 @@ watch(simulationOpactiy, (newOpacity) => {
   if (currentLayer) {
     currentLayer.set_opacity(newOpacity);
   }
-  // if (backingLayer.value) {
-  //   backingLayer.value.set_opacity(newOpacity);
-  // }
+  if (backingLayer.value) {
+    backingLayer.value.set_opacity(newOpacity);
+  }
 });
 
 watch(showSimulation, (showingSimulation) => {
@@ -607,6 +697,29 @@ watch(showSimulation, (showingSimulation) => {
 });
 
 const ready = computed(() => layersLoaded.value && positionSet.value);
+
+function goToGalleryItem(name: string) {
+  const place = galleryPlaces.value.find(p => p.get_name() === name) || null;
+  if (place === null) {
+    return;
+  }
+  selectedGalleryItem.value = place;
+  
+  const iset = place.get_studyImageset() ?? place.get_backgroundImageset();
+  if (iset) {
+    moveToImageset(iset, {instant: false, roll: true, extraRoll: isVertical.value ? 90 : 0});
+  }
+}
+
+watch([showSplashScreen, showCrawl, galleryPlaces, ready], ([splashShowing, crawlShowing, places, isReady]) => {
+  console.log("Watching for splash/crawl to finish and gallery places to load...", {splashShowing, crawlShowing, placesLoaded: !!places.length, isReady});
+  if (!splashShowing && !crawlShowing && places && isReady) {
+    console.log("Splash and crawl finished, moving to gallery item");
+    // moveToImageset(galleryPlaces.value)
+    const item = "Infrared (JWST)";
+    goToGalleryItem(item);
+  }
+});
 
 /* `isLoading` is a bit redundant here, but it could potentially have independent logic */
 const isLoading = computed(() => !ready.value);
@@ -622,7 +735,19 @@ const cssVars = computed(() => {
   };
 });
 
-
+function rollView(angleDegrees: number, zoomDeg: number | null = null) {
+  const currentRA = store.raRad;
+  const currentDec = store.decRad;
+  const currentZoom = store.zoomDeg;
+  const newRoll = store.rollRad + angleDegrees * D2R;
+  return store.gotoRADecZoom({
+    raRad: currentRA,
+    decRad: currentDec,
+    zoomDeg: zoomDeg ?? currentZoom,
+    rollRad: newRoll,
+    instant: true,
+  });
+}
 </script>
 
 <style lang="less">
@@ -826,16 +951,37 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 
 #bottom-content {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto auto;
   pointer-events: auto;
-  align-items: flex-start;
-  gap: 5px;
+  align-items: flex-end;
 }
 
 #bottom-content {
+  .bottom-row-1 {
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: space-between;
+    align-items:flex-end;
+    gap: 1em;
+  }
+  
+  .bottom-row-2 {
+    grid-row: 2 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
   #body-logos {
     align-self: flex-end;
+    grid-row:  3 / 4;
+  }
+  
+  #body-logos.small-logos {
+    display: none;
+    margin-top: 0.5em;
   }
 
   #icons-container {
@@ -905,6 +1051,16 @@ and remember, position:absolute is still a positioned parent, so children can be
   bottom: 5rem;
   right: 1rem;
   z-index: 9999;
+}
+
+.main-logo-text {
+  text-align: center;
+  width:fit-content;
+}
+
+.v-btn.blur-button.v-btn--variant-outlined {
+  // background-color: black;
+  backdrop-filter: blur(6px);
 }
 
 .image-card {
