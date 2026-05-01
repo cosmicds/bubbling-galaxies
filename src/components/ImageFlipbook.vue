@@ -73,6 +73,12 @@ const src = computed(() => {
 </script>
 
 <style scoped>
+.image-flipbook {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
 .image-flipbook__controls {
   padding: 15px;
   display: flex;
@@ -83,7 +89,12 @@ const src = computed(() => {
 }
 
 img {
+  /* 1 1 0 and min-height: 0 are needed to make the 
+  image shrink when the container is too small */
+  flex: 1 1 0;
+  min-height: 0; 
   object-fit: contain;
-  width: 80%;
+  align-self: center;
+  width: 100%;
 }
 </style>

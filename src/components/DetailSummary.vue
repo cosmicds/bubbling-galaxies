@@ -17,11 +17,11 @@
         <slot name="title">
           <strong>{{ title }}</strong>
         </slot>
-        <button
+        <!-- <button
           class="ds__click-to-learn-more mt-2 text-small"
         >
           Learn about this image
-        </button>
+        </button> -->
       </div>
     </template>
     <v-card>

@@ -2,13 +2,11 @@
   <v-app
     id="app"
     :style="cssVars"
-    :class="[smallSize ? 'app-is-small' : '']"
+    :class="[smallSize ? 'app-is-small' : '', isLandscape ? 'app-is-landscape' : '']"
   >
     <v-card
       v-show="showImageCard"
-      :class="['image-card', 'flex-column', {'d-flex': showImageCard}]"
-      :height="smallSize ? '50%' : '100%'"
-      :width="smallSize ? '100%' : '50%'"
+      class="image-card"
     >
       <template #title>
         <div class="d-flex justify-end">
@@ -97,30 +95,23 @@
               v-if="!showImageCard"
               class="blur-button"
               variant="outlined"
-              @click="showInfoSheet = !showInfoSheet"
-            >
-              Learn More
-            </v-btn>
-            <v-btn
-              v-if="!showImageCard"
-              class="blur-button"
-              variant="outlined"
               @click="showModel = !showModel"
             >
-              View Simulation in 3D!
+              View in 3D!
             </v-btn>
             <div class="d-flex flex-row ga-2">
               <IconButton
+                v-if="!showImageCard"
                 :icon="`mdi-${showImageCard ? 'vector-combine' : (smallSize ? 'view-split-horizontal' : 'view-split-vertical')}`"
                 :color="buttonColor"
                 @activate="showImageCard = !showImageCard"
               />
-              <IconButton
+              <!-- <IconButton
                 v-if="!showImageCard"
                 :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
                 :color="buttonColor"
                 @activate="isWWT3D = !isWWT3D"
-              />
+              /> -->
 
               
               <IconButton
@@ -131,13 +122,24 @@
               />
             </div>
           </div>
+          <div id="right-buttons">
+            <v-btn
+              v-if="!showImageCard"
+              class="blur-button"
+              variant="outlined"
+              @click="showInfoSheet = !showInfoSheet"
+            >
+              Learn More
+            </v-btn>
+          </div>
         </div>
 
         <!-- Display the 3D model -->
         <ModelViewerWindow
           v-model="showModel"
           :button-color="buttonColor"
-        />
+        >
+        </ModelViewerWindow>
 
         <!-- This block contains the elements (e.g. the project icons) displayed along the bottom of the screen -->
 
@@ -178,7 +180,7 @@
                   </v-tooltip>
                 </template>
               </v-slider>
-              <span>Time: {{ simulationTime.toFixed(2) }} million years</span>
+              <span>{{ simulationTime.toFixed(1) }} million years, Simulated IR Image</span>
             </div>
 
             <Gallery
@@ -200,7 +202,7 @@
             />
             
             <DetailSummary
-              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem)"
+              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && !showSimulation"
               v-model="labelOpen"
               :title="currentLabel.title"
             >
@@ -655,7 +657,7 @@ onMounted(() => {
 
 
 const imageIndex = ref(0);
-const simulationTime = computed(() => imageIndex.value * 0.19 * 2 + 0.19 * 100);
+const simulationTime = computed(() => imageIndex.value * 0.19 * 2);
 
 watch(store.imagesetLayers, (l) => {
   if (layers.value.length > imageIndex.value) {
@@ -731,6 +733,7 @@ const isLoading = computed(() => !ready.value);
 
 /* Properties related to device/screen characteristics */
 const smallSize = computed(() => smAndDown.value);
+const isLandscape = computed(() => viewportWidth.value > viewportHeight.value * 1.25);
 
 
 /* This lets us inject component data into element CSS */
@@ -1069,23 +1072,22 @@ and remember, position:absolute is still a positioned parent, so children can be
 }
 
 .image-card {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 50%;
   order: 1;
+  overflow: hidden;
 
   .v-card-item {
     padding: 0;
   }
 
   .image-flipbook {
-    margin: auto;
+    flex: 1 1 0;
   }
 }
 
 #app.app-is-small .image-card {
   order: 0;
-
-  img {
-    object-fit: contain;
-    width: 100%;
-  }
 }
 </style>
