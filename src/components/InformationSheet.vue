@@ -7,7 +7,6 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
     <v-tabs
       id="tabs"
       v-model="tab"
-      height="32px"
       :color="tabColor"
       :slider-color="tabColor"
       dense
@@ -216,6 +215,10 @@ const cssVars = computed(() => {
 .intro-card {
   padding: 1em;
   container-type: size;
+}
+
+.info-tabs h3 {
+  font-size: 1em;
 }
 
 .info-text {
