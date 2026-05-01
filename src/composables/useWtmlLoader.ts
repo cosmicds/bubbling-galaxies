@@ -139,6 +139,8 @@ export function useWtmlLoader(wtmlUrl: string, options?: WtmlLoaderOptions) {
 
     console.log(`Found ${places.value.length} places in the WTML file. Starting to load imageset layers...`);
 
+    const toFetch: string[] = [];
+
     places.value.forEach(async (child: Place, _index: number) => {
       const imageset = child.get_backgroundImageset() ?? child.get_studyImageset();
 
@@ -154,7 +156,7 @@ export function useWtmlLoader(wtmlUrl: string, options?: WtmlLoaderOptions) {
 
       const url = imageset.get_url();
       if (options?.prefetch && !isTemplateURL(url)) {
-        fetch(url);
+        toFetch.push(url);
       }
 
       await store.addImageSetLayer({
@@ -171,6 +173,12 @@ export function useWtmlLoader(wtmlUrl: string, options?: WtmlLoaderOptions) {
         console.error("Failed to load imageset from", error, imageset);
       });
 
+    });
+
+    const interval = 25;
+    toFetch.forEach((url, index) => {
+      console.log(index, url);
+      setTimeout(() => fetch(url), index * interval);
     });
 
     // this is not getting set, so just skip it

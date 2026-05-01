@@ -12,6 +12,7 @@ declare module "@wwtelescope/engine" {
     export function decimateQueue(): void;
     export function processQueue(renderContext: RenderContext);
     export function removeFromQueue(key: string, complete: boolean): void;
+    export function get_queueCount(): number;
   }
 
   export class Matrix3d {

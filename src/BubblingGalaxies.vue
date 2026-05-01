@@ -279,7 +279,7 @@ import { GotoRADecZoomParams, engineStore } from "@wwtelescope/engine-pinia";
 import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, CreditLogos, IconButton, useFullscreen } from "@cosmicds/vue-toolkit";
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
-import { Place, ImageSetLayer, Imageset } from "@wwtelescope/engine";
+import { Place, ImageSetLayer, Imageset, TileCache } from "@wwtelescope/engine";
 import { ImageSetType, ProjectionType } from "@wwtelescope/engine-types";
 import SplashGesture from "./components/SplashGesture.vue";
 import ModelViewerWindow from "./components/ModelViewerWindow.vue";
@@ -613,6 +613,7 @@ onMounted(() => {
     store.setBackgroundImageByName(isWWT3D.value ? background3D : background2D);
 
     const { ready: loadFrames } = useWtmlLoader("interpolated_simulation_every_5.wtml", {
+      prefetch: true,
       onNewImageset: (imageset, index) => {
         // the imagesets are all at 0,0 [ they are simulations]
         // here would also be a good place to set its size, but we don't know it yet
@@ -659,17 +660,28 @@ watch(store.imagesetLayers, (l) => {
   }
 });
 
-watch(imageIndex, (newIndex: number, oldIndex: number) => {
-  console.log(oldIndex, newIndex);
-  console.log(layers.value[oldIndex], layers.value[newIndex], layers.value.length);
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+watch(imageIndex, async (newIndex: number, oldIndex: number) => {
+  const newLayer = layers.value[newIndex];
+  newLayer.set_enabled(true);
+  newLayer.set_opacity(0);
+
+  // Hackery!
+  WWTControl.singleton.renderOneFrame();
+  while (TileCache.get_queueCount() > 0) {
+    await sleep(10);
+  }
+  newLayer.set_opacity(1);
+
   layers.value[oldIndex].set_enabled(false);
-  layers.value[newIndex].set_enabled(true);
 });
 
 function advanceImageIndex() {
   imageIndex.value = (imageIndex.value + 1) % layers.value.length;
 }
-const { togglePlayPause, isPlaying, playing } = useSetInterval(advanceImageIndex, 50);
+const { togglePlayPause, isPlaying, playing } = useSetInterval(advanceImageIndex, 100);
 
 function updateCurrentLayersOpacity(opacity: number) {
   const currentLayer = layers.value[imageIndex.value];
@@ -692,7 +704,7 @@ watch(showSimulation, (showingSimulation) => {
   updateCurrentLayersOpacity(showingSimulation ? 1 : 0);
 });
 
-const ready = computed(() => layersLoaded.value && positionSet.value);
+const ready = computed(() => positionSet.value);
 
 function goToGalleryItem(name: string) {
   const place = galleryPlaces.value.find(p => p.get_name() === name) || null;
