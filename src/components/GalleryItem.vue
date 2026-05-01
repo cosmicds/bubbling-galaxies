@@ -11,7 +11,10 @@
       class="noselect"
       :src="thumbnailUrl"
     />
-    <span class="place-name noselect">{{ place.get_name() }}</span>
+    <span
+      v-if="!hideLabel"
+      class="place-name noselect"
+    >{{ place.get_name() }}</span>
     <input
       v-if="showOpacity"
       class="gallery-opacity"
@@ -37,6 +40,7 @@ interface Props {
   showOpacity?: boolean;
   opacity?: number;
   borderless?: boolean;
+  hideLabel?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -45,6 +49,7 @@ const props = withDefaults(defineProps<Props>(), {
   showOpacity: false,
   opacity: 1,
   borderless: false,
+  hideLabel: false,
 });
 
 const emit = defineEmits<{

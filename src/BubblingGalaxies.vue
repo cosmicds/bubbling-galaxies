@@ -107,38 +107,27 @@
             >
               View Simulation in 3D!
             </v-btn>
-            <IconButton
-              :icon="`mdi-${showImageCard ? 'vector-combine' : (smallSize ? 'view-split-horizontal' : 'view-split-vertical')}`"
-              :color="buttonColor"
-              @activate="showImageCard = !showImageCard"
-            />
-            <IconButton
-              v-if="!showImageCard"
-              :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
-              :color="buttonColor"
-              @activate="isWWT3D = !isWWT3D"
-            />
+            <div class="d-flex flex-row ga-2">
+              <IconButton
+                :icon="`mdi-${showImageCard ? 'vector-combine' : (smallSize ? 'view-split-horizontal' : 'view-split-vertical')}`"
+                :color="buttonColor"
+                @activate="showImageCard = !showImageCard"
+              />
+              <IconButton
+                v-if="!showImageCard"
+                :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
+                :color="buttonColor"
+                @activate="isWWT3D = !isWWT3D"
+              />
 
-            <v-btn
-              v-show="!showImageCard"
-              class="icon-button"
-              @click="showInfoSheet = !showInfoSheet"
-            >
-              Learn More
-            </v-btn>
-            <v-btn
-              v-show="!showImageCard"
-              class="icon-button"
-              @click="showModel = !showModel"
-            >
-              View Simulation in 3D!
-            </v-btn>
-            <IconButton
-              v-show="showImageCard"
-              icon="mdi-home"
-              :color="buttonColor"
-              @activate="goToCoordinates('m74')"
-            />
+              
+              <IconButton
+                v-show="showImageCard"
+                icon="mdi-home"
+                :color="buttonColor"
+                @activate="goToCoordinates('m74')"
+              />
+            </div>
           </div>
         </div>
 

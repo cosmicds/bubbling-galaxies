@@ -36,6 +36,7 @@
             :show-opacity="showOpacity"
             :opacity="getOpacity(selectedPlace)"
             borderless
+            hide-label
             @update:opacity="(v) => setOpacity(selectedPlace!, v)"
           />
         </div>
