@@ -8,15 +8,13 @@
       v-show="showImageCard"
       class="image-card"
     >
-      <template #title>
-        <div class="d-flex justify-end">
-          <v-btn
-            size="small"
-            icon="mdi-close"
-            @click="showImageCard = false"
-          ></v-btn>
-        </div>
-      </template>
+      <div class="position-absolute top-0 right-0 pa-2 ma-2">
+        <v-btn
+          size="small"
+          icon="mdi-close"
+          @click="showImageCard = false"
+        ></v-btn>
+      </div>
       <image-flipbook
         v-model="imageCardIndex"
         :min="imageCardIndexMin"
