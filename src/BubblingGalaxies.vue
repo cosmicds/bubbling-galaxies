@@ -153,6 +153,7 @@
                 :min="0"
                 :max="layers.length - 1"
                 step="1"
+                :disabled="!layersLoaded"
               >
                 <template #prepend>
                   <v-tooltip
@@ -168,6 +169,7 @@
                         color="white"
                         :icon="isPlaying ? 'mdi-pause' : 'mdi-play'"
                         :aria-label="isPlaying ? 'Pause animation' : 'Play animation'"
+                        :disabled="!layersLoaded"
                         @click="togglePlayPause"
                       >
                       </v-btn>
@@ -213,6 +215,7 @@
               v-model="showSimulation"
               class="align-self-center mt-4"
               density="compact"
+              :disabled="!layersLoaded"
             >
               <v-btn
                 class="blur-button"
@@ -612,7 +615,7 @@ onMounted(() => {
 
     store.setBackgroundImageByName(isWWT3D.value ? background3D : background2D);
 
-    const { ready: loadFrames } = useWtmlLoader("interpolated_simulation_every_5.wtml", {
+    const { ready: loadFrames, fetchingComplete } = useWtmlLoader("interpolated_simulation_every_5.wtml", {
       prefetch: true,
       onNewImageset: (imageset, index) => {
         // the imagesets are all at 0,0 [ they are simulations]
@@ -629,7 +632,7 @@ onMounted(() => {
     });
 
 
-    const {ready: loadBacking} = useWtmlLoader("galaxyless_m74.wtml", {
+    const { ready: loadBacking } = useWtmlLoader("galaxyless_m74.wtml", {
       onNewImageset: (imageset) => moveImageset(imageset, coordinates['m74'][0], coordinates['m74'][1]),
       onNewLayer: (newLayer: ImageSetLayer, _index) => {
         newLayer.set_enabled(true);
@@ -638,11 +641,13 @@ onMounted(() => {
       },
     });
 
+    watch(fetchingComplete, (done: boolean) => layersLoaded.value = done);
+
     Promise.all([loadFrames, loadBacking])
       .then(() => {
-        layersLoaded.value = true;
         threeJsModelLoader();
       });
+
   });
 });
 

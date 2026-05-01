@@ -64,6 +64,8 @@ export function useWtmlLoader(wtmlUrl: string, options?: WtmlLoaderOptions) {
 
   const opacities = ref<Map<string, number>>(new Map());
 
+  const fetchingComplete = ref(false);
+
   function setOpacity(name: string, opacity: number) {
     if (imagesetLayers.value.length === 0)  return;
     const layer = imagesetLayers.value.find(layer => layer.get_name() === name);
@@ -175,11 +177,17 @@ export function useWtmlLoader(wtmlUrl: string, options?: WtmlLoaderOptions) {
 
     });
 
-    const interval = 25;
-    toFetch.forEach((url, index) => {
-      console.log(index, url);
-      setTimeout(() => fetch(url), index * interval);
-    });
+    const interval = 20;
+    function timeoutFetch<T>(callable: () => PromiseLike<T>, timeout: number): Promise<void> {
+      return new Promise(resolve => {
+        setTimeout(async () => {
+          await callable();
+          resolve();
+        }, timeout);
+      });
+    }
+    const fetchPromises = toFetch.map((url, index) => timeoutFetch(() => fetch(url), index * interval));
+    Promise.all(fetchPromises).then(() => fetchingComplete.value = true);
 
     // this is not getting set, so just skip it
     // if (!_addedAtLeastOneLayer) {
@@ -245,6 +253,7 @@ export function useWtmlLoader(wtmlUrl: string, options?: WtmlLoaderOptions) {
 
   return {
     ready,
+    fetchingComplete,
     places,
     imagesets,
     imagesetLayers,
