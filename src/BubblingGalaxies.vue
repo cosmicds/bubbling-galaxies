@@ -110,14 +110,6 @@
                 :color="buttonColor"
                 @activate="isWWT3D = !isWWT3D"
               /> -->
-
-              
-              <IconButton
-                v-show="showImageCard"
-                icon="mdi-home"
-                :color="buttonColor"
-                @activate="goToCoordinates('m74')"
-              />
             </div>
           </div>
           <div id="right-buttons">
@@ -189,7 +181,6 @@
 
             <Gallery
               v-show="ready && !showSimulation && !showImageCard"
-              v-model:selected-place="selectedGalleryItem"
               v-model:selected-places="selectedGalleryItems"
               v-model:places="galleryPlaces"
               wtml-url="./ngc628_datasets.wtml"
@@ -404,8 +395,8 @@ const layersToMove = computed(() => {
   return _layers;
 });
 const isets = ref<Imageset[]>([]);
-const selectedGalleryItem = ref<Place | null>(null);
 const selectedGalleryItems = ref<Place[]>([]);
+const selectedGalleryItem = computed(() => selectedGalleryItems.value[selectedGalleryItems.value.length - 1] ?? null);
 watch(selectedGalleryItem, (newPlace, oldPlace) => {
   if (oldPlace) {
     console.log("Deselecting place", oldPlace.get_name());
@@ -713,7 +704,7 @@ function goToGalleryItem(name: string) {
   if (place === null) {
     return;
   }
-  selectedGalleryItem.value = place;
+  selectedGalleryItems.value = [place];
   
   const iset = place.get_studyImageset() ?? place.get_backgroundImageset();
   if (iset) {
