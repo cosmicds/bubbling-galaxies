@@ -6,9 +6,18 @@
     :class="{ 'fade-out': fadeOut, 'narrowscreen': narrowscreen }"
     :style="{ '--speed-title': `${speedTitle ?? 26}s` }"
   >
+    <v-progress-linear
+      v-if="audioSrc"
+      :model-value="(progress / duration) * 100"
+      class="audio-progress"
+      color="var(--sw-yellow)"
+      height="4px"
+    />
     <AudioPlayer
       v-if="audioSrc"
       :src="audioSrc"
+      :fade-out-duration="fadeOut ? 1 : 0"
+      :fade="fadeOut"
       class="audio-player"
     />
     <!-- close v-btn crawl -->
@@ -89,38 +98,29 @@ function _removeClass(selector: string, className: string) {
   }
 }
 
-function startIntro() {
-  return;
-}
-
-function startMainLogo() {
-  return;
-}
-
-function startCrawl() {
-  return;
-}
 
 
-
-function _runAnimation() {
-  startIntro();
-  setTimeout(() => {
-    startMainLogo();
-  }, 2000);
-  setTimeout(() => {
-    startCrawl();
-  }, 7000);
-}
+const progress = ref(0);
+const duration = ref(0);
+setTimeout(() => {
+  const interval = setInterval(() => {
+    if (progress.value < duration.value) {
+      progress.value += 100;
+    } else {
+      clearInterval(interval);
+    }
+  }, 100);
+}, 0);
 
 onMounted(() => {
-  // 7500ms accounts for logo-in animation (4.5s) + logo-out (2.5s) + 500ms buffer
-  const totalDuration = (speedTitle.value ?? 26) * 1000 + 7500;
+  // 4500ms accounts for logo-in animation (4.5s)
+  const totalDuration = (speedTitle.value ?? 26) * 1000 + 4500;
+  duration.value = totalDuration;
   setTimeout(() => {
     fadeOut.value = true;
     setTimeout(() => {
-      show.value = false;
-    }, 1000);
+      // show.value = false;
+    }, 1500);
   }, totalDuration);
 });
 </script>
@@ -161,8 +161,8 @@ Version: 1.0
   --speed-title: 26s; /* overridden by :style binding when speedTitle prop is set */
   --title-delay: calc(0.9 * var(--speed-logo-in));
   
-  --sw-yellow: #EBD71C;
-  --sw-blue: #4ee;
+  --sw-yellow: #ffd233;
+  --sw-blue: #14ddf3;
   
   --bottom-offset: 10rem;
   
@@ -196,6 +196,12 @@ Version: 1.0
   opacity: 0;
   z-index: 10;
   text-align: center;
+}
+
+.star-wars-intro.narrowscreen p.intro-text {
+  width: 90%;
+  text-align: left;
+  font-size: 2em;
 }
 
 .star-wars-intro p.intro-text.intro-animation {
@@ -259,6 +265,9 @@ Version: 1.0
   -webkit-text-fill-color: transparent;
 }
 
+.star-wars-intro.narrowscreen .content-body {
+  font-size: 0.7em;
+}
 
 /* .star-wars-intro .content-body-overlay-gradient {
   position: absolute;
@@ -399,7 +408,23 @@ Version: 1.0
   }
   
   100% { 
-    top: -170%; 
+    top: -145%; 
+    
+  }
+}
+
+@keyframes scrollquick {
+  0% { 
+    top: 100%; 
+    opacity: 0;
+  }
+  
+  10% { 
+    opacity: 1;
+  }
+  
+  100% { 
+    top: -310%; 
     
   }
 }
@@ -407,14 +432,18 @@ Version: 1.0
 @media screen and (max-width: 720px) {
   .star-wars-intro .main-content {
     font-size: 35px;
+    outline: 1px solid red;
   }
   .star-wars-intro .title-content {
     position: absolute;
     top: 100%;
   }
   
-  .star-wars-intro .title-content.title-content-animation {
+  .star-wars-intro.narrowscreen .title-content.title-content-animation {
     animation: scroll var(--speed-title) linear var(--title-delay) forwards;
+  }
+  .star-wars-intro .title-content.title-content-animation {
+    animation: scrollquick var(--speed-title) linear var(--title-delay) forwards;
   }
 }
 

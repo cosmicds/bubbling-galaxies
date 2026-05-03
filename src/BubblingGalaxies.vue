@@ -60,13 +60,15 @@
         <p>
           ...32 million light years from Earth, exploding stars blew giant bubbles in the Phantom galaxy.
         </p>
-        <p>
-          Today's earthbound astronomers are using all kinds of powerful telescopes in their quest to uncover and understand the origins of the explosions that sculpt the Phantom galaxy's life story.
+        <p class="mt-4">
+          Today's earthbound astronomers are using all kinds of powerful telescopes in their quest to uncover and
+          understand the origins of the explosions that sculpt the Phantom galaxy's life story.
         </p>
-        <p>
-          But only simulators, whose computers have the power to probe regions of space and time inaccessible to humans, have even a chance to reveal the Phantom's changes over hundreds millions of years, in 3D...
+        <p class="mt-4">
+          But only simulators, whose computers have the power to probe regions of space and time inaccessible to humans,
+          have even a chance to reveal the Phantom's changes over hundreds millions of years, in 3D...
         </p>
-        <p>
+        <p class="mt-4">
           Have they done it?
         </p>
       </StarWarsCrawl>

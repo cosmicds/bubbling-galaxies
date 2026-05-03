@@ -16,11 +16,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeUnmount , useTemplateRef} from 'vue';
+import { ref, onBeforeUnmount , useTemplateRef, watch} from 'vue';
 
-const _props = defineProps<{
-  src: string;
-}>();
+// const _props = defineProps<{
+//   src: string;
+//   fadeOutDuration?: number; // in seconds
+//   fade?: boolean;
+// }>();
+const _props = defineProps({
+  src: {
+    type: String,
+    required: true,
+  },
+  fadeOutDuration: {
+    type: Number,
+    required: false,
+    default: undefined,
+  }, // in seconds
+  fade: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+});
 
 // const audio = ref<HTMLAudioElement | null>(null);
 const audio = useTemplateRef('audio-player');
@@ -62,6 +80,32 @@ function _unmuteMusic() {
     playing.value = true;
   }
 }
+
+function fadeOutMusic() {
+  if (!audio.value) return;
+  if (_props.fadeOutDuration === undefined) {
+    _stopMusic();
+    return;
+  }
+  const fadeDuration = (_props.fadeOutDuration) * 1000; // default to 2 seconds
+  const fadeStep = 50; // ms
+  const fadeAmount = audio.value.volume / (fadeDuration / fadeStep);
+
+  const fadeInterval = setInterval(() => {
+    if (audio.value && audio.value.volume > 0) {
+      audio.value.volume = Math.max(0, audio.value.volume - fadeAmount);
+    } else {
+      clearInterval(fadeInterval);
+      _stopMusic();
+    }
+  }, fadeStep);
+}
+
+watch(() => _props.fade, (newVal) => {
+  if (newVal) {
+    fadeOutMusic();
+  }
+});
 
 onBeforeUnmount(() => {
   _stopMusic();
