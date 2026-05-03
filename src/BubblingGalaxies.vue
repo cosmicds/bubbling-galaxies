@@ -120,7 +120,7 @@
                 @activate="isWWT3D = !isWWT3D"
               />
 
-              
+
               <IconButton
                 v-show="showImageCard"
                 icon="mdi-home"
@@ -153,6 +153,7 @@
                 :min="0"
                 :max="layers.length - 1"
                 step="1"
+                :disabled="!layersLoaded"
               >
                 <template #prepend>
                   <v-tooltip
@@ -168,6 +169,7 @@
                         color="white"
                         :icon="isPlaying ? 'mdi-pause' : 'mdi-play'"
                         :aria-label="isPlaying ? 'Pause animation' : 'Play animation'"
+                        :disabled="!layersLoaded"
                         @click="togglePlayPause"
                       >
                       </v-btn>
@@ -196,7 +198,7 @@
               collapse-on-select
               :preview-index="3"
             />
-            
+
             <DetailSummary
               v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem)"
               v-model="labelOpen"
@@ -213,6 +215,7 @@
               v-model="showSimulation"
               class="align-self-center mt-4"
               density="compact"
+              :disabled="!layersLoaded"
             >
               <v-btn
                 class="blur-button"
@@ -239,8 +242,8 @@
               :default-logos="['cosmicds', 'wwt', 'sciact', 'nasa']"
               :logo-size="smallSize ? '1em' : '2.5em'"
             />
-            <p 
-              v-if="!smallSize" 
+            <p
+              v-if="!smallSize"
               class="toolkit-credit"
             >
               Interactive developed using the
@@ -279,7 +282,7 @@ import { GotoRADecZoomParams, engineStore } from "@wwtelescope/engine-pinia";
 import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, CreditLogos, IconButton, useFullscreen } from "@cosmicds/vue-toolkit";
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
-import { Place, ImageSetLayer, Imageset } from "@wwtelescope/engine";
+import { LayerManager, Place, ImageSetLayer, Imageset, TileCache } from "@wwtelescope/engine";
 import { ImageSetType, ProjectionType } from "@wwtelescope/engine-types";
 import SplashGesture from "./components/SplashGesture.vue";
 import ModelViewerWindow from "./components/ModelViewerWindow.vue";
@@ -447,12 +450,12 @@ const currentLabel = computed(() => {
 });
 
 const showSimulation = ref(false);
-const simulationOpactiy = ref(+showSimulation.value);
+const simulationOpacity = ref(+showSimulation.value);
 // const simulationOpactiy = computed(() => +showSimulation.value);
 watch(showSimulation, (show) => {
-  simulationOpactiy.value = +show;
+  simulationOpacity.value = +show;
 });
-watch(simulationOpactiy, (val) => {
+watch(simulationOpacity, (val) => {
   showSimulation.value = val === 1;
 });
 
@@ -469,21 +472,21 @@ function moveToImageset(imageset: Imageset, options: {instant?: boolean, roll?: 
   const roll = imageset.get_rotation();
   // const isTan = imageset.get_projection() === ProjectionType.tan;
   const rollRad = options.roll ? roll * Math.PI / 180 : store.rollRad;
-  
+
   // const diagonalSize = 2 * Math.sqrt(offsetX * offsetX + offsetY * offsetY);
   // const zoom = isTan ? 2 * imageset.get_baseTileDegrees() * diagonalSize / offsetY : 1.7 * imageset.get_baseTileDegrees() * diagonalSize;
   const s = Math.sin(rollRad);
   const c = Math.cos(rollRad);
-  
+
 
   const angularHeight = imageset.get_baseTileDegrees();
   const angularWidth = angularHeight * (imageset.get_widthFactor() === 1 ? 2 : 1);
   const diagonalSize = Math.sqrt(angularWidth * angularWidth + angularHeight * angularHeight);
   const xSize = Math.abs(c * angularHeight) + Math.abs(s * angularWidth);
   const ySize = Math.abs(s * angularHeight) + Math.abs(c * angularWidth);
-  
 
-  
+
+
   return store.gotoRADecZoom({
     raRad: centerX * D2R,
     decRad: centerY * D2R,
@@ -520,7 +523,6 @@ function goToCoordinates(item: keyof typeof coordinates, instant=true) {
 
 
 import { useWtmlLoader } from "./composables/useWtmlLoader";
-import { label } from "three/tsl";
 
 function threeJsModelLoader() {
   const size = 0.5;
@@ -595,7 +597,7 @@ onMounted(() => {
     });
     // const rollAngle = -19.480565034447988; // degrees
     // rollView(
-    //   rollAngle + (isVertical.value ? 0 : 90), 
+    //   rollAngle + (isVertical.value ? 0 : 90),
     //   0.7,
     // );
 
@@ -609,11 +611,12 @@ onMounted(() => {
     }.bind(WWTControl.singleton);
 
 
-    
+
 
     store.setBackgroundImageByName(isWWT3D.value ? background3D : background2D);
 
-    const { ready: loadFrames } = useWtmlLoader("interpolated_simulation_every_5.wtml", {
+    const { ready: loadFrames, fetchingComplete } = useWtmlLoader("interpolated_simulation_every_5.wtml", {
+      prefetch: true,
       onNewImageset: (imageset, index) => {
         // the imagesets are all at 0,0 [ they are simulations]
         // here would also be a good place to set its size, but we don't know it yet
@@ -621,8 +624,7 @@ onMounted(() => {
         isets.value.push(imageset);
       },
       onNewLayer: (newLayer, index) => {
-        newLayer.set_enabled(true);
-        newLayer.set_opacity(index === 0 ? simulationOpactiy.value : 0);
+        newLayer.set_enabled(showSimulation.value ? index == 0 : false);
         layers.value.push(newLayer);
         // if (index === 0) moveToImageset(newLayer.get_imageSet());
       },
@@ -630,23 +632,34 @@ onMounted(() => {
     });
 
 
-    const {ready: loadBacking} = useWtmlLoader("galaxyless_m74.wtml", {
+    const { ready: loadBacking } = useWtmlLoader("galaxyless_m74.wtml", {
       onNewImageset: (imageset) => moveImageset(imageset, coordinates['m74'][0], coordinates['m74'][1]),
       onNewLayer: (newLayer: ImageSetLayer, _index) => {
         newLayer.set_enabled(true);
-        newLayer.set_opacity(simulationOpactiy.value); // show only the first layer initially
+        newLayer.set_opacity(simulationOpacity.value); // show only the first layer initially
         backingLayer.value = newLayer;
       },
     });
 
+    watch(fetchingComplete, (done: boolean) => layersLoaded.value = done);
+
     Promise.all([loadFrames, loadBacking])
       .then(() => {
-        layersLoaded.value = true;
         threeJsModelLoader();
       });
+
   });
 });
 
+watch(layersLoaded, (_loaded: boolean) => {
+  const backing = backingLayer.value;
+  if (backing != null) {
+    store.setImageSetLayerOrder({
+      id: backing.id.toString(),
+      order: 0,
+    });
+  }
+});
 
 
 const imageIndex = ref(0);
@@ -661,42 +674,53 @@ watch(store.imagesetLayers, (l) => {
   }
 });
 
-function setOnlyLayerAtIndexVisible(index: number) {
-  layers.value.forEach((layer, idx) => {
-    layer.set_opacity(idx === index ? simulationOpactiy.value : 0);
-    store.setImageSetLayerOrder({
-      id: layer.id.toString(),
-      order: Object.keys(store.imagesetLayers).length
-    });
-  });
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
-watch(imageIndex, (newIndex) => {
-  setOnlyLayerAtIndexVisible(newIndex);
+watch(imageIndex, async (newIndex: number, oldIndex: number) => {
+  const newLayer = layers.value[newIndex];
+  newLayer.set_enabled(true);
+
+  if (playing.value) {
+    // Hackery!
+    newLayer.set_opacity(0);
+    WWTControl.singleton.renderOneFrame();
+    while (TileCache.get_queueCount() > 0) {
+      await sleep(10);
+    }
+  }
+  newLayer.set_opacity(1);
+
+  layers.value[oldIndex].set_enabled(false);
 });
 
 function advanceImageIndex() {
   imageIndex.value = (imageIndex.value + 1) % layers.value.length;
 }
-const { togglePlayPause, isPlaying, playing } = useSetInterval(advanceImageIndex, 50);
+const { togglePlayPause, isPlaying, playing } = useSetInterval(advanceImageIndex, 100);
 
-watch(simulationOpactiy, (newOpacity) => {
+function updateCurrentLayersOpacity(opacity: number) {
   const currentLayer = layers.value[imageIndex.value];
   if (currentLayer) {
-    currentLayer.set_opacity(newOpacity);
+    currentLayer.set_opacity(opacity);
   }
   if (backingLayer.value) {
-    backingLayer.value.set_opacity(newOpacity);
+    backingLayer.value.set_opacity(opacity);
   }
-});
+}
+
+watch(simulationOpacity, updateCurrentLayersOpacity);
 
 watch(showSimulation, (showingSimulation) => {
   // if we are switching off the simulation while playing, pause it
   if (!showingSimulation && playing.value) {
     playing.value = false;
   }
+  layers.value[imageIndex.value]?.set_enabled(true);
+  updateCurrentLayersOpacity(showingSimulation ? 1 : 0);
 });
 
-const ready = computed(() => layersLoaded.value && positionSet.value);
+const ready = computed(() => positionSet.value);
 
 function goToGalleryItem(name: string) {
   const place = galleryPlaces.value.find(p => p.get_name() === name) || null;
@@ -704,7 +728,7 @@ function goToGalleryItem(name: string) {
     return;
   }
   selectedGalleryItem.value = place;
-  
+
   const iset = place.get_studyImageset() ?? place.get_backgroundImageset();
   if (iset) {
     moveToImageset(iset, {instant: false, roll: true, extraRoll: isVertical.value ? 90 : 0});
@@ -966,19 +990,19 @@ and remember, position:absolute is still a positioned parent, so children can be
     align-items:flex-end;
     gap: 1em;
   }
-  
+
   .bottom-row-2 {
     grid-row: 2 / 3;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  
+
   #body-logos {
     align-self: flex-end;
     grid-row:  3 / 4;
   }
-  
+
   #body-logos.small-logos {
     display: none;
     margin-top: 0.5em;
