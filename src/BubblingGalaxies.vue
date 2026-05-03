@@ -226,7 +226,7 @@
           >
             <v-btn-toggle
               v-model="showSimulation"
-              class="real-sim-toggle align-self-center mt-4"
+              :class="`real-sim-toggle align-self-center mt-4 ${!layersLoaded ? 'disabled' : ''}`"
               density="compact"
               :disabled="!layersLoaded"
             >
@@ -762,6 +762,17 @@ watch([showSplashScreen, showCrawl, galleryPlaces, ready], ([splashShowing, craw
   }
 });
 
+watch(showImageCard, (showing) => {
+  if (showing) {
+    // pause the simulation when showing the image card
+    if (playing.value) {
+      togglePlayPause();
+    }
+    showSimulation.value = false;
+    showInfoSheet.value = false;
+  }
+});
+
 /* `isLoading` is a bit redundant here, but it could potentially have independent logic */
 const isLoading = computed(() => !ready.value);
 
@@ -1144,5 +1155,8 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 .real-sim-toggle {
   outline: 2px solid white;
+}
+.real-sim-toggle.disabled {
+  outline: none;
 }
 </style>
