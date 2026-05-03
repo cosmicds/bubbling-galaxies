@@ -15,14 +15,15 @@
         class="expansion-panel"
         v-bind="activatorProps"
       >
+        <strong class="d-block">{{ title }}</strong>
         <v-icon
           aria-label="Learn more"
           size="small"
           color="white"
-          class=""
+          class="ds-info-icon ml-1"
         >
           mdi-information-outline
-        </v-icon> <strong>{{ title }}</strong>
+        </v-icon> 
         <!-- <button
           class="ds__click-to-learn-more mt-2 text-small"
         >
@@ -87,9 +88,17 @@ withDefaults(defineProps<Props>(), {
   background: rgba(0, 0, 0, 0.10);
   cursor: pointer;
   border: 1px solid rgba(255,255,255, 0.3);
-  padding: 10px 15px;
+  padding: 10px 10px;
   border-radius: 5px;
   backdrop-filter: blur(6px);
+
+}
+
+
+.expansion-panel > .ds-info-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 span.expansion-panel__summary {

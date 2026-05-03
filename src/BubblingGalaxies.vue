@@ -475,7 +475,7 @@ const labelTitles: Record<PhantomImageNames | string, LabelInfo> = {
     content: ""
   },
   'Infrared Dust (JWST)': {
-    title: 'JWST IR Image',
+    title: 'Colder JWST IR Image',
     content: '',
   },
   'Visible Light (Hubble)': {
