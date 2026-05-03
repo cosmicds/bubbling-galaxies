@@ -60,7 +60,7 @@
           </h2>
         </template>
         <p>
-          ...32 million light years from Earth, exploding stars blew giant bubbles in the Phantom galaxy.
+          ...32 million light years from Earth, exploding stars blew giant bubbles in the Phantom Galaxy.
         </p>
         <p class="mt-4">
           Today's earthbound astronomers are using all kinds of powerful telescopes in their quest to uncover and
@@ -68,9 +68,9 @@
         </p>
         <p class="mt-4">
           But only simulators, whose computers have the power to probe regions of space and time inaccessible to humans,
-          have even a chance to reveal the Phantom's changes over hundreds millions of years, in 3D...
+          have even a chance to reveal the Phantom's changes over hundreds of millions of years, in 3D...
         </p>
-        <p class="mt-4">
+        <p class="mt-16">
           Have they done it?
         </p>
       </StarWarsCrawl>

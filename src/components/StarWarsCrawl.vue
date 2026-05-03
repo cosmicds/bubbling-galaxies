@@ -267,6 +267,7 @@ Version: 1.0
   background: var(--sw-yellow);
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-align: left;
 }
 
 .star-wars-intro.narrowscreen .content-body {
@@ -439,7 +440,6 @@ Version: 1.0
 @media screen and (max-width: 720px) {
   .star-wars-intro .main-content {
     font-size: 35px;
-    outline: 1px solid red;
   }
   .star-wars-intro .title-content {
     position: absolute;

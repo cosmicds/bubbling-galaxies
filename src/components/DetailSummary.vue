@@ -91,14 +91,15 @@ withDefaults(defineProps<Props>(), {
   padding: 10px 10px;
   border-radius: 5px;
   backdrop-filter: blur(6px);
+  padding-right: 1.5em;
 
 }
 
 
 .expansion-panel > .ds-info-icon {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 2px;
+  right: 2px;
 }
 
 span.expansion-panel__summary {
