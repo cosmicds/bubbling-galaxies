@@ -3,6 +3,7 @@
     v-model="open"
     location="bottom"
     max-height="35vh"
+    width="100%"
     content-class="expansion-dialog-content"
     :opacity="0"
     :scrim="false"
@@ -14,14 +15,20 @@
         class="expansion-panel"
         v-bind="activatorProps"
       >
-        <slot name="title">
-          <strong>{{ title }}</strong>
-        </slot>
-        <button
+        <strong class="d-block">{{ title }}</strong>
+        <v-icon
+          aria-label="Learn more"
+          size="small"
+          color="white"
+          class="ds-info-icon ml-1"
+        >
+          mdi-information-outline
+        </v-icon> 
+        <!-- <button
           class="ds__click-to-learn-more mt-2 text-small"
         >
           Learn about this image
-        </button>
+        </button> -->
       </div>
     </template>
     <v-card>
@@ -67,9 +74,9 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <style lang="less">
-.expansion-dialog-content {
+.v-dialog>.v-overlay__content.expansion-dialog-content {
   align-self: flex-end;
-  margin: 1em;
+  margin-inline: 0!important;
 
   &:focus-visible {
     outline: none;
@@ -81,9 +88,22 @@ withDefaults(defineProps<Props>(), {
   background: rgba(0, 0, 0, 0.10);
   cursor: pointer;
   border: 1px solid rgba(255,255,255, 0.3);
-  padding: 10px 15px;
+  padding: 10px 10px;
   border-radius: 5px;
   backdrop-filter: blur(6px);
+
+}
+
+
+.expansion-panel > .ds-info-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+span.expansion-panel__summary {
+  display: flex;
+  align-items: center;
 }
 
 .v-card-title.expansion-panel-title {
@@ -91,7 +111,6 @@ withDefaults(defineProps<Props>(), {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 1em;
 }
 
 

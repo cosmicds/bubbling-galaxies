@@ -36,7 +36,6 @@
             :show-opacity="showOpacity"
             :opacity="getOpacity(selectedPlace)"
             borderless
-            hide-label
             @update:opacity="(v) => setOpacity(selectedPlace!, v)"
           />
         </div>
@@ -145,7 +144,7 @@ const props = withDefaults(defineProps<GalleryProps>(), {
   showOpacity: false,
   startOpen: false,
   persist: null,
-  hidePersist: false,
+  hidePersisted: false,
   hideGalleryLayers: false,
   collapseOnSelect: false,
   defaultStarting: null,
@@ -154,18 +153,18 @@ const props = withDefaults(defineProps<GalleryProps>(), {
 
 const defaultThumbnailUrl = "https://cdn.worldwidetelescope.org/wwtweb/thumbnail.aspx?name=test";
 
-const emit = defineEmits<{
-  "select": [place: Place],
-  "deselect": [place: Place],
-  "listAllSelected": [places: Place[]],
-}>();
+// const emit = defineEmits<{
+//   "select": [place: Place],
+//   "deselect": [place: Place],
+//   "listAllSelected": [places: Place[]],
+// }>();
 
 const store = engineStore();
 const open = ref(props.startOpen);
 
 const places = defineModel<Place[]>("places", { required: false, default: () => [] });
-const selectedPlace = defineModel<Place | null>("selectedPlace", { required: false, default: null });
 const selectedPlaces = defineModel<Place[]>("selectedPlaces", { required: false, default: () => [] });
+const selectedPlace = computed(() => selectedPlaces.value[selectedPlaces.value.length - 1] ?? null);
 const placeOpacities = ref<Record<string, number>>({});
 const imagesetLayers = ref<Record<string, ImageSetLayer>>({});
 let _internallySelecting = false;
@@ -193,12 +192,18 @@ onBeforeMount(() => {
     places.value = _places;
     await Promise.all(_places.slice().reverse().map(loadImagesetLayerForPlace));
     showPersistantPlace(_places);
-    if (props.defaultStarting) {
+    
+    if (props.defaultStarting && selectedPlaces.value.length === 0) {
       const defaultPlace = _places.find(p => p.get_name() === props.defaultStarting);
       if (defaultPlace) {
         selectPlace(defaultPlace);
       }
     }
+    // Wait for any parent watchers triggered by `places.value = _places` to flush
+    // (e.g. a parent that calls goToGalleryItem and sets selectedPlaces).
+    // Without this, syncSelectedLayerVisibility runs before selectedPlaces is updated.
+    await nextTick();
+    syncSelectedLayerVisibility();
   });
 });
 
@@ -317,51 +322,34 @@ function closeOnSelect() {
 }
 
 async function selectPlace(place: Place, letDeselect = true) {
-  _internallySelecting = true;
-  let deselect = false;
+  console.log("Selecting place", place.get_name());
   const layer = getImagesetLayerForPlace(place);
   if (!layer) {
     await loadImagesetLayerForPlace(place);
   }
+  _internallySelecting = true;
+  let deselect = false;
   if (props.singleSelect) {
-    // if we're already selected, deselect
-    if (selectedPlace.value === place && letDeselect) {
-      emit("deselect", place);
+    if ((selectedPlace.value === place) && letDeselect) {
       selectedPlaces.value = [];
-      selectedPlace.value = null;
       deselect = true;
     } else {
-      if (letDeselect) {
-        selectedPlaces.value.forEach(p => emit("deselect", p));
-      }
       selectedPlaces.value = [place]; // note this is only available after nextTick
-      selectedPlace.value = place;
-      emit("select", place);
     }
 
-    emit("listAllSelected", [...selectedPlaces.value]);
-    syncSelectedLayerVisibility();
-    nextTick(() => { _internallySelecting = false; });
-    if (!deselect) {
-      closeOnSelect();
-    }
-    return;
-  }
-
-  // for multi-select
-  // if we're already selected, deselect
-  if (selectedPlaces.value.includes(place) && letDeselect) {
-    emit("deselect", place);
-    selectedPlaces.value = selectedPlaces.value.filter((selected) => selected !== place);
-    deselect = true;
   } else {
-    selectedPlaces.value = selectedPlaces.value.includes(place) ? selectedPlaces.value : [...selectedPlaces.value, place];
-    selectedPlace.value = place;
-    emit("select", place);
+    // for multi-select
+    // if we're already selected, deselect
+    if (selectedPlaces.value.includes(place) && letDeselect) {
+      selectedPlaces.value = selectedPlaces.value.filter((selected) => selected !== place);
+      deselect = true;
+    } else {
+      selectedPlaces.value = selectedPlaces.value.includes(place)
+        ? [...selectedPlaces.value.filter((selected) => selected !== place), place]
+        : [...selectedPlaces.value, place];
+    }
   }
 
-  selectedPlace.value = selectedPlaces.value[selectedPlaces.value.length - 1] ?? null;
-  emit("listAllSelected", [...selectedPlaces.value]);
   syncSelectedLayerVisibility();
   nextTick(() => { _internallySelecting = false; });
   if (!deselect) {
@@ -383,12 +371,17 @@ function isPersistantLayer(place: Place) {
   return iset.get_name() === props.persist;
 }
 
+function setPlaceVisibility(place: Place, visible: boolean) {
+  const layer = getImagesetLayerForPlace(place);
+  if (!layer) return false;
+  setLayerVisibility(layer, visible);
+  return true;
+}
+
 function setSelectedImagesetVisibility(places: Place[], selectedPlaces: Place[]) {
   for (const place of places) {
-    const layer = getImagesetLayerForPlace(place);
-    if (!layer) continue;
     const visible = (selectedPlaces.includes(place) || isPersistantLayer(place)) ;
-    setLayerVisibility(layer, visible);
+    setPlaceVisibility(place, visible);
   }
 }
 
@@ -401,13 +394,14 @@ function syncSelectedLayerVisibility() {
 }
 
 watch(() => props.persist, (newPersist, oldPersist) => {
+  // if there is an old persist, hide it
   if (oldPersist !== null && oldPersist !== undefined) {
     const oldPlace = places.value.find(p => getImageset(p)?.get_name() === oldPersist);
     if (oldPlace) {
-      const layer = getImagesetLayerForPlace(oldPlace);
-      if (layer) setLayerVisibility(layer, false);
+      setPlaceVisibility(oldPlace, false);
     }
   }
+  // if there is a new persist, show it
   if (newPersist !== null && newPersist !== undefined) {
     const newPlace = places.value.find(p => getImageset(p)?.get_name() === newPersist);
     if (newPlace) {
@@ -434,31 +428,18 @@ watch(() => props.hideGalleryLayers, (hide) => {
   }
 });
 
-// React to selectedPlace being set from outside the component.
-watch(selectedPlace, async (newPlace) => {
+// we never push only replace
+watch(selectedPlaces, () => {
   if (_internallySelecting) return;
   _internallySelecting = true;
-  if (newPlace) {
-    selectPlace(newPlace, false);
-  } else {
-    selectedPlaces.value = [];
-  }
   syncSelectedLayerVisibility();
   nextTick(() => { _internallySelecting = false; });
-});
-
-// React to selectedPlaces being replaced from outside the component.
-watch(selectedPlaces, (newPlaces) => {
-  if (_internallySelecting) return;
-  _internallySelecting = true;
-  selectedPlace.value = newPlaces[newPlaces.length - 1] ?? null;
-  syncSelectedLayerVisibility();
-  nextTick(() => { _internallySelecting = false; });
-});
+}, { immediate: true });
 
 </script>
 
 <style lang="less">
+
 .this-gallery-root {
   transition-property: height, width;
   transition: 0.5s ease-out;
@@ -469,6 +450,12 @@ watch(selectedPlaces, (newPlaces) => {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(6px);
   }
+  
+  &.gallery-open { 
+  .blurred {
+    background: rgba(0,0,0,0.5);
+  }
+}
 
   .gallery {
     border-radius: 5px;
@@ -530,6 +517,7 @@ watch(selectedPlaces, (newPlaces) => {
     width: calc(var(--gallery-width) + 10px);
     display: flex;
     flex-direction: column;
+    align-items: center;
     cursor: pointer;
 
     img {
@@ -548,11 +536,12 @@ watch(selectedPlaces, (newPlaces) => {
     border: 1px solid white;
     display: flex;
     flex-direction: column;
+    align-items: center;
     cursor: pointer;
     width: var(--gallery-width);
     height: var(--gallery-item-height);
-    padding-top: 5px;
     position:relative;
+    --image-width: 96px;
     
     &.gallery-item__borderless {
       border: none;
@@ -562,7 +551,7 @@ watch(selectedPlaces, (newPlaces) => {
       margin-left: auto;
       margin-right: auto;
       border-radius: 3px;
-      width: 96px;
+      width: var(--image-width);
       height: 45px;
       object-fit: cover;
     }
@@ -577,16 +566,17 @@ watch(selectedPlaces, (newPlaces) => {
   }
 
   .gallery-opacity {
-    width: calc(100% - 12px);
+    width: var(--image-width);
     margin: 0 6px 6px;
     cursor: pointer;
   }
 
   .gallery-selected {
-    border: 1px solid var(--selected-color);
+    border: 2px solid var(--selected-color);
 
     span {
-      color: var(--selected-color);
+      color: white;
+      font-weight: bold;
     }
   }
   
@@ -612,6 +602,7 @@ watch(selectedPlaces, (newPlaces) => {
 
   .place-name {
     font-size: 0.8em;
+    margin-inline: 2px;
   }
 
 }

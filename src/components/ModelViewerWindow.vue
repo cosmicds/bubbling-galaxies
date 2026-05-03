@@ -7,7 +7,10 @@
     fullscreen
     :scrim="false"
   >
-    <v-card color="black">
+    <v-card
+      color="black"
+      max-height="100vh"
+    >
       <v-card-title class="model-view-dialog__card-title">
         <div
           class="model-view-dialog__title"
@@ -38,6 +41,7 @@
             </v-btn>
           </template>
         </ModelViewerComponent>
+        <slot />
       </v-card-text>
     </v-card>
   </v-dialog>
@@ -56,9 +60,12 @@ defineProps({
 
 <style lang="less">
 model-viewer {
-  margin: auto;
+  margin-inline: auto;
   width: 70vw;
-  height: 70vh;
+  // height: 70vh;
+  flex: 1 1 0%;
+  min-height: 0;
+  height: auto;
 }
 
 .model-viewer-dialog {
@@ -70,6 +77,9 @@ model-viewer {
 
   .v-card>.v-card-text.model-view-dialog__card-text {
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
   }
   .model-view-dialog__card-title > .model-view-dialog__title {
     flex-grow: 0;

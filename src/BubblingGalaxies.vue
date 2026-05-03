@@ -2,28 +2,28 @@
   <v-app
     id="app"
     :style="cssVars"
-    :class="[smallSize ? 'app-is-small' : '']"
+    :class="[smallSize ? 'app-is-small' : '', isLandscape ? 'app-is-landscape' : '']"
   >
     <v-card
       v-show="showImageCard"
-      :class="['image-card', 'flex-column', {'d-flex': showImageCard}]"
-      :height="smallSize ? '50%' : '100%'"
-      :width="smallSize ? '100%' : '50%'"
+      class="image-card"
     >
-      <template #title>
-        <div class="d-flex justify-end">
-          <v-btn
-            size="small"
-            icon="mdi-close"
-            @click="showImageCard = false"
-          ></v-btn>
-        </div>
-      </template>
+      <div
+        class="position-absolute top-0 right-0 pa-2 ma-2"
+        style=""
+      >
+        <v-btn
+          style="z-index:9;"
+          size="small"
+          icon="mdi-close"
+          @click="showImageCard = false"
+        ></v-btn>
+      </div>
       <image-flipbook
         v-model="imageCardIndex"
         :min="imageCardIndexMin"
         :max="imageCardIndexMax"
-        :frames="(index: number) => `simulation_a_pngs/frame_${index}.png`"
+        :frames="(index: number) => `https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_${index.toString().padStart(3, '0')}.png`"
       />
     </v-card>
 
@@ -48,7 +48,9 @@
       <StarWarsCrawl
         v-model="showCrawl"
         no-title
-        audio-src="star-wars-opening-theme-short.mp3"
+        :narrowscreen="!isLandscape"
+        :speed-title="35"
+        audio-src="luis_humanoide-space-adventures-orchestral-music-star-wars-style-139660.mp3"
       >
         <template #logo>
           <h2 class="main-logo-text">
@@ -94,40 +96,48 @@
             </icon-button>
             -->
             <v-btn
+              v-if="!showImageCard"
+              class="blur-button"
+              variant="outlined"
+              @click="showModel = !showModel"
+            >
+              View in 3D!
+            </v-btn>
+            <div class="d-flex flex-row ga-2">
+              <IconButton
+                v-if="!showImageCard"
+                :color="buttonColor"
+                tooltip-text="Show Simulation in Split Screen"
+                @activate="showImageCard = !showImageCard"
+              >
+                <template #button>
+                  <SplitScreenSvg :rotated="smallSize && !isLandscape" />
+                </template>
+              </IconButton>
+              <!-- <IconButton
+                v-if="!showImageCard"
+                :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
+                :color="buttonColor"
+                @activate="isWWT3D = !isWWT3D"
+              /> -->
+            </div>
+          </div>
+          <div id="right-buttons">
+            <v-btn
+              v-if="!showImageCard"
               class="blur-button"
               variant="outlined"
               @click="showInfoSheet = !showInfoSheet"
             >
               Learn More
             </v-btn>
-            <v-btn
-              class="blur-button"
-              variant="outlined"
-              @click="showModel = !showModel"
-            >
-              View Simulation in 3D!
-            </v-btn>
-            <div class="d-flex flex-row ga-2">
-              <IconButton
-                :icon="`mdi-${showImageCard ? 'vector-combine' : (smallSize ? 'view-split-horizontal' : 'view-split-vertical')}`"
-                :color="buttonColor"
-                @activate="showImageCard = !showImageCard"
-              />
-              <IconButton
-                v-if="!showImageCard"
-                :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
-                :color="buttonColor"
-                @activate="isWWT3D = !isWWT3D"
-              />
-
-
-              <IconButton
-                v-show="showImageCard"
-                icon="mdi-home"
-                :color="buttonColor"
-                @activate="goToCoordinates('m74')"
-              />
-            </div>
+            <IconButton
+              v-if="!showImageCard"
+              icon="mdi-home"
+              :color="buttonColor"
+              tooltip-text="Reset view"
+              @activate="goToCoordinates('m74')"
+            />
           </div>
         </div>
 
@@ -135,7 +145,40 @@
         <ModelViewerWindow
           v-model="showModel"
           :button-color="buttonColor"
-        />
+        >
+          <div class="merge-cube-shoutout ma-4">
+            <h3>
+              Have a Merge Cube?
+            </h3>
+            <p
+              v-if="false"
+              class="text-small"
+            >
+              View this simulated galaxy in AR with a MergeCube! Click the button below and follow the instructions.
+            </p>
+            <a
+              class="align-self-center"
+              href="https://edu.delightex.com/RSU-EJVQ"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <v-btn
+                class="mt-2" 
+                variant="outlined"
+                density="compact"
+              >
+                Show in <img
+                  class="ml-2"
+                  src="./assets/MergeCube-Logo-Purple.svg"
+                  height="16px"
+                >
+              </v-btn>
+            </a>
+            <div class="text-small mc-disclaimer">
+              (opens in MergeCube app or a new page)  
+            </div>
+          </div>
+        </ModelViewerWindow>
 
         <!-- This block contains the elements (e.g. the project icons) displayed along the bottom of the screen -->
 
@@ -178,12 +221,11 @@
                   </v-tooltip>
                 </template>
               </v-slider>
-              <span>Time: {{ simulationTime.toFixed(2) }} million years</span>
+              <span>{{ simulationTime.toFixed(1) }} million years, Simulated IR Image</span>
             </div>
 
             <Gallery
-              v-show="ready && !showSimulation"
-              v-model:selected-place="selectedGalleryItem"
+              v-show="ready && !showSimulation && !showImageCard"
               v-model:selected-places="selectedGalleryItems"
               v-model:places="galleryPlaces"
               wtml-url="./ngc628_datasets.wtml"
@@ -191,8 +233,8 @@
               selected-color="limegreen"
               show-opacity
               :columns="1"
-              width="125px"
-              persist="Optical (NOAO)"
+              width="105px"
+              persist="Optical (Kitt Peak)"
               :hide-persisted="true"
               :hide-gallery-layers="showSimulation || showSplashScreen"
               collapse-on-select
@@ -200,26 +242,31 @@
             />
 
             <DetailSummary
-              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem)"
+              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && !showSimulation"
               v-model="labelOpen"
               :title="currentLabel.title"
             >
-              <div v-if="currentLabel.title == 'Colder Infrared (JWST)'">
-                hi
-              </div>
+              <ImageText
+                v-if="selectedGalleryItem"
+                :which="(selectedGalleryItem.get_name() as PhantomImageNames)"
+              />
             </DetailSummary>
           </div>
 
-          <div class="bottom-row-2">
+          <div
+            v-if="!showImageCard"
+            class="bottom-row-2"
+          >
             <v-btn-toggle
               v-model="showSimulation"
-              class="align-self-center mt-4"
+              :class="`real-sim-toggle align-self-center mt-4 ${!layersLoaded ? 'disabled' : ''}`"
               density="compact"
               :disabled="!layersLoaded"
             >
               <v-btn
                 class="blur-button"
                 variant="outlined"
+                density="comfortable"
                 :value="false"
               >
                 Real
@@ -227,6 +274,7 @@
               <v-btn
                 class="blur-button"
                 variant="outlined"
+                density="comfortable"
                 :value="true"
               >
                 Simulated
@@ -271,7 +319,6 @@
     <WebGlTest
       @webgl2-disabled="webglDisabled = true"
     />
-    <SplashGesture v-if="!showSplashScreen && !isLoading && !showCrawl" />
   </v-app>
 </template>
 
@@ -283,11 +330,11 @@ import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, Credit
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
 import { LayerManager, Place, ImageSetLayer, Imageset, TileCache } from "@wwtelescope/engine";
-import { ImageSetType, ProjectionType } from "@wwtelescope/engine-types";
-import SplashGesture from "./components/SplashGesture.vue";
 import ModelViewerWindow from "./components/ModelViewerWindow.vue";
 import StarWarsCrawl from "./components/StarWarsCrawl.vue";
 import DetailSummary from "./components/DetailSummary.vue";
+import ImageText from "./components/ImageText.vue";
+import SplitScreenSvg from "./components/SplitScreenSvg.vue";
 
 import { WWTControl } from "@wwtelescope/engine";
 
@@ -302,6 +349,7 @@ const webglDisabled = ref(false);
 
 import { useSetInterval } from "./composables/useSetInterval";
 import { moveImageset, moveLayer } from "./imageset_manipulation";
+import type { PhantomImageNames } from "./types";
 
 type SheetType = "text" | "video";
 
@@ -385,7 +433,7 @@ const showModel = ref(false);
 const showImageCard = ref(false);
 const imageCardIndex = ref(100);
 const imageCardIndexMin = 100;
-const imageCardIndexMax = 148;
+const imageCardIndexMax = 300;
 
 const layers = ref<ImageSetLayer[]>([]);
 const backingLayer = ref<ImageSetLayer | null>(null);
@@ -397,8 +445,8 @@ const layersToMove = computed(() => {
   return _layers;
 });
 const isets = ref<Imageset[]>([]);
-const selectedGalleryItem = ref<Place | null>(null);
 const selectedGalleryItems = ref<Place[]>([]);
+const selectedGalleryItem = computed(() => selectedGalleryItems.value[selectedGalleryItems.value.length - 1] ?? null);
 watch(selectedGalleryItem, (newPlace, oldPlace) => {
   if (oldPlace) {
     console.log("Deselecting place", oldPlace.get_name());
@@ -421,21 +469,21 @@ interface LabelInfo {
   content: string;
 }
 
-const labelTitles: Record<string, LabelInfo> = {
-  'Infrared (JWST)': {
-    title: 'JWST Infrared Image',
+const labelTitles: Record<PhantomImageNames | string, LabelInfo> = {
+  'Infrared Stars & Dust (JWST)': {
+    title: 'JWST IR Image',
     content: ""
   },
-  'Colder Infrared (JWST)': {
-    title: 'JWST Colder Infrared Image',
+  'Infrared Dust (JWST)': {
+    title: 'Colder JWST IR Image',
     content: '',
   },
-  'Visible (Hubble)': {
-    title: 'Hubble Visible light Image',
+  'Visible Light (Hubble)': {
+    title: 'Hubble Image',
     content: '',
   },
-  'Optical (NOAO)': {
-    title: 'NOAO Optical Image',
+  'Optical (Kitt Peak)': {
+    title: 'Kitt Peak Optical Image',
     content: '',
   },
   'Simulation on Sky': {
@@ -663,7 +711,7 @@ watch(layersLoaded, (_loaded: boolean) => {
 
 
 const imageIndex = ref(0);
-const simulationTime = computed(() => imageIndex.value * 0.19);
+const simulationTime = computed(() => imageIndex.value * 0.19 * 2);
 
 watch(store.imagesetLayers, (l) => {
   if (layers.value.length > imageIndex.value) {
@@ -727,7 +775,7 @@ function goToGalleryItem(name: string) {
   if (place === null) {
     return;
   }
-  selectedGalleryItem.value = place;
+  selectedGalleryItems.value = [place];
 
   const iset = place.get_studyImageset() ?? place.get_backgroundImageset();
   if (iset) {
@@ -740,8 +788,19 @@ watch([showSplashScreen, showCrawl, galleryPlaces, ready], ([splashShowing, craw
   if (!splashShowing && !crawlShowing && places && isReady) {
     console.log("Splash and crawl finished, moving to gallery item");
     // moveToImageset(galleryPlaces.value)
-    const item = "Infrared (JWST)";
+    const item: PhantomImageNames = "Infrared Stars & Dust (JWST)";
     goToGalleryItem(item);
+  }
+});
+
+watch(showImageCard, (showing) => {
+  if (showing) {
+    // pause the simulation when showing the image card
+    if (playing.value) {
+      togglePlayPause();
+    }
+    showSimulation.value = false;
+    showInfoSheet.value = false;
   }
 });
 
@@ -750,6 +809,7 @@ const isLoading = computed(() => !ready.value);
 
 /* Properties related to device/screen characteristics */
 const smallSize = computed(() => smAndDown.value);
+const isLandscape = computed(() => viewportWidth.value > viewportHeight.value * 1.25);
 
 
 /* This lets us inject component data into element CSS */
@@ -834,6 +894,8 @@ function rollView(angleDegrees: number, zoomDeg: number | null = null) {
   }
 }
 
+
+
 #app.app-is-small {
   #side-drawer {
   flex: 0 0 auto;
@@ -845,6 +907,19 @@ function rollView(angleDegrees: number, zoomDeg: number | null = null) {
 
   &.side-drawer-open {
     height: 34%;
+  }
+}
+}
+/* we don't technicalll need the #app.app-is-small.app-is-landscape,
+// since this comes after the #app.app-is-small rule which 
+// because css follows the cascade in order
+// */
+#app.app-is-small.app-is-landscape,
+#app.app-is-landscape {
+  #side-drawer {
+    width: 0%; // start off with 0 width
+    &.side-drawer-open {
+      width: 50%; // open to 30% width
   }
 }
 }
@@ -906,6 +981,30 @@ and remember, position:absolute is still a positioned parent, so children can be
   justify-content: space-between; // pushes top and bottom content apart
 }
 
+
+
+#app.app-is-landscape {
+  .v-application__wrap {
+    flex-direction: row;
+    height: 100svh;
+    max-height: 100svh;
+  }
+
+  #main-content {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+#app.app-is-landscape #side-drawer.side-drawer-open {
+  width: 30%;
+}
+
+#side-drawer.side-drawer-closed {
+  width: 0;
+  flex: 0 0 0;
+  overflow: hidden;
+}
 // moved modal content to Loader.vue
 
 #top-content {
@@ -922,30 +1021,6 @@ and remember, position:absolute is still a positioned parent, so children can be
   gap: 10px;
   align-items: flex-start;
 
-  .zoom-slider {
-    writing-mode: vertical-lr;
-    height: 120px;
-    accent-color: #fff;
-    pointer-events: auto;
-    cursor: pointer;
-    opacity: 0.75;
-    &:hover { opacity: 1; }
-  }
-
-  .zoom-label {
-    background: #000;
-    border: 1px solid #fff;
-    border-radius: 3px;
-    color: #fff;
-    width: 20px;
-    height: 20px;
-    font-size: 0.9rem;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-  }
 }
 
 #center-buttons {
@@ -971,6 +1046,8 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 .icon-wrapper {
     pointer-events: auto;
+    background-color: transparent;
+    backdrop-filter: blur(6px);
   }
 
 
@@ -1088,23 +1165,46 @@ and remember, position:absolute is still a positioned parent, so children can be
 }
 
 .image-card {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 40%;
   order: 1;
+  overflow: hidden;
 
   .v-card-item {
     padding: 0;
   }
 
   .image-flipbook {
-    margin: auto;
+    flex: 1 1 0;
   }
 }
 
 #app.app-is-small .image-card {
   order: 0;
+}
 
-  img {
-    object-fit: contain;
-    width: 100%;
+.real-sim-toggle {
+  outline: 2px solid white;
+}
+.real-sim-toggle.disabled {
+  outline: none;
+}
+
+.merge-cube-shoutout {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70vw;
+  align-self:center;
+  
+  .mc-disclaimer {
+    font-size: 0.8em;
+    color: rgba(255,255,255,0.55);
+    margin-top: 2px;
+    text-align: center;
   }
+  
 }
 </style>
