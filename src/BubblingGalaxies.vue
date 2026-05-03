@@ -102,6 +102,7 @@
                 v-if="!showImageCard"
                 :icon="`mdi-${showImageCard ? 'vector-combine' : (smallSize ? 'view-split-horizontal' : 'view-split-vertical')}`"
                 :color="buttonColor"
+                tooltip-text="Show Simulation in Split Screen"
                 @activate="showImageCard = !showImageCard"
               >
                 <template #button>
@@ -129,6 +130,7 @@
               v-if="!showImageCard"
               icon="mdi-home"
               :color="buttonColor"
+              tooltip-text="Reset view"
               @activate="goToCoordinates('m74')"
             />
           </div>
