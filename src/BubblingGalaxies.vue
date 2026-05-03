@@ -8,8 +8,12 @@
       v-show="showImageCard"
       class="image-card"
     >
-      <div class="position-absolute top-0 right-0 pa-2 ma-2">
+      <div
+        class="position-absolute top-0 right-0 pa-2 ma-2"
+        style=""
+      >
         <v-btn
+          style="z-index:9;"
           size="small"
           icon="mdi-close"
           @click="showImageCard = false"
@@ -398,7 +402,7 @@ const showModel = ref(false);
 const showImageCard = ref(false);
 const imageCardIndex = ref(100);
 const imageCardIndexMin = 100;
-const imageCardIndexMax = 148;
+const imageCardIndexMax = 300;
 
 const layers = ref<ImageSetLayer[]>([]);
 const backingLayer = ref<ImageSetLayer | null>(null);
