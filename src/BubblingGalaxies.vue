@@ -681,7 +681,6 @@ onMounted(() => {
 
 
     const { ready: loadBacking } = useWtmlLoader("galaxyless_m74.wtml", {
-      onNewImageset: (imageset) => moveImageset(imageset, coordinates['m74'][0], coordinates['m74'][1]),
       onNewLayer: (newLayer: ImageSetLayer, _index) => {
         newLayer.set_enabled(true);
         newLayer.set_opacity(simulationOpacity.value); // show only the first layer initially
@@ -1148,7 +1147,7 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 
 .crawl-skip-button {
-  position: absolute;
+  position: absolute !important;
   bottom: 5rem;
   right: 1rem;
   z-index: 9999;
