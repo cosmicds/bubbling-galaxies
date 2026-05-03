@@ -852,6 +852,8 @@ function rollView(angleDegrees: number, zoomDeg: number | null = null) {
   }
 }
 
+
+
 #app.app-is-small {
   #side-drawer {
   flex: 0 0 auto;
@@ -863,6 +865,19 @@ function rollView(angleDegrees: number, zoomDeg: number | null = null) {
 
   &.side-drawer-open {
     height: 34%;
+  }
+}
+}
+/* we don't technicalll need the #app.app-is-small.app-is-landscape,
+// since this comes after the #app.app-is-small rule which 
+// because css follows the cascade in order
+// */
+#app.app-is-small.app-is-landscape,
+#app.app-is-landscape {
+  #side-drawer {
+    width: 0%; // start off with 0 width
+    &.side-drawer-open {
+      width: 50%; // open to 30% width
   }
 }
 }
@@ -924,6 +939,30 @@ and remember, position:absolute is still a positioned parent, so children can be
   justify-content: space-between; // pushes top and bottom content apart
 }
 
+
+
+#app.app-is-landscape {
+  .v-application__wrap {
+    flex-direction: row;
+    height: 100svh;
+    max-height: 100svh;
+  }
+
+  #main-content {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+#app.app-is-landscape #side-drawer.side-drawer-open {
+  width: 30%;
+}
+
+#side-drawer.side-drawer-closed {
+  width: 0;
+  flex: 0 0 0;
+  overflow: hidden;
+}
 // moved modal content to Loader.vue
 
 #top-content {
@@ -1086,7 +1125,7 @@ and remember, position:absolute is still a positioned parent, so children can be
 .image-card {
   display: flex;
   flex-direction: column;
-  flex: 0 0 50%;
+  flex: 0 0 40%;
   order: 1;
   overflow: hidden;
 
