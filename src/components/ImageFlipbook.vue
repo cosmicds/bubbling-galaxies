@@ -255,10 +255,11 @@ onUnmounted(() => {
 
 <style scoped>
 .image-flipbook {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto auto;
   justify-content: center;
   align-items: stretch;
+  position: relative;
 }
 .image-flipbook__controls {
   padding: 15px;
@@ -267,9 +268,12 @@ onUnmounted(() => {
   justify-content: center;
   align-items: center;
   gap: 15px;
+  grid-row: 2;
 }
 
 .image-flipbook__viewport {
+  /* take up both rows */
+  grid-row: 1 / span 2;
   flex: 1 1 0;
   min-height: 0;
   overflow: hidden;
