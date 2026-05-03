@@ -70,3 +70,14 @@ Hubble Image: This image is a composite of separate exposures acquired by the Hu
 
 Hubble’s complete image
 Hubble’s image of NGC 628 shows a densely populated face-on spiral galaxy anchored by its central region, which has a light yellow haze that takes up about a quarter of the view. The core is brightest at the center, washing out light from other objects. Delicate spiral arms start near the center and extend to the edges, rotating counterclockwise. There is more brown dust beginning at the center, but as the arms extend outward, brown dust lanes alternate with diffuse lines of bright blue stars. Throughout the spiral arms, there are bright pink patches of star-forming clusters.
+
+
+
+# Optical NOAO
+
+M74 is one of the dimmer galaxies in the Messier catalogue. The galaxy is estimated to be 35 million light years away and about the same size as our own galaxy (100,000 light years across). Many bright pink spots line the blue spiral arms. These pink regions are the stellar nurseries from which the bright blue stars in the spiral arms are born.
+
+This image was taken as part of Advanced Observing Program (AOP) program at Kitt Peak Visitor Center during 2014.
+
+Credit:
+KPNO/NOIRLab/NSF/AURA/Paul Mortfield and Deitmar Kupke/Flynn Haase
