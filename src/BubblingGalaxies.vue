@@ -19,7 +19,7 @@
         v-model="imageCardIndex"
         :min="imageCardIndexMin"
         :max="imageCardIndexMax"
-        :frames="(index: number) => `simulation_a_pngs/frame_${index}.png`"
+        :frames="(index: number) => `https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_${index.toString().padStart(3, '0')}.png`"
       />
     </v-card>
 
@@ -133,34 +133,6 @@
               tooltip-text="Reset view"
               @activate="goToCoordinates('m74')"
             />
-            <v-btn
-              class="blur-button"
-              variant="outlined"
-              @click="showModel = !showModel"
-            >
-              View Simulation in 3D!
-            </v-btn>
-            <div class="d-flex flex-row ga-2">
-              <IconButton
-                :icon="`mdi-${showImageCard ? 'vector-combine' : (smallSize ? 'view-split-horizontal' : 'view-split-vertical')}`"
-                :color="buttonColor"
-                @activate="showImageCard = !showImageCard"
-              />
-              <IconButton
-                v-if="!showImageCard"
-                :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
-                :color="buttonColor"
-                @activate="isWWT3D = !isWWT3D"
-              />
-
-
-              <IconButton
-                v-show="showImageCard"
-                icon="mdi-home"
-                :color="buttonColor"
-                @activate="goToCoordinates('m74')"
-              />
-            </div>
           </div>
         </div>
 
