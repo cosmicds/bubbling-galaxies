@@ -304,5 +304,11 @@ onUnmounted(() => {
   height: 100%;
   object-fit: contain;
   display: block;
+  /* orient image properly */
+  /* https://stackoverflow.com/a/32875781/11594175 */
+  -webkit-transform: scale(-1,1);
+  -moz-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  transform: scale(-1, 1);
 }
 </style>
