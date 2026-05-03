@@ -3,7 +3,8 @@
   <div
     v-if="show"
     class="star-wars-intro"
-    :class="{ 'fade-out': fadeOut }"
+    :class="{ 'fade-out': fadeOut, 'narrowscreen': narrowscreen }"
+    :style="{ '--speed-title': `${speedTitle ?? 26}s` }"
   >
     <AudioPlayer
       v-if="audioSrc"
@@ -53,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, toRefs } from 'vue';
 import AudioPlayer from './AudioPlayer.vue';
 
 const show = defineModel({
@@ -61,11 +62,15 @@ const show = defineModel({
   default: true,
 });
 
-defineProps<{
+const props = defineProps<{
   noLogo?: boolean;
   noTitle?: boolean;
   audioSrc?: string;
+  narrowscreen?: boolean;
+  speedTitle?: number;
 }>();
+
+const { speedTitle } = toRefs(props);
 
 
 const fadeOut = ref(false);
@@ -109,12 +114,14 @@ function _runAnimation() {
 }
 
 onMounted(() => {
+  // 7500ms accounts for logo-in animation (4.5s) + logo-out (2.5s) + 500ms buffer
+  const totalDuration = (speedTitle.value ?? 26) * 1000 + 7500;
   setTimeout(() => {
     fadeOut.value = true;
     setTimeout(() => {
       show.value = false;
     }, 1000);
-  }, 33500);
+  }, totalDuration);
 });
 </script>
 
@@ -151,7 +158,7 @@ Version: 1.0
   --speed-intro: 2s;
   --speed-logo-in: 5s;
   --speed-logo-out: 2.5s;
-  --speed-title: 26s;
+  --speed-title: 26s; /* overridden by :style binding when speedTitle prop is set */
   --title-delay: calc(0.9 * var(--speed-logo-in));
   
   --sw-yellow: #EBD71C;
@@ -177,11 +184,14 @@ Version: 1.0
 
 
 .star-wars-intro p.intro-text {
-  position: relative;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
   max-width: 16em;
   font-size: 200%;
   font-weight: 400;
-  margin: 30% auto;
+
   color: var(--sw-blue);
   opacity: 0;
   z-index: 10;
@@ -244,24 +254,11 @@ Version: 1.0
 
 .star-wars-intro .content-body {
   position: relative;
-  background: linear-gradient(#EBD71C00, #EBD71C, #EBD71C00);
+  background: var(--sw-yellow);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-@keyframes rollingOpacity {
-  0% {
-    background: linear-gradient(#EBD71C00, #EBD71C, #EBD71C);
-  }
-  50% {
-    background: linear-gradient(#EBD71C00, #EBD71C, #EBD71C00);
-  }
-  
-  100% {
-    background: linear-gradient(#EBD71C00, #EBD71C00, #EBD71C00);
-  }
-  
-}
 
 /* .star-wars-intro .content-body-overlay-gradient {
   position: absolute;
@@ -279,11 +276,15 @@ Version: 1.0
 
 /* Main Image Styles */
 
+.star-wars-intro.narrowscreen .main-logo-positioner {
+  top: -10%;
+}
+
 .star-wars-intro .main-logo-positioner {
   position: absolute;
   left: 0;
   right: 0;
-  top: -0.5em;
+  top: -50%;
   display: flex;
   justify-content: center;
   z-index: 10;
