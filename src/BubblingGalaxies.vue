@@ -145,6 +145,38 @@
           v-model="showModel"
           :button-color="buttonColor"
         >
+          <div class="merge-cube-shoutout ma-4">
+            <h3>
+              Have a Merge Cube?
+            </h3>
+            <p
+              v-if="false"
+              class="text-small"
+            >
+              View this simulated galaxy in AR with a MergeCube! Click the button below and follow the instructions.
+            </p>
+            <a
+              class="align-self-center"
+              href="https://edu.delightex.com/RSU-EJVQ"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <v-btn
+                class="mt-2" 
+                variant="outlined"
+                density="compact"
+              >
+                Show in <img
+                  class="ml-2"
+                  src="./assets/MergeCube-Logo-Purple.svg"
+                  height="16px"
+                >
+              </v-btn>
+            </a>
+            <div class="text-small mc-disclaimer">
+              (opens in MergeCube app or a new page)  
+            </div>
+          </div>
         </ModelViewerWindow>
 
         <!-- This block contains the elements (e.g. the project icons) displayed along the bottom of the screen -->
@@ -1158,5 +1190,22 @@ and remember, position:absolute is still a positioned parent, so children can be
 }
 .real-sim-toggle.disabled {
   outline: none;
+}
+
+.merge-cube-shoutout {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70vw;
+  align-self:center;
+  
+  .mc-disclaimer {
+    font-size: 0.8em;
+    color: rgba(255,255,255,0.55);
+    margin-top: 2px;
+    text-align: center;
+  }
+  
 }
 </style>
