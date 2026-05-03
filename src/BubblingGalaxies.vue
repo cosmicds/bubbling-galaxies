@@ -92,6 +92,7 @@
             <v-btn
               v-if="!showImageCard"
               class="blur-button"
+              size="small"
               variant="outlined"
               @click="showModel = !showModel"
             >
@@ -116,6 +117,7 @@
             <v-btn
               v-if="!showImageCard"
               class="blur-button"
+              size="small"
               variant="outlined"
               @click="showInfoSheet = !showInfoSheet"
             >
@@ -189,7 +191,7 @@
               show-opacity
               :columns="1"
               width="125px"
-              persist="Optical (NOAO)"
+              persist="Optical (Kitt Peak)"
               :hide-persisted="true"
               :hide-gallery-layers="showSimulation || showSplashScreen"
               collapse-on-select
@@ -201,9 +203,10 @@
               v-model="labelOpen"
               :title="currentLabel.title"
             >
-              <div v-if="currentLabel.title == 'Colder Infrared (JWST)'">
-                hi
-              </div>
+              <ImageText
+                v-if="selectedGalleryItem"
+                :which="(selectedGalleryItem.get_name() as PhantomImageNames)"
+              />
             </DetailSummary>
           </div>
 
@@ -219,6 +222,8 @@
               <v-btn
                 class="blur-button"
                 variant="outlined"
+                density="compact"
+                size="small"
                 :value="false"
               >
                 Real
@@ -226,6 +231,8 @@
               <v-btn
                 class="blur-button"
                 variant="outlined"
+                density="compact"
+                size="small"
                 :value="true"
               >
                 Simulated
@@ -286,6 +293,7 @@ import SplashGesture from "./components/SplashGesture.vue";
 import ModelViewerWindow from "./components/ModelViewerWindow.vue";
 import StarWarsCrawl from "./components/StarWarsCrawl.vue";
 import DetailSummary from "./components/DetailSummary.vue";
+import ImageText from "./components/ImageText.vue";
 
 import { WWTControl } from "@wwtelescope/engine";
 
@@ -300,6 +308,7 @@ const webglDisabled = ref(false);
 
 import { useSetInterval } from "./composables/useSetInterval";
 import { moveImageset, moveLayer } from "./imageset_manipulation";
+import type { PhantomImageNames } from "./types";
 
 type SheetType = "text" | "video";
 
@@ -419,21 +428,21 @@ interface LabelInfo {
   content: string;
 }
 
-const labelTitles: Record<string, LabelInfo> = {
-  'Infrared (JWST)': {
-    title: 'JWST Infrared Image',
+const labelTitles: Record<PhantomImageNames | string, LabelInfo> = {
+  'Infrared Stars & Dust (JWST)': {
+    title: 'JWST IR Image',
     content: ""
   },
-  'Colder Infrared (JWST)': {
-    title: 'JWST Colder Infrared Image',
+  'Infrared Dust (JWST)': {
+    title: 'JWST Mid-IR Image',
     content: '',
   },
-  'Visible (Hubble)': {
+  'Visible Light (Hubble)': {
     title: 'Hubble Visible light Image',
     content: '',
   },
-  'Optical (NOAO)': {
-    title: 'NOAO Optical Image',
+  'Optical (Kitt Peak)': {
+    title: 'Kitt Peak Optical Image',
     content: '',
   },
   'Simulation on Sky': {
@@ -717,7 +726,7 @@ watch([showSplashScreen, showCrawl, galleryPlaces, ready], ([splashShowing, craw
   if (!splashShowing && !crawlShowing && places && isReady) {
     console.log("Splash and crawl finished, moving to gallery item");
     // moveToImageset(galleryPlaces.value)
-    const item = "Infrared (JWST)";
+    const item: PhantomImageNames = "Infrared Stars & Dust (JWST)";
     goToGalleryItem(item);
   }
 });
@@ -900,30 +909,6 @@ and remember, position:absolute is still a positioned parent, so children can be
   gap: 10px;
   align-items: flex-start;
 
-  .zoom-slider {
-    writing-mode: vertical-lr;
-    height: 120px;
-    accent-color: #fff;
-    pointer-events: auto;
-    cursor: pointer;
-    opacity: 0.75;
-    &:hover { opacity: 1; }
-  }
-
-  .zoom-label {
-    background: #000;
-    border: 1px solid #fff;
-    border-radius: 3px;
-    color: #fff;
-    width: 20px;
-    height: 20px;
-    font-size: 0.9rem;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-  }
 }
 
 #center-buttons {
@@ -949,6 +934,8 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 .icon-wrapper {
     pointer-events: auto;
+    background-color: transparent;
+    backdrop-filter: blur(6px);
   }
 
 

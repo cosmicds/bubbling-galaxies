@@ -200,6 +200,10 @@ onBeforeMount(() => {
         selectPlace(defaultPlace);
       }
     }
+    // Wait for any parent watchers triggered by `places.value = _places` to flush
+    // (e.g. a parent that calls goToGalleryItem and sets selectedPlaces).
+    // Without this, syncSelectedLayerVisibility runs before selectedPlaces is updated.
+    await nextTick();
     syncSelectedLayerVisibility();
   });
 });

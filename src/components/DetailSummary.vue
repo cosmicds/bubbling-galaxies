@@ -14,14 +14,22 @@
         class="expansion-panel"
         v-bind="activatorProps"
       >
-        <slot name="title">
+        <span class="expansion-panel__summary">
           <strong>{{ title }}</strong>
-        </slot>
+        </span>
         <!-- <button
           class="ds__click-to-learn-more mt-2 text-small"
         >
           Learn about this image
         </button> -->
+        <v-icon
+          name="Learn more"
+          size="small"
+          color="white"
+          class="ml-2"
+        >
+          mdi-information-outline
+        </v-icon>
       </div>
     </template>
     <v-card>
@@ -86,12 +94,16 @@ withDefaults(defineProps<Props>(), {
   backdrop-filter: blur(6px);
 }
 
+span.expansion-panel__summary {
+  display: flex;
+  align-items: center;
+}
+
 .v-card-title.expansion-panel-title {
   background-color: rgba(0, 0, 0, 0.30);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 1em;
 }
 
 
