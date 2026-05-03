@@ -328,8 +328,6 @@ import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, Credit
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
 import { LayerManager, Place, ImageSetLayer, Imageset, TileCache } from "@wwtelescope/engine";
-import { ImageSetType, ProjectionType } from "@wwtelescope/engine-types";
-import SplashGesture from "./components/SplashGesture.vue";
 import ModelViewerWindow from "./components/ModelViewerWindow.vue";
 import StarWarsCrawl from "./components/StarWarsCrawl.vue";
 import DetailSummary from "./components/DetailSummary.vue";

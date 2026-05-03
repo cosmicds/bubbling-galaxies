@@ -16,7 +16,7 @@
         v-bind="activatorProps"
       >
         <v-icon
-          name="Learn more"
+          aria-label="Learn more"
           size="small"
           color="white"
           class=""

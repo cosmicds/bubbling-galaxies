@@ -32,6 +32,10 @@
         stars are still forming inside cocoons of gas and dust. For the first time, dark bubbles show where young stars
         have blown material away, carving holes in the surrounding dust.
       </p>
+
+      <p class="image-text__credit">
+        Credit: NASA, ESA, CSA, STScI, J. Lee (STScI), T. Williams (Oxford), PHANGS Team
+      </p>
     </div>
     <div
       v-if="which === 'Visible Light (Hubble)'"
@@ -56,6 +60,10 @@
         patches show glowing hydrogen gas in active star-forming regions, lit up by newly formed massive stars. In this
         image, the galaxy is a play of light and shadow: stars shining, dust blocking, and newborn stars lighting up the
         gas around them.
+      </p>
+
+      <p class="image-text__credit">
+        Credit: NASA, ESA, and the Hubble Heritage (STScI/AURA)-ESA/Hubble Collaboration
       </p>
     </div>
 
@@ -87,20 +95,28 @@
         orangey-greenish-brown hues trace the bulk of the warm dust, and then the red shows the coldest dust and gas
         from which stars are forming deep inside.
       </p>
+
+      <p class="image-text__credit">
+        Credit: ESA/Webb, NASA &amp; CSA, J. Lee and the PHANGS-JWST Team. Acknowledgement: J. Schmidt
+      </p>
     </div>
     
     <div
       v-if="which === 'Optical (Kitt Peak)'"
       class="image-text__text"
     >
-      <h3>JWST MIRI - The Dust, Making Shadows Shine</h3>
+      <h3>Kitt Peak Optical Image</h3>
 
       <p>
-        This optical image was taken at Kitt Peak with the Visitor Center's 0.5 meter telescope. 
-        M74 is one of the dimmer galaxies in the Messier catalogue. 
-        The galaxy is estimated to be 35 million light years away and about the same size as our own galaxy (100,000 light years across). 
-        Many bright pink spots line the blue spiral arms. 
+        This optical image was taken at Kitt Peak with the Visitor Center's 0.5 meter telescope.
+        M74 is one of the dimmer galaxies in the Messier catalogue.
+        The galaxy is estimated to be 35 million light years away and about the same size as our own galaxy (100,000 light years across).
+        Many bright pink spots line the blue spiral arms.
         These pink regions are the stellar nurseries from which the bright blue stars in the spiral arms are born.
+      </p>
+
+      <p class="image-text__credit">
+        Credit: KPNO/NOIRLab/NSF/AURA/Paul Mortfield and Dietmar Kupke/Flynn Haase
       </p>
     </div>
   </div>
@@ -131,5 +147,12 @@ defineProps({
 
 .image-text__text b {
   color: white;
+}
+
+.image-text__credit {
+  margin-top: 2em;
+  font-size: 0.75em;
+  color: rgb(170, 170, 170);
+  text-indent: 0;
 }
 </style>

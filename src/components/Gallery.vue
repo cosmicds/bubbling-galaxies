@@ -429,7 +429,8 @@ watch(() => props.hideGalleryLayers, (hide) => {
   }
 });
 
-watch(() => selectedPlaces.value.slice(), () => {
+// we never push only replace
+watch(selectedPlaces, () => {
   if (_internallySelecting) return;
   _internallySelecting = true;
   syncSelectedLayerVisibility();
