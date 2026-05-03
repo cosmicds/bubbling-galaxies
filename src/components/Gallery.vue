@@ -439,6 +439,7 @@ watch(() => selectedPlaces.value.slice(), () => {
 </script>
 
 <style lang="less">
+
 .this-gallery-root {
   transition-property: height, width;
   transition: 0.5s ease-out;
@@ -449,6 +450,12 @@ watch(() => selectedPlaces.value.slice(), () => {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(6px);
   }
+  
+  &.gallery-open { 
+  .blurred {
+    background: rgba(0,0,0,0.5);
+  }
+}
 
   .gallery {
     border-radius: 5px;
@@ -510,6 +517,7 @@ watch(() => selectedPlaces.value.slice(), () => {
     width: calc(var(--gallery-width) + 10px);
     display: flex;
     flex-direction: column;
+    align-items: center;
     cursor: pointer;
 
     img {
@@ -528,11 +536,12 @@ watch(() => selectedPlaces.value.slice(), () => {
     border: 1px solid white;
     display: flex;
     flex-direction: column;
+    align-items: center;
     cursor: pointer;
     width: var(--gallery-width);
     height: var(--gallery-item-height);
-    padding-top: 5px;
     position:relative;
+    --image-width: 96px;
     
     &.gallery-item__borderless {
       border: none;
@@ -542,7 +551,7 @@ watch(() => selectedPlaces.value.slice(), () => {
       margin-left: auto;
       margin-right: auto;
       border-radius: 3px;
-      width: 96px;
+      width: var(--image-width);
       height: 45px;
       object-fit: cover;
     }
@@ -557,16 +566,17 @@ watch(() => selectedPlaces.value.slice(), () => {
   }
 
   .gallery-opacity {
-    width: calc(100% - 12px);
+    width: var(--image-width);
     margin: 0 6px 6px;
     cursor: pointer;
   }
 
   .gallery-selected {
-    border: 1px solid var(--selected-color);
+    border: 2px solid var(--selected-color);
 
     span {
-      color: var(--selected-color);
+      color: white;
+      font-weight: bold;
     }
   }
   
@@ -592,6 +602,7 @@ watch(() => selectedPlaces.value.slice(), () => {
 
   .place-name {
     font-size: 0.8em;
+    margin-inline: 2px;
   }
 
 }

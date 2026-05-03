@@ -92,7 +92,6 @@
             <v-btn
               v-if="!showImageCard"
               class="blur-button"
-              size="small"
               variant="outlined"
               @click="showModel = !showModel"
             >
@@ -104,7 +103,11 @@
                 :icon="`mdi-${showImageCard ? 'vector-combine' : (smallSize ? 'view-split-horizontal' : 'view-split-vertical')}`"
                 :color="buttonColor"
                 @activate="showImageCard = !showImageCard"
-              />
+              >
+                <template #button>
+                  <SplitScreenSvg :rotated="isVertical" />
+                </template>
+              </IconButton>
               <!-- <IconButton
                 v-if="!showImageCard"
                 :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
@@ -117,7 +120,6 @@
             <v-btn
               v-if="!showImageCard"
               class="blur-button"
-              size="small"
               variant="outlined"
               @click="showInfoSheet = !showInfoSheet"
             >
@@ -190,7 +192,7 @@
               selected-color="limegreen"
               show-opacity
               :columns="1"
-              width="125px"
+              width="105px"
               persist="Optical (Kitt Peak)"
               :hide-persisted="true"
               :hide-gallery-layers="showSimulation || showSplashScreen"
@@ -216,14 +218,12 @@
           >
             <v-btn-toggle
               v-model="showSimulation"
-              class="align-self-center mt-4"
-              density="compact"
+              class="real-sim-toggle align-self-center mt-4"
             >
               <v-btn
                 class="blur-button"
                 variant="outlined"
-                density="compact"
-                size="small"
+                density="comfortable"
                 :value="false"
               >
                 Real
@@ -231,8 +231,7 @@
               <v-btn
                 class="blur-button"
                 variant="outlined"
-                density="compact"
-                size="small"
+                density="comfortable"
                 :value="true"
               >
                 Simulated
@@ -294,6 +293,7 @@ import ModelViewerWindow from "./components/ModelViewerWindow.vue";
 import StarWarsCrawl from "./components/StarWarsCrawl.vue";
 import DetailSummary from "./components/DetailSummary.vue";
 import ImageText from "./components/ImageText.vue";
+import SplitScreenSvg from "./components/SplitScreenSvg.vue";
 
 import { WWTControl } from "@wwtelescope/engine";
 
@@ -434,11 +434,11 @@ const labelTitles: Record<PhantomImageNames | string, LabelInfo> = {
     content: ""
   },
   'Infrared Dust (JWST)': {
-    title: 'JWST Mid-IR Image',
+    title: 'JWST IR Image',
     content: '',
   },
   'Visible Light (Hubble)': {
-    title: 'Hubble Visible light Image',
+    title: 'Hubble Image',
     content: '',
   },
   'Optical (Kitt Peak)': {
@@ -1070,5 +1070,9 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 #app.app-is-small .image-card {
   order: 0;
+}
+
+.real-sim-toggle {
+  outline: 2px solid white;
 }
 </style>

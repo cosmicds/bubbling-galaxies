@@ -3,6 +3,7 @@
     v-model="open"
     location="bottom"
     max-height="35vh"
+    width="100%"
     content-class="expansion-dialog-content"
     :opacity="0"
     :scrim="false"
@@ -14,22 +15,19 @@
         class="expansion-panel"
         v-bind="activatorProps"
       >
-        <span class="expansion-panel__summary">
-          <strong>{{ title }}</strong>
-        </span>
+        <v-icon
+          name="Learn more"
+          size="small"
+          color="white"
+          class=""
+        >
+          mdi-information-outline
+        </v-icon> <strong>{{ title }}</strong>
         <!-- <button
           class="ds__click-to-learn-more mt-2 text-small"
         >
           Learn about this image
         </button> -->
-        <v-icon
-          name="Learn more"
-          size="small"
-          color="white"
-          class="ml-2"
-        >
-          mdi-information-outline
-        </v-icon>
       </div>
     </template>
     <v-card>
@@ -75,9 +73,9 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <style lang="less">
-.expansion-dialog-content {
+.v-dialog>.v-overlay__content.expansion-dialog-content {
   align-self: flex-end;
-  margin: 1em;
+  margin-inline: 0!important;
 
   &:focus-visible {
     outline: none;

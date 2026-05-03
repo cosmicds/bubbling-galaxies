@@ -118,11 +118,18 @@ defineProps({
 <style lang="less">
 .image-text__text h3 {
   display: none;
+  color: rgb(230, 230, 230);
 }
 
 .image-text__text p {
   margin-top: 1em;
   text-indent: 15px;
-  font-size: 0.8em;
+  font-size: 0.9em;
+  line-height: 1.5;
+  color: rgb(230, 230, 230);
+}
+
+.image-text__text b {
+  color: white;
 }
 </style>
