@@ -3,7 +3,7 @@
   <div
     v-if="show"
     class="star-wars-intro"
-    :class="{ 'fade-out': fadeOut, 'narrowscreen': narrowscreen }"
+    :class="{ 'fade-out': fadeOut, 'narrowscreen': narrowscreen, 'landscape': landscape }"
     :style="{ '--speed-title': `${speedTitle ?? 26}s` }"
   >
     <v-progress-linear
@@ -76,6 +76,7 @@ const props = defineProps<{
   noTitle?: boolean;
   audioSrc?: string;
   narrowscreen?: boolean;
+  landscape?: boolean;
   speedTitle?: number;
 }>();
 
@@ -175,11 +176,14 @@ Version: 1.0
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
   right: 0;
   
   contain: strict;
   z-index: 1;
+  max-width: 720px;
 }
 
 
@@ -220,11 +224,11 @@ Version: 1.0
   margin-right: auto;
   position: absolute;
   z-index: 3;
-  width: 95%;
+  width: calc(0.9 * 95%);
   left: 50%;
   height: 80vh;
   bottom: 0;
-  font-size: 64px;
+  font-size: 35px;
   font-weight: bold;
   text-align: center;
   overflow: hidden;
@@ -285,27 +289,30 @@ Version: 1.0
 
 /* Main Image Styles */
 
-.star-wars-intro.narrowscreen .main-logo-positioner {
-  top: -10%;
-}
-
 .star-wars-intro .main-logo-positioner {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -50%;
+  position: fixed;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   z-index: 10;
   pointer-events: none;
+  width: min-content;
+  height: min-content;
 }
+
+.star-wars-intro.landscape .main-logo-positioner  {
+  top: calc(-1*8em);
+}
+
 
 .star-wars-intro .main-logo {
   /* position: absolute; */
   width: 2.6em;
   /* left: 50%; */
   /* top: -0.5em; */
-  font-size: 8em;
+  font-size: min(20vw,8em);
   text-align: center;
   /* margin-left: -1.3em; */
   margin-left: 0;
@@ -424,7 +431,7 @@ Version: 1.0
   }
   
   100% { 
-    top: -310%; 
+    top: -170%; 
     
   }
 }

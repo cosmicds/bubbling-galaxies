@@ -46,9 +46,11 @@
 
       <!-- disabled for now. needs refinement -->
       <StarWarsCrawl
+        v-if="showCrawl"
         v-model="showCrawl"
         no-title
         :narrowscreen="!isLandscape"
+        :landscape="isLandscape"
         :speed-title="35"
         audio-src="luis_humanoide-space-adventures-orchestral-music-star-wars-style-139660.mp3"
       >
