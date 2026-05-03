@@ -104,13 +104,12 @@
             <div class="d-flex flex-row ga-2">
               <IconButton
                 v-if="!showImageCard"
-                :icon="`mdi-${showImageCard ? 'vector-combine' : (smallSize ? 'view-split-horizontal' : 'view-split-vertical')}`"
                 :color="buttonColor"
                 tooltip-text="Show Simulation in Split Screen"
                 @activate="showImageCard = !showImageCard"
               >
                 <template #button>
-                  <SplitScreenSvg :rotated="isVertical" />
+                  <SplitScreenSvg :rotated="smallSize && !isLandscape" />
                 </template>
               </IconButton>
               <!-- <IconButton
