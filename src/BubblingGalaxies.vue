@@ -601,14 +601,6 @@ const currentLabel = computed(() => {
 });
 
 const showSimulation = ref(false);
-const simulationOpacity = ref(+showSimulation.value);
-// const simulationOpactiy = computed(() => +showSimulation.value);
-watch(showSimulation, (show) => {
-  simulationOpacity.value = +show;
-});
-watch(simulationOpacity, (val) => {
-  showSimulation.value = val === 1;
-});
 
 
 import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Object3D, PerspectiveCamera, Scene, SpotLight, WebGLRenderer } from "three";
@@ -786,7 +778,7 @@ onMounted(() => {
     const { ready: loadBacking } = useWtmlLoader("galaxyless_m74.wtml", {
       onNewLayer: (newLayer: ImageSetLayer, _index) => {
         newLayer.set_enabled(true);
-        newLayer.set_opacity(simulationOpacity.value); // show only the first layer initially
+        newLayer.set_opacity(+showSimulation.value);
         backingLayer.value = newLayer;
       },
     });
@@ -839,7 +831,7 @@ watch(imageIndex, async (newIndex: number, oldIndex: number) => {
       await sleep(10);
     }
   }
-  newLayer.set_opacity(1);
+  newLayer.set_opacity(showSimulation.value ? 1 : 0);
 
   layers.value[oldIndex].set_enabled(false);
 });
@@ -858,8 +850,6 @@ function updateCurrentLayersOpacity(opacity: number) {
     backingLayer.value.set_opacity(opacity);
   }
 }
-
-watch(simulationOpacity, updateCurrentLayersOpacity);
 
 watch(showSimulation, (showingSimulation) => {
   // if we are switching off the simulation while playing, pause it
