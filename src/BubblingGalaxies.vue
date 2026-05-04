@@ -6,7 +6,7 @@
   >
     <v-card
       v-show="showImageCard"
-      class="image-card"
+      :class="['image-card', showImageCard ? 'd-flex' : '']"
     >
       <div
         class="position-absolute top-0 right-0 pa-2 ma-2"
@@ -103,12 +103,13 @@
               v-if="!showImageCard"
               class="blur-button"
               variant="outlined"
+              density="compact"
               @click="showModel = !showModel"
             >
               View in 3D!
             </v-btn>
             <div class="d-flex flex-row ga-2">
-              <IconButton
+              <icon-button
                 v-if="!showImageCard"
                 :color="buttonColor"
                 tooltip-text="Show Simulation in Split Screen"
@@ -117,8 +118,8 @@
                 <template #button>
                   <SplitScreenSvg :rotated="smallSize && !isLandscape" />
                 </template>
-              </IconButton>
-              <!-- <IconButton
+              </icon-button>
+              <!-- <icon-button
                 v-if="!showImageCard"
                 :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
                 :color="buttonColor"
@@ -131,11 +132,12 @@
               v-if="!showImageCard"
               class="blur-button"
               variant="outlined"
+              density="compact"
               @click="showInfoSheet = !showInfoSheet"
             >
               Learn More
             </v-btn>
-            <IconButton
+            <icon-button
               v-if="!showImageCard"
               icon="mdi-home"
               :color="buttonColor"
@@ -290,7 +292,7 @@
             id="body-logos"
             :class="{'small-logos': smallSize}"
           >
-            <CreditLogos
+            <credit-logos
               :default-logos="['cosmicds', 'wwt', 'sciact', 'nasa']"
               :logo-size="smallSize ? '1em' : '2.5em'"
             />
@@ -318,7 +320,13 @@
         v-model="showInfoSheet"
         :tab-color="accentColor"
         text-color="#f6e368"
-      />
+      >
+        <ImageText
+          v-if="selectedGalleryItem"
+          show-heading
+          :which="(selectedGalleryItem.get_name() as PhantomImageNames)"
+        />
+      </InformationSheet>
     </div>
     <WebGlTest
       @webgl2-disabled="webglDisabled = true"
@@ -330,7 +338,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ref, reactive, computed, onMounted, watch, nextTick } from "vue";
 import { GotoRADecZoomParams, engineStore } from "@wwtelescope/engine-pinia";
-import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, CreditLogos, IconButton, useFullscreen } from "@cosmicds/vue-toolkit";
+import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, useFullscreen } from "@cosmicds/vue-toolkit";
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
 import { LayerManager, Place, ImageSetLayer, Imageset, TileCache } from "@wwtelescope/engine";
@@ -922,7 +930,8 @@ function rollView(angleDegrees: number, zoomDeg: number | null = null) {
   #side-drawer {
     width: 0%; // start off with 0 width
     &.side-drawer-open {
-      width: 50%; // open to 30% width
+      width: 40%; // open to 30% width
+      height: auto;
   }
 }
 }
@@ -1048,8 +1057,9 @@ and remember, position:absolute is still a positioned parent, so children can be
 }
 
 .icon-wrapper {
-    pointer-events: auto;
-    background-color: transparent;
+    pointer-events: auto !important;
+    background-color: transparent !important;
+    -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
   }
 
@@ -1168,7 +1178,6 @@ and remember, position:absolute is still a positioned parent, so children can be
 }
 
 .image-card {
-  display: flex;
   flex-direction: column;
   flex: 0 0 40%;
   order: 1;

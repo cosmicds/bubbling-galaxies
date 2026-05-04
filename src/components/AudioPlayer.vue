@@ -55,6 +55,7 @@ function _playMusic() {
   audio.value.play();
   audio.value.onended = () => { playing.value = false; };
   playing.value = true;
+  _unmuteMusic();
 }
 
 
@@ -76,6 +77,7 @@ function _muteMusic() {
 
 function _unmuteMusic() {
   if (audio.value) {
+    console.log('Unmuting music:', audio.value.src);
     audio.value.muted = false;
     playing.value = true;
   }

@@ -46,18 +46,7 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
       <v-window-item>
         <v-card class="scrollable">
           <v-card-text class="info-text scrollable">
-            <h4 class="user-guide-header">
-              Galaxy
-            </h4>
-            CosmicDS in collaboration with Scott Lucchini. 
-            
-            <a 
-              href="https://www.scottlucchini.com/" 
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn more about his work
-            </a>
+            <slot />
           </v-card-text>
         </v-card>
       </v-window-item>
@@ -74,11 +63,13 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
             </p>
             <v-row
               align="center"
+              density="compact"
               class="mt-2 mx-3"
             >
               <v-col cols="4">
                 <v-chip
                   label
+                  density="compact"
                   variant="outlined"
                 >
                   Pan
@@ -94,11 +85,13 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
             </v-row>
             <v-row
               align="center"
+              density="compact"
               class="mx-3"
             >
               <v-col cols="4">
                 <v-chip
                   label
+                  density="compact"
                   variant="outlined"
                 >
                   Zoom
@@ -114,11 +107,13 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
             </v-row>
             <v-row
               align="center"
+              density="compact"
               class="mx-3"
             >
               <v-col cols="4">
                 <v-chip
                   label
+                  density="compact"
                   variant="outlined"
                 >
                   Rotate
@@ -130,7 +125,7 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
               >
                 {{ touchscreen ? "" : "press" }} <strong>{{ touchscreen ? "pinch and twist" : "control + click + drag"
                 }}</strong> {{ touchscreen ? "" : "" }} <strong>{{ touchscreen ? "" : "" }}</strong> {{ touchscreen
-                  ? "" : "" }} (Keyboard option coming soon)<br>
+                  ? "" : "" }}<br>
               </v-col>
             </v-row>
               
@@ -218,10 +213,12 @@ const cssVars = computed(() => {
 }
 
 .info-tabs h3 {
-  font-size: 1em;
+  font-size: 0.9em;
 }
 
 .info-text {
+  display: flex !important;
+  flex-direction: column;
   color: var(--info-sheet-text-color);
   
   a {
@@ -300,7 +297,7 @@ const cssVars = computed(() => {
     overflow-y: auto;
 
     .v-card-text {
-      font-size: ~"max(14px, calc(0.7em + 0.3vw))";
+      font-size: ~"max(13px, calc(0.6em + 0.3vw))";
       padding-top: ~"max(2vw, 16px)";
       padding-left: ~"max(4vw, 16px)";
       padding-right: ~"max(4vw, 16px)";

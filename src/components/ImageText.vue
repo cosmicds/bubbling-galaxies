@@ -1,10 +1,12 @@
 <template>
   <div class="image-text">
-    <div
+    <article
       v-if="which === 'Infrared Stars & Dust (JWST)'"
       class="image-text__text"
     >
-      <h3>JWST NIRCAM + MIRI: The Dust and Stars</h3>
+      <h3 v-show="showHeading">
+        JWST NIRCAM + MIRI <br /> The Dust and Stars
+      </h3>
 
       <p>
         This JWST image combines two kinds of infrared light from two different cameras.
@@ -34,14 +36,16 @@
       </p>
 
       <p class="image-text__credit">
-        Credit: NASA, ESA, CSA, STScI, J. Lee (STScI), T. Williams (Oxford), PHANGS Team
+        <cite>Credit: NASA, ESA, CSA, STScI, J. Lee (STScI), T. Williams (Oxford), PHANGS Team</cite>
       </p>
-    </div>
-    <div
+    </article>
+    <article
       v-if="which === 'Visible Light (Hubble)'"
       class="image-text__text"
     >
-      <h3>Hubble Visible Light “Light & Shadow”</h3>
+      <h3 v-show="showHeading">
+        Hubble Visible Light  <br />  “Light & Shadow”
+      </h3>
 
       <p>
         Of the three images shown here, Hubble gives us the view closest to visible light — the kind of light human
@@ -63,15 +67,17 @@
       </p>
 
       <p class="image-text__credit">
-        Credit: NASA, ESA, and the Hubble Heritage (STScI/AURA)-ESA/Hubble Collaboration
+        <cite>Credit: NASA, ESA, and the Hubble Heritage (STScI/AURA)-ESA/Hubble Collaboration</cite>
       </p>
-    </div>
+    </article>
 
-    <div
+    <article
       v-if="which === 'Infrared Dust (JWST)'"
       class="image-text__text"
     >
-      <h3>JWST MIRI - The Dust, Making Shadows Shine</h3>
+      <h3 v-show="showHeading">
+        JWST MIRI  <br /> The Dust: Making Shadows Shine
+      </h3>
 
       <p>
         This JWST image uses MIRI, the <b>M</b>id-<b>I</b>nfra<b>R</b>ed <b>I</b>nstrument, to focus on the galaxy's
@@ -81,10 +87,17 @@
       <p>
         In visible light, dust often looks like a shadow because it blocks starlight, as in the Hubble image. But when
         you look with a camera that can detect light deep into the infrared (with “heat vision”), that same dust glows.
+      </p>
+      
+      <p>
         MIRI reveals a branching pattern of gas and dust winding through the Phantom Galaxy’s spiral arms, along with
         knots, bubbles, and cavities shaped by star formation. The smallest bubbles are created by regions where young
         forming stars are blowing away the gas and dust they formed in, while the largest bubbles are created by the
-        stars dying and going supernova! A lack of star forming gas and dust in the galaxy’s center provides an
+        stars dying and going supernova! 
+      </p>
+      
+      <p>
+        A lack of star forming gas and dust in the galaxy’s center provides an
         unobstructed view of the center of the star cluster in the center of the galaxy, which appears as a bright point
         surrounded by a blue haze made of an unresolved population of older stars.
       </p>
@@ -97,15 +110,17 @@
       </p>
 
       <p class="image-text__credit">
-        Credit: ESA/Webb, NASA &amp; CSA, J. Lee and the PHANGS-JWST Team. Acknowledgement: J. Schmidt
+        <cite>Credit: ESA/Webb, NASA &amp; CSA, J. Lee and the PHANGS-JWST Team. Acknowledgement: J. Schmidt</cite>
       </p>
-    </div>
+    </article>
     
-    <div
+    <article
       v-if="which === 'Optical (Kitt Peak)'"
       class="image-text__text"
     >
-      <h3>Kitt Peak Optical Image</h3>
+      <h3 v-show="showHeading">
+        Kitt Peak Optical Image
+      </h3>
 
       <p>
         This optical image was taken at Kitt Peak with the Visitor Center's 0.5 meter telescope.
@@ -116,9 +131,9 @@
       </p>
 
       <p class="image-text__credit">
-        Credit: KPNO/NOIRLab/NSF/AURA/Paul Mortfield and Dietmar Kupke/Flynn Haase
+        <cite>Credit: KPNO/NOIRLab/NSF/AURA/Paul Mortfield and Deitmar Kupke/Flynn Haase</cite>
       </p>
-    </div>
+    </article>
   </div>
 </template>
 <script setup lang="ts">
@@ -129,20 +144,25 @@ defineProps({
     type: String as PropType<PhantomImageNames>,
     required: true,
   },
+  showHeading: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 <style lang="less">
+@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
 .image-text__text h3 {
-  display: none;
   color: rgb(230, 230, 230);
+  font-size: 1.1em !important;
 }
 
 .image-text__text p {
   margin-top: 1em;
   text-indent: 15px;
-  font-size: 0.9em;
   line-height: 1.5;
   color: rgb(230, 230, 230);
+  font-family:'Mulish', sans-serif !important;
 }
 
 .image-text__text b {
