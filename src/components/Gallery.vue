@@ -161,7 +161,8 @@ const defaultThumbnailUrl = "https://cdn.worldwidetelescope.org/wwtweb/thumbnail
 // }>();
 
 const store = engineStore();
-const open = ref(props.startOpen);
+const open = defineModel<boolean>("open", { required: false, default: false });
+if (props.startOpen) open.value = true;
 
 const places = defineModel<Place[]>("places", { required: false, default: () => [] });
 const selectedPlaces = defineModel<Place[]>("selectedPlaces", { required: false, default: () => [] });

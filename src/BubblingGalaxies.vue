@@ -146,11 +146,11 @@
 
           <div class="top-buttons-row">
             <icon-button
-              v-if="!showImageCard"
+              v-if="!showImageCard || true"
               icon="mdi-home"
               :color="buttonColor"
               tooltip-text="Reset view"
-              @activate="goToCoordinates('m74')"
+              @activate="() => resetView()"
             />
             <!-- <v-btn
               v-if="!showImageCard"
@@ -318,6 +318,7 @@
 
             <Gallery
               v-show="ready && !showSimulation"
+              v-model:open="galleryOpen"
               v-model:selected-places="selectedGalleryItems"
               v-model:places="galleryPlaces"
               wtml-url="./ngc628_datasets.wtml"
@@ -538,6 +539,7 @@ const buttonColor = ref("#ffffff");
 const showModel = ref(false);
 
 const showImageCard = ref(false);
+const galleryOpen = ref(false);
 const imageCardIndex = ref(100);
 const imageCardIndexMin = 100;
 const imageCardIndexMax = 300;
@@ -641,7 +643,7 @@ function moveToImageset(imageset: Imageset, options: {instant?: boolean, roll?: 
   return store.gotoRADecZoom({
     raRad: centerX * D2R,
     decRad: centerY * D2R,
-    zoomDeg: Math.max(xSize, ySize) * (isVertical.value ? 6 : 6),
+    zoomDeg: Math.max(xSize, ySize) * (isVertical.value ? 5 : 5),
     rollRad: options.roll ? rollRad + (options.extraRoll ?? 0) * D2R : store.rollRad,
     instant: !!options.instant
   });
@@ -883,6 +885,16 @@ function goToGalleryItem(name: string, instant=false) {
   }
 }
 
+function resetView() {
+  const name = "Infrared Stars & Dust (JWST)";
+  const place = galleryPlaces.value.find(p => p.get_name() === name) || null;
+  if (place === null) {
+    goToCoordinates("m74");
+    return;
+  }
+  goToGalleryItem(name, true);
+}
+
 watch([showSplashScreen, showCrawl, galleryPlaces, ready], ([splashShowing, crawlShowing, places, isReady]) => {
   console.log("Watching for splash/crawl to finish and gallery places to load...", {splashShowing, crawlShowing, placesLoaded: !!places.length, isReady});
   if (!splashShowing && !crawlShowing && places && isReady) {
@@ -901,6 +913,8 @@ watch(showImageCard, (showing) => {
     }
     showSimulation.value = false;
     showInfoSheet.value = false;
+    galleryOpen.value = false;
+    goToGalleryItem("Infrared Stars & Dust (JWST)");
   }
 });
 
