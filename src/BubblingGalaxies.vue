@@ -419,7 +419,19 @@
         :hide-user-guide="!aboutMode"
       >
         <div v-if="aboutMode">
-          Empty Information
+          <p>
+            On May 4, 2026, scientists Scott Lucchini and Alyssa Goodman visited the Museum of Science Charles Hayden
+            <!-- eslint-disable-next-line vue/max-attributes-per-line -->
+            Planetarium to present <a href="https://www.mos.org/events/beyond-telescope/how-stars-shape-galaxies" target="_blank" rel="noopener noreferrer">Beyond the Telescope: How Stars Shape Galaxies</a>. Using images from the James Webb Space
+            Telescope and custom computer simulations, they revealed how the lives of stars can alter the architecture of
+            entire galaxies.
+          </p>
+          <p class="mt-2 mb-2">
+            This web app, created by the Cosmic Data Stories team at the Center for Astrophysics | Harvard & Smithsonian,
+            brings that experience from the “dome to home.” Explore the same James Webb images and computer simulation
+            featured in the planetarium show and see the Phantom Galaxy up close for yourself, including the option to
+            view the 3D simulation in augmented reality!
+          </p>
         </div>
         <ImageText
           v-else-if="showSimulation || selectedGalleryItem"
