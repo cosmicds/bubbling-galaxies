@@ -165,7 +165,7 @@
             </p>
             <a
               class="align-self-center"
-              href="https://edu.delightex.com/RSU-EJVQ"
+              href="https://edu.delightex.com/RSU-EJV"
               target="_blank"
               rel="noopener noreferrer"
             >
