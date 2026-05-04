@@ -311,7 +311,6 @@ const cssVars = computed(() => {
 
 
 .info-sheet {
-  overflow-y: auto;
 
   .info-text {
     height: fit-content;
