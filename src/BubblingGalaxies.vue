@@ -1349,5 +1349,6 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 .top-buttons-row > .expansion-panel {
   margin-block: -100px;
+  margin-inline: auto;
 }
 </style>
