@@ -340,5 +340,6 @@ onUnmounted(() => {
   border-radius: 5px;
   padding-block: 5px;
   padding-inline: 5px;
+  z-index: 10;
 }
 </style>
