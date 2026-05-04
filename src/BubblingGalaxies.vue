@@ -145,15 +145,14 @@
           </div> -->
 
           <div class="top-buttons-row">
-            <!-- <icon-button
-              v-model="showInfoSheet"
-              icon="mdi-information-variant"
+            <icon-button
+              v-if="!showImageCard"
+              icon="mdi-home"
               :color="buttonColor"
-              :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
-              tooltip-location="start"
-            >
-            </icon-button> -->
-            <v-btn
+              tooltip-text="Reset view"
+              @activate="goToCoordinates('m74')"
+            />
+            <!-- <v-btn
               v-if="!showImageCard"
               class="blur-button"
               variant="outlined"
@@ -161,7 +160,7 @@
               @click="aboutMode = true; showInfoSheet = true"
             >
               About
-            </v-btn>
+            </v-btn> -->
             <DetailSummary
               v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && isLandscape"
               v-model="labelOpen"
@@ -188,12 +187,20 @@
 
           <div class="second-buttons-row">
             <icon-button
+              v-model="showInfoSheet"
+              icon="mdi-information-variant"
+              :color="buttonColor"
+              :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
+              tooltip-location="start"
+            >
+            </icon-button>
+            <!-- <icon-button
               v-if="!showImageCard"
               icon="mdi-home"
               :color="buttonColor"
               tooltip-text="Reset view"
               @activate="goToCoordinates('m74')"
-            />
+            /> -->
             <!-- <icon-button
               v-if="!showImageCard"
               :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
