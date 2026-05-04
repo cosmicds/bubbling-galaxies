@@ -9,6 +9,9 @@
       @pointerup="onPointerUp"
       @pointercancel="onPointerUp"
     >
+      <div class="image-flipbook__title">
+        Simulation
+      </div>
       <div
         class="image-flipbook__transform"
         :style="transformStyle"
@@ -23,7 +26,7 @@
       <v-btn
         v-if="isTransformed"
         class="image-flipbook__reset"
-        icon="mdi-image-filter-center-focus"
+        icon="mdi-restart"
         @click="resetView"
       ></v-btn>
     </div>
@@ -62,7 +65,7 @@ watch(playing, (play: boolean) => {
   if (play) {
     intervalHandle = setInterval(() => {
       if (index.value !== undefined && index.value < props.max - 1) {
-        index.value += 1;
+        index.value += 2; // frames are every other
       } else {
         index.value = props.min;
       }
@@ -79,11 +82,19 @@ interface Props {
   frames: string[] | ((index: number) => string);
   interval?: number;  // in ms
   color?: string;
+  visible?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   min: 0,
   interval: 100,
   color: "white",
+  visible: false,
+});
+
+watch(() => props.visible, (visible) => {
+  if (!visible) {
+    playing.value = false;
+  }
 });
 
 const src = computed(() => {
@@ -310,5 +321,14 @@ onUnmounted(() => {
   -moz-transform: scale(-1, 1);
   -o-transform: scale(-1, 1);
   transform: scale(-1, 1);
+}
+
+.image-flipbook__title {
+  position: absolute;
+  font-size: 2em;
+  top: 1em;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
 }
 </style>

@@ -23,6 +23,7 @@
         v-model="imageCardIndex"
         :min="imageCardIndexMin"
         :max="imageCardIndexMax"
+        :visible="showImageCard"
         :frames="(index: number) => `https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_${index.toString().padStart(3, '0')}.png`"
       />
     </v-card>
