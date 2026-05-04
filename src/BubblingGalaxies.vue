@@ -52,7 +52,6 @@
         :narrowscreen="!isLandscape"
         :landscape="isLandscape"
         :speed-title="35"
-        no-end
         audio-src="luis_humanoide-space-adventures-orchestral-music-star-wars-style-139660.mp3"
       >
         <template #logo>
