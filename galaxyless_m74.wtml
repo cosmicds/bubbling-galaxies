@@ -12,7 +12,7 @@
         <ForegroundImageSet>
             <ImageSet DataSetType="Sky"
                 BandPass="Visible"
-                Url="./BubblingGalaxiesDesign/BubblingGalaxiesDesign.001.png"
+                Url="https://projects.cosmicds.cfa.harvard.edu/bubbling-galaxies/BubblingGalaxiesDesign/BubblingGalaxiesDesign.001.png"
                 TileLevels="0"
                 WidthFactor="2"
                 Rotation="-0.009999999999990905"
