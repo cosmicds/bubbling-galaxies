@@ -1,4 +1,23 @@
 <template>
+  <div
+    class="expansion-panel"
+    @click="() => openInfo()"
+  >
+    <strong class="d-block">{{ title }}</strong>
+    <v-icon
+      aria-label="Learn more"
+      size="small"
+      color="white"
+      class="ds-info-icon ml-1"
+    >
+      mdi-information-outline
+    </v-icon> 
+    <!-- <button
+      class="ds__click-to-learn-more mt-2 text-small"
+    >
+      Learn about this image
+    </button> -->
+  </div>
   <v-dialog
     v-model="open"
     location="bottom"
@@ -10,27 +29,6 @@
     scrollable
     transition="dialog-bottom-transition"
   >
-    <template #activator="{ props: activatorProps }">
-      <div
-        class="expansion-panel"
-        v-bind="activatorProps"
-      >
-        <strong class="d-block">{{ title }}</strong>
-        <v-icon
-          aria-label="Learn more"
-          size="small"
-          color="white"
-          class="ds-info-icon ml-1"
-        >
-          mdi-information-outline
-        </v-icon> 
-        <!-- <button
-          class="ds__click-to-learn-more mt-2 text-small"
-        >
-          Learn about this image
-        </button> -->
-      </div>
-    </template>
     <v-card>
       <v-card-title class="expansion-panel-title">
         <slot name="title">
@@ -63,13 +61,31 @@ interface Props {
   title?: string;
   content?: string;
   normallyOpen?: boolean;
+  useInternalDialog?: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
+// add an @open emit
+const emits = defineEmits<{
+  open: [];
+}>();
+
+
+const props = withDefaults(defineProps<Props>(), {
   normallyOpen: false,
   title: '',
   content: '',
+  useInternalDialog: true,
 });
+
+
+
+function openInfo() {
+  if (props.useInternalDialog) {
+    open.value = !open.value;
+  } else {
+    emits('open');
+  }
+}
 
 </script>
 
@@ -87,19 +103,25 @@ withDefaults(defineProps<Props>(), {
 .expansion-panel {
   background: rgba(0, 0, 0, 0.10);
   cursor: pointer;
-  border: 1px solid rgba(255,255,255, 0.3);
+  border: 2px solid rgba(255,255,255, 0.3);
   padding: 10px 10px;
+  padding-right: 4px;
   border-radius: 5px;
   backdrop-filter: blur(6px);
-  padding-right: 1.5em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: auto;
 
 }
 
 
 .expansion-panel > .ds-info-icon {
-  position: absolute;
-  top: 2px;
-  right: 2px;
+  // position: absolute;
+  // top: 2px;
+  // right: 2px;
+  
 }
 
 span.expansion-panel__summary {

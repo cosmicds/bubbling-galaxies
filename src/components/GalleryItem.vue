@@ -8,6 +8,7 @@
     ]"
   >
     <img
+      v-if="!hideImage"
       class="noselect"
       :src="thumbnailUrl"
     />
@@ -41,6 +42,7 @@ interface Props {
   opacity?: number;
   borderless?: boolean;
   hideLabel?: boolean;
+  hideImage?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -50,6 +52,7 @@ const props = withDefaults(defineProps<Props>(), {
   opacity: 1,
   borderless: false,
   hideLabel: false,
+  hideImage: false,
 });
 
 const emit = defineEmits<{

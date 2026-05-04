@@ -16,9 +16,10 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
         class="info-tabs"
         tabindex="0"
       >
-        <h3>Information</h3>
+        <h3>{{ tabTitle ?? 'Information' }}</h3>
       </v-tab>
       <v-tab
+        v-if="!hideUserGuide"
         class="info-tabs"
         tabindex="0"
       >
@@ -52,7 +53,7 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
       </v-window-item>
 
       <!-- User Guide Content -->
-      <v-window-item>
+      <v-window-item v-if="!hideUserGuide">
         <v-card class="scrollable border-radius-0">
           <v-card-text class="info-text scrollable">
             <h4 class="user-guide-header mt-5">
@@ -198,7 +199,7 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
 </template>
 
 <script setup lang="ts">
-import { ref , computed, h, type SetupContext} from 'vue';
+import { ref, computed, watch, h, type SetupContext} from 'vue';
 import { supportsTouchscreen, FundingAcknowledgement } from '@cosmicds/vue-toolkit';
 
 // https://v3-migration.vuejs.org/breaking-changes/functional-components
@@ -219,10 +220,16 @@ interface Props {
   tabColor: string,
   textColor?: string,
   headingColor?: string,
-  accentColor?:string,
+  accentColor?: string,
+  tabTitle?: string,
+  hideUserGuide?: boolean,
 }
 
 const props = defineProps<Props>();
+
+watch(() => props.hideUserGuide, (hidden) => {
+  if (hidden) tab.value = 0;
+});
 
 const cssVars = computed(() => {
   return {
@@ -304,7 +311,6 @@ const cssVars = computed(() => {
 
 
 .info-sheet {
-  overflow-y: auto;
 
   .info-text {
     height: fit-content;

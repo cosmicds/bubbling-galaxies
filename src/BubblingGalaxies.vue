@@ -23,6 +23,7 @@
         v-model="imageCardIndex"
         :min="imageCardIndexMin"
         :max="imageCardIndexMax"
+        :initial-scale:="2.5"
         :visible="showImageCard"
         :frames="(index: number) => `https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_${index.toString().padStart(3, '0')}.png`"
       />
@@ -90,16 +91,83 @@
         id="wwt-overlay"
       >
         <div id="top-content">
-          <div id="left-buttons">
-            <!-- <icon-button
+          <!-- old left-buttons / right-buttons layout preserved below -->
+          <!-- <div id="left-buttons">
+            <icon-button
               v-model="showInfoSheet"
-              icon="book-open"
+              icon="mdi-information-variant"
               :color="buttonColor"
-              :tooltip-text="showInfoSheet ? 'Hide Info' : 'Learn More'"
+              :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
               tooltip-location="start"
             >
             </icon-button>
-            -->
+            <v-btn
+              v-if="!showImageCard"
+              class="blur-button"
+              variant="outlined"
+              density="compact"
+              @click="showInfoSheet = !showInfoSheet"
+            >
+              About
+            </v-btn>
+            <icon-button
+              v-if="!showImageCard"
+              icon="mdi-home"
+              :color="buttonColor"
+              tooltip-text="Reset view"
+              @activate="goToCoordinates('m74')"
+            />
+            <icon-button
+              v-if="!showImageCard"
+              :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
+              :color="buttonColor"
+              @activate="isWWT3D = !isWWT3D"
+            />
+          </div>
+          <div id="right-buttons">
+            <v-btn
+              v-hide="!showSimulation"
+              class="blur-button"
+              density="compact"
+              @click="showModel = !showModel"
+            >
+              View in 3D!
+            </v-btn>
+            <icon-button
+              v-if="!showImageCard"
+              :color="buttonColor"
+              tooltip-text="Show Simulation in Split Screen"
+              @activate="showImageCard = !showImageCard"
+            >
+              <template #button>
+                <SplitScreenSvg :rotated="smallSize && !isLandscape" />
+              </template>
+            </icon-button>
+          </div> -->
+
+          <div class="top-buttons-row">
+            <v-btn
+              v-if="!showImageCard"
+              class="blur-button"
+              variant="outlined"
+              density="compact"
+              @click="aboutMode = true; showInfoSheet = true"
+            >
+              About
+            </v-btn>
+            <DetailSummary
+              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && isLandscape"
+              v-model="labelOpen"
+              :title="currentLabel.title"
+              :use-internal-dialog="false"
+              @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
+            >
+              <ImageText
+                v-if="showSimulation || selectedGalleryItem"
+                show-image
+                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
+              />
+            </DetailSummary>
             <v-btn
               v-hide="!showSimulation"
               class="blur-button"
@@ -109,32 +177,51 @@
             >
               View in 3D!
             </v-btn>
-            <div class="d-flex flex-row ga-2">
-              <icon-button
-                v-if="!showImageCard"
-                icon="mdi-home"
-                :color="buttonColor"
-                tooltip-text="Reset view"
-                @activate="goToCoordinates('m74')"
-              />
-              <!-- <icon-button
-                v-if="!showImageCard"
-                :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
-                :color="buttonColor"
-                @activate="isWWT3D = !isWWT3D"
-              /> -->
-            </div>
           </div>
-          <div id="right-buttons">
-            <v-btn
-              v-if="!showImageCard"
-              class="blur-button"
-              variant="outlined"
-              density="compact"
-              @click="showInfoSheet = !showInfoSheet"
+
+          <div class="second-buttons-row">
+            <icon-button
+              v-if="!showImageCard || true"
+              icon="mdi-home"
+              :color="buttonColor"
+              size="20"
+              tooltip-text="Reset view"
+              @activate="() => resetView()"
+            />
+            <!-- <icon-button
+              v-model="showInfoSheet"
+              icon="mdi-information-variant"
+              :color="buttonColor"
+              :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
+              tooltip-location="start"
             >
-              Learn More
-            </v-btn>
+            </icon-button> -->
+            <!-- <icon-button
+              v-if="!showImageCard"
+              icon="mdi-home"
+              :color="buttonColor"
+              tooltip-text="Reset view"
+              @activate="goToCoordinates('m74')"
+            /> -->
+            <!-- <icon-button
+              v-if="!showImageCard"
+              :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
+              :color="buttonColor"
+              @activate="isWWT3D = !isWWT3D"
+            /> -->
+            <DetailSummary
+              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && !isLandscape"
+              v-model="labelOpen"
+              :title="currentLabel.title"
+              :use-internal-dialog="false"
+              @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
+            >
+              <ImageText
+                v-if="showSimulation || selectedGalleryItem"
+                show-image
+                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
+              />
+            </DetailSummary>
             <icon-button
               v-if="!showImageCard"
               :color="buttonColor"
@@ -228,36 +315,40 @@
                   </v-tooltip>
                 </template>
               </v-slider>
-              <span>{{ simulationTime.toFixed(1) }} million years, Simulated IR Image</span>
+              <span>{{ simulationTime.toFixed(1) }} million years</span>
             </div>
 
             <Gallery
               v-show="ready && !showSimulation"
+              v-model:open="galleryOpen"
               v-model:selected-places="selectedGalleryItems"
               v-model:places="galleryPlaces"
               wtml-url="./ngc628_datasets.wtml"
-              :single-select="false"
+              :single-select="true"
               selected-color="limegreen"
               show-opacity
               :columns="1"
               width="105px"
               persist="Optical (Kitt Peak)"
               :hide-persisted="true"
-              :hide-gallery-layers="showSimulation || showSplashScreen"
               collapse-on-select
-              :preview-index="3"
+              :hide-gallery-layers="showSimulation || showSplashScreen"
+              :preview-index="4"
             />
 
-            <DetailSummary
-              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && !showSimulation"
+            <!-- <DetailSummary
+              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem)"
               v-model="labelOpen"
               :title="currentLabel.title"
+              :use-internal-dialog="false"
+              @open="() => showInfoSheet = !showImageCard"
             >
               <ImageText
-                v-if="selectedGalleryItem"
-                :which="(selectedGalleryItem.get_name() as PhantomImageNames)"
+                v-if="showSimulation || selectedGalleryItem"
+                show-image
+                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
               />
-            </DetailSummary>
+            </DetailSummary> -->
           </div>
 
           <div
@@ -314,21 +405,27 @@
       @webgl2-disabled="webglDisabled = true"
     />
     <component
-      v-model="showInfoSheet"
-      id="side-drawer"
       :is="isLandscape || !smallSize ? 'v-navigation-drawer' : 'v-bottom-sheet'"
+      id="side-drawer"
+      v-model="showInfoSheet"
       :class="[isLandscape || !smallSize ? 'info-side' : 'info-bottom', showInfoSheet ? 'side-drawer-open' : 'side-drawer-closed']"
     >
       <InformationSheet
         v-model="showInfoSheet"
         :tab-color="accentColor"
-        text-color="#f6e368"
+        heading-color="#f6e368"
+        text-color="#e6e6e6"
+        :tab-title="aboutMode ? 'Information' : currentLabel.title"
+        :hide-user-guide="!aboutMode"
       >
+        <div v-if="aboutMode">
+          Empty Information
+        </div>
         <ImageText
-          v-if="selectedGalleryItem"
+          v-else-if="showSimulation || selectedGalleryItem"
           show-heading
           show-image
-          :which="(selectedGalleryItem.get_name() as PhantomImageNames)"
+          :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
         />
       </InformationSheet>
     </component>
@@ -426,6 +523,7 @@ const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
 
 const backgroundImagesets = reactive<BackgroundImageset[]>([]);
 const showInfoSheet = ref(false);
+const aboutMode = ref(false);
 const showSplashScreen = ref(!skipSplash);
 const showCrawl = ref(false);
 if (skipSplash && !skipScrawl) {
@@ -444,6 +542,7 @@ const buttonColor = ref("#ffffff");
 const showModel = ref(false);
 
 const showImageCard = ref(false);
+const galleryOpen = ref(false);
 const imageCardIndex = ref(100);
 const imageCardIndexMin = 100;
 const imageCardIndexMax = 300;
@@ -502,6 +601,10 @@ const labelTitles: Record<PhantomImageNames | string, LabelInfo> = {
   'Simulation on Sky': {
     title: 'Simulation on Sky',
     content: '',
+  },
+  "2011 Infrared Dust (WISE)": {
+    title: "2011 Colder Infrared, WISE",
+    content: "",
   }
 };
 
@@ -511,14 +614,6 @@ const currentLabel = computed(() => {
 });
 
 const showSimulation = ref(false);
-const simulationOpacity = ref(+showSimulation.value);
-// const simulationOpactiy = computed(() => +showSimulation.value);
-watch(showSimulation, (show) => {
-  simulationOpacity.value = +show;
-});
-watch(simulationOpacity, (val) => {
-  showSimulation.value = val === 1;
-});
 
 
 import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Object3D, PerspectiveCamera, Scene, SpotLight, WebGLRenderer } from "three";
@@ -551,7 +646,7 @@ function moveToImageset(imageset: Imageset, options: {instant?: boolean, roll?: 
   return store.gotoRADecZoom({
     raRad: centerX * D2R,
     decRad: centerY * D2R,
-    zoomDeg: Math.max(xSize, ySize) * (isVertical.value ? 6 : 6),
+    zoomDeg: Math.max(xSize, ySize) * (isVertical.value ? 5 : 5),
     rollRad: options.roll ? rollRad + (options.extraRoll ?? 0) * D2R : store.rollRad,
     instant: !!options.instant
   });
@@ -696,7 +791,7 @@ onMounted(() => {
     const { ready: loadBacking } = useWtmlLoader("galaxyless_m74.wtml", {
       onNewLayer: (newLayer: ImageSetLayer, _index) => {
         newLayer.set_enabled(true);
-        newLayer.set_opacity(simulationOpacity.value); // show only the first layer initially
+        newLayer.set_opacity(+showSimulation.value);
         backingLayer.value = newLayer;
       },
     });
@@ -749,7 +844,7 @@ watch(imageIndex, async (newIndex: number, oldIndex: number) => {
       await sleep(10);
     }
   }
-  newLayer.set_opacity(1);
+  newLayer.set_opacity(showSimulation.value ? 1 : 0);
 
   layers.value[oldIndex].set_enabled(false);
 });
@@ -768,8 +863,6 @@ function updateCurrentLayersOpacity(opacity: number) {
     backingLayer.value.set_opacity(opacity);
   }
 }
-
-watch(simulationOpacity, updateCurrentLayersOpacity);
 
 watch(showSimulation, (showingSimulation) => {
   // if we are switching off the simulation while playing, pause it
@@ -795,6 +888,16 @@ function goToGalleryItem(name: string, instant=false) {
   }
 }
 
+function resetView() {
+  const name = "Infrared Stars & Dust (JWST)";
+  const place = galleryPlaces.value.find(p => p.get_name() === name) || null;
+  if (place === null) {
+    goToCoordinates("m74");
+    return;
+  }
+  goToGalleryItem(name, true);
+}
+
 watch([showSplashScreen, showCrawl, galleryPlaces, ready], ([splashShowing, crawlShowing, places, isReady]) => {
   console.log("Watching for splash/crawl to finish and gallery places to load...", {splashShowing, crawlShowing, placesLoaded: !!places.length, isReady});
   if (!splashShowing && !crawlShowing && places && isReady) {
@@ -813,6 +916,8 @@ watch(showImageCard, (showing) => {
     }
     showSimulation.value = false;
     showInfoSheet.value = false;
+    galleryOpen.value = false;
+    goToGalleryItem("Infrared Stars & Dust (JWST)");
   }
 });
 
@@ -1004,6 +1109,7 @@ and remember, position:absolute is still a positioned parent, so children can be
   width: 100%; // 100% of the overlay less the padding
   pointer-events: none;
   display: flex;
+  flex-direction: column; // stack top-buttons-row and second-buttons-row vertically
   justify-content: space-between; // keeps left, center, and right buttons spread
   align-items: flex-start;
 }
@@ -1014,6 +1120,16 @@ and remember, position:absolute is still a positioned parent, so children can be
   gap: 10px;
   align-items: flex-start;
 
+}
+
+.top-buttons-row,
+.second-buttons-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 #center-buttons {
@@ -1049,7 +1165,7 @@ and remember, position:absolute is still a positioned parent, so children can be
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto auto auto;
-  pointer-events: auto;
+  pointer-events: none;
   align-items: flex-end;
 }
 
@@ -1115,6 +1231,8 @@ and remember, position:absolute is still a positioned parent, so children can be
   #left-buttons,
   #center-buttons,
   #right-buttons,
+  .top-buttons-row,
+  .second-buttons-row,
   #bottom-content {
     outline: 1px solid white;
     min-width: 1px;
@@ -1215,5 +1333,9 @@ and remember, position:absolute is still a positioned parent, so children can be
     text-align: center;
   }
 
+}
+
+.top-buttons-row > .expansion-panel {
+  margin-block: -100px;
 }
 </style>

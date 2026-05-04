@@ -208,7 +208,7 @@ Version: 1.0
 
 .star-wars-intro.narrowscreen p.intro-text {
   width: 90%;
-  text-align: left;
+  text-align: center;
   font-size: 2em;
 }
 
@@ -271,7 +271,7 @@ Version: 1.0
   background: var(--sw-yellow);
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-align: left;
+  text-align: center;
 }
 
 .star-wars-intro.narrowscreen .content-body {
