@@ -310,12 +310,16 @@
         </div>
       </div>
     </div>
-    <div
+    <WebGlTest
+      @webgl2-disabled="webglDisabled = true"
+    />
+    <component
+      v-model="showInfoSheet"
       id="side-drawer"
-      :class="[showInfoSheet ? 'side-drawer-open' : 'side-drawer-closed']"
+      :is="isLandscape || !smallSize ? 'v-navigation-drawer' : 'v-bottom-sheet'"
+      :class="[isLandscape || !smallSize ? 'info-side' : 'info-bottom', showInfoSheet ? 'side-drawer-open' : 'side-drawer-closed']"
     >
       <InformationSheet
-        v-if="showInfoSheet"
         v-model="showInfoSheet"
         :tab-color="accentColor"
         text-color="#f6e368"
@@ -327,10 +331,7 @@
           :which="(selectedGalleryItem.get_name() as PhantomImageNames)"
         />
       </InformationSheet>
-    </div>
-    <WebGlTest
-      @webgl2-disabled="webglDisabled = true"
-    />
+    </component>
   </v-app>
 </template>
 
@@ -894,47 +895,38 @@ function rollView(angleDegrees: number, zoomDeg: number | null = null) {
 }
 
 #side-drawer {
-  flex: 0 0 auto;
-  order: 0;
-  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  z-index: 10;
+  height: 100%;
   width: 0;
-  // transition: width 0.3s ease-in-out;
+  width: 34vw;
+  transform: translateX(-34vw);
+  transition: all 0.3s ease-in-out;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 
   &.side-drawer-open {
-    width: 34%;
+    transform: translateX(0);
   }
 }
 
 
 
-#app.app-is-small {
-  #side-drawer {
-  flex: 0 0 auto;
-  order: 2;
-  overflow: hidden;
-  height: 0;
+#side-drawer.info-bottom {
+  left: 0;
   width: 100%;
-  // transition: width 0.3s ease-in-out;
+  height: 0;
+  transition: height 0.3s ease-in-out;
+  transform: none;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 0;
 
   &.side-drawer-open {
-    height: 34%;
+    height: 34vh;
   }
 }
-}
-/* we don't technicalll need the #app.app-is-small.app-is-landscape,
-// since this comes after the #app.app-is-small rule which
-// because css follows the cascade in order
-// */
-#app.app-is-small.app-is-landscape,
-#app.app-is-landscape {
-  #side-drawer {
-    width: 0%; // start off with 0 width
-    &.side-drawer-open {
-      width: 40%; // open to 30% width
-      height: auto;
-  }
-}
-}
+
 
 /* The WWT host is out of flow so its measured size does not affect #main-content. */
 // by using inset: 0, .wwttelescope-component fills #main-content and automatically resizes with it,
@@ -1007,17 +999,6 @@ and remember, position:absolute is still a positioned parent, so children can be
     min-width: 0;
   }
 }
-
-#app.app-is-landscape #side-drawer.side-drawer-open {
-  width: 30%;
-}
-
-#side-drawer.side-drawer-closed {
-  width: 0;
-  flex: 0 0 0;
-  overflow: hidden;
-}
-// moved modal content to Loader.vue
 
 #top-content {
   width: 100%; // 100% of the overlay less the padding

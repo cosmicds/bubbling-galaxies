@@ -25,23 +25,23 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
         <h3>User Guide</h3>
       </v-tab>
     </v-tabs>
-    <font-awesome-icon 
-      id="close-text-icon" 
-      class="control-icon" 
-      icon="times" 
-      size="lg" 
+    <font-awesome-icon
+      id="close-text-icon"
+      class="control-icon"
+      icon="times"
+      size="lg"
       tabindex="0"
-      @click="showTextSheet = false" 
+      @click="showTextSheet = false"
       @keyup.enter="showTextSheet = false"
     >
     </font-awesome-icon>
-      
+
     <!-- Information Content -->
     <v-window
       id="tab-items"
       v-model="tab"
       class="pb-2"
-      :stlye="cssVars"
+      :style="cssVars"
     >
       <v-window-item>
         <v-card class="scrollable border-radius-0">
@@ -50,7 +50,7 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
           </v-card-text>
         </v-card>
       </v-window-item>
-      
+
       <!-- User Guide Content -->
       <v-window-item>
         <v-card class="scrollable border-radius-0">
@@ -128,7 +128,7 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
                   ? "" : "" }}<br>
               </v-col>
             </v-row>
-              
+
             <!-- Credits -->
             <v-row>
               <v-col cols="12">
@@ -136,7 +136,7 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
                   <h4 class="user-guide-header mt-3">
                     Credits
                   </h4>
-                  
+
                   <h5>Beyond the Telescope: How Stars Shape Galaxies</h5>
                   <p>
                     <easyLink href="https://www.scottlucchini.com/">
@@ -223,13 +223,13 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-  
+
 const cssVars = computed(() => {
   return {
     '--info-sheet-text-color': props.textColor ?? '#ffffff',
     '--info-sheet-heading-color': props.headingColor ?? props.textColor,
     '--info-sheet-accent-color': props.accentColor ?? props.tabColor,
-    
+
   };
 });
 
@@ -249,7 +249,7 @@ const cssVars = computed(() => {
   display: flex !important;
   flex-direction: column;
   color: var(--info-sheet-text-color);
-  
+
   a {
     color: currentColor;
     text-decoration-style: dotted;
@@ -275,7 +275,7 @@ const cssVars = computed(() => {
   li {
     margin-block: 0.5em;
   }
-  
+
   details {
     user-select: none;
     margin-block: 0.5em;
@@ -287,7 +287,7 @@ const cssVars = computed(() => {
   details:hover {
     outline: 2px solid #aeaeae;
   }
-  
+
   pre {
     background-color: rgb(50, 50, 50);
     padding: 0.5em;
@@ -324,7 +324,7 @@ const cssVars = computed(() => {
   #tab-items {
     height: calc(100% - 32px);
     overflow-y: auto;
-    
+
     .v-card.border-radius-0 {
       border-radius: 0 !important;
     }
@@ -334,7 +334,7 @@ const cssVars = computed(() => {
       padding-top: ~"max(2vw, 16px)";
       padding-left: ~"max(4vw, 16px)";
       padding-right: ~"max(4vw, 16px)";
-      
+
 
       .end-spacer {
         height: 25px;
