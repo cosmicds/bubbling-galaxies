@@ -54,7 +54,7 @@ print(f"Image width (degree): {image_width_degree}")
 print(f"Pixel scale (degree/pixel): {pix_scale_sim}")
 
 tree, root, place = create_new_tree(file)
-for i in range(20, 1019, 2):
+for i in range(20, 500, 2):
     url = base_url.format(frame=f"frame_{i:03d}")
     root.append(create_new_place(place, f"Frame {i}", 'SCL', url, width, height, pix_scale_sim))
 tree.write('interpolated_simulation_every_5.wtml')
