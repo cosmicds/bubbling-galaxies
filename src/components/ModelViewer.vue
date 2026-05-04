@@ -10,7 +10,6 @@
     ref="model-viewer"
     :src.attr="src"
     :alt.attr="alt"
-    :ios-src.attr="iosSrc"
     ar
     camera-orbit="0.9677rad 1.2427rad auto"
     :shadow-intensity="shadowIntensity"
@@ -32,7 +31,6 @@ import {onMounted, useTemplateRef} from 'vue';
 export interface ModelViewerProps {
   src: string;
   alt: string;
-  iosSrc?: string;
   shadowIntensity?: number;
   cameraControls?: boolean;
   toneMapping?: "neutral" | "aces" | "agx" | "reinhard" | "cineon" | "linear" | "none";
@@ -43,7 +41,6 @@ export interface ModelViewerProps {
 withDefaults(defineProps<ModelViewerProps>(), {
   shadowIntensity: 0,
   cameraControls: true,
-  iosSrc: undefined,
   toneMapping: "none",
   minFieldOfView: "25deg",
   maxFieldOfView: "auto",
