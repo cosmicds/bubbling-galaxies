@@ -232,7 +232,7 @@
             </div>
 
             <Gallery
-              v-show="ready && !showSimulation && !showImageCard"
+              v-show="ready && !showSimulation"
               v-model:selected-places="selectedGalleryItems"
               v-model:places="galleryPlaces"
               wtml-url="./ngc628_datasets.wtml"
