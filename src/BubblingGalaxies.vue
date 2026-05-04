@@ -23,6 +23,7 @@
         v-model="imageCardIndex"
         :min="imageCardIndexMin"
         :max="imageCardIndexMax"
+        :visible="showImageCard"
         :frames="(index: number) => `https://raw.githubusercontent.com/johnarban/data_repo/refs/heads/main/NGC628_interpolated/frames_256/frame_${index.toString().padStart(3, '0')}.png`"
       />
     </v-card>
@@ -231,11 +232,11 @@
             </div>
 
             <Gallery
-              v-show="ready && !showSimulation && !showImageCard"
+              v-show="ready && !showSimulation"
               v-model:selected-places="selectedGalleryItems"
               v-model:places="galleryPlaces"
               wtml-url="./ngc628_datasets.wtml"
-              :single-select="true"
+              :single-select="false"
               selected-color="limegreen"
               show-opacity
               :columns="1"
@@ -267,6 +268,7 @@
               v-model="showSimulation"
               :class="`real-sim-toggle align-self-center mt-4 ${!layersLoaded ? 'disabled' : ''}`"
               density="compact"
+              :color="accentColor"
               :disabled="!layersLoaded"
             >
               <v-btn
@@ -1195,7 +1197,15 @@ and remember, position:absolute is still a positioned parent, so children can be
 }
 
 .real-sim-toggle {
-  outline: 2px solid white;
+  outline: 1px solid white;
+  .v-btn--overlay {
+    background-color: "#d957db";
+  }
+  .v-btn__content {
+    color: white;
+    opacity: 1;
+    font-weight: bold;
+  }
 }
 .real-sim-toggle.disabled {
   outline: none;
