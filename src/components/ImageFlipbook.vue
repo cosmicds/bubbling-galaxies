@@ -88,12 +88,14 @@ interface Props {
   interval?: number;  // in ms
   color?: string;
   visible?: boolean;
+  initialScale?: number;
 }
 const props = withDefaults(defineProps<Props>(), {
   min: 0,
   interval: 100,
   color: "white",
   visible: false,
+  initialScale: 1,
 });
 
 watch(() => props.visible, (visible) => {
@@ -132,12 +134,28 @@ const transformStyle = computed(() => ({
   transformOrigin: "0 0",
 }));
 
-const isTransformed = computed(() => scale.value !== 1 || tx.value !== 0 || ty.value !== 0);
+const isTransformed = computed(() => scale.value !== props.initialScale || tx.value !== initTx.value || ty.value !== initTy.value);
+
+const initTx = ref(0);
+const initTy = ref(0);
+
+function initView() {
+  const vp = viewport.value as HTMLElement | null;
+  const s = props.initialScale;
+  if (s !== 1 && vp) {
+    initTx.value = (vp.clientWidth * (1 - s)) / 2;
+    initTy.value = (vp.clientHeight * (1 - s)) / 2;
+  } else {
+    initTx.value = 0;
+    initTy.value = 0;
+  }
+  scale.value = s;
+  tx.value = initTx.value;
+  ty.value = initTy.value;
+}
 
 function resetView() {
-  scale.value = 1;
-  tx.value = 0;
-  ty.value = 0;
+  initView();
 }
 
 function applyZoom(px: number, py: number, ds: number) {
@@ -247,6 +265,7 @@ function onTouchEnd(e: TouchEvent) {
 }
 
 onMounted(() => {
+  initView();
   if (typeof PointerEvent === "undefined") {
     const vp = viewport.value as HTMLElement;
     vp.addEventListener("touchstart", onTouchStart, { passive: false });
