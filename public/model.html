@@ -8,7 +8,7 @@
 
 body {
   margin: 0;
-  background-color: white;
+  background-color: black;
 }
 
 model-viewer {
@@ -94,6 +94,29 @@ h3 {
   width: 100%;
 }
 
+#home-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 0px 16px;
+  height: 36px;
+  background: black;
+  color: white;
+  text-decoration: none;
+  border: 1px solid white;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Noto Sans", system-ui;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#home-button:hover {
+  cursor: pointer;
+}
+
     </style>
   </head>
   <body>
@@ -109,6 +132,12 @@ h3 {
       <button slot="ar-button" class="ar-button">View in AR</button>
       <div class="controls" id="layer-controls"></div>
     </model-viewer>
+    <a
+      id="home-button"
+      href="/"
+    >
+    <span>RETURN TO MAIN APP</span>
+    </a>
     <script>
       function updateButtonStyle(button, on, color) {
   button.style.color = on ? color : "black";
