@@ -101,7 +101,7 @@
             </icon-button>
             -->
             <v-btn
-              v-if="!showImageCard"
+              v-hide="!showSimulation"
               class="blur-button"
               variant="outlined"
               density="compact"
@@ -112,14 +112,11 @@
             <div class="d-flex flex-row ga-2">
               <icon-button
                 v-if="!showImageCard"
+                icon="mdi-home"
                 :color="buttonColor"
-                tooltip-text="Show Simulation in Split Screen"
-                @activate="showImageCard = !showImageCard"
-              >
-                <template #button>
-                  <SplitScreenSvg :rotated="smallSize && !isLandscape" />
-                </template>
-              </icon-button>
+                tooltip-text="Reset view"
+                @activate="goToCoordinates('m74')"
+              />
               <!-- <icon-button
                 v-if="!showImageCard"
                 :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
@@ -140,11 +137,14 @@
             </v-btn>
             <icon-button
               v-if="!showImageCard"
-              icon="mdi-home"
               :color="buttonColor"
-              tooltip-text="Reset view"
-              @activate="goToCoordinates('m74')"
-            />
+              tooltip-text="Show Simulation in Split Screen"
+              @activate="showImageCard = !showImageCard"
+            >
+              <template #button>
+                <SplitScreenSvg :rotated="smallSize && !isLandscape" />
+              </template>
+            </icon-button>
           </div>
         </div>
 
