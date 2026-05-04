@@ -316,8 +316,8 @@
     <component
       v-model="showInfoSheet"
       id="side-drawer"
-      :is="smallSize ? 'v-bottom-sheet' : 'v-navigation-drawer'"
-      :class="[showInfoSheet ? 'side-drawer-open' : 'side-drawer-closed']"
+      :is="isLandscape || !smallSize ? 'v-navigation-drawer' : 'v-bottom-sheet'"
+      :class="[isLandscape || !smallSize ? 'info-side' : 'info-bottom', showInfoSheet ? 'side-drawer-open' : 'side-drawer-closed']"
     >
       <InformationSheet
         v-model="showInfoSheet"
@@ -913,19 +913,17 @@ function rollView(angleDegrees: number, zoomDeg: number | null = null) {
 
 
 
-#app.app-is-small {
-  #side-drawer {
-    left: 0;
-    width: 100%;
-    height: 0;
-    transition: height 0.3s ease-in-out;
-    transform: none;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 0;
+#side-drawer.info-bottom {
+  left: 0;
+  width: 100%;
+  height: 0;
+  transition: height 0.3s ease-in-out;
+  transform: none;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 0;
 
-    &.side-drawer-open {
-      height: 34vh;
-    }
+  &.side-drawer-open {
+    height: 34vh;
   }
 }
 
