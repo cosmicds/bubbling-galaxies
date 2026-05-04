@@ -2,12 +2,12 @@
 <Folder Name="BubblingGalaxiesDesign.001.png"
     Group="Goto">
     <Place Name="BubblingGalaxiesDesign.001.png"
-        RA="1.6193630666666665"
-        Dec="15.783408"
-        ZoomLevel="1.2101460769444445"
+        RA="1.6094937999999999"
+        Dec="15.922624"
+        ZoomLevel="2.6015334691666667"
         DataSetType="Sky"
         Opacity="100"
-        Thumbnail="https://nova.astrometry.net/wwt_image/37562763"
+        Thumbnail="https://nova.astrometry.net/wwt_image/37621378"
         Constellation="">
         <ForegroundImageSet>
             <ImageSet DataSetType="Sky"
@@ -15,16 +15,16 @@
                 Url="./BubblingGalaxiesDesign/BubblingGalaxiesDesign.001.png"
                 TileLevels="0"
                 WidthFactor="2"
-                Rotation="-359.99"
+                Rotation="-0.009999999999990905"
                 Projection="SkyImage"
                 FileType=".tif"
-                CenterY="15.783408"
-                CenterX="24.290446"
+                CenterY="15.922624"
+                CenterX="24.142407"
                 BottomsUp="False"
-                OffsetX="192.8"
-                OffsetY="322.3"
+                OffsetX="572.4"
+                OffsetY="692.9"
                 BaseTileLevel="0"
-                BaseDegreesPerTile="0.0003754719444444444">
+                BaseDegreesPerTile="0.00037545583333333334">
                 <Credits>Astrometry.net User (All Rights Reserved)</Credits>
                 <CreditsUrl></CreditsUrl>
             </ImageSet>
