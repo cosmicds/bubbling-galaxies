@@ -145,31 +145,29 @@
           </div> -->
 
           <div class="top-buttons-row">
-            <div>
-              <!-- <icon-button
-                v-model="showInfoSheet"
-                icon="mdi-information-variant"
-                :color="buttonColor"
-                :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
-                tooltip-location="start"
-              >
-              </icon-button> -->
-              <v-btn
-                v-if="!showImageCard"
-                class="blur-button"
-                variant="outlined"
-                density="compact"
-                @click="showInfoSheet = !showInfoSheet"
-              >
-                About
-              </v-btn>
-            </div>
+            <!-- <icon-button
+              v-model="showInfoSheet"
+              icon="mdi-information-variant"
+              :color="buttonColor"
+              :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
+              tooltip-location="start"
+            >
+            </icon-button> -->
+            <v-btn
+              v-if="!showImageCard"
+              class="blur-button"
+              variant="outlined"
+              density="compact"
+              @click="aboutMode = true; showInfoSheet = true"
+            >
+              About
+            </v-btn>
             <DetailSummary
               v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && isLandscape"
               v-model="labelOpen"
               :title="currentLabel.title"
               :use-internal-dialog="false"
-              @open="() => showInfoSheet = !showImageCard"
+              @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
             >
               <ImageText
                 v-if="showSimulation || selectedGalleryItem"
@@ -177,16 +175,15 @@
                 :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
               />
             </DetailSummary>
-            <div>
-              <v-btn
-                v-hide="!showSimulation"
-                class="blur-button"
-                density="compact"
-                @click="showModel = !showModel"
-              >
-                View in 3D!
-              </v-btn>
-            </div>
+            <v-btn
+              v-hide="!showSimulation"
+              class="blur-button"
+              variant="outlined"
+              density="compact"
+              @click="showModel = !showModel"
+            >
+              View in 3D!
+            </v-btn>
           </div>
 
           <div class="second-buttons-row">
@@ -208,7 +205,7 @@
               v-model="labelOpen"
               :title="currentLabel.title"
               :use-internal-dialog="false"
-              @open="() => showInfoSheet = !showImageCard"
+              @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
             >
               <ImageText
                 v-if="showSimulation || selectedGalleryItem"
@@ -397,18 +394,23 @@
       @webgl2-disabled="webglDisabled = true"
     />
     <component
-      v-model="showInfoSheet"
-      id="side-drawer"
       :is="isLandscape || !smallSize ? 'v-navigation-drawer' : 'v-bottom-sheet'"
+      id="side-drawer"
+      v-model="showInfoSheet"
       :class="[isLandscape || !smallSize ? 'info-side' : 'info-bottom', showInfoSheet ? 'side-drawer-open' : 'side-drawer-closed']"
     >
       <InformationSheet
         v-model="showInfoSheet"
         :tab-color="accentColor"
         text-color="#f6e368"
+        :tab-title="aboutMode ? 'Information' : currentLabel.title"
+        :hide-user-guide="!aboutMode"
       >
+        <div v-if="aboutMode">
+          Empty Information
+        </div>
         <ImageText
-          v-if="showSimulation || selectedGalleryItem"
+          v-else-if="showSimulation || selectedGalleryItem"
           show-heading
           show-image
           :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
@@ -509,6 +511,7 @@ const props = withDefaults(defineProps<WwtPlaygroundProps>(), {
 
 const backgroundImagesets = reactive<BackgroundImageset[]>([]);
 const showInfoSheet = ref(false);
+const aboutMode = ref(false);
 const showSplashScreen = ref(!skipSplash);
 const showCrawl = ref(false);
 if (skipSplash && !skipScrawl) {
