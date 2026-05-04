@@ -155,7 +155,14 @@
         >
           <div class="merge-cube-shoutout ma-4">
             <h3>
-              Have a Merge Cube?
+              Have a 
+              <img
+                class="ml-1"
+                src="./assets/MergeCube-Logo-Purple.svg"
+                height="20px"
+                style="background: #DDD; border-radius: 2px; padding: 4px 3px; vertical-align: middle;"
+              >
+              ?
             </h3>
             <p
               v-if="false"
@@ -174,16 +181,9 @@
                 variant="outlined"
                 density="compact"
               >
-                Show in <img
-                  class="ml-2"
-                  src="./assets/MergeCube-Logo-Purple.svg"
-                  height="16px"
-                >
+                Show in App
               </v-btn>
             </a>
-            <div class="text-small mc-disclaimer">
-              (opens in MergeCube app or a new page)
-            </div>
           </div>
         </ModelViewerWindow>
 
