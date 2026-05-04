@@ -78,6 +78,7 @@ const props = defineProps<{
   narrowscreen?: boolean;
   landscape?: boolean;
   speedTitle?: number;
+  noEnd?: boolean;
 }>();
 
 const { speedTitle } = toRefs(props);
@@ -120,6 +121,9 @@ onMounted(() => {
   setTimeout(() => {
     fadeOut.value = true;
     setTimeout(() => {
+      if (props.noEnd) {
+        return;
+      }
       show.value = false;
     }, 1500);
   }, totalDuration);
@@ -437,6 +441,24 @@ Version: 1.0
   }
 }
 
+
+@keyframes scrollquicker {
+  0% { 
+    top: 90%; 
+    opacity: 0;
+  }
+  
+  10% { 
+    opacity: 1;
+  }
+  
+  100% { 
+    top: -270%; 
+    
+  }
+}
+
+
 @media screen and (max-width: 720px) {
   .star-wars-intro .main-content {
     font-size: 35px;
@@ -454,4 +476,9 @@ Version: 1.0
   }
 }
 
+@media screen and (max-height: 370px) {
+  .star-wars-intro .title-content.title-content-animation {
+    animation: scrollquicker var(--speed-title) linear var(--title-delay) forwards;
+  }
+}
 </style>

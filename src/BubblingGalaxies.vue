@@ -52,6 +52,7 @@
         :narrowscreen="!isLandscape"
         :landscape="isLandscape"
         :speed-title="35"
+        no-end
         audio-src="luis_humanoide-space-adventures-orchestral-music-star-wars-style-139660.mp3"
       >
         <template #logo>
@@ -1171,7 +1172,7 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 .crawl-skip-button {
   position: absolute !important;
-  bottom: 5rem;
+  bottom: 1cap;
   right: 1rem;
   z-index: 9999;
 }
