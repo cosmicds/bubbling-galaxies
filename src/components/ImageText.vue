@@ -240,7 +240,6 @@ defineProps({
 @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
 
 .image-text__text h3 {
-  color: rgb(230, 230, 230);
   font-size: 1.1em !important;
 }
 
@@ -248,7 +247,6 @@ defineProps({
   margin-top: 1em;
   text-indent: 15px;
   line-height: 1.5;
-  color: rgb(230, 230, 230);
   font-family: 'Mulish', sans-serif !important;
 }
 

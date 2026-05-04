@@ -409,7 +409,8 @@
       <InformationSheet
         v-model="showInfoSheet"
         :tab-color="accentColor"
-        text-color="#f6e368"
+        heading-color="#f6e368"
+        text-color="#e6e6e6"
         :tab-title="aboutMode ? 'Information' : currentLabel.title"
         :hide-user-guide="!aboutMode"
       >
