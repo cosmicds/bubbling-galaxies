@@ -47,7 +47,11 @@
         :step="2"
         :color="color"
         hide-details
-      ></v-slider>
+      >
+        <template #append>
+          {{ index ? (index * 0.19).toFixed(1) : 0 }} Myr
+        </template>
+      </v-slider>
     </div>
   </div>
 </template>
