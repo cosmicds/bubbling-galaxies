@@ -313,7 +313,7 @@
                   </v-tooltip>
                 </template>
               </v-slider>
-              <span>{{ simulationTime.toFixed(1) }} million years, Simulated IR Image</span>
+              <span>{{ simulationTime.toFixed(1) }} million years</span>
             </div>
 
             <Gallery
