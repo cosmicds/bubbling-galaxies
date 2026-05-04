@@ -93,39 +93,13 @@
           <div id="left-buttons">
             <!-- <icon-button
               v-model="showInfoSheet"
-              icon="book-open"
+              icon="mdi-information-variant"
               :color="buttonColor"
-              :tooltip-text="showInfoSheet ? 'Hide Info' : 'Learn More'"
+              :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
               tooltip-location="start"
             >
-            </icon-button>
-            -->
-            <v-btn
-              v-hide="!showSimulation"
-              class="blur-button"
-              variant="outlined"
-              density="compact"
-              @click="showModel = !showModel"
-            >
-              View in 3D!
-            </v-btn>
-            <div class="d-flex flex-row ga-2">
-              <icon-button
-                v-if="!showImageCard"
-                icon="mdi-home"
-                :color="buttonColor"
-                tooltip-text="Reset view"
-                @activate="goToCoordinates('m74')"
-              />
-              <!-- <icon-button
-                v-if="!showImageCard"
-                :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
-                :color="buttonColor"
-                @activate="isWWT3D = !isWWT3D"
-              /> -->
-            </div>
-          </div>
-          <div id="right-buttons">
+            </icon-button> -->
+            
             <v-btn
               v-if="!showImageCard"
               class="blur-button"
@@ -134,6 +108,29 @@
               @click="showInfoSheet = !showInfoSheet"
             >
               About
+            </v-btn>
+            <icon-button
+              v-if="!showImageCard"
+              icon="mdi-home"
+              :color="buttonColor"
+              tooltip-text="Reset view"
+              @activate="goToCoordinates('m74')"
+            />
+            <!-- <icon-button
+              v-if="!showImageCard"
+              :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
+              :color="buttonColor"
+              @activate="isWWT3D = !isWWT3D"
+            /> -->
+          </div>
+          <div id="right-buttons">
+            <v-btn
+              v-hide="!showSimulation"
+              class="blur-button"
+              density="compact"
+              @click="showModel = !showModel"
+            >
+              View in 3D!
             </v-btn>
             <icon-button
               v-if="!showImageCard"
@@ -251,7 +248,7 @@
               v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem)"
               v-model="labelOpen"
               :title="currentLabel.title"
-              :use-internal-dialog="showImageCard || true"
+              :use-internal-dialog="false"
               @open="() => showInfoSheet = !showImageCard"
             >
               <ImageText
