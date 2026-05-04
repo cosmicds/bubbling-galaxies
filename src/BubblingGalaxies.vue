@@ -866,7 +866,7 @@ watch(imageIndex, async (newIndex: number, oldIndex: number) => {
 function advanceImageIndex() {
   imageIndex.value = (imageIndex.value + 1) % layers.value.length;
 }
-const { togglePlayPause, isPlaying, playing } = useSetInterval(advanceImageIndex, 100);
+const { togglePlayPause, isPlaying, playing } = useSetInterval(advanceImageIndex, 66);
 
 function updateCurrentLayersOpacity(opacity: number) {
   const currentLayer = layers.value[imageIndex.value];
