@@ -295,6 +295,14 @@
             <credit-logos
               :default-logos="['cosmicds', 'wwt', 'sciact', 'nasa']"
               :logo-size="smallSize ? '1em' : '2.5em'"
+              :extra-logos="[
+                {
+                  alt: 'Museum of Science Log',
+                  src: './mos.png',
+                  href:'https://www.mos.org',
+                  name: 'Museum of Science, Boston'
+                }
+              ]"
             />
             <p
               v-if="!smallSize"
@@ -324,6 +332,7 @@
         <ImageText
           v-if="selectedGalleryItem"
           show-heading
+          show-image
           :which="(selectedGalleryItem.get_name() as PhantomImageNames)"
         />
       </InformationSheet>

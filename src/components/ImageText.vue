@@ -21,6 +21,12 @@
         by warm dust and gas from which stars are forming deep inside.
       </p>
 
+      <Lightbox
+        v-if="showImage"
+        src="./nircam-annot.png"
+        alt="Annotated JWST NIRCam + MIRI image of the Phantom Galaxy (M74)"
+      />
+
       <p>
         The soft blue haze near the center comes from older stars packed into the heart of the Phantom Galaxy. At the
         very center, a clearer, whitish-blue point marks the nuclear star cluster, where millions of evolved stars crowd
@@ -59,6 +65,12 @@
         behind and within them.
       </p>
 
+      <Lightbox
+        v-if="showImage"
+        src="./hubble-anot.png"
+        alt="Annotated Hubble visible light image of the Phantom Galaxy (M74)"
+      />
+
       <p>
         Blue regions shows young, hot stars that have cleared away much of the gas and dust around them. Pink and red
         patches show glowing hydrogen gas in active star-forming regions, lit up by newly formed massive stars. In this
@@ -95,7 +107,11 @@
         forming stars are blowing away the gas and dust they formed in, while the largest bubbles are created by the
         stars dying and going supernova! 
       </p>
-      
+      <Lightbox
+        v-if="showImage"
+        src="./miri-annot.png"
+        alt="Annotated JWST MIRI image of the Phantom Galaxy (M74)"
+      />
       <p>
         A lack of star forming gas and dust in the galaxy’s center provides an
         unobstructed view of the center of the star cluster in the center of the galaxy, which appears as a bright point
@@ -139,12 +155,17 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
 import type { PhantomImageNames } from '../types';
+import Lightbox from './Lightbox.vue';
 defineProps({
   which: {
     type: String as PropType<PhantomImageNames>,
     required: true,
   },
   showHeading: {
+    type: Boolean,
+    default: false,
+  },
+  showImage: {
     type: Boolean,
     default: false,
   },

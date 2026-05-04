@@ -60,8 +60,16 @@
           <div id="splash-screen-logos">
             <credit-logos
               id="splash-screen-credit-logos"
-              logo-size="5vmin"
+              logo-size="1em"              
               :default-logos="['cosmicds', 'wwt', 'sciact', 'nasa']"
+              :extra-logos="[
+                {
+                  alt: 'Museum of Science Log',
+                  src: './mos.png',
+                  href:'https://www.mos.org',
+                  name: 'Museum of Science, Boston'
+                }
+              ]"
             />
           </div>
         </div>
@@ -267,6 +275,7 @@ function closeSplashScreen() {
     font-size: 1em;
     line-height: 1.2;
     width: 80%;
+    width:fit-content;
 
     @media only screen and (max-width: 600px) {
       width: 80%;
