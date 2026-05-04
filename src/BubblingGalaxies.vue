@@ -334,6 +334,8 @@
               collapse-on-select
               :hide-gallery-layers="showSimulation || showSplashScreen"
               :preview-index="4"
+              :disabled="showImageCard"
+              :closed-text="showImageCard ? '' : undefined"
             />
 
             <!-- <DetailSummary

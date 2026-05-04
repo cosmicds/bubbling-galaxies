@@ -6,19 +6,19 @@
     <div
       class="just-holding-events"
       tabindex="0"
-      @click="open = true"
-      @keyup.enter="open = true"
+      @click="openGallery"
+      @keyup.enter="openGallery"
     >
       <slot
         v-if="!open"
         name="closed"
-        @click="open = true"
-        @keyup.enter="open = true"
+        @click="openGallery"
+        @keyup.enter="openGallery"
       >
         <div
           class="default-activator blurred"
-          @click="open = true"
-          @keyup.enter="open = true"
+          @click="openGallery"
+          @keyup.enter="openGallery"
         >
           <span
             class="default-activator-title noselect"
@@ -128,6 +128,8 @@ export interface GalleryProps {
   collapseOnSelect?: boolean
   /** should there be one selected at startup */
   defaultStarting?: string | null;
+  /** prevent the gallery from being opened by user interaction */
+  disabled?: boolean;
 }
 
 
@@ -149,7 +151,7 @@ const props = withDefaults(defineProps<GalleryProps>(), {
   hideGalleryLayers: false,
   collapseOnSelect: false,
   defaultStarting: null,
-  
+  disabled: false,
 });
 
 const defaultThumbnailUrl = "https://cdn.worldwidetelescope.org/wwtweb/thumbnail.aspx?name=test";
@@ -163,6 +165,11 @@ const defaultThumbnailUrl = "https://cdn.worldwidetelescope.org/wwtweb/thumbnail
 const store = engineStore();
 const open = defineModel<boolean>("open", { required: false, default: false });
 if (props.startOpen) open.value = true;
+
+function openGallery() {
+  if (props.disabled) return;
+  open.value = true;
+}
 
 const places = defineModel<Place[]>("places", { required: false, default: () => [] });
 const selectedPlaces = defineModel<Place[]>("selectedPlaces", { required: false, default: () => [] });
