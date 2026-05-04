@@ -90,16 +90,16 @@
         id="wwt-overlay"
       >
         <div id="top-content">
-          <div id="left-buttons">
-            <!-- <icon-button
+          <!-- old left-buttons / right-buttons layout preserved below -->
+          <!-- <div id="left-buttons">
+            <icon-button
               v-model="showInfoSheet"
               icon="mdi-information-variant"
               :color="buttonColor"
               :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
               tooltip-location="start"
             >
-            </icon-button> -->
-            
+            </icon-button>
             <v-btn
               v-if="!showImageCard"
               class="blur-button"
@@ -116,12 +116,12 @@
               tooltip-text="Reset view"
               @activate="goToCoordinates('m74')"
             />
-            <!-- <icon-button
+            <icon-button
               v-if="!showImageCard"
               :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
               :color="buttonColor"
               @activate="isWWT3D = !isWWT3D"
-            /> -->
+            />
           </div>
           <div id="right-buttons">
             <v-btn
@@ -142,6 +142,68 @@
                 <SplitScreenSvg :rotated="smallSize && !isLandscape" />
               </template>
             </icon-button>
+          </div> -->
+
+          <div class="top-buttons-row">
+            <div>
+              <!-- <icon-button
+                v-model="showInfoSheet"
+                icon="mdi-information-variant"
+                :color="buttonColor"
+                :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
+                tooltip-location="start"
+              >
+              </icon-button> -->
+              <v-btn
+                v-if="!showImageCard"
+                class="blur-button"
+                variant="outlined"
+                density="compact"
+                @click="showInfoSheet = !showInfoSheet"
+              >
+                About
+              </v-btn>
+            </div>
+            <div>
+              <v-btn
+                v-hide="!showSimulation"
+                class="blur-button"
+                density="compact"
+                @click="showModel = !showModel"
+              >
+                View in 3D!
+              </v-btn>
+            </div>
+          </div>
+
+          <div class="second-buttons-row">
+            <div>
+              <icon-button
+                v-if="!showImageCard"
+                icon="mdi-home"
+                :color="buttonColor"
+                tooltip-text="Reset view"
+                @activate="goToCoordinates('m74')"
+              />
+              <!-- <icon-button
+                v-if="!showImageCard"
+                :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
+                :color="buttonColor"
+                @activate="isWWT3D = !isWWT3D"
+              /> -->
+            </div>
+            <div>
+              <icon-button
+                v-if="!showImageCard"
+                :color="buttonColor"
+                tooltip-text="Show Simulation in Split Screen"
+                @activate="showImageCard = !showImageCard"
+              >
+                <template #button>
+                  <SplitScreenSvg :rotated="smallSize && !isLandscape" />
+                </template>
+              </icon-button>
+            </div>
           </div>
         </div>
 
@@ -1007,6 +1069,7 @@ and remember, position:absolute is still a positioned parent, so children can be
   width: 100%; // 100% of the overlay less the padding
   pointer-events: none;
   display: flex;
+  flex-direction: column; // stack top-buttons-row and second-buttons-row vertically
   justify-content: space-between; // keeps left, center, and right buttons spread
   align-items: flex-start;
 }
@@ -1017,6 +1080,16 @@ and remember, position:absolute is still a positioned parent, so children can be
   gap: 10px;
   align-items: flex-start;
 
+}
+
+.top-buttons-row,
+.second-buttons-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 #center-buttons {
@@ -1118,6 +1191,8 @@ and remember, position:absolute is still a positioned parent, so children can be
   #left-buttons,
   #center-buttons,
   #right-buttons,
+  .top-buttons-row,
+  .second-buttons-row,
   #bottom-content {
     outline: 1px solid white;
     min-width: 1px;
