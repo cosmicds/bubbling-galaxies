@@ -50,7 +50,7 @@
       class="image-text__text"
     >
       <h3 v-show="showHeading">
-        Hubble Visible Light  <br />  “Light & Shadow”
+        Hubble Visible Light <br /> “Light & Shadow”
       </h3>
 
       <p>
@@ -88,7 +88,7 @@
       class="image-text__text"
     >
       <h3 v-show="showHeading">
-        JWST MIRI  <br /> The Dust: Making Shadows Shine
+        JWST MIRI <br /> The Dust: Making Shadows Shine
       </h3>
 
       <p>
@@ -100,12 +100,12 @@
         In visible light, dust often looks like a shadow because it blocks starlight, as in the Hubble image. But when
         you look with a camera that can detect light deep into the infrared (with “heat vision”), that same dust glows.
       </p>
-      
+
       <p>
         MIRI reveals a branching pattern of gas and dust winding through the Phantom Galaxy’s spiral arms, along with
         knots, bubbles, and cavities shaped by star formation. The smallest bubbles are created by regions where young
         forming stars are blowing away the gas and dust they formed in, while the largest bubbles are created by the
-        stars dying and going supernova! 
+        stars dying and going supernova!
       </p>
       <Lightbox
         v-if="showImage"
@@ -129,7 +129,43 @@
         <cite>Credit: ESA/Webb, NASA &amp; CSA, J. Lee and the PHANGS-JWST Team. Acknowledgement: J. Schmidt</cite>
       </p>
     </article>
-    
+
+    <article
+      v-if="which === '2011 Infrared Dust (WISE)'"
+      class="image-text__text"
+    >
+      <h3 v-show="showHeading">
+        Previously On the Phantom Galaxy &ndash; <br /> 2011 WISE Infrared
+      </h3>
+
+      <p>
+        This image from 2011, taken by WISE, the <b>W</b>ide-field <b>I</b>nfrared <b>S</b>urvey <b>E</b>xplorer,
+        shows an infrared view of the Phantom Galaxy at a similar range of wavelengths as the JWST image.
+        The older image shows how mauch of an improvement JWST is over previous infrared telescopes.
+      </p>
+
+      <p>
+        The colors are not what human eyes would see. Different infrared wavelengths are assigned different colors to
+        help us distinguish them. The blue colors show hotter material, dust and gas heated by stars.
+        Greens show cooler dust. The red blobs show the coldest material, within which young stars are forming.
+        These are the same regions which show up as red in the "Infrared Dust (JWST)" image, thought with considerable
+        less detail.
+      </p>
+
+      <p>
+        Some astronomers call the grand design spiral Messier 74 the "perfect spiral," for its exceptional symmetry. It
+        is suspected to have a black hole at its center, with a mass equal to 10,000 suns. It is one of only a handful
+        of known black holes with masses intermediate between the relatively smaller ones that form from collapsing
+        stars and the supermassive black holes millions of times more massive than the sun. Supermassive black holes are
+        more typically found at the centers of galaxies. Messier 74 is located between 24.5 and 36 million light-years
+        away in the constellation Pisces, and is 100,000 light-years across.
+      </p>
+
+      <p class="image-text__credit">
+        <cite>Credit: NASA/JPL-Caltech/UCLA</cite>
+      </p>
+    </article>
+
     <article
       v-if="which === 'Optical (Kitt Peak)'"
       class="image-text__text"
@@ -141,9 +177,38 @@
       <p>
         This optical image was taken at Kitt Peak with the Visitor Center's 0.5 meter telescope.
         M74 is one of the dimmer galaxies in the Messier catalogue.
-        The galaxy is estimated to be 35 million light years away and about the same size as our own galaxy (100,000 light years across).
+        The galaxy is estimated to be 35 million light years away and about the same size as our own galaxy (100,000
+        light years across).
         Many bright pink spots line the blue spiral arms.
         These pink regions are the stellar nurseries from which the bright blue stars in the spiral arms are born.
+      </p>
+
+      <p class="image-text__credit">
+        <cite>Credit: KPNO/NOIRLab/NSF/AURA/Paul Mortfield and Deitmar Kupke/Flynn Haase</cite>
+      </p>
+    </article>
+
+
+    <article
+      v-if="which === 'simulation'"
+      class="image-text__text"
+    >
+      <h3 v-show="showHeading">
+        Simulating a Phantom
+      </h3>
+
+      <p>
+        Telescopes can only show us galaxies at a single moment in time, like a snapshot. To understand how galaxies
+        form and change over millions of years, scientists use computer simulations. By comparing these simulations to
+        real galaxies, they can better understand what physical processes are at work.
+      </p>
+      <p>
+        In this case, scientists are trying to figure out what causes the bubble shapes seen in infrared images of the
+        Phantom Galaxy. The simulation shown here is made up of more than five million individual grid pieces and
+        required 224 processors running simultaneously on a powerful supercomputer at Harvard University. The red colors
+        represent emission from dust which would be visible to JWST (at 7.7 microns) and the blue shows starlight. While
+        it is one of the most detailed galaxy simulations ever made, scientists are always working to make future
+        simulations even more realistic.
       </p>
 
       <p class="image-text__credit">
@@ -173,6 +238,7 @@ defineProps({
 </script>
 <style lang="less">
 @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
 .image-text__text h3 {
   color: rgb(230, 230, 230);
   font-size: 1.1em !important;
@@ -183,7 +249,7 @@ defineProps({
   text-indent: 15px;
   line-height: 1.5;
   color: rgb(230, 230, 230);
-  font-family:'Mulish', sans-serif !important;
+  font-family: 'Mulish', sans-serif !important;
 }
 
 .image-text__text b {

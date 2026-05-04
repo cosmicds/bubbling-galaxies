@@ -276,6 +276,7 @@ onUnmounted(() => {
   justify-content: center;
   align-items: stretch;
   position: relative;
+  background-color: black;
 }
 .image-flipbook__controls {
   padding: 15px;
@@ -330,10 +331,14 @@ onUnmounted(() => {
 
 .image-flipbook__title {
   position: absolute;
-  font-size: 1.5em;
+  font-size: 1.25em;
   top: 1em;
   left: 50%;
   transform: translateX(-50%);
   color: white;
+  border: 1px solid rgba(255,255,255, 0.3);
+  border-radius: 5px;
+  padding-block: 5px;
+  padding-inline: 5px;
 }
 </style>

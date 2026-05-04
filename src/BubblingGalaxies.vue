@@ -136,7 +136,7 @@
               density="compact"
               @click="showInfoSheet = !showInfoSheet"
             >
-              Learn More
+              About
             </v-btn>
             <icon-button
               v-if="!showImageCard"
@@ -236,7 +236,7 @@
               v-model:selected-places="selectedGalleryItems"
               v-model:places="galleryPlaces"
               wtml-url="./ngc628_datasets.wtml"
-              :single-select="false"
+              :single-select="true"
               selected-color="limegreen"
               show-opacity
               :columns="1"
@@ -244,18 +244,20 @@
               persist="Optical (Kitt Peak)"
               :hide-persisted="true"
               :hide-gallery-layers="showSimulation || showSplashScreen"
-              collapse-on-select
-              :preview-index="3"
+              :preview-index="4"
             />
 
             <DetailSummary
-              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && !showSimulation"
+              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem)"
               v-model="labelOpen"
               :title="currentLabel.title"
+              :use-internal-dialog="showImageCard || true"
+              @open="() => showInfoSheet = !showImageCard"
             >
               <ImageText
-                v-if="selectedGalleryItem"
-                :which="(selectedGalleryItem.get_name() as PhantomImageNames)"
+                v-if="showSimulation || selectedGalleryItem"
+                show-image
+                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
               />
             </DetailSummary>
           </div>
@@ -321,10 +323,10 @@
         text-color="#f6e368"
       >
         <ImageText
-          v-if="selectedGalleryItem"
+          v-if="showSimulation || selectedGalleryItem"
           show-heading
           show-image
-          :which="(selectedGalleryItem.get_name() as PhantomImageNames)"
+          :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
         />
       </InformationSheet>
     </div>
@@ -501,6 +503,10 @@ const labelTitles: Record<PhantomImageNames | string, LabelInfo> = {
   'Simulation on Sky': {
     title: 'Simulation on Sky',
     content: '',
+  },
+  "2011 Infrared Dust (WISE)": {
+    title: "2011 Colder Infrared, WISE",
+    content: "",
   }
 };
 
@@ -1068,7 +1074,7 @@ and remember, position:absolute is still a positioned parent, so children can be
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto auto auto;
-  pointer-events: auto;
+  pointer-events: none;
   align-items: flex-end;
 }
 

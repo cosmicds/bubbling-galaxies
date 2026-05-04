@@ -36,6 +36,7 @@
             :show-opacity="showOpacity"
             :opacity="getOpacity(selectedPlace)"
             borderless
+            hide-label
             @update:opacity="(v) => setOpacity(selectedPlace!, v)"
           />
         </div>
@@ -352,7 +353,7 @@ async function selectPlace(place: Place, letDeselect = true) {
 
   syncSelectedLayerVisibility();
   nextTick(() => { _internallySelecting = false; });
-  if (!deselect) {
+  if (!deselect && props.collapseOnSelect) {
     closeOnSelect();
   }
 }
@@ -500,7 +501,7 @@ watch(selectedPlaces, () => {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items:flex-start;
+    align-items:center;
     flex-wrap: wrap;
     // display: grid;
     // grid-template-columns: repeat(auto-fill, minmax(var(--gallery-width), 1fr));
