@@ -131,6 +131,92 @@
       </ImageSet>
     </ForegroundImageSet>
   </Place>
+  <Place
+    Angle="0"
+    AngularSize="0"
+    Constellation="PSC"
+    DataSetType="Sky"
+    Dec="15.7834384813402"
+    Magnitude="0"
+    Name="Messier 74"
+    Opacity="100"
+    RA="1.61160792843188"
+    Rotation="0"
+    Thumbnail="http://wwtfiles.blob.core.windows.net/vamp/thumb-Spitzer-sig06-018c.jpg"
+    ZoomLevel="1.1722648381433"
+  >
+    <ForegroundImageSet>
+      <ImageSet
+        BandPass="Visible"
+        BaseDegreesPerTile="0.293066209535826"
+        BaseTileLevel="0"
+        BottomsUp="False"
+        CenterX="24.1741189264781"
+        CenterY="15.7834384813402"
+        DataSetType="Sky"
+        ElevationModel="False"
+        FileType=".png"
+        Generic="False"
+        Name="Messier 74"
+        Projection="Tan"
+        QuadTreeMap=""
+        Rotation="0"
+        Sparse="True"
+        StockSet="False"
+        TileLevels="4"
+        Url="http://wwtfiles.blob.core.windows.net/vamp/Spitzer-sig06-018cL{1}X{2}Y{3}.png"
+        WidthFactor="1"
+        Xastropix_ids="spitzer|sig06-018c"
+        Xcxstatus="in:64b74482a15b29de42b3059d"
+      >
+        <Credits>NASA/JPL-Caltech/B.E.K. Sugerman; Astronomers using NASA's Spitzer Space Telescope have created this infrared image of the spiral galaxy  M74, as seen by Spitzer'...</Credits>
+        <CreditsUrl>https://www.spitzer.caltech.edu/image/sig06-018c-nasas-spitzer-space-telescope-view-of-m74</CreditsUrl>
+        <ThumbnailUrl>http://wwtfiles.blob.core.windows.net/vamp/thumb-Spitzer-sig06-018c.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place>
+  <Place
+    Angle="0"
+    AngularSize="0"
+    Constellation="PSC"
+    DataSetType="Sky"
+    Dec="15.783472"
+    Magnitude="0"
+    Name="Messier 74"
+    Opacity="100"
+    RA="1.6116028"
+    Rotation="0"
+    Thumbnail="http://wwtfiles.blob.core.windows.net/vamp/thumb-Wise-WISE2011-020b.jpg"
+    ZoomLevel="1.56444442272154"
+  >
+    <ForegroundImageSet>
+      <ImageSet
+        BandPass="Visible"
+        BaseDegreesPerTile="0.391111105680384"
+        BaseTileLevel="0"
+        BottomsUp="False"
+        CenterX="24.174042"
+        CenterY="15.783472"
+        DataSetType="Sky"
+        ElevationModel="False"
+        FileType=".png"
+        Generic="False"
+        Name="Messier 74"
+        Projection="Tan"
+        QuadTreeMap=""
+        Rotation="0"
+        Sparse="True"
+        StockSet="False"
+        TileLevels="3"
+        Url="http://wwtfiles.blob.core.windows.net/vamp/Wise-WISE2011-020bL{1}X{2}Y{3}.png"
+        WidthFactor="1"
+      >
+        <Credits>NASA/JPL-Caltech/UCLA; Some astronomers call the grand design spiral Messier 74 the "perfect spiral," for its exceptional symmetry. It is suspected to ...</Credits>
+        <CreditsUrl>http://wise.astro.ucla.edu</CreditsUrl>
+        <ThumbnailUrl>http://wwtfiles.blob.core.windows.net/vamp/thumb-Wise-WISE2011-020b.jpg</ThumbnailUrl>
+      </ImageSet>
+    </ForegroundImageSet>
+  </Place>
   <Place Angle="0"
     AngularSize="0"
     Constellation="PSC"

@@ -81,3 +81,49 @@ This image was taken as part of Advanced Observing Program (AOP) program at Kitt
 
 Credit:
 KPNO/NOIRLab/NSF/AURA/Paul Mortfield and Deitmar Kupke/Flynn Haase
+
+
+
+
+# WISE Messier 74
+## astropix text
+Some astronomers call the grand design spiral Messier 74 the "perfect spiral," for its exceptional symmetry. It is suspected to have a black hole at its center, with a mass equal to 10,000 suns. It is one of only a handful of known black holes with masses intermediate between the relatively smaller ones that form from collapsing stars and the supermassive black holes millions of times more massive than the sun. Supermassive black holes are more typically found at the centers of galaxies. Messier 74 is located between 24.5 and 36 million light-years away in the constellation Pisces, and is 100,000 light-years across.
+
+
+## wise gallery text https://wise.ssl.berkeley.edu/gallery_M74.html
+Also known as NGC 628, the Messier 74 galaxy is between 24.5 and 36 million light-years away, and has a diameter of about 100,000 light-years. It is suspected to have a black hole at its center, with a mass equal to 10,000 Suns. It is one of only a handful of known black holes with masses intermediate between the relatively smaller ones that form from collapsing stars and the supermassive black holes millions of times more massive than the sun, which are more typically found at the centers of galaxies Although it is called a Messier object, Messier 74 was actually discovered by Pierre Mechain in 1780, who then told his friend Charles Messier about it. As one of the dimmest of all Messier objects, this galaxy is a challenge for amateur astronomers to see in visible light, but the WISE cameras captured it clearly in infrared light.
+
+The colors used in this image represent different wavelengths of infrared radiation. Blue and cyan represent light at 3.4 and 4.6 microns, respectively. These colors show both nearby stars inside the Milky Way Galaxy and the combined light of billions of stars that make up Messier 74. Green and red represent light from 12 and 22 microns, respectively. These colors show light from cooler objects and material. Dust in star-forming regions in Messier 74 traces its spiral structure. The coolest object in the picture is the asteroid 3540 Protesilaos.
+
+Names: Messier 74 (M74, NGC 628); 3540 Protesilaos (1973 UF5)
+Type: Galaxy > Spiral; Interplanetary Body > Asteroid
+Distance:
+M74: between 24.5 and 36 million light-years 3540
+Protesilaos: 5.16 AU (772 million km; at the time of WISE observations)
+Size: Approximately 100,000 light-years (M74); 90 km (3540 Protesilaos)
+Orbital Period: 12.07 years (3540 Protesilaos)
+Rotational Period: 8.95 hours (3540 Protesilaos)
+
+-About the Image-
+Position of object (J2000): RA=01h 36m 41s; Dec=+15 degrees 47’ 00” (M74);
+Constellation: Pisces
+Field of View: 0.46 x 0.46 degrees
+Orientation: North is 201.61 degrees left of vertical
+Color Mapping Blue=3.4 microns; Cyan=4.6 microns; Green=12 microns; Red=22 microns
+NASA/JPL-Caltech/UCLA;
+
+amv stuff
+Spectral Band                   : Infrared, Infrared, Infrared, Infrared
+Spectral Bandpass               : Near-IR, Near-IR, Mid-IR, Mid-IR
+Spectral Central Wavelength     : 3600, 4500, 8000, 24000
+Spectral Color Assignment       : Blue, Cyan, Green, Red
+Subject Category                : C.5.1.1.
+Type                            : Observation
+Description                     : Messier 74, also known as the Phantom Galaxy, is seen here in infrared light which showcases its sweeping spiral arms and star-forming regions.  This image was created using archival data from NASA's Spitzer Space Telescope, revealing dust clouds that, in visible light, appear dark...Messier 74 is an archetype of the "grand design" spiral galaxy and is nearly face-on to our view, providing a perfect view of its structure. In this infrared image, the light from stars appears blue, as stars are brightest at shorter wavelengths of infrared light and less visible at longer wavelengths...Filamentary dust clouds are a feature of spiral arms, and help to trace regions where gas reaches higher densities and can lead to the formation of stars. These clouds light up at longer wavelengths of light, appearing as pale yellow filaments. Regions of newly-forming stars show up as bright red dots scattered along the arms, as they glow most brightly at the longest infrared wavelengths in this image...The galaxy is located in the Pisces constellation and is situated about 30 million light-years away. It has a visible diameter of approximately 10 arc minutes, which is about a third as wide as the full moon. However, its low surface brightness makes it too faint to be seen with the naked eye and makes it a challenging target even for small backyard telescopes...In this image, infrared light at wavelengths of 3.6, 4.5, and 8.0 microns from Spitzer’s IRAC instrument is displayed as blue, cyan, and green, respectively, while light from Spitzer’s MIPS instrument at 24 microns is shown in red..
+Subject                         : Phantom Galaxy, M74
+Title                           : Dusty, Forming Stars in the Phantom Galaxy (M74)
+Credit                          : NASA/JPL-Caltech
+Date Created                    : 2023:04:24
+Headline                        : This infrared image of Messier 74, also known as the Phantom Galaxy and NGC 628, showcases its sweeping spiral arms and star-forming regions. The image was created using archival data from NASA's Spitzer Space Telescope, which can reveal dust clouds that are dark and hard to see in visible light images.
+Source                          : Spitzer Space Telescope
+Usage Terms                     : https://www.spitzer.caltech.edu/page/image-use-policy
