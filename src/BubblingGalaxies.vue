@@ -1198,8 +1198,16 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 .real-sim-toggle {
   outline: 1px solid white;
-  .v-btn--overlay {
-    background-color: "#d957db";
+  .v-btn.v-btn--active {
+    --v-activated-opacity: 0.7;
+    .v-btn--overlay {
+      opacity: 0.7 !important;
+      z-index: 0;
+    }
+    .v-btn__content {
+      z-index: 1;
+      position: relative;
+    }
   }
   .v-btn__content {
     color: white;
