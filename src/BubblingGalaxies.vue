@@ -304,17 +304,6 @@
                 }
               ]"
             />
-            <p
-              v-if="!smallSize"
-              class="toolkit-credit"
-            >
-              Interactive developed using the
-              <a
-                href="https://github.com/cosmicds/vue-toolkit"
-                target="_blank"
-                rel="noopener"
-              >CosmicDS toolkit</a>
-            </p>
           </div>
         </div>
       </div>
