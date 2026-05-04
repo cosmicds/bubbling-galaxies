@@ -44,7 +44,7 @@
         v-model="index"
         :min="min"
         :max="max"
-        :step="1"
+        :step="2"
         :color="color"
         hide-details
       ></v-slider>
@@ -55,6 +55,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch, onMounted, onUnmounted, useTemplateRef } from "vue";
+
 
 const index = defineModel<number>();
 
@@ -325,7 +326,7 @@ onUnmounted(() => {
 
 .image-flipbook__title {
   position: absolute;
-  font-size: 2em;
+  font-size: 1.5em;
   top: 1em;
   left: 50%;
   transform: translateX(-50%);
