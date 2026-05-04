@@ -146,14 +146,7 @@
           </div> -->
 
           <div class="top-buttons-row">
-            <icon-button
-              v-if="!showImageCard || true"
-              icon="mdi-home"
-              :color="buttonColor"
-              tooltip-text="Reset view"
-              @activate="() => resetView()"
-            />
-            <!-- <v-btn
+            <v-btn
               v-if="!showImageCard"
               class="blur-button"
               variant="outlined"
@@ -161,7 +154,7 @@
               @click="aboutMode = true; showInfoSheet = true"
             >
               About
-            </v-btn> -->
+            </v-btn>
             <DetailSummary
               v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && isLandscape"
               v-model="labelOpen"
@@ -188,13 +181,21 @@
 
           <div class="second-buttons-row">
             <icon-button
+              v-if="!showImageCard || true"
+              icon="mdi-home"
+              :color="buttonColor"
+              size="20"
+              tooltip-text="Reset view"
+              @activate="() => resetView()"
+            />
+            <!-- <icon-button
               v-model="showInfoSheet"
               icon="mdi-information-variant"
               :color="buttonColor"
               :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
               tooltip-location="start"
             >
-            </icon-button>
+            </icon-button> -->
             <!-- <icon-button
               v-if="!showImageCard"
               icon="mdi-home"
@@ -330,6 +331,7 @@
               width="105px"
               persist="Optical (Kitt Peak)"
               :hide-persisted="true"
+              collapse-on-select
               :hide-gallery-layers="showSimulation || showSplashScreen"
               :preview-index="4"
             />

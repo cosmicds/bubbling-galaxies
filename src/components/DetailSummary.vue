@@ -103,7 +103,7 @@ function openInfo() {
 .expansion-panel {
   background: rgba(0, 0, 0, 0.10);
   cursor: pointer;
-  border: 1px solid rgba(255,255,255, 0.3);
+  border: 2px solid rgba(255,255,255, 0.3);
   padding: 10px 10px;
   padding-right: 4px;
   border-radius: 5px;
