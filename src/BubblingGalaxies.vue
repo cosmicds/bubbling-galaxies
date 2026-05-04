@@ -1172,7 +1172,7 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 .crawl-skip-button {
   position: absolute !important;
-  bottom: 1cap;
+  bottom: 1rem;
   right: 1rem;
   z-index: 9999;
 }
