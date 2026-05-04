@@ -101,7 +101,7 @@
             </icon-button>
             -->
             <v-btn
-              v-if="!showImageCard"
+              v-hide="!showSimulation"
               class="blur-button"
               variant="outlined"
               density="compact"
@@ -112,14 +112,11 @@
             <div class="d-flex flex-row ga-2">
               <icon-button
                 v-if="!showImageCard"
+                icon="mdi-home"
                 :color="buttonColor"
-                tooltip-text="Show Simulation in Split Screen"
-                @activate="showImageCard = !showImageCard"
-              >
-                <template #button>
-                  <SplitScreenSvg :rotated="smallSize && !isLandscape" />
-                </template>
-              </icon-button>
+                tooltip-text="Reset view"
+                @activate="goToCoordinates('m74')"
+              />
               <!-- <icon-button
                 v-if="!showImageCard"
                 :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
@@ -140,11 +137,14 @@
             </v-btn>
             <icon-button
               v-if="!showImageCard"
-              icon="mdi-home"
               :color="buttonColor"
-              tooltip-text="Reset view"
-              @activate="goToCoordinates('m74')"
-            />
+              tooltip-text="Show Simulation in Split Screen"
+              @activate="showImageCard = !showImageCard"
+            >
+              <template #button>
+                <SplitScreenSvg :rotated="smallSize && !isLandscape" />
+              </template>
+            </icon-button>
           </div>
         </div>
 
@@ -155,7 +155,14 @@
         >
           <div class="merge-cube-shoutout ma-4">
             <h3>
-              Have a Merge Cube?
+              Have a 
+              <img
+                class="ml-1"
+                src="./assets/MergeCube-Logo-Purple.svg"
+                height="20px"
+                style="background: #DDD; border-radius: 2px; padding: 4px 3px; vertical-align: middle;"
+              >
+              ?
             </h3>
             <p
               v-if="false"
@@ -174,16 +181,9 @@
                 variant="outlined"
                 density="compact"
               >
-                Show in <img
-                  class="ml-2"
-                  src="./assets/MergeCube-Logo-Purple.svg"
-                  height="16px"
-                >
+                Show in App
               </v-btn>
             </a>
-            <div class="text-small mc-disclaimer">
-              (opens in MergeCube app or a new page)
-            </div>
           </div>
         </ModelViewerWindow>
 
@@ -1204,8 +1204,16 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 .real-sim-toggle {
   outline: 1px solid white;
-  .v-btn--overlay {
-    background-color: "#d957db";
+  .v-btn.v-btn--active {
+    --v-activated-opacity: 0.7;
+    .v-btn--overlay {
+      opacity: 0.7 !important;
+      z-index: 0;
+    }
+    .v-btn__content {
+      z-index: 1;
+      position: relative;
+    }
   }
   .v-btn__content {
     color: white;
