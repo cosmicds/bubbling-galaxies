@@ -164,6 +164,19 @@
                 About
               </v-btn>
             </div>
+            <DetailSummary
+              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && isLandscape"
+              v-model="labelOpen"
+              :title="currentLabel.title"
+              :use-internal-dialog="false"
+              @open="() => showInfoSheet = !showImageCard"
+            >
+              <ImageText
+                v-if="showSimulation || selectedGalleryItem"
+                show-image
+                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
+              />
+            </DetailSummary>
             <div>
               <v-btn
                 v-hide="!showSimulation"
@@ -177,33 +190,42 @@
           </div>
 
           <div class="second-buttons-row">
-            <div>
-              <icon-button
-                v-if="!showImageCard"
-                icon="mdi-home"
-                :color="buttonColor"
-                tooltip-text="Reset view"
-                @activate="goToCoordinates('m74')"
+            <icon-button
+              v-if="!showImageCard"
+              icon="mdi-home"
+              :color="buttonColor"
+              tooltip-text="Reset view"
+              @activate="goToCoordinates('m74')"
+            />
+            <!-- <icon-button
+              v-if="!showImageCard"
+              :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
+              :color="buttonColor"
+              @activate="isWWT3D = !isWWT3D"
+            /> -->
+            <DetailSummary
+              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && !isLandscape"
+              v-model="labelOpen"
+              :title="currentLabel.title"
+              :use-internal-dialog="false"
+              @open="() => showInfoSheet = !showImageCard"
+            >
+              <ImageText
+                v-if="showSimulation || selectedGalleryItem"
+                show-image
+                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
               />
-              <!-- <icon-button
-                v-if="!showImageCard"
-                :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
-                :color="buttonColor"
-                @activate="isWWT3D = !isWWT3D"
-              /> -->
-            </div>
-            <div>
-              <icon-button
-                v-if="!showImageCard"
-                :color="buttonColor"
-                tooltip-text="Show Simulation in Split Screen"
-                @activate="showImageCard = !showImageCard"
-              >
-                <template #button>
-                  <SplitScreenSvg :rotated="smallSize && !isLandscape" />
-                </template>
-              </icon-button>
-            </div>
+            </DetailSummary>
+            <icon-button
+              v-if="!showImageCard"
+              :color="buttonColor"
+              tooltip-text="Show Simulation in Split Screen"
+              @activate="showImageCard = !showImageCard"
+            >
+              <template #button>
+                <SplitScreenSvg :rotated="smallSize && !isLandscape" />
+              </template>
+            </icon-button>
           </div>
         </div>
 
@@ -306,7 +328,7 @@
               :preview-index="4"
             />
 
-            <DetailSummary
+            <!-- <DetailSummary
               v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem)"
               v-model="labelOpen"
               :title="currentLabel.title"
@@ -318,7 +340,7 @@
                 show-image
                 :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
               />
-            </DetailSummary>
+            </DetailSummary> -->
           </div>
 
           <div
@@ -1087,7 +1109,7 @@ and remember, position:absolute is still a positioned parent, so children can be
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-content: center;
+  align-items: center;
   width: 100%;
   margin-bottom: 10px;
 }
@@ -1293,5 +1315,9 @@ and remember, position:absolute is still a positioned parent, so children can be
     text-align: center;
   }
 
+}
+
+.top-buttons-row > .expansion-panel {
+  margin-block: -100px;
 }
 </style>
