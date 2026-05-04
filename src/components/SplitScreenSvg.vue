@@ -38,7 +38,7 @@ const { rotated } = defineProps<{
 
 <style scoped>
 svg {
-  width: 2em;
+  height: 1.5em;
   fill: currentColor;
 }
 

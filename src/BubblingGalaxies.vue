@@ -6,7 +6,7 @@
   >
     <v-card
       v-show="showImageCard"
-      class="image-card"
+      :class="['image-card', showImageCard ? 'd-flex' : '']"
     >
       <div
         class="position-absolute top-0 right-0 pa-2 ma-2"
@@ -46,9 +46,11 @@
 
       <!-- disabled for now. needs refinement -->
       <StarWarsCrawl
+        v-if="showCrawl"
         v-model="showCrawl"
         no-title
         :narrowscreen="!isLandscape"
+        :landscape="isLandscape"
         :speed-title="35"
         audio-src="luis_humanoide-space-adventures-orchestral-music-star-wars-style-139660.mp3"
       >
@@ -58,15 +60,17 @@
           </h2>
         </template>
         <p>
-          ...32 million light years from Earth, exploding stars blew giant bubbles in the Phantom galaxy.
+          ...32 million light years from Earth, exploding stars blew giant bubbles in the Phantom Galaxy.
         </p>
-        <p>
-          Today's earthbound astronomers are using all kinds of powerful telescopes in their quest to uncover and understand the origins of the explosions that sculpt the Phantom galaxy's life story.
+        <p class="mt-4">
+          Today's earthbound astronomers are using all kinds of powerful telescopes in their quest to uncover and
+          understand the origins of the explosions that sculpt the Phantom galaxy's life story.
         </p>
-        <p>
-          But only simulators, whose computers have the power to probe regions of space and time inaccessible to humans, have even a chance to reveal the Phantom's changes over hundreds millions of years, in 3D...
+        <p class="mt-4">
+          But only simulators, whose computers have the power to probe regions of space and time inaccessible to humans,
+          have even a chance to reveal the Phantom's changes over hundreds of millions of years, in 3D...
         </p>
-        <p>
+        <p class="mt-16">
           Have they done it?
         </p>
       </StarWarsCrawl>
@@ -99,12 +103,13 @@
               v-if="!showImageCard"
               class="blur-button"
               variant="outlined"
+              density="compact"
               @click="showModel = !showModel"
             >
               View in 3D!
             </v-btn>
             <div class="d-flex flex-row ga-2">
-              <IconButton
+              <icon-button
                 v-if="!showImageCard"
                 :color="buttonColor"
                 tooltip-text="Show Simulation in Split Screen"
@@ -113,8 +118,8 @@
                 <template #button>
                   <SplitScreenSvg :rotated="smallSize && !isLandscape" />
                 </template>
-              </IconButton>
-              <!-- <IconButton
+              </icon-button>
+              <!-- <icon-button
                 v-if="!showImageCard"
                 :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
                 :color="buttonColor"
@@ -127,11 +132,12 @@
               v-if="!showImageCard"
               class="blur-button"
               variant="outlined"
+              density="compact"
               @click="showInfoSheet = !showInfoSheet"
             >
               Learn More
             </v-btn>
-            <IconButton
+            <icon-button
               v-if="!showImageCard"
               icon="mdi-home"
               :color="buttonColor"
@@ -158,7 +164,7 @@
             </p>
             <a
               class="align-self-center"
-              href="https://edu.delightex.com/RSU-EJVQ"
+              href="https://edu.delightex.com/RSU-EJV"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -286,21 +292,18 @@
             id="body-logos"
             :class="{'small-logos': smallSize}"
           >
-            <CreditLogos
+            <credit-logos
               :default-logos="['cosmicds', 'wwt', 'sciact', 'nasa']"
               :logo-size="smallSize ? '1em' : '2.5em'"
+              :extra-logos="[
+                {
+                  alt: 'Museum of Science Log',
+                  src: './mos.png',
+                  href:'https://www.mos.org',
+                  name: 'Museum of Science, Boston'
+                }
+              ]"
             />
-            <p
-              v-if="!smallSize"
-              class="toolkit-credit"
-            >
-              Interactive developed using the
-              <a
-                href="https://github.com/cosmicds/vue-toolkit"
-                target="_blank"
-                rel="noopener"
-              >CosmicDS toolkit</a>
-            </p>
           </div>
         </div>
       </div>
@@ -314,7 +317,14 @@
         v-model="showInfoSheet"
         :tab-color="accentColor"
         text-color="#f6e368"
-      />
+      >
+        <ImageText
+          v-if="selectedGalleryItem"
+          show-heading
+          show-image
+          :which="(selectedGalleryItem.get_name() as PhantomImageNames)"
+        />
+      </InformationSheet>
     </div>
     <WebGlTest
       @webgl2-disabled="webglDisabled = true"
@@ -326,7 +336,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ref, reactive, computed, onMounted, watch, nextTick } from "vue";
 import { GotoRADecZoomParams, engineStore } from "@wwtelescope/engine-pinia";
-import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, CreditLogos, IconButton, useFullscreen } from "@cosmicds/vue-toolkit";
+import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, useFullscreen } from "@cosmicds/vue-toolkit";
 import { useDisplay } from "vuetify";
 import { D2R  } from "@wwtelescope/astro";
 import { LayerManager, Place, ImageSetLayer, Imageset, TileCache } from "@wwtelescope/engine";
@@ -681,7 +691,6 @@ onMounted(() => {
 
 
     const { ready: loadBacking } = useWtmlLoader("galaxyless_m74.wtml", {
-      onNewImageset: (imageset) => moveImageset(imageset, coordinates['m74'][0], coordinates['m74'][1]),
       onNewLayer: (newLayer: ImageSetLayer, _index) => {
         newLayer.set_enabled(true);
         newLayer.set_opacity(simulationOpacity.value); // show only the first layer initially
@@ -919,7 +928,8 @@ function rollView(angleDegrees: number, zoomDeg: number | null = null) {
   #side-drawer {
     width: 0%; // start off with 0 width
     &.side-drawer-open {
-      width: 50%; // open to 30% width
+      width: 40%; // open to 30% width
+      height: auto;
   }
 }
 }
@@ -1045,8 +1055,9 @@ and remember, position:absolute is still a positioned parent, so children can be
 }
 
 .icon-wrapper {
-    pointer-events: auto;
-    background-color: transparent;
+    pointer-events: auto !important;
+    background-color: transparent !important;
+    -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
   }
 
@@ -1148,8 +1159,8 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 
 .crawl-skip-button {
-  position: absolute;
-  bottom: 5rem;
+  position: absolute !important;
+  bottom: 1rem;
   right: 1rem;
   z-index: 9999;
 }
@@ -1165,7 +1176,6 @@ and remember, position:absolute is still a positioned parent, so children can be
 }
 
 .image-card {
-  display: flex;
   flex-direction: column;
   flex: 0 0 40%;
   order: 1;

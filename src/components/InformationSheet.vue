@@ -44,27 +44,16 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
       :stlye="cssVars"
     >
       <v-window-item>
-        <v-card class="scrollable">
+        <v-card class="scrollable border-radius-0">
           <v-card-text class="info-text scrollable">
-            <h4 class="user-guide-header">
-              Galaxy
-            </h4>
-            CosmicDS in collaboration with Scott Lucchini. 
-            
-            <a 
-              href="https://www.scottlucchini.com/" 
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn more about his work
-            </a>
+            <slot />
           </v-card-text>
         </v-card>
       </v-window-item>
       
       <!-- User Guide Content -->
       <v-window-item>
-        <v-card class="scrollable">
+        <v-card class="scrollable border-radius-0">
           <v-card-text class="info-text scrollable">
             <h4 class="user-guide-header mt-5">
               Sky Navigation
@@ -74,11 +63,13 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
             </p>
             <v-row
               align="center"
+              density="compact"
               class="mt-2 mx-3"
             >
               <v-col cols="4">
                 <v-chip
                   label
+                  density="compact"
                   variant="outlined"
                 >
                   Pan
@@ -94,11 +85,13 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
             </v-row>
             <v-row
               align="center"
+              density="compact"
               class="mx-3"
             >
               <v-col cols="4">
                 <v-chip
                   label
+                  density="compact"
                   variant="outlined"
                 >
                   Zoom
@@ -114,11 +107,13 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
             </v-row>
             <v-row
               align="center"
+              density="compact"
               class="mx-3"
             >
               <v-col cols="4">
                 <v-chip
                   label
+                  density="compact"
                   variant="outlined"
                 >
                   Rotate
@@ -130,7 +125,7 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
               >
                 {{ touchscreen ? "" : "press" }} <strong>{{ touchscreen ? "pinch and twist" : "control + click + drag"
                 }}</strong> {{ touchscreen ? "" : "" }} <strong>{{ touchscreen ? "" : "" }}</strong> {{ touchscreen
-                  ? "" : "" }} (Keyboard option coming soon)<br>
+                  ? "" : "" }}<br>
               </v-col>
             </v-row>
               
@@ -141,12 +136,34 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
                   <h4 class="user-guide-header mt-3">
                     Credits
                   </h4>
+                  
+                  <h5>Beyond the Telescope: How Stars Shape Galaxies</h5>
+                  <p>
+                    <easyLink href="https://www.scottlucchini.com/">
+                      Dr. Scott Lucchini
+                    </easyLink>
+                  </p>
+                  <p>
+                    <easyLink href="https://agoodman.scholars.harvard.edu/">
+                      Prof. Alyssa Goodman
+                    </easyLink>
+                  </p>
+                  <p>
+                    <easyLink href="https://www.cfa.harvard.edu/people/cameren-swiggum">
+                      Dr. Cameren Swiggum
+                    </easyLink>
+                  </p>
+                  <p class="mt-1">
+                    <easyLink href="https://www.mos.org/centers/space-sciences">
+                      Dani LeBlanc
+                    </easyLink>  (Director, Center for Space Science, Museum of Science, Boston)
+                  </p>
                   <h5>
-                    <a
+                    <easyLink
                       href="https://www.cosmicds.cfa.harvard.edu/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >CosmicDS</a>
+                    >
+                      CosmicDS
+                    </easyLink>
                   </h5>
                   <p>Jon Carifio</p>
                   <p>John Lewis</p>
@@ -181,8 +198,15 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
 </template>
 
 <script setup lang="ts">
-import { ref , computed} from 'vue';
+import { ref , computed, h, type SetupContext} from 'vue';
 import { supportsTouchscreen, FundingAcknowledgement } from '@cosmicds/vue-toolkit';
+
+// https://v3-migration.vuejs.org/breaking-changes/functional-components
+const easyLink = (props: { href: string }, { slots }: SetupContext) => {
+  return h('a', { href: props.href, target: '_blank', rel: 'noopener noreferrer' }, slots.default?.());
+};
+
+
 
 const tab = ref(0);
 const touchscreen = supportsTouchscreen();
@@ -218,10 +242,12 @@ const cssVars = computed(() => {
 }
 
 .info-tabs h3 {
-  font-size: 1em;
+  font-size: 0.9em;
 }
 
 .info-text {
+  display: flex !important;
+  flex-direction: column;
   color: var(--info-sheet-text-color);
   
   a {
@@ -298,9 +324,13 @@ const cssVars = computed(() => {
   #tab-items {
     height: calc(100% - 32px);
     overflow-y: auto;
+    
+    .v-card.border-radius-0 {
+      border-radius: 0 !important;
+    }
 
     .v-card-text {
-      font-size: ~"max(14px, calc(0.7em + 0.3vw))";
+      font-size: ~"max(13px, calc(0.6em + 0.3vw))";
       padding-top: ~"max(2vw, 16px)";
       padding-left: ~"max(4vw, 16px)";
       padding-right: ~"max(4vw, 16px)";

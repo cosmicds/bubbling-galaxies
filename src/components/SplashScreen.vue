@@ -45,8 +45,8 @@
           <v-btn
             class="splash-get-started"
             color="secondary"
-            :density="$vuetify.display.xs ? 'compact' : 'default'"
-            :size="$vuetify.display.width < 250 ? 'large' : 'x-large'"
+            :density="(xs || isLandscape) ? 'compact' : 'default'"
+            :size="width < 250 ? 'large' : 'x-large'"
             variant="elevated"
             rounded="lg"
             @click="closeSplashScreen"
@@ -60,8 +60,16 @@
           <div id="splash-screen-logos">
             <credit-logos
               id="splash-screen-credit-logos"
-              logo-size="5vmin"
+              logo-size="1em"              
               :default-logos="['cosmicds', 'wwt', 'sciact', 'nasa']"
+              :extra-logos="[
+                {
+                  alt: 'Museum of Science Log',
+                  src: './mos.png',
+                  href:'https://www.mos.org',
+                  name: 'Museum of Science, Boston'
+                }
+              ]"
             />
           </div>
         </div>
@@ -74,6 +82,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { FocusTrap } from "focus-trap-vue";
+import { useDisplay } from 'vuetify';
+
+const {width, xs, height } = useDisplay();
+const isLandscape = computed(() => width.value > height.value * 1.25);
 
 export interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -119,7 +131,7 @@ function closeSplashScreen() {
 #splash-overlay {
   align-items: center;
   justify-content: center;
-  font-size: min(8vw, 5vh);
+  font-size: 2em;
   transition: width 0.5s, height 0.5s;
 }
 
@@ -136,17 +148,19 @@ function closeSplashScreen() {
   color: white;
   user-select: none;
   contain: paint;
+  min-width: 200px;
+  min-width: 200px;
 
-  @media (max-width: 699px) {
-    max-height: 80vh;
-    max-width: 90vw;
-  }
+  // @media (max-width: 699px) {
+  //   max-height: 80vh;
+  //   max-width: 90vw;
+  // }
 
-  @media (min-width: 700px) {
-    max-height: 85vh;
-    max-width: min(70vw, 800px);
+  // @media (min-width: 700px) {
+  //   max-height: 85vh;
+  //   max-width: min(70vw, 800px);
     
-  }
+  // }
   --border-radius: 30px;
 
 
@@ -171,7 +185,7 @@ function closeSplashScreen() {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-content: center;
+  align-items: center;
   padding-top: 2rem;
   padding-bottom: 1rem;
   padding-inline: 2rem;
@@ -182,7 +196,6 @@ function closeSplashScreen() {
   font-family: "Highway Gothic Narrow", sans-serif;
 
   div {
-    margin-inline: auto;
     text-align: center;
   }
 
@@ -230,7 +243,7 @@ function closeSplashScreen() {
     // in the grid, the text is in the 2nd column
     display: flex;
     flex-direction: column;
-    line-height: 130%;
+    line-height: 1.5;
 
   }
 
@@ -242,7 +255,7 @@ function closeSplashScreen() {
 
   #splash-screen-guide {
     margin-block: 1.5em;
-    font-size: min(5vw, 4vh);
+    // font-size: min(5vw, 4vh);
     line-height: 140%;
     width: 75%;
 
@@ -260,8 +273,9 @@ function closeSplashScreen() {
     // margin-top: 3rem;
     margin: clamp(0.5rem, 3vh, 3rem) auto;
     font-size: 1em;
-    line-height: calc(var(--default-line-height));
+    line-height: 1.2;
     width: 80%;
+    width:fit-content;
 
     @media only screen and (max-width: 600px) {
       width: 80%;
@@ -299,7 +313,7 @@ function closeSplashScreen() {
     overflow: hidden;
 
   #splash-screen-text {
-    line-height: 75%;
+    line-height: 1;
   }
 
   .splash-get-started {
