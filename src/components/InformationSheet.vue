@@ -159,6 +159,9 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
                       Dani LeBlanc
                     </easyLink>  (Director, Center for Space Science, Museum of Science, Boston)
                   </p>
+                  <p class="mt-1">
+                    Micah Acinapura (AMNH)
+                  </p>
                   <h5>
                     <easyLink
                       href="https://www.cosmicds.cfa.harvard.edu/"
