@@ -169,7 +169,7 @@
               rel="noopener noreferrer"
             >
               <v-btn
-                class="mt-2" 
+                class="mt-2"
                 variant="outlined"
                 density="compact"
               >
@@ -181,7 +181,7 @@
               </v-btn>
             </a>
             <div class="text-small mc-disclaimer">
-              (opens in MergeCube app or a new page)  
+              (opens in MergeCube app or a new page)
             </div>
           </div>
         </ModelViewerWindow>
@@ -779,7 +779,7 @@ watch(showSimulation, (showingSimulation) => {
 
 const ready = computed(() => positionSet.value);
 
-function goToGalleryItem(name: string) {
+function goToGalleryItem(name: string, instant=false) {
   const place = galleryPlaces.value.find(p => p.get_name() === name) || null;
   if (place === null) {
     return;
@@ -788,7 +788,7 @@ function goToGalleryItem(name: string) {
 
   const iset = place.get_studyImageset() ?? place.get_backgroundImageset();
   if (iset) {
-    moveToImageset(iset, {instant: false, roll: true, extraRoll: isVertical.value ? 90 : 0});
+    moveToImageset(iset, {instant, roll: true, extraRoll: isVertical.value ? 90 : 0});
   }
 }
 
@@ -798,7 +798,7 @@ watch([showSplashScreen, showCrawl, galleryPlaces, ready], ([splashShowing, craw
     console.log("Splash and crawl finished, moving to gallery item");
     // moveToImageset(galleryPlaces.value)
     const item: PhantomImageNames = "Infrared Stars & Dust (JWST)";
-    goToGalleryItem(item);
+    goToGalleryItem(item, true);
   }
 });
 
@@ -920,7 +920,7 @@ function rollView(angleDegrees: number, zoomDeg: number | null = null) {
 }
 }
 /* we don't technicalll need the #app.app-is-small.app-is-landscape,
-// since this comes after the #app.app-is-small rule which 
+// since this comes after the #app.app-is-small rule which
 // because css follows the cascade in order
 // */
 #app.app-is-small.app-is-landscape,
@@ -1208,13 +1208,13 @@ and remember, position:absolute is still a positioned parent, so children can be
   align-items: center;
   width: 70vw;
   align-self:center;
-  
+
   .mc-disclaimer {
     font-size: 0.8em;
     color: rgba(255,255,255,0.55);
     margin-top: 2px;
     text-align: center;
   }
-  
+
 }
 </style>
