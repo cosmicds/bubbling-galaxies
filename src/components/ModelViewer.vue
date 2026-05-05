@@ -27,7 +27,9 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, useTemplateRef} from 'vue';
+import { onMounted, useTemplateRef } from 'vue';
+import type { ModelViewerElement } from "@google/model-viewer";
+
 export interface ModelViewerProps {
   src: string;
   alt: string;
@@ -46,12 +48,31 @@ withDefaults(defineProps<ModelViewerProps>(), {
   maxFieldOfView: "auto",
 });
 
+interface ARStatusEvent {
+  detail: {
+    status: "not-presenting" | "session-started" | "object-placed" | "failed";
+  };
+}
+
 const modelViewer = useTemplateRef('model-viewer');
 onMounted(() => {
   if (modelViewer.value) {
-    (modelViewer.value as unknown as HTMLElement).addEventListener('error', (event: Event) => {
+    const modelViewerElement = modelViewer.value as ModelViewerElement;
+    modelViewerElement.addEventListener('error', (event: Event) => {
       console.error('Error loading model:', event);
     });
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error The model-viewer element has an "ar-status" event
+    modelViewerElement.addEventListener("ar-status", (event: ARStatusEvent) => {
+      const status = event.detail.status;
+      if (status === "not-presenting") {
+        const url = new URL(window.location.href);
+        url.searchParams.set("model", "true");
+        window.location.href = url.href;
+      }
+    });
+
   }
 });
 </script>

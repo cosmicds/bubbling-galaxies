@@ -242,7 +242,7 @@
         >
           <div class="merge-cube-shoutout ma-4">
             <h3>
-              Have a 
+              Have a
               <img
                 class="ml-1"
                 src="./assets/MergeCube-Logo-Purple.svg"
@@ -449,6 +449,7 @@
 <script setup lang="ts">
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ref, reactive, computed, onMounted, watch, nextTick } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { GotoRADecZoomParams, engineStore } from "@wwtelescope/engine-pinia";
 import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, useFullscreen } from "@cosmicds/vue-toolkit";
 import { useDisplay } from "vuetify";
@@ -664,6 +665,15 @@ function goToCoordinates(item: keyof typeof coordinates, instant=true) {
   });
 }
 
+const route = useRoute();
+const router = useRouter();
+const toModel = route.query.model;
+if (typeof toModel == "string" && toModel.toLowerCase() == "true") {
+  showModel.value = true;
+  const query = { ...route.query };
+  delete query["model"];
+  router.replace({ query });
+}
 
 import { useWtmlLoader } from "./composables/useWtmlLoader";
 
