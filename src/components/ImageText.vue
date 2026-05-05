@@ -212,7 +212,7 @@
       </p>
 
       <p class="image-text__credit">
-        <cite>Credit: KPNO/NOIRLab/NSF/AURA/Paul Mortfield and Deitmar Kupke/Flynn Haase</cite>
+        <cite>Credit: Scott Lucchini</cite>
       </p>
     </article>
 
