@@ -582,19 +582,19 @@ interface LabelInfo {
 
 const labelTitles: Record<PhantomImageNames | string, LabelInfo> = {
   'Infrared Stars & Dust (JWST)': {
-    title: 'JWST - Infrared Stars & Dust',
+    title: 'Infrared Stars & Dust (JWST)',
     content: ""
   },
   'Infrared Dust (JWST)': {
-    title: 'JWST - Infrared Dust',
+    title: 'Infrared Dust (JWST)',
     content: '',
   },
   'Visible Light (Hubble)': {
-    title: 'Visible Light Hubble Image',
+    title: 'Visible Light (Hubble)',
     content: '',
   },
   'Optical (Kitt Peak)': {
-    title: 'Kitt Peak Optical Image',
+    title: 'Optical (Kitt Peak)',
     content: '',
   },
   'Simulation on Sky': {
@@ -602,11 +602,11 @@ const labelTitles: Record<PhantomImageNames | string, LabelInfo> = {
     content: '',
   },
   "2011 Infrared Dust (WISE)": {
-    title: "WISE - 2011 Infrared Dust",
+    title: "2011 Infrared Dust (WISE)",
     content: "",
   },
   "2023 Infrared (Spitzer)": {
-    title: "Spitzer - 2023, Infrared image",
+    title: "2023 Infrared (Spitzer)",
     content: "",
   }
 };
