@@ -57,7 +57,7 @@ interface ARStatusEvent {
 const modelViewer = useTemplateRef('model-viewer');
 onMounted(() => {
   if (modelViewer.value) {
-    const modelViewerElement = modelViewer.value as ModelViewerElement;
+    const modelViewerElement = modelViewer.value as unknown as ModelViewerElement;
     modelViewerElement.addEventListener('error', (event: Event) => {
       console.error('Error loading model:', event);
     });
