@@ -131,7 +131,7 @@
       </ImageSet>
     </ForegroundImageSet>
   </Place>
-  <Place
+  <!-- <Place
     Angle="0"
     AngularSize="0"
     Constellation="PSC"
@@ -172,14 +172,14 @@
         <ThumbnailUrl>http://wwtfiles.blob.core.windows.net/vamp/thumb-Wise-WISE2011-020b.jpg</ThumbnailUrl>
       </ImageSet>
     </ForegroundImageSet>
-  </Place>
-  <!-- <Place Angle="0"
+  </Place> -->
+  <Place Angle="0"
     AngularSize="0"
     Constellation="PSC"
     DataSetType="Sky"
     Dec="15.783830080030844"
     Magnitude="0"
-    Name="Infrared (Spitzer)"
+    Name="2023 Infrared (Spitzer)"
     Opacity="100"
     RA="1.6116031114664884"
     Rotation="0"
@@ -196,7 +196,7 @@
         ElevationModel="False"
         FileType=".png"
         Generic="False"
-        Name="Infrared (Spitzer)"
+        Name="2023 Infrared (Spitzer)"
         OffsetX="-5.2158523543506065e-05"
         OffsetY="-5.2158661456566194e-05"
         Projection="Tan"
@@ -222,7 +222,7 @@ In this image, infrared light at wavelengths of 3.6, 4.5, and 8.0 microns from S
         <ThumbnailUrl>https://raw.githubusercontent.com/johnarban/data_repo/main/spitzer_ngc628/thumb.jpg</ThumbnailUrl>
       </ImageSet>
     </ForegroundImageSet>
-  </Place> -->
+  </Place>
   <Place Angle="0"
     AngularSize="0"
     Constellation="PSC"

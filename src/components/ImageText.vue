@@ -215,6 +215,55 @@
         <cite>Credit: KPNO/NOIRLab/NSF/AURA/Paul Mortfield and Deitmar Kupke/Flynn Haase</cite>
       </p>
     </article>
+
+
+
+    <article
+      v-if="which === '2023 Infrared (Spitzer)'"
+      class="image-text__text"
+    >
+      <h3 v-show="showHeading">
+        Previously On the Phantom Galaxy &ndash; <br /> 2023 Spitzer Infrared
+      </h3>
+
+      <p>
+        Messier 74, also known as the Phantom Galaxy, is seen here in infrared light which showcases its sweeping spiral
+        arms and star-forming regions. This image was created using archival data from NASA's Spitzer Space Telescope,
+        revealing dust clouds that, in visible light, appear dark.
+      </p>
+
+      <p>
+        Messier 74 is an archetype of the "grand design" spiral galaxy and is nearly face-on to our view, providing a
+        perfect view of its structure. In this infrared image, the light from stars appears blue, as stars are brightest
+        at shorter wavelengths of infrared light and less visible at longer wavelengths.
+      </p>
+
+      <p>
+        Filamentary dust clouds are a feature of spiral arms, and help to trace regions where gas reaches higher
+        densities
+        and can lead to the formation of stars. These clouds light up at longer wavelengths of light, appearing as pale
+        yellow filaments. Regions of newly-forming stars show up as bright red dots scattered along the arms, as they
+        glow
+        most brightly at the longest infrared wavelengths in this image.
+      </p>
+
+      <p>
+        The galaxy is located in the Pisces constellation and is situated about 30 million light-years away. It has a
+        visible diameter of approximately 10 arc minutes, which is about a third as wide as the full moon. However, its
+        low surface brightness makes it too faint to be seen with the naked eye and makes it a challenging target even
+        for small backyard telescopes.
+      </p>
+
+      <p>
+        In this image, infrared light at wavelengths of 3.6, 4.5, and 8.0 microns from Spitzer’s IRAC instrument is
+        displayed as blue, cyan, and green, respectively, while light from Spitzer’s MIPS instrument at 24 microns is
+        shown in red.
+      </p>
+
+      <p class="image-text__credit">
+        <cite>Image &amp; Text Credit: ASA/JPL-Caltech</cite>
+      </p>
+    </article>
   </div>
 </template>
 <script setup lang="ts">

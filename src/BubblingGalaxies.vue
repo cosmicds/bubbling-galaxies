@@ -604,6 +604,10 @@ const labelTitles: Record<PhantomImageNames | string, LabelInfo> = {
   "2011 Infrared Dust (WISE)": {
     title: "2011 Colder Infrared, WISE",
     content: "",
+  },
+  "2023 Infrared (Spitzer)": {
+    title: "2023 Infrared, Spitzer",
+    content: "",
   }
 };
 
