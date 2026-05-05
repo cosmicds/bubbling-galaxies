@@ -665,14 +665,14 @@ function goToCoordinates(item: keyof typeof coordinates, instant=true) {
   });
 }
 
-const route = useRoute();
-const router = useRouter();
-const toModel = route.query.model;
-if (typeof toModel == "string" && toModel.toLowerCase() == "true") {
+const query = new URLSearchParams(window.location.search);
+const toModel = query.get("model");
+if (typeof toModel === "string" && toModel.toLowerCase() === "true") {
+  showSplashScreen.value = false;
   showModel.value = true;
-  const query = { ...route.query };
-  delete query["model"];
-  router.replace({ query });
+  const url = new URL(window.location.href);
+  url.searchParams.delete("model");
+  window.history.replaceState({}, "", url);
 }
 
 import { useWtmlLoader } from "./composables/useWtmlLoader";
