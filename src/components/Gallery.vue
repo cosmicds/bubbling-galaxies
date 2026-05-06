@@ -130,6 +130,8 @@ export interface GalleryProps {
   defaultStarting?: string | null;
   /** prevent the gallery from being opened by user interaction */
   disabled?: boolean;
+  /** order layers by selection order */
+  useLayerSelectionOrder?: boolean;
 }
 
 
@@ -152,6 +154,7 @@ const props = withDefaults(defineProps<GalleryProps>(), {
   collapseOnSelect: false,
   defaultStarting: null,
   disabled: false,
+  useLayerSelectionOrder: false,
 });
 
 const defaultThumbnailUrl = "https://cdn.worldwidetelescope.org/wwtweb/thumbnail.aspx?name=test";
@@ -394,11 +397,38 @@ function setSelectedImagesetVisibility(places: Place[], selectedPlaces: Place[])
   }
 }
 
+function syncSelectedLayerOrder() {
+  if (!props.useLayerSelectionOrder) return;
+  if (props.persist !== null) {
+    const persistedPlace = places.value.find(p => isPersistantLayer(p));
+    if (persistedPlace) {
+      const layer = getImagesetLayerForPlace(persistedPlace);
+      if (layer) {
+        store.setImageSetLayerOrder({
+          id: layer.id.toString(),
+          order: 0,
+        });
+      }
+    }
+  }
+
+  const topOrder = Object.keys(store.imagesetLayers).length;
+  selectedPlaces.value.forEach((place, index) => {
+    const layer = getImagesetLayerForPlace(place);
+    if (!layer) return;
+    store.setImageSetLayerOrder({
+      id: layer.id.toString(),
+      order: topOrder + index,
+    });
+  });
+}
+
 function syncSelectedLayerVisibility() {
   if (props.hideGalleryLayers) return;
   nextTick(async () => {
     await setSelectedImagesetVisibility(places.value, selectedPlaces.value);
     selectedPlaces.value.forEach(applySelectedPlaceOpacity);
+    syncSelectedLayerOrder();
   });
 }
 

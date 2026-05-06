@@ -155,19 +155,34 @@
             >
               About
             </v-btn>
-            <DetailSummary
+            <div
               v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && isLandscape"
-              v-model="labelOpen"
-              :title="currentLabel.title"
-              :use-internal-dialog="false"
-              @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
+              class="label-stack"
             >
-              <ImageText
-                v-if="showSimulation || selectedGalleryItem"
-                show-image
-                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
+              <DetailSummary
+                v-if="showSimulation"
+                v-model="labelOpen"
+                :title="currentLabel.title"
+                :use-internal-dialog="false"
+                @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
               />
-            </DetailSummary>
+              <template v-else>
+                <DetailSummary
+                  v-if="foregroundGalleryItem"
+                  v-model="labelOpen"
+                  :title="foregroundLabel.title"
+                  :use-internal-dialog="false"
+                  @open="() => openGalleryInfo(foregroundGalleryItem)"
+                />
+                <DetailSummary
+                  v-if="backgroundGalleryItem"
+                  v-model="labelOpen"
+                  :title="backgroundLabel.title"
+                  :use-internal-dialog="false"
+                  @open="() => openGalleryInfo(backgroundGalleryItem)"
+                />
+              </template>
+            </div>
             <v-btn
               v-hide="!showSimulation"
               class="blur-button"
@@ -209,19 +224,34 @@
               :color="buttonColor"
               @activate="isWWT3D = !isWWT3D"
             /> -->
-            <DetailSummary
+            <div
               v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && !isLandscape"
-              v-model="labelOpen"
-              :title="currentLabel.title"
-              :use-internal-dialog="false"
-              @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
+              class="label-stack"
             >
-              <ImageText
-                v-if="showSimulation || selectedGalleryItem"
-                show-image
-                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
+              <DetailSummary
+                v-if="showSimulation"
+                v-model="labelOpen"
+                :title="currentLabel.title"
+                :use-internal-dialog="false"
+                @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
               />
-            </DetailSummary>
+              <template v-else>
+                <DetailSummary
+                  v-if="foregroundGalleryItem"
+                  v-model="labelOpen"
+                  :title="foregroundLabel.title"
+                  :use-internal-dialog="false"
+                  @open="() => openGalleryInfo(foregroundGalleryItem)"
+                />
+                <DetailSummary
+                  v-if="backgroundGalleryItem"
+                  v-model="labelOpen"
+                  :title="backgroundLabel.title"
+                  :use-internal-dialog="false"
+                  @open="() => openGalleryInfo(backgroundGalleryItem)"
+                />
+              </template>
+            </div>
             <icon-button
               v-if="!showImageCard"
               :color="buttonColor"
@@ -318,24 +348,35 @@
               <span>{{ simulationTime.toFixed(1) }} million years</span>
             </div>
 
-            <Gallery
+            <ForegroundBackgroundPicker
               v-show="ready && !showSimulation"
               v-model:open="galleryOpen"
+              v-model:places="galleryPlaces"
+              v-model:foreground="foregroundGalleryItem"
+              v-model:background="backgroundGalleryItem"
+              selected-color="limegreen"
+              :columns="1"
+              width="105px"
+              persist="Optical (Kitt Peak)"
+              :hide-persisted="true"
+              :disabled="showImageCard"
+            />
+            <Gallery
+              v-show="false"
+              v-model:open="galleryLoaderOpen"
               v-model:selected-places="selectedGalleryItems"
               v-model:places="galleryPlaces"
               wtml-url="./ngc628_datasets.wtml"
-              :single-select="true"
+              :single-select="false"
               selected-color="limegreen"
               show-opacity
               :columns="1"
               width="105px"
               persist="Optical (Kitt Peak)"
               :hide-persisted="true"
-              collapse-on-select
               :hide-gallery-layers="showSimulation || showSplashScreen"
-              :preview-index="4"
-              :disabled="showImageCard"
-              :closed-text="showImageCard ? '' : undefined"
+              :disabled="true"
+              use-layer-selection-order
             />
 
             <!-- <DetailSummary
@@ -436,10 +477,10 @@
           </p>
         </div>
         <ImageText
-          v-else-if="showSimulation || selectedGalleryItem"
+          v-else-if="showSimulation || infoGalleryItem || selectedGalleryItem"
           show-heading
           show-image
-          :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
+          :which="(showSimulation ? 'simulation' : (infoGalleryItem ?? selectedGalleryItem)!.get_name()) as PhantomImageNames"
         />
       </InformationSheet>
     </component>
@@ -462,6 +503,7 @@ import SplitScreenSvg from "./components/SplitScreenSvg.vue";
 
 import { WWTControl } from "@wwtelescope/engine";
 
+import ForegroundBackgroundPicker from "./components/ForegroundBackgroundPicker.vue";
 import Gallery from "./components/Gallery.vue";
 
 
@@ -542,6 +584,7 @@ const showModel = ref(false);
 
 const showImageCard = ref(false);
 const galleryOpen = ref(false);
+const galleryLoaderOpen = ref(false);
 const imageCardIndex = ref(100);
 const imageCardIndexMin = 100;
 const imageCardIndexMax = 300;
@@ -558,6 +601,9 @@ const layersToMove = computed(() => {
 const isets = ref<Imageset[]>([]);
 const selectedGalleryItems = ref<Place[]>([]);
 const selectedGalleryItem = computed(() => selectedGalleryItems.value[selectedGalleryItems.value.length - 1] ?? null);
+const foregroundGalleryItem = ref<Place | null>(null);
+const backgroundGalleryItem = ref<Place | null>(null);
+const infoGalleryItem = ref<Place | null>(null);
 watch(selectedGalleryItem, (newPlace, oldPlace) => {
   if (oldPlace) {
     console.log("Deselecting place", oldPlace.get_name());
@@ -572,6 +618,15 @@ watch(selectedGalleryItems, (newPlaces, oldPlaces) => {
   console.log("Selected places changed from", oldNames, "to", newNames);
 });
 const galleryPlaces = ref<Place[]>([]);
+
+watch([backgroundGalleryItem, foregroundGalleryItem], ([background, foreground]) => {
+  selectedGalleryItems.value = [background, foreground].filter((place): place is Place => place !== null);
+});
+
+watch(galleryPlaces, (places) => {
+  if (foregroundGalleryItem.value !== null) return;
+  foregroundGalleryItem.value = places.find(p => p.get_name() === "Infrared Stars & Dust (JWST)") ?? null;
+});
 
 const labelOpen = ref(false);
 
@@ -613,8 +668,22 @@ const labelTitles: Record<PhantomImageNames | string, LabelInfo> = {
 
 const currentLabel = computed(() => {
   if (showSimulation.value) return labelTitles['Simulation on Sky'];
-  return labelTitles[selectedGalleryItem.value?.get_name() ?? ''] ?? { title: '', content: '' };
+  return labelForPlace(infoGalleryItem.value ?? selectedGalleryItem.value);
 });
+
+const foregroundLabel = computed(() => labelForPlace(foregroundGalleryItem.value));
+const backgroundLabel = computed(() => labelForPlace(backgroundGalleryItem.value));
+
+function labelForPlace(place: Place | null) {
+  return labelTitles[place?.get_name() ?? ''] ?? { title: '', content: '' };
+}
+
+function openGalleryInfo(place: Place | null) {
+  if (!place) return;
+  infoGalleryItem.value = place;
+  aboutMode.value = false;
+  showInfoSheet.value = !showImageCard.value;
+}
 
 const showSimulation = ref(false);
 
@@ -798,7 +867,7 @@ function goToGalleryItem(name: string, instant=false) {
   if (place === null) {
     return;
   }
-  selectedGalleryItems.value = [place];
+  foregroundGalleryItem.value = place;
 
   const iset = place.get_studyImageset() ?? place.get_backgroundImageset();
   if (iset) {
@@ -1048,6 +1117,18 @@ and remember, position:absolute is still a positioned parent, so children can be
   align-items: center;
   width: 100%;
   margin-bottom: 10px;
+}
+
+.label-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: auto;
+  max-width: calc(100% - 7em);
+}
+
+.label-stack .expansion-panel {
+  padding-block: 6px;
 }
 
 #center-buttons {
