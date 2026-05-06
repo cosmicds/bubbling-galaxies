@@ -4,6 +4,7 @@
       v-model="selectedKey"
       :items="selectItems"
       :placeholder="`Select ${label}`"
+      :clearable="true"
       :disabled="disabled"
       density="compact"
       variant="outlined"

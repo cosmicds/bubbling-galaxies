@@ -1120,9 +1120,9 @@ and remember, position:absolute is still a positioned parent, so children can be
 }
 
 .label-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  align-self: flex-start;
+  margin-bottom: -999px;
+  overflow: visible;
   pointer-events: auto;
   max-width: calc(100% - 7em);
 }
