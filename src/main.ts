@@ -6,7 +6,6 @@ import BrightnessContrast from "./components/BrightnessContrast.vue";
 import ModelViewer from "./components/ModelViewer.vue";
 import ImageFlipbook from "./components/ImageFlipbook.vue";
 
-
 import vuetify from "@/plugins/vuetify";
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
