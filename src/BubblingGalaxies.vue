@@ -904,6 +904,7 @@ watch(showImageCard, (showing) => {
     showSimulation.value = false;
     showInfoSheet.value = false;
     galleryOpen.value = false;
+    backgroundGalleryItem.value = null;
     goToGalleryItem("Infrared Stars & Dust (JWST)");
   }
 });
