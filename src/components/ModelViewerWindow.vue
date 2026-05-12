@@ -3,6 +3,7 @@
     v-model="showModel"
     class="model-viewer-dialog"
     eager
+    persistent
     transition="dialog-top-transition"
     fullscreen
     :scrim="false"
