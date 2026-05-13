@@ -5,6 +5,7 @@
       { 'gallery-selected': selected },
       { 'galaxy-persisted': persistent },
       { 'gallery-item__borderless': borderless },
+      { 'gallery-imageset-loading': loading },
     ]"
   >
     <img
@@ -43,6 +44,7 @@ interface Props {
   borderless?: boolean;
   hideLabel?: boolean;
   hideImage?: boolean;
+  loading?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -53,6 +55,7 @@ const props = withDefaults(defineProps<Props>(), {
   borderless: false,
   hideLabel: false,
   hideImage: false,
+  loading: false,
 });
 
 const emit = defineEmits<{

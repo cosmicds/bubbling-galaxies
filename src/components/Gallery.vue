@@ -37,6 +37,7 @@
             :opacity="getOpacity(selectedPlace)"
             borderless
             hide-label
+            :loading="loadingImageset[getPlaceKey(selectedPlace)]"
             @update:opacity="(v) => setOpacity(selectedPlace!, v)"
           />
         </div>
@@ -71,6 +72,7 @@
           :persistent="isPersistantLayer(place)"
           :show-opacity="showOpacity && selectedPlaces.includes(place)"
           :opacity="placeOpacities[getPlaceKey(place)] ?? getOpacity(place) ?? 1"
+          :loading="loadingImageset[getPlaceKey(place)]"
           @click="selectPlace(place)"
           @update:opacity="(v) => setOpacity(place, v)"
         />
@@ -181,6 +183,7 @@ const placeOpacities = ref<Record<string, number>>({});
 const imagesetLayers = ref<Record<string, ImageSetLayer>>({});
 
 let _internallySelecting = false;
+const loadingImageset = ref<Record<string, boolean>>({});
 
 const shownPlaces = computed(() => {
   if (!props.hidePersisted) return places.value;
@@ -236,6 +239,8 @@ function getPlaceKey(place: Place): string {
 async function loadImagesetLayerForPlace(place: Place): Promise<ImageSetLayer | null> {
   const imageset = getImageset(place);
   if (!imageset) return null;
+  const key = getPlaceKey(place);
+  loadingImageset.value[key] = true;
   console.log("Loading imageset layer for place", place.get_name(), "with imageset", imageset.get_name());
   return await store.addImageSetLayer({
     url: imageset.get_url(),
@@ -245,6 +250,7 @@ async function loadImagesetLayerForPlace(place: Place): Promise<ImageSetLayer | 
   }).then((layer) => {
     imagesetLayers.value[getPlaceKey(place)] = layer;
     layer.set_enabled(false);
+    loadingImageset.value[key] = false;
     return layer;
   });
 }
@@ -649,7 +655,18 @@ watch(() => [selectedPlaces.value, props.persist], () => {
     background: hsla(120, 100%, 25%, 0.5);
     width: 100%;
     text-align: center;
-}
+  }
+
+  .gallery-item.gallery-imageset-loading::after {
+    content: "Loading...";
+    position: absolute;
+    inset: 0;
+    white-space: nowrap;
+    background: hsla(0, 0%, 0%, 0.5);
+    width: 100%;
+    text-align: center;
+    pointer-events: all;
+  }
 
   .place-name {
     font-size: 0.8em;
