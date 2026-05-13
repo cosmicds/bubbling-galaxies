@@ -32,7 +32,7 @@
             id="splash-screen-text"
             class="mb-2"
           >
-            <p>See the </p>
+            <p>See </p>
             <p class="highlight">
               The Phantom Galaxy
             </p>
