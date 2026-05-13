@@ -183,52 +183,6 @@
               >
                 View in 3D!
               </v-btn>
-              <div
-                v-else-if="!showImageCard"
-                class="base-switch-button"
-              >
-                <!-- <div>Use</div>
-                <v-btn
-                  class="blur-button"
-                  variant="outlined"
-                  density="compact"
-                  @click="switchBaseImage"
-                >
-                  {{ useIrBase ? 'Optical' : 'Infrared' }} 
-                </v-btn>
-                <div>Comparison</div> -->
-                <v-select
-                  v-model="useIrBase"
-                  label="Base image"
-                  :items="[
-                    { title: 'Optical (Kitt Peak)', value: false },
-                    { title: 'Infrared (Spitzer)', value: true },
-                  ]"
-                  variant="solo"
-                  hide-details
-                  density="compact"
-                  class="v-select-base-switch"
-                />
-                
-                <!-- <fieldset class="base-switch-fieldset">
-                  <legend>Base Image</legend>
-                
-                  <select
-                    v-model="useIrBase"
-                    class="base-switch-select"
-                  >
-                    <option :value="false">
-                      Optical (Kitt Peak)
-                    </option>
-                    <option :value="true">
-                      Infrared (Spitzer)
-                    </option>
-                  </select>
-                </fieldset> -->
-                <!-- <div class="current-base-label">
-                  Background Image: {{ useIrBase ? 'Infrared from Spitzer' : 'Optical from Kitt Peak' }}
-                </div> -->
-              </div>
             </div>
           </div>
           <div class="second-buttons-row">
@@ -394,9 +348,26 @@
               :hide-gallery-layers="showSimulation || showSplashScreen"
               :preview-index="4"
               :disabled="showImageCard"
-              :closed-text="showImageCard ? '' : undefined"
+              :closed-text="showImageCard ? '' : 'Foreground'"
+              :exclude-items="['2023 Infrared (Spitzer)', 'Optical (Kitt Peak)']"
             />
-
+            <div 
+              v-if="!(showImageCard || showSimulation)"
+              class="base-switch-button"
+            >
+              <v-select
+                v-model="useIrBase"
+                label="Background"
+                :items="[
+                  { title: 'Optical (Kitt Peak)', value: false },
+                  { title: 'Infrared (Spitzer)', value: true },
+                ]"
+                variant="solo"
+                hide-details
+                density="compact"
+                class="v-select-base-switch"
+              />
+            </div>
             <!-- <DetailSummary
               v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem)"
               v-model="labelOpen"
@@ -1420,15 +1391,16 @@ select.base-switch-select option {
     font-size: 0.9em;
     padding-inline: 4px;
     padding-bottom: 2px;
-    padding-top: 12px;
+    padding-top: 24px;
     min-height: 0;
     color: white;
     
   }
   
   .v-field-label.v-field-label--floating {
-    font-size: 0.7em;
+    font-size: 0.9em;
     color: white;
+    font-weight: bold;
     // they apply a 0.7 apacity to this
     top: 0;
     margin-left:5px;
@@ -1438,6 +1410,7 @@ select.base-switch-select option {
     overflow: visible;
     text-overflow: clip;
     white-space: nowrap;
+    font-size: 1.1em;
   }
 
   .v-field__append-inner {
@@ -1445,8 +1418,5 @@ select.base-switch-select option {
     align-items: center;
   }
 
-  .v-select__selection-text {
-    // color: white;
-  }
 }
 </style>
