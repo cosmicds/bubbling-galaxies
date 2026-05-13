@@ -146,92 +146,149 @@
           </div> -->
 
           <div class="top-buttons-row">
-            <v-btn
-              v-if="!showImageCard"
-              class="blur-button"
-              variant="outlined"
-              density="compact"
-              @click="aboutMode = true; showInfoSheet = true"
-            >
-              About
-            </v-btn>
-            <DetailSummary
-              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && isLandscape"
-              v-model="labelOpen"
-              :title="currentLabel.title"
-              :use-internal-dialog="false"
-              @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
-            >
-              <ImageText
-                v-if="showSimulation || selectedGalleryItem"
-                show-image
-                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
-              />
-            </DetailSummary>
-            <v-btn
-              v-hide="!showSimulation"
-              class="blur-button"
-              variant="outlined"
-              density="compact"
-              @click="showModel = !showModel"
-            >
-              View in 3D!
-            </v-btn>
+            <div class="justify-self-start">
+              <v-btn
+                v-if="!showImageCard"
+                class="blur-button"
+                variant="outlined"
+                density="compact"
+                @click="aboutMode = true; showInfoSheet = true"
+              >
+                About
+              </v-btn>
+            </div>
+            <div class="justify-self-center">
+              <DetailSummary
+                v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && isLandscape"
+                v-model="labelOpen"
+                :title="currentLabel.title"
+                :use-internal-dialog="false"
+                @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
+              >
+                <ImageText
+                  v-if="showSimulation || selectedGalleryItem"
+                  show-image
+                  :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name())"
+                />
+              </DetailSummary>
+            </div>
+            <div class="justify-self-end">
+              <v-btn
+                v-if="showSimulation"
+                class="blur-button"
+                variant="outlined"
+                density="compact"
+                @click="showModel = !showModel"
+              >
+                View in 3D!
+              </v-btn>
+              <div 
+                v-else 
+                class="base-switch-button"
+              >
+                <!-- <div>Use</div>
+                <v-btn
+                  class="blur-button"
+                  variant="outlined"
+                  density="compact"
+                  @click="switchBaseImage"
+                >
+                  {{ useIrBase ? 'Optical' : 'Infrared' }} 
+                </v-btn>
+                <div>Comparison</div> -->
+                <v-select
+                  v-model="useIrBase"
+                  label="Base image"
+                  :items="[
+                    { title: 'Optical (Kitt Peak)', value: false },
+                    { title: 'Infrared (Spitzer)', value: true },
+                  ]"
+                  variant="solo"
+                  hide-details
+                  density="compact"
+                  class="v-select-base-switch"
+                />
+                
+                <!-- <fieldset class="base-switch-fieldset">
+                  <legend>Base Image</legend>
+                
+                  <select
+                    v-model="useIrBase"
+                    class="base-switch-select"
+                  >
+                    <option :value="false">
+                      Optical (Kitt Peak)
+                    </option>
+                    <option :value="true">
+                      Infrared (Spitzer)
+                    </option>
+                  </select>
+                </fieldset> -->
+                <!-- <div class="current-base-label">
+                  Background Image: {{ useIrBase ? 'Infrared from Spitzer' : 'Optical from Kitt Peak' }}
+                </div> -->
+              </div>
+            </div>
           </div>
-
           <div class="second-buttons-row">
-            <icon-button
-              v-if="!showImageCard || true"
-              icon="mdi-home"
-              :color="buttonColor"
-              size="20"
-              tooltip-text="Reset view"
-              @activate="() => resetView()"
-            />
-            <!-- <icon-button
-              v-model="showInfoSheet"
-              icon="mdi-information-variant"
-              :color="buttonColor"
-              :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
-              tooltip-location="start"
-            >
-            </icon-button> -->
-            <!-- <icon-button
-              v-if="!showImageCard"
-              icon="mdi-home"
-              :color="buttonColor"
-              tooltip-text="Reset view"
-              @activate="goToCoordinates('m74')"
-            /> -->
-            <!-- <icon-button
-              v-if="!showImageCard"
-              :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
-              :color="buttonColor"
-              @activate="isWWT3D = !isWWT3D"
-            /> -->
-            <DetailSummary
-              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && !isLandscape"
-              v-model="labelOpen"
-              :title="currentLabel.title"
-              :use-internal-dialog="false"
-              @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
-            >
-              <ImageText
-                v-if="showSimulation || selectedGalleryItem"
-                show-image
-                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
+            <div class="justify-self-start">
+              <icon-button
+                v-if="!showImageCard || true"
+                icon="mdi-home"
+                :color="buttonColor"
+                size="20"
+                tooltip-text="Reset to starting view"
+                @activate="() => resetView()"
               />
-            </DetailSummary>
-            <icon-button
-              v-if="!showImageCard"
-              :color="buttonColor"
-              tooltip-text="Show Simulation in Split Screen"
-              @activate="showImageCard = !showImageCard"
-            >
-              <template #button>
-                <SplitScreenSvg :rotated="smallSize && !isLandscape" />
-              </template>
-            </icon-button>
+              <!-- <icon-button
+                v-model="showInfoSheet"
+                icon="mdi-information-variant"
+                :color="buttonColor"
+                :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
+                tooltip-location="start"
+              >
+              </icon-button> -->
+              <!-- <icon-button
+                v-if="!showImageCard"
+                icon="mdi-home"
+                :color="buttonColor"
+                tooltip-text="Reset view"
+                @activate="goToCoordinates('m74')"
+              /> -->
+              <!-- <icon-button
+                v-if="!showImageCard"
+                :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
+                :color="buttonColor"
+                @activate="isWWT3D = !isWWT3D"
+              /> -->
+            </div>
+            <div class="justify-self-center">
+              <DetailSummary
+                v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && !isLandscape"
+                v-model="labelOpen"
+                :title="currentLabel.title"
+                :use-internal-dialog="false"
+                @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
+              >
+                <ImageText
+                  v-if="showSimulation || selectedGalleryItem"
+                  show-image
+                  :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
+                />
+              </DetailSummary>
+            </div>
+            <div class="justify-self-end">
+              <icon-button
+                v-if="!showImageCard"
+                :color="buttonColor"
+                tooltip-text="Show Simulation in Split Screen"
+                @activate="showImageCard = !showImageCard"
+              >
+                <template #button>
+                  <SplitScreenSvg :rotated="smallSize && !isLandscape" />
+                </template>
+              </icon-button>
+            </div>
           </div>
         </div>
 
@@ -329,9 +386,9 @@
               show-opacity
               :columns="1"
               width="105px"
-              persist="Optical (Kitt Peak)"
-              :hide-persisted="true"
-              collapse-on-select
+              :persist="persistantImage"
+              hide-persisted
+              :collapse-on-select="true"
               :hide-gallery-layers="showSimulation || showSplashScreen"
               :preview-index="4"
               :disabled="showImageCard"
@@ -439,7 +496,7 @@
           v-else-if="showSimulation || selectedGalleryItem"
           show-heading
           show-image
-          :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
+          :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name())"
         />
       </InformationSheet>
     </component>
@@ -598,7 +655,7 @@ const labelTitles: Record<PhantomImageNames | string, LabelInfo> = {
     content: '',
   },
   'Simulation on Sky': {
-    title: 'Simulation on the Sky',
+    title: 'Simulation',
     content: '',
   },
   "2011 Infrared Dust (WISE)": {
@@ -617,6 +674,12 @@ const currentLabel = computed(() => {
 });
 
 const showSimulation = ref(false);
+
+const useIrBase = ref(false);
+const persistantImage = computed(() => { return useIrBase.value ? '2023 Infrared (Spitzer)' : 'Optical (Kitt Peak)';});
+function switchBaseImage() {
+  useIrBase.value = !useIrBase.value;
+}
 
 
 import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Object3D, PerspectiveCamera, Scene, SpotLight, WebGLRenderer } from "three";
@@ -814,6 +877,8 @@ function resetView() {
     return;
   }
   goToGalleryItem(name, true);
+  showSimulation.value = false;
+  useIrBase.value = false;
 }
 
 watch([showSplashScreen, showCrawl, galleryPlaces, ready], ([splashShowing, crawlShowing, places, isReady]) => {
@@ -895,6 +960,7 @@ function rollView(angleDegrees: number, zoomDeg: number | null = null) {
 }
 
 #app.app-is-small {
+  font-size: 0.9em;
   .v-application__wrap {
     flex-direction: column;  // add for the side panel
     max-height: 100svh;  // force the application to be 100%
@@ -1042,9 +1108,11 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 .top-buttons-row,
 .second-buttons-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  column-gap: 1rem;
   flex-direction: row;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
   width: 100%;
   margin-bottom: 10px;
@@ -1256,5 +1324,109 @@ and remember, position:absolute is still a positioned parent, so children can be
 .top-buttons-row > .expansion-panel {
   margin-block: -100px;
   margin-inline: auto;
+}
+
+.base-switch-button {
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+}
+
+.current-base-label {
+  font-size: 0.8em;
+}
+
+select.base-switch-select {
+  appearance: auto;
+  font-size: 0.9em;
+  border: none;
+  padding-inline: 4px;
+  padding-block: 2px;
+  border: none;
+  width: fit-content;
+  position: relative;
+}
+
+select.base-switch-select::before {
+  content: "Base Image: ";
+  font-size: 0.8em;
+  margin-right: 4px;
+}
+select.base-switch-select option {
+  background-color: black;
+  color: white;
+}
+
+.base-switch-fieldset {
+  padding: 0;
+  margin: auto;
+  backdrop-filter: blur(6px);
+  border: 1px solid white;
+  border-radius: 4px;
+}
+.base-switch-fieldset legend {
+  font-size: 0.7em;
+  padding-inline: 0.3em;
+  margin-left: 0.5em;
+  text-align: left;
+}
+
+/* Make v-select.v-select-base-switch resemble the plain select.base-switch-select:
+   smaller font, less padding, blurred translucent background, no chunky solo bg. */
+.v-select.v-select-base-switch {
+  font-size: 0.9em;
+  pointer-events: auto;
+  width: max-content;
+
+  .v-field {
+    background: transparent;
+    border-radius: 4px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: none;
+    min-height: 0;
+    padding-right:0;
+  }
+
+  .v-field__overlay {
+    background: rgba(0, 0, 0, 0.25);
+    outline: 1px solid white;
+  }
+
+  
+
+  .v-field__input {
+    font-size: 0.9em;
+    padding-inline: 4px;
+    padding-bottom: 2px;
+    padding-top: 12px;
+    min-height: 0;
+    color: white;
+    
+  }
+  
+  .v-field-label.v-field-label--floating {
+    font-size: 0.7em;
+    color: white;
+    // they apply a 0.7 apacity to this
+    top: 0;
+    margin-left:5px;
+  }
+
+  .v-select__selection-text {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: nowrap;
+  }
+
+  .v-field__append-inner {
+    padding-top: 0;
+    align-items: center;
+  }
+
+  .v-select__selection-text {
+    // color: white;
+  }
 }
 </style>
