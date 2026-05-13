@@ -121,6 +121,7 @@ function openInfo() {
 .expansion-panel > strong {
   font-size: 0.9em;
   border-right: 1px solid white;
+  padding-right: 4px;
 }
 
 
