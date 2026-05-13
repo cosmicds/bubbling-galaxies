@@ -234,6 +234,7 @@
           <div class="second-buttons-row">
             <div class="justify-self-start">
               <icon-button
+                v-if="viewHasChanged"
                 icon="mdi-home"
                 :color="buttonColor"
                 size="20"
@@ -846,6 +847,23 @@ function updateCurrentLayersOpacity(opacity: number) {
   }
 }
 
+// view has changed means either 
+// - the view is distant from the initial view (more than 10 arcsec) 
+// - or the shown selectedGallery item is not the default
+// - or we have a different useIrBase value than the default
+const viewHasChanged = computed(() => {
+  const defaultRA = props.initialCameraParams.raRad;
+  const defaultDec = props.initialCameraParams.decRad;
+  const currentRA = store.raRad;
+  const currentDec = store.decRad;
+  // assume eucliean
+  const maxDistance = 10 / 3600 * D2R; // 10 arcsec in radians
+  const distance = Math.sqrt((currentRA - defaultRA) ** 2 + (currentDec - defaultDec) ** 2);
+  const selectedItemIsDefault = selectedGalleryItem.value?.get_name() === "Infrared Stars & Dust (JWST)";
+  const usingDefaultBase = useIrBase.value === false;
+  return distance > maxDistance || !selectedItemIsDefault || !usingDefaultBase;
+});
+
 watch(showSimulation, (showingSimulation) => {
   // if we are switching off the simulation while playing, pause it
   if (!showingSimulation && playing.value) {
@@ -871,7 +889,7 @@ function goToGalleryItem(name: string, instant=false) {
 }
 
 function resetView() {
-  showImageCard.value = false;
+  // showImageCard.value = false;
   showSimulation.value = false;
   useIrBase.value = false;
   const name = "Infrared Stars & Dust (JWST)";
