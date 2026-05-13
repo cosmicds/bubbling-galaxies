@@ -242,7 +242,7 @@
         >
           <div class="merge-cube-shoutout ma-4">
             <h3>
-              Have a 
+              Have a
               <img
                 class="ml-1"
                 src="./assets/MergeCube-Logo-Purple.svg"
@@ -449,6 +449,7 @@
 <script setup lang="ts">
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ref, reactive, computed, onMounted, watch, nextTick } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { GotoRADecZoomParams, engineStore } from "@wwtelescope/engine-pinia";
 import { BackgroundImageset, supportsTouchscreen, useWWTKeyboardControls, useFullscreen } from "@cosmicds/vue-toolkit";
 import { useDisplay } from "vuetify";
@@ -486,14 +487,23 @@ export interface WwtPlaygroundProps {
 const fullscreen = useFullscreen();
 const searchParams = new URLSearchParams(window.location.search);
 const kiosk = searchParams.get("kiosk")?.toLowerCase() === "true";
+const toModel = searchParams.get("model")?.toLowerCase() === "true";
 if (kiosk) {
   document.body.classList.add("kiosk");
 }
-const skipScrawl = searchParams.get("crawl")?.toLowerCase() === "false";
-const skipSplash = searchParams.get("splash")?.toLowerCase() === "false";
+const skipCrawl = toModel || searchParams.get("crawl")?.toLowerCase() === "false";
+const skipSplash = toModel || searchParams.get("splash")?.toLowerCase() === "false";
 console.log("kiosk mode?", kiosk);
-console.log("skip crawl?", skipScrawl);
+console.log("skip crawl?", skipCrawl);
 console.log("skip splash?", skipSplash);
+console.log("to model?", toModel);
+
+if (toModel) {
+  const url = new URL(window.location.href);
+  url.searchParams.delete("model");
+  window.history.replaceState({}, "", url);
+}
+
 const store = engineStore();
 
 useWWTKeyboardControls(store);
@@ -525,11 +535,11 @@ const showInfoSheet = ref(false);
 const aboutMode = ref(false);
 const showSplashScreen = ref(!skipSplash);
 const showCrawl = ref(false);
-if (skipSplash && !skipScrawl) {
+if (skipSplash && !skipCrawl) {
   showCrawl.value = true;
 }
 watch(showSplashScreen, (showing) => {
-  if (!showing && !skipScrawl) {
+  if (!showing && !skipCrawl) {
     showCrawl.value = true;
   }
 });
@@ -538,7 +548,7 @@ const positionSet = ref(false);
 const accentColor = ref("#d957db");
 const buttonColor = ref("#ffffff");
 
-const showModel = ref(false);
+const showModel = ref(toModel);
 
 const showImageCard = ref(false);
 const galleryOpen = ref(false);
@@ -619,9 +629,6 @@ const currentLabel = computed(() => {
 const showSimulation = ref(false);
 
 
-import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Object3D, PerspectiveCamera, Scene, SpotLight, WebGLRenderer } from "three";
-import { storeToRefs } from "pinia";
-
 function moveToImageset(imageset: Imageset, options: {instant?: boolean, roll?: boolean, extraRoll?: number} = {instant: true, roll: false,}) {
   const centerX = imageset.get_centerX(); // degrees
   const centerY = imageset.get_centerY(); // degrees
@@ -663,7 +670,6 @@ function goToCoordinates(item: keyof typeof coordinates, instant=true) {
     instant,
   });
 }
-
 
 import { useWtmlLoader } from "./composables/useWtmlLoader";
 
