@@ -827,11 +827,12 @@ const viewHasChanged = computed(() => {
   const defaultDec = props.initialCameraParams.decRad;
   const currentRA = store.raRad;
   const currentDec = store.decRad;
-  // assume eucliean
-  const maxDistance = 0; // 0 has it moved at all
+  // 1 arcsecond
+  const maxDistance = (1 / 3600) * D2R; 
   const distance = Math.sqrt((currentRA - defaultRA) ** 2 + (currentDec - defaultDec) ** 2);
   const selectedItemIsDefault = selectedGalleryItem.value?.get_name() === "Infrared Stars & Dust (JWST)";
   const usingDefaultBase = useIrBase.value === false;
+  console.log("Checking if view has changed...", {distance, maxDistance, selectedItemIsDefault, usingDefaultBase});
   return distance > maxDistance || !selectedItemIsDefault || !usingDefaultBase;
 });
 
