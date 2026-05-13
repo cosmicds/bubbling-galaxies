@@ -234,7 +234,7 @@
           <div class="second-buttons-row">
             <div class="justify-self-start">
               <icon-button
-                v-if="!showImageCard || true"
+                v-if="!showImageCard"
                 icon="mdi-home"
                 :color="buttonColor"
                 size="20"
