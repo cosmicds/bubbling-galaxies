@@ -84,7 +84,7 @@ import { ref, computed, onBeforeMount, nextTick, watch } from "vue";
 import { engineStore } from "@wwtelescope/engine-pinia";
 import { Folder, Imageset, Place, ImageSetLayer } from "@wwtelescope/engine";
 import GalleryItem from "./GalleryItem.vue";
-
+import { useLayerOrdering } from "@/composables/useLayerOrdering";
 
 /* Gallery */
 
@@ -130,6 +130,8 @@ export interface GalleryProps {
   defaultStarting?: string | null;
   /** prevent the gallery from being opened by user interaction */
   disabled?: boolean;
+  /** draw images in the order selected. most recent on top */
+  useSelectedOrder?: boolean;
 }
 
 
@@ -152,6 +154,7 @@ const props = withDefaults(defineProps<GalleryProps>(), {
   collapseOnSelect: false,
   defaultStarting: null,
   disabled: false,
+  useSelectedOrder: false,
 });
 
 const defaultThumbnailUrl = "https://cdn.worldwidetelescope.org/wwtweb/thumbnail.aspx?name=test";
@@ -176,6 +179,7 @@ const selectedPlaces = defineModel<Place[]>("selectedPlaces", { required: false,
 const selectedPlace = computed(() => selectedPlaces.value[selectedPlaces.value.length - 1] ?? null);
 const placeOpacities = ref<Record<string, number>>({});
 const imagesetLayers = ref<Record<string, ImageSetLayer>>({});
+
 let _internallySelecting = false;
 
 const shownPlaces = computed(() => {
@@ -289,6 +293,10 @@ function applySelectedPlaceOpacity(place: Place) {
   const layer = getImagesetLayerForPlace(place);
   if (!layer) return;
   layer.set_opacity(0);
+  if (isPersistantLayer(place)) {
+    layer.set_opacity(1);
+    return;
+  }
   layer.set_opacity(getOpacity(place));
 }
 
@@ -380,6 +388,11 @@ function isPersistantLayer(place: Place) {
   return iset.get_name() === props.persist;
 }
 
+const getPersistedPlace = () => {
+  if (props.persist === null) return null;
+  return places.value.find(p => isPersistantLayer(p)) ?? null;
+};
+
 function setPlaceVisibility(place: Place, visible: boolean) {
   const layer = getImagesetLayerForPlace(place);
   if (!layer) return false;
@@ -403,17 +416,19 @@ function syncSelectedLayerVisibility() {
 }
 
 watch(() => props.persist, (newPersist, oldPersist) => {
-  // if there is an old persist, hide it
-  if (oldPersist !== null && oldPersist !== undefined) {
+  if (oldPersist) {
     const oldPlace = places.value.find(p => getImageset(p)?.get_name() === oldPersist);
     if (oldPlace) {
       setPlaceVisibility(oldPlace, false);
     }
   }
-  // if there is a new persist, show it
-  if (newPersist !== null && newPersist !== undefined) {
+
+  if (newPersist) {
     const newPlace = places.value.find(p => getImageset(p)?.get_name() === newPersist);
     if (newPlace) {
+      // if (selectedPlaces.value.includes(newPlace)) {
+      //   selectedPlaces.value = selectedPlaces.value.filter(p => p !== newPlace);
+      // }
       const layer = getImagesetLayerForPlace(newPlace);
       if (layer) {
         setLayerVisibility(layer, true);
@@ -424,7 +439,30 @@ watch(() => props.persist, (newPersist, oldPersist) => {
       }
     }
   }
+  showPersistantPlace(places.value);
 });
+
+/* get the draw order of currently selected places, including the persistant one */
+function getSelectedPlacesDrawOrder() {
+  const _selected = selectedPlaces.value.slice();
+  if (!props.useSelectedOrder) {
+    _selected.sort((a, b) => places.value.indexOf(b) - places.value.indexOf(a));
+  }
+  const persisted = getPersistedPlace();
+  if (persisted) {
+    if (_selected.includes(persisted)) {
+      _selected.splice(_selected.indexOf(persisted), 1);
+    }
+    _selected.unshift(persisted);
+  }
+  return _selected;
+}
+
+const { setOrderForPlaces } = useLayerOrdering();
+function setDrawOrder() {
+  const selected = getSelectedPlacesDrawOrder();
+  setOrderForPlaces(selected);
+}
 
 watch(() => props.hideGalleryLayers, (hide) => {
   if (hide) {
@@ -444,6 +482,10 @@ watch(selectedPlaces, () => {
   syncSelectedLayerVisibility();
   nextTick(() => { _internallySelecting = false; });
 }, { immediate: true });
+
+watch(() => [selectedPlaces.value, props.persist], () => {
+  setDrawOrder();
+}, { deep: true });
 
 </script>
 
