@@ -25,11 +25,17 @@
           >
             {{ closedText }}
           </span>
-          <img
+          <!-- <img
             v-if="selectedPlace === null"
             class="noselect"
             :src="selectedPlace ? getThumbnailUrl(selectedPlace) : (places[previewIndex] ? getThumbnailUrl(places[previewIndex]) : defaultThumbnailUrl)"
-          />
+          /> -->
+          <div
+            v-if="selectedPlace === null"
+            class="gallery-no-view"
+          >
+            <span>No view selected</span>
+          </div>
           <GalleryItem
             v-else
             :place="selectedPlace"
@@ -134,6 +140,8 @@ export interface GalleryProps {
   disabled?: boolean;
   /** draw images in the order selected. most recent on top */
   useSelectedOrder?: boolean;
+  /** exclude from list */
+  excludeItems?: string[];
 }
 
 
@@ -157,7 +165,10 @@ const props = withDefaults(defineProps<GalleryProps>(), {
   defaultStarting: null,
   disabled: false,
   useSelectedOrder: false,
+  excludeItems: undefined,
 });
+
+
 
 const defaultThumbnailUrl = "https://cdn.worldwidetelescope.org/wwtweb/thumbnail.aspx?name=test";
 
@@ -187,7 +198,12 @@ const loadingImageset = ref<Record<string, boolean>>({});
 
 const shownPlaces = computed(() => {
   if (!props.hidePersisted) return places.value;
-  return places.value.filter(p => getImageset(p)?.get_name() !== props.persist);
+  const _dontShow = (p: Place) => {
+    const c1 = props.persist && getImageset(p)?.get_name() === props.persist;
+    const c2 = props.excludeItems?.includes(p.get_name());
+    return !(c1 || c2);
+  };
+  return places.value.filter(_dontShow);
 });
 
 const cssVars = computed(() => {
@@ -273,7 +289,7 @@ function getImagesetLayerForPlace(place: Place): ImageSetLayer | null {
   return imagesetLayers.value[getPlaceKey(place)] ?? null;
 }
 
-function getThumbnailUrl(place: Place): string {
+function _getThumbnailUrl(place: Place): string {
   
   const imagesetThumbnail = getImageset(place)?.get_thumbnailUrl();
   if (imagesetThumbnail) {
@@ -432,9 +448,9 @@ watch(() => props.persist, (newPersist, oldPersist) => {
   if (newPersist) {
     const newPlace = places.value.find(p => getImageset(p)?.get_name() === newPersist);
     if (newPlace) {
-      // if (selectedPlaces.value.includes(newPlace)) {
-      //   selectedPlaces.value = selectedPlaces.value.filter(p => p !== newPlace);
-      // }
+      if (selectedPlaces.value.includes(newPlace)) {
+        selectedPlaces.value = selectedPlaces.value.filter(p => p !== newPlace);
+      }
       const layer = getImagesetLayerForPlace(newPlace);
       if (layer) {
         setLayerVisibility(layer, true);
@@ -491,6 +507,7 @@ watch(selectedPlaces, () => {
 
 watch(() => [selectedPlaces.value, props.persist], () => {
   setDrawOrder();
+  syncSelectedLayerVisibility();
 }, { deep: true });
 
 </script>
@@ -671,6 +688,25 @@ watch(() => [selectedPlaces.value, props.persist], () => {
   .place-name {
     font-size: 0.8em;
     margin-inline: 2px;
+  }
+  
+  .gallery-no-view {
+    background: rgba(0,0,0,0.5);
+    border-radius: 3px;
+    width: calc(var(--gallery-width) - 10px);
+    height: 45px;
+    text-align: center;
+    line-height: 1;
+    display:flex;
+    align-items: center;
+    padding-inline: 4px;
+    margin-block: 4px;
+    font-weight: bold;
+    
+    span {
+      color: white;
+      font-size: 0.9em;
+    }
   }
 
 }

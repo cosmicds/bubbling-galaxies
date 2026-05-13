@@ -61,6 +61,15 @@ export function useLayerOrdering() {
     layers.forEach((layer, index) => setImagesetLayerOrder(layer.id.toString(), newOrder[index]));
   }
   
+  function getOrderForLayers(layers: ImageSetLayer[]) {
+    return layers.map(layer => getImageSetLayerOrder(layer.id.toString()));
+  }
+  
+  function getOrderForPlaces(places: Place[]) {
+    const layers = places.map(place => getPlaceImageSetLayer(place)).filter((layer) => layer !== null);
+    return getOrderForLayers(layers);
+  }
+  
   function setOrderForPlaces(places: Place[]) {
     const layers = places.map(place => getPlaceImageSetLayer(place)).filter((layer) => layer !== null);
     setOrderForLayers(layers);
@@ -71,5 +80,7 @@ export function useLayerOrdering() {
     setPlaceImagesetOrder,
     getPlaceImageSetLayer,
     setOrderForPlaces,
+    getOrderForLayers,
+    getOrderForPlaces,
   };
 };
