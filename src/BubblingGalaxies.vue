@@ -234,7 +234,7 @@
           <div class="second-buttons-row">
             <div class="justify-self-start">
               <icon-button
-                v-if="viewHasChanged"
+                v-if="viewHasChanged || showSimulation"
                 icon="mdi-home"
                 :color="buttonColor"
                 size="20"
