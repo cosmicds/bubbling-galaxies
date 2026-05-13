@@ -234,7 +234,6 @@
           <div class="second-buttons-row">
             <div class="justify-self-start">
               <icon-button
-                v-if="!showImageCard"
                 icon="mdi-home"
                 :color="buttonColor"
                 size="20"
@@ -872,7 +871,7 @@ function goToGalleryItem(name: string, instant=false) {
 }
 
 function resetView() {
-  // showImageCard.value = false;
+  showImageCard.value = false;
   showSimulation.value = false;
   useIrBase.value = false;
   const name = "Infrared Stars & Dust (JWST)";
