@@ -163,6 +163,7 @@
                 v-model="labelOpen"
                 :title="currentLabel.title"
                 :use-internal-dialog="false"
+                :hide-info="showImageCard"
                 @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
               >
                 <ImageText
@@ -182,8 +183,8 @@
               >
                 View in 3D!
               </v-btn>
-              <div 
-                v-else 
+              <div
+                v-else-if="!showImageCard"
                 class="base-switch-button"
               >
                 <!-- <div>Use</div>
@@ -268,6 +269,7 @@
                 v-model="labelOpen"
                 :title="currentLabel.title"
                 :use-internal-dialog="false"
+                :hide-info="showImageCard"
                 @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
               >
                 <ImageText
@@ -376,7 +378,7 @@
             </div>
 
             <Gallery
-              v-show="ready && !showSimulation"
+              v-show="ready && !showSimulation && !showImageCard"
               v-model:open="galleryOpen"
               v-model:selected-places="selectedGalleryItems"
               v-model:places="galleryPlaces"
@@ -870,6 +872,9 @@ function goToGalleryItem(name: string, instant=false) {
 }
 
 function resetView() {
+  // showImageCard.value = false;
+  showSimulation.value = false;
+  useIrBase.value = false;
   const name = "Infrared Stars & Dust (JWST)";
   const place = galleryPlaces.value.find(p => p.get_name() === name) || null;
   if (place === null) {
@@ -877,8 +882,6 @@ function resetView() {
     return;
   }
   goToGalleryItem(name, true);
-  showSimulation.value = false;
-  useIrBase.value = false;
 }
 
 watch([showSplashScreen, showCrawl, galleryPlaces, ready], ([splashShowing, crawlShowing, places, isReady]) => {

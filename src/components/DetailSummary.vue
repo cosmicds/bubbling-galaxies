@@ -1,10 +1,11 @@
 <template>
   <div
     class="expansion-panel"
-    @click="() => openInfo()"
+    @click="() => { if (!hideInfo) openInfo(); }"
   >
     <strong class="d-block">{{ title }}</strong>
     <v-icon
+      v-if="!hideInfo"
       aria-label="Learn more"
       size="small"
       color="white"
@@ -62,6 +63,7 @@ interface Props {
   content?: string;
   normallyOpen?: boolean;
   useInternalDialog?: boolean;
+  hideInfo?: boolean;
 }
 
 // add an @open emit
@@ -75,6 +77,7 @@ const props = withDefaults(defineProps<Props>(), {
   title: '',
   content: '',
   useInternalDialog: true,
+  hideInfo: false,
 });
 
 
@@ -113,8 +116,13 @@ function openInfo() {
   align-items: center;
   justify-content: space-between;
   pointer-events: auto;
-
 }
+
+.expansion-panel > strong {
+  font-size: 0.9em;
+  border-right: 1px solid white;
+}
+
 
 
 .expansion-panel > .ds-info-icon {
