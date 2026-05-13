@@ -857,7 +857,7 @@ const viewHasChanged = computed(() => {
   const currentRA = store.raRad;
   const currentDec = store.decRad;
   // assume eucliean
-  const maxDistance = 10 / 3600 * D2R; // 10 arcsec in radians
+  const maxDistance = 0; // 0 has it moved at all
   const distance = Math.sqrt((currentRA - defaultRA) ** 2 + (currentDec - defaultDec) ** 2);
   const selectedItemIsDefault = selectedGalleryItem.value?.get_name() === "Infrared Stars & Dust (JWST)";
   const usingDefaultBase = useIrBase.value === false;
