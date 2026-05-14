@@ -91,60 +91,6 @@
         id="wwt-overlay"
       >
         <div id="top-content">
-          <!-- old left-buttons / right-buttons layout preserved below -->
-          <!-- <div id="left-buttons">
-            <icon-button
-              v-model="showInfoSheet"
-              icon="mdi-information-variant"
-              :color="buttonColor"
-              :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
-              tooltip-location="start"
-            >
-            </icon-button>
-            <v-btn
-              v-if="!showImageCard"
-              class="blur-button"
-              variant="outlined"
-              density="compact"
-              @click="showInfoSheet = !showInfoSheet"
-            >
-              About
-            </v-btn>
-            <icon-button
-              v-if="!showImageCard"
-              icon="mdi-home"
-              :color="buttonColor"
-              tooltip-text="Reset view"
-              @activate="goToCoordinates('m74')"
-            />
-            <icon-button
-              v-if="!showImageCard"
-              :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
-              :color="buttonColor"
-              @activate="isWWT3D = !isWWT3D"
-            />
-          </div>
-          <div id="right-buttons">
-            <v-btn
-              v-hide="!showSimulation"
-              class="blur-button"
-              density="compact"
-              @click="showModel = !showModel"
-            >
-              View in 3D!
-            </v-btn>
-            <icon-button
-              v-if="!showImageCard"
-              :color="buttonColor"
-              tooltip-text="Show Simulation in Split Screen"
-              @activate="showImageCard = !showImageCard"
-            >
-              <template #button>
-                <SplitScreenSvg :rotated="smallSize && !isLandscape" />
-              </template>
-            </icon-button>
-          </div> -->
-
           <div class="top-buttons-row">
             <div class="justify-self-start">
               <v-btn
@@ -156,10 +102,18 @@
               >
                 About
               </v-btn>
+              <icon-button
+                v-if="(viewHasChanged || showSimulation) && showImageCard"
+                icon="mdi-home"
+                :color="buttonColor"
+                size="20"
+                tooltip-text="Reset to starting view"
+                @activate="() => resetView()"
+              />
             </div>
             <div class="justify-self-center">
               <DetailSummary
-                v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && isLandscape"
+                v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && viewportWidth > 400"
                 v-model="labelOpen"
                 :title="currentLabel.title"
                 :use-internal-dialog="false"
@@ -183,43 +137,32 @@
               >
                 View in 3D!
               </v-btn>
+              <icon-button
+                v-if="!showImageCard && !showSimulation"
+                :color="buttonColor"
+                tooltip-text="Show Simulation in Split Screen"
+                @activate="showImageCard = !showImageCard"
+              >
+                <template #button>
+                  <SplitScreenSvg :rotated="smallSize && !isLandscape" />
+                </template>
+              </icon-button>
             </div>
           </div>
           <div class="second-buttons-row">
             <div class="justify-self-start">
               <icon-button
-                v-if="viewHasChanged || showSimulation"
+                v-if="(viewHasChanged || showSimulation) && !showImageCard"
                 icon="mdi-home"
                 :color="buttonColor"
                 size="20"
                 tooltip-text="Reset to starting view"
                 @activate="() => resetView()"
               />
-              <!-- <icon-button
-                v-model="showInfoSheet"
-                icon="mdi-information-variant"
-                :color="buttonColor"
-                :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
-                tooltip-location="start"
-              >
-              </icon-button> -->
-              <!-- <icon-button
-                v-if="!showImageCard"
-                icon="mdi-home"
-                :color="buttonColor"
-                tooltip-text="Reset view"
-                @activate="goToCoordinates('m74')"
-              /> -->
-              <!-- <icon-button
-                v-if="!showImageCard"
-                :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
-                :color="buttonColor"
-                @activate="isWWT3D = !isWWT3D"
-              /> -->
             </div>
             <div class="justify-self-center">
               <DetailSummary
-                v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && !isLandscape"
+                v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && viewportWidth <= 400"
                 v-model="labelOpen"
                 :title="currentLabel.title"
                 :use-internal-dialog="false"
@@ -235,7 +178,7 @@
             </div>
             <div class="justify-self-end">
               <icon-button
-                v-if="!showImageCard"
+                v-if="!showImageCard && showSimulation"
                 :color="buttonColor"
                 tooltip-text="Show Simulation in Split Screen"
                 @activate="showImageCard = !showImageCard"
@@ -832,7 +775,6 @@ const viewHasChanged = computed(() => {
   const distance = Math.sqrt((currentRA - defaultRA) ** 2 + (currentDec - defaultDec) ** 2);
   const selectedItemIsDefault = selectedGalleryItem.value?.get_name() === "Infrared Stars & Dust (JWST)";
   const usingDefaultBase = useIrBase.value === false;
-  console.log("Checking if view has changed...", {distance, maxDistance, selectedItemIsDefault, usingDefaultBase});
   return distance > maxDistance || !selectedItemIsDefault || !usingDefaultBase;
 });
 
