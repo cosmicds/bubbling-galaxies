@@ -608,6 +608,12 @@ const backgroundPlace = computed<Place[]>({
     }
   }
 });
+watch(useIrBase, (useIr) => {
+  const _back = galleryPlaces.value.find(p => p.get_name() === (useIr ? backgroundPlaceNames[0] : backgroundPlaceNames[1]));
+  if (_back) {
+    backgroundPlace.value = [_back];
+  }
+});
 
 import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Object3D, PerspectiveCamera, Scene, SpotLight, WebGLRenderer } from "three";
 import { storeToRefs } from "pinia";
@@ -843,6 +849,7 @@ watch(showImageCard, (showing) => {
       togglePlayPause();
     }
     showSimulation.value = false;
+    useIrBase.value = false;
     showInfoSheet.value = false;
     galleryOpen.value = false;
     goToGalleryItem("Infrared Stars & Dust (JWST)");
