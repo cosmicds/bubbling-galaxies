@@ -1062,7 +1062,9 @@ and remember, position:absolute is still a positioned parent, so children can be
   width: 100%;
   margin-bottom: 10px;
 }
-
+.second-buttons-row {
+  grid-template-columns: 40px 1fr 40px;
+}
 #center-buttons {
   display: flex;
   flex-direction: row;
