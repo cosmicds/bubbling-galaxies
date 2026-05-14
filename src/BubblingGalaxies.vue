@@ -84,154 +84,113 @@
       >
         Skip Intro
       </v-btn>
-
+      <div 
+        v-if="showCrawl"
+        class="crawl-scroll-backdrop"
+      ></div>
       <!-- This block contains the elements (e.g. icon buttons displayed at/near the top of the screen -->
       <div
         v-show="!(showSplashScreen || showCrawl)"
         id="wwt-overlay"
       >
         <div id="top-content">
-          <!-- old left-buttons / right-buttons layout preserved below -->
-          <!-- <div id="left-buttons">
-            <icon-button
-              v-model="showInfoSheet"
-              icon="mdi-information-variant"
-              :color="buttonColor"
-              :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
-              tooltip-location="start"
-            >
-            </icon-button>
-            <v-btn
-              v-if="!showImageCard"
-              class="blur-button"
-              variant="outlined"
-              density="compact"
-              @click="showInfoSheet = !showInfoSheet"
-            >
-              About
-            </v-btn>
-            <icon-button
-              v-if="!showImageCard"
-              icon="mdi-home"
-              :color="buttonColor"
-              tooltip-text="Reset view"
-              @activate="goToCoordinates('m74')"
-            />
-            <icon-button
-              v-if="!showImageCard"
-              :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
-              :color="buttonColor"
-              @activate="isWWT3D = !isWWT3D"
-            />
-          </div>
-          <div id="right-buttons">
-            <v-btn
-              v-hide="!showSimulation"
-              class="blur-button"
-              density="compact"
-              @click="showModel = !showModel"
-            >
-              View in 3D!
-            </v-btn>
-            <icon-button
-              v-if="!showImageCard"
-              :color="buttonColor"
-              tooltip-text="Show Simulation in Split Screen"
-              @activate="showImageCard = !showImageCard"
-            >
-              <template #button>
-                <SplitScreenSvg :rotated="smallSize && !isLandscape" />
-              </template>
-            </icon-button>
-          </div> -->
-
           <div class="top-buttons-row">
-            <v-btn
-              v-if="!showImageCard"
-              class="blur-button"
-              variant="outlined"
-              density="compact"
-              @click="aboutMode = true; showInfoSheet = true"
-            >
-              About
-            </v-btn>
-            <DetailSummary
-              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && isLandscape"
-              v-model="labelOpen"
-              :title="currentLabel.title"
-              :use-internal-dialog="false"
-              @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
-            >
-              <ImageText
-                v-if="showSimulation || selectedGalleryItem"
-                show-image
-                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
+            <div class="justify-self-start">
+              <v-btn
+                v-if="!showImageCard"
+                class="blur-button"
+                variant="outlined"
+                density="compact"
+                @click="aboutMode = true; showInfoSheet = true"
+              >
+                About
+              </v-btn>
+              <icon-button
+                v-if="(viewHasChanged || showSimulation) && showImageCard"
+                icon="mdi-home"
+                :color="buttonColor"
+                size="20"
+                tooltip-text="Reset to starting view"
+                @activate="() => resetView()"
               />
-            </DetailSummary>
-            <v-btn
-              v-hide="!showSimulation"
-              class="blur-button"
-              variant="outlined"
-              density="compact"
-              @click="showModel = !showModel"
-            >
-              View in 3D!
-            </v-btn>
+            </div>
+            <div class="justify-self-center">
+              <DetailSummary
+                v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && viewportWidth > 400"
+                v-model="labelOpen"
+                :title="currentLabel.title"
+                :use-internal-dialog="false"
+                :hide-info="showImageCard"
+                @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
+              >
+                <ImageText
+                  v-if="showSimulation || selectedGalleryItem"
+                  show-image
+                  :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name())"
+                />
+              </DetailSummary>
+            </div>
+            <div class="justify-self-end">
+              <v-btn
+                v-if="showSimulation"
+                class="blur-button"
+                variant="outlined"
+                density="compact"
+                @click="showModel = !showModel"
+              >
+                View in 3D!
+              </v-btn>
+              <icon-button
+                v-if="!showImageCard && !showSimulation"
+                :color="buttonColor"
+                tooltip-text="Show Simulation in Split Screen"
+                @activate="showImageCard = !showImageCard"
+              >
+                <template #button>
+                  <SplitScreenSvg :rotated="smallSize && !isLandscape" />
+                </template>
+              </icon-button>
+            </div>
           </div>
-
           <div class="second-buttons-row">
-            <icon-button
-              v-if="!showImageCard || true"
-              icon="mdi-home"
-              :color="buttonColor"
-              size="20"
-              tooltip-text="Reset view"
-              @activate="() => resetView()"
-            />
-            <!-- <icon-button
-              v-model="showInfoSheet"
-              icon="mdi-information-variant"
-              :color="buttonColor"
-              :tooltip-text="showInfoSheet ? 'Hide app info' : 'About this app'"
-              tooltip-location="start"
-            >
-            </icon-button> -->
-            <!-- <icon-button
-              v-if="!showImageCard"
-              icon="mdi-home"
-              :color="buttonColor"
-              tooltip-text="Reset view"
-              @activate="goToCoordinates('m74')"
-            /> -->
-            <!-- <icon-button
-              v-if="!showImageCard"
-              :icon="isWWT3D ? 'mdi-video-2d' : 'mdi-video-3d'"
-              :color="buttonColor"
-              @activate="isWWT3D = !isWWT3D"
-            /> -->
-            <DetailSummary
-              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && !isLandscape"
-              v-model="labelOpen"
-              :title="currentLabel.title"
-              :use-internal-dialog="false"
-              @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
-            >
-              <ImageText
-                v-if="showSimulation || selectedGalleryItem"
-                show-image
-                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
+            <div class="justify-self-start">
+              <icon-button
+                v-if="(viewHasChanged || showSimulation) && !showImageCard"
+                icon="mdi-home"
+                :color="buttonColor"
+                size="20"
+                tooltip-text="Reset to starting view"
+                @activate="() => resetView()"
               />
-            </DetailSummary>
-            <icon-button
-              v-if="!showImageCard"
-              :color="buttonColor"
-              tooltip-text="Show Simulation in Split Screen"
-              @activate="showImageCard = !showImageCard"
-            >
-              <template #button>
-                <SplitScreenSvg :rotated="smallSize && !isLandscape" />
-              </template>
-            </icon-button>
+            </div>
+            <div class="justify-self-center">
+              <DetailSummary
+                v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem) && viewportWidth <= 400"
+                v-model="labelOpen"
+                :title="currentLabel.title"
+                :use-internal-dialog="false"
+                :hide-info="showImageCard"
+                @open="() => { aboutMode = false; showInfoSheet = !showImageCard; }"
+              >
+                <ImageText
+                  v-if="showSimulation || selectedGalleryItem"
+                  show-image
+                  :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
+                />
+              </DetailSummary>
+            </div>
+            <div class="justify-self-end">
+              <icon-button
+                v-if="!showImageCard && showSimulation"
+                :color="buttonColor"
+                tooltip-text="Show Simulation in Split Screen"
+                @activate="showImageCard = !showImageCard"
+              >
+                <template #button>
+                  <SplitScreenSvg :rotated="smallSize && !isLandscape" />
+                </template>
+              </icon-button>
+            </div>
           </div>
         </div>
 
@@ -319,7 +278,7 @@
             </div>
 
             <Gallery
-              v-show="ready && !showSimulation"
+              v-show="ready && !showSimulation && !showImageCard"
               v-model:open="galleryOpen"
               v-model:selected-places="selectedGalleryItems"
               v-model:places="galleryPlaces"
@@ -329,28 +288,36 @@
               show-opacity
               :columns="1"
               width="105px"
-              persist="Optical (Kitt Peak)"
-              :hide-persisted="true"
-              collapse-on-select
+              title="Choose"
+              :persist="persistantImage"
+              hide-persisted
+              :collapse-on-select="true"
               :hide-gallery-layers="showSimulation || showSplashScreen"
               :preview-index="4"
               :disabled="showImageCard"
-              :closed-text="showImageCard ? '' : undefined"
+              :closed-text="showImageCard ? '' : 'Foreground'"
+              :exclude-items="['2023 Infrared (Spitzer)', 'Optical (Kitt Peak)']"
             />
-
-            <!-- <DetailSummary
-              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem)"
-              v-model="labelOpen"
-              :title="currentLabel.title"
-              :use-internal-dialog="false"
-              @open="() => showInfoSheet = !showImageCard"
+            <div 
+              v-if="!(showImageCard || showSimulation)"
+              class="base-switch-button"
             >
-              <ImageText
-                v-if="showSimulation || selectedGalleryItem"
-                show-image
-                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
+              <PlaceGallery
+                v-show="ready && !showSimulation && !showImageCard"
+                v-model:selected-places="backgroundPlace"
+                :places="galleryPlaces.filter(p => backgroundPlaceNames.includes(p.get_name()))"
+                :single-select="true"
+                selected-color="limegreen"
+                :columns="1"
+                width="105px"
+                item-height="67px"
+                title="Choose"
+                :collapse-on-select="true"
+                :disabled="showImageCard"
+                closed-text="Background"
+                :exclude-items="galleryPlaces.filter(p => !backgroundPlaceNames.includes(p.get_name())).map(p => p.get_name())"
               />
-            </DetailSummary> -->
+            </div>
           </div>
 
           <div
@@ -417,7 +384,7 @@
         :tab-color="accentColor"
         heading-color="#f6e368"
         text-color="#e6e6e6"
-        :tab-title="aboutMode ? 'Information' : currentLabel.title"
+        :tab-title="aboutMode ? 'Information' : 'About the Images'"
         :hide-user-guide="!aboutMode"
       >
         <div v-if="aboutMode">
@@ -435,13 +402,45 @@
             view the 3D simulation in augmented reality!
           </p>
         </div>
-        <ImageText
+        <v-expansion-panels
           v-else-if="showSimulation || selectedGalleryItem"
-          show-heading
-          show-image
-          :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
-        />
-      </InformationSheet>
+          class="mb-3"
+          :color="accentColorDarker"
+          elevation="0"
+        >
+          <v-expansion-panel>
+            <v-expansion-panel-title class="pa-2">
+              Foreground: {{ showSimulation ? 'Simulation' : selectedGalleryItem?.get_name() }}
+            </v-expansion-panel-title>
+            <v-expansion-panel-text>
+              <ImageText
+                show-heading
+                show-image
+                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name())"
+              />
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
+        <v-expansion-panels
+          :color="accentColorDarker"
+          elevation="0"
+        >
+          <v-expansion-panel
+            v-if="backgroundPlace.length > 0"
+          > 
+            <v-expansion-panel-title class="pa-2">
+              Background: {{ backgroundPlace[0].get_name() }}
+            </v-expansion-panel-title>
+            <v-expansion-panel-text>
+              <ImageText
+                show-heading
+                show-image
+                :which="backgroundPlace[0]?.get_name() ?? ''"
+              />
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </InformationSheet> 
     </component>
   </v-app>
 </template>
@@ -463,7 +462,7 @@ import SplitScreenSvg from "./components/SplitScreenSvg.vue";
 import { WWTControl } from "@wwtelescope/engine";
 
 import Gallery from "./components/Gallery.vue";
-
+import PlaceGallery from "./components/PlaceGallery.vue";
 
 import SplashScreen from "./components/SplashScreen.vue";
 import InformationSheet from "./components/InformationSheet.vue";
@@ -536,6 +535,7 @@ watch(showSplashScreen, (showing) => {
 const layersLoaded = ref(false);
 const positionSet = ref(false);
 const accentColor = ref("#d957db");
+const accentColorDarker = ref("#4d1c4e");
 const buttonColor = ref("#ffffff");
 
 const showModel = ref(false);
@@ -598,7 +598,7 @@ const labelTitles: Record<PhantomImageNames | string, LabelInfo> = {
     content: '',
   },
   'Simulation on Sky': {
-    title: 'Simulation on the Sky',
+    title: 'Simulation',
     content: '',
   },
   "2011 Infrared Dust (WISE)": {
@@ -618,6 +618,38 @@ const currentLabel = computed(() => {
 
 const showSimulation = ref(false);
 
+const backgroundPlaceNames = ['2023 Infrared (Spitzer)', 'Optical (Kitt Peak)'];
+const useIrBase = ref(false);
+const persistantImage = computed(() => { return useIrBase.value ? backgroundPlaceNames[0] : backgroundPlaceNames[1];});
+function switchBaseImage() {
+  useIrBase.value = !useIrBase.value;
+}
+
+const backgroundPlace = computed<Place[]>({
+  get() {
+    const place = useIrBase.value 
+      ? galleryPlaces.value.find(p => p.get_name() === backgroundPlaceNames[0]) 
+      : galleryPlaces.value.find(p => p.get_name() === backgroundPlaceNames[1]);
+    console.log("Computed background place as", place?.get_name());
+    return place ? [place] : [];
+  },
+  set(newPlace) {
+    console.log("Setting background place to", newPlace.map(p => p.get_name()));
+    if (newPlace[0] == null) return;
+    const name = newPlace[0].get_name();
+    if (name === backgroundPlaceNames[0]) {
+      useIrBase.value = true;
+    } else if (name === backgroundPlaceNames[1]) {
+      useIrBase.value = false;
+    }
+  }
+});
+watch(useIrBase, (useIr) => {
+  const _back = galleryPlaces.value.find(p => p.get_name() === (useIr ? backgroundPlaceNames[0] : backgroundPlaceNames[1]));
+  if (_back) {
+    backgroundPlace.value = [_back];
+  }
+});
 
 import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Object3D, PerspectiveCamera, Scene, SpotLight, WebGLRenderer } from "three";
 import { storeToRefs } from "pinia";
@@ -782,6 +814,23 @@ function updateCurrentLayersOpacity(opacity: number) {
   }
 }
 
+// view has changed means either 
+// - the view is distant from the initial view (more than 10 arcsec) 
+// - or the shown selectedGallery item is not the default
+// - or we have a different useIrBase value than the default
+const viewHasChanged = computed(() => {
+  const defaultRA = props.initialCameraParams.raRad;
+  const defaultDec = props.initialCameraParams.decRad;
+  const currentRA = store.raRad;
+  const currentDec = store.decRad;
+  // 1 arcsecond
+  const maxDistance = (1 / 3600) * D2R; 
+  const distance = Math.sqrt((currentRA - defaultRA) ** 2 + (currentDec - defaultDec) ** 2);
+  const selectedItemIsDefault = selectedGalleryItem.value?.get_name() === "Infrared Stars & Dust (JWST)";
+  const usingDefaultBase = useIrBase.value === false;
+  return distance > maxDistance || !selectedItemIsDefault || !usingDefaultBase;
+});
+
 watch(showSimulation, (showingSimulation) => {
   // if we are switching off the simulation while playing, pause it
   if (!showingSimulation && playing.value) {
@@ -807,6 +856,9 @@ function goToGalleryItem(name: string, instant=false) {
 }
 
 function resetView() {
+  // showImageCard.value = false;
+  showSimulation.value = false;
+  useIrBase.value = false;
   const name = "Infrared Stars & Dust (JWST)";
   const place = galleryPlaces.value.find(p => p.get_name() === name) || null;
   if (place === null) {
@@ -833,6 +885,7 @@ watch(showImageCard, (showing) => {
       togglePlayPause();
     }
     showSimulation.value = false;
+    useIrBase.value = false;
     showInfoSheet.value = false;
     galleryOpen.value = false;
     goToGalleryItem("Infrared Stars & Dust (JWST)");
@@ -895,6 +948,7 @@ function rollView(angleDegrees: number, zoomDeg: number | null = null) {
 }
 
 #app.app-is-small {
+  font-size: 0.9em;
   .v-application__wrap {
     flex-direction: column;  // add for the side panel
     max-height: 100svh;  // force the application to be 100%
@@ -1042,14 +1096,18 @@ and remember, position:absolute is still a positioned parent, so children can be
 
 .top-buttons-row,
 .second-buttons-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  column-gap: 1rem;
   flex-direction: row;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center;
   width: 100%;
   margin-bottom: 10px;
 }
-
+.second-buttons-row {
+  grid-template-columns: 40px 1fr 40px;
+}
 #center-buttons {
   display: flex;
   flex-direction: row;
@@ -1256,5 +1314,115 @@ and remember, position:absolute is still a positioned parent, so children can be
 .top-buttons-row > .expansion-panel {
   margin-block: -100px;
   margin-inline: auto;
+}
+
+.base-switch-button {
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+}
+
+.current-base-label {
+  font-size: 0.8em;
+}
+
+select.base-switch-select {
+  appearance: auto;
+  font-size: 0.9em;
+  border: none;
+  padding-inline: 4px;
+  padding-block: 2px;
+  border: none;
+  width: fit-content;
+  position: relative;
+}
+
+select.base-switch-select::before {
+  content: "Base Image: ";
+  font-size: 0.8em;
+  margin-right: 4px;
+}
+select.base-switch-select option {
+  background-color: black;
+  color: white;
+}
+
+.base-switch-fieldset {
+  padding: 0;
+  margin: auto;
+  backdrop-filter: blur(6px);
+  border: 1px solid white;
+  border-radius: 4px;
+}
+.base-switch-fieldset legend {
+  font-size: 0.7em;
+  padding-inline: 0.3em;
+  margin-left: 0.5em;
+  text-align: left;
+}
+
+/* Make v-select.v-select-base-switch resemble the plain select.base-switch-select:
+   smaller font, less padding, blurred translucent background, no chunky solo bg. */
+.v-select.v-select-base-switch {
+  font-size: 0.9em;
+  pointer-events: auto;
+  width: max-content;
+
+  .v-field {
+    background: transparent;
+    border-radius: 4px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: none;
+    min-height: 0;
+    padding-right:0;
+  }
+
+  .v-field__overlay {
+    background: rgba(0, 0, 0, 0.25);
+    outline: 1px solid white;
+  }
+
+  
+
+  .v-field__input {
+    font-size: 0.9em;
+    padding-inline: 4px;
+    padding-bottom: 2px;
+    padding-top: 24px;
+    min-height: 0;
+    color: white;
+    
+  }
+  
+  .v-field-label.v-field-label--floating {
+    font-size: 0.9em;
+    color: white;
+    font-weight: bold;
+    // they apply a 0.7 apacity to this
+    top: 0;
+    margin-left:5px;
+  }
+
+  .v-select__selection-text {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: nowrap;
+    font-size: 1.1em;
+  }
+
+  .v-field__append-inner {
+    padding-top: 0;
+    align-items: center;
+  }
+
+}
+
+.crawl-scroll-backdrop {
+  background-color: rgba(0, 0, 0, 0.65);
+  inset: 0;
+  position: absolute;
+  pointer-events: auto;
 }
 </style>

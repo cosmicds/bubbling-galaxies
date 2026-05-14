@@ -124,3 +124,15 @@ fieldset > legend,
 fieldset label {
   user-select: none;
 }
+
+
+.justify-self-start {
+  justify-self: start;
+}
+
+.justify-self-end {
+  justify-self: end;
+}
+.justify-self-center {
+  justify-self: center;
+}

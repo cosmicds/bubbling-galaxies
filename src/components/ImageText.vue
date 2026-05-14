@@ -267,12 +267,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { PropType } from 'vue';
-import type { PhantomImageNames } from '../types';
 import Lightbox from './Lightbox.vue';
 defineProps({
   which: {
-    type: String as PropType<PhantomImageNames>,
+    type: String,
     required: true,
   },
   showHeading: {

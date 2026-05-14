@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['this-gallery-root', {'gallery-open': open}]"
+    :class="['this-place-gallery-root', {'gallery-open': open}]"
     :style="cssVars"
   >
     <div
@@ -39,12 +39,9 @@
           <GalleryItem
             v-else
             :place="selectedPlace"
-            :show-opacity="showOpacity"
-            :opacity="getOpacity(selectedPlace)"
+            :show-opacity="false"
             borderless
             hide-label
-            :loading="loadingImageset[getPlaceKey(selectedPlace)]"
-            @update:opacity="(v) => setOpacity(selectedPlace!, v)"
           />
         </div>
       </slot>
@@ -75,12 +72,8 @@
           :key="index"
           :place="place"
           :selected="highlightLastOnly ? selectedPlace === place : selectedPlaces.includes(place)"
-          :persistent="isPersistantLayer(place)"
-          :show-opacity="showOpacity && selectedPlaces.includes(place)"
-          :opacity="placeOpacities[getPlaceKey(place)] ?? getOpacity(place) ?? 1"
-          :loading="loadingImageset[getPlaceKey(place)]"
+          :show-opacity="false"
           @click="selectPlace(place)"
-          @update:opacity="(v) => setOpacity(place, v)"
         />
       </div>
     </div>
@@ -88,18 +81,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount, nextTick, watch } from "vue";
+import { computed, onBeforeMount, nextTick, watch } from "vue";
 import { engineStore } from "@wwtelescope/engine-pinia";
-import { Folder, Imageset, Place, ImageSetLayer } from "@wwtelescope/engine";
+import { Imageset, Place } from "@wwtelescope/engine";
 import GalleryItem from "./GalleryItem.vue";
-import { useLayerOrdering } from "@/composables/useLayerOrdering";
 
 /* Gallery */
 
 /** Interface describing props for the gallery component */
 export interface GalleryProps {
   /** The URL of a WTML file describing the desired gallery contents. Required */
-  wtmlUrl: string;
+  places: Place[];
   /** The number of columns of the gallery.
     * Accepts a number or a valid CSS value to be used in `repeat` for `grid-template-columns`
     * Defaults to 'auto-fit'
@@ -122,30 +114,19 @@ export interface GalleryProps {
   previewIndex?: number;
   /** The text to show when the gallery is closed. Default is 'Image Gallery' */
   closedText?: string;
-  /** Whether to show an opacity slider for each gallery item. Default false */
-  showOpacity?: boolean;
   /** start open */
   startOpen?: boolean;
-  /** name if layer to always show */
-  persist?: string | null;
-  /** hide the layer that is persistantly shown */
-  hidePersisted?: boolean;
-  /** keep the gallery layers not visible */
-  hideGalleryLayers?: boolean;
   /** if in single-select mode, collapse on selection. default: false */
   collapseOnSelect?: boolean
   /** should there be one selected at startup */
   defaultStarting?: string | null;
   /** prevent the gallery from being opened by user interaction */
   disabled?: boolean;
-  /** draw images in the order selected. most recent on top */
-  useSelectedOrder?: boolean;
-  /** exclude from list */
-  excludeItems?: string[];
 }
 
 
 const props = withDefaults(defineProps<GalleryProps>(), {
+  places: () => [],
   columns: "auto-fit",
   width: "300px",
   maxHeight: "500px",
@@ -172,11 +153,6 @@ const props = withDefaults(defineProps<GalleryProps>(), {
 
 const defaultThumbnailUrl = "https://cdn.worldwidetelescope.org/wwtweb/thumbnail.aspx?name=test";
 
-// const emit = defineEmits<{
-//   "select": [place: Place],
-//   "deselect": [place: Place],
-//   "listAllSelected": [places: Place[]],
-// }>();
 
 const store = engineStore();
 const open = defineModel<boolean>("open", { required: false, default: false });
@@ -187,23 +163,18 @@ function openGallery() {
   open.value = true;
 }
 
-const places = defineModel<Place[]>("places", { required: false, default: () => [] });
+
 const selectedPlaces = defineModel<Place[]>("selectedPlaces", { required: false, default: () => [] });
 const selectedPlace = computed(() => selectedPlaces.value[selectedPlaces.value.length - 1] ?? null);
-const placeOpacities = ref<Record<string, number>>({});
-const imagesetLayers = ref<Record<string, ImageSetLayer>>({});
+watch(selectedPlaces, (newVal) => {
+  console.log("selectedPlaces changed to", newVal.map(p => p.get_name()));
+});
 
 let _internallySelecting = false;
-const loadingImageset = ref<Record<string, boolean>>({});
+
 
 const shownPlaces = computed(() => {
-  if (!props.hidePersisted) return places.value;
-  const _dontShow = (p: Place) => {
-    const c1 = props.persist && getImageset(p)?.get_name() === props.persist;
-    const c2 = props.excludeItems?.includes(p.get_name());
-    return !(c1 || c2);
-  };
-  return places.value.filter(_dontShow);
+  return props.places;
 });
 
 const cssVars = computed(() => {
@@ -220,22 +191,14 @@ const cssVars = computed(() => {
  
 onBeforeMount(() => {
   store.waitForReady().then(async () => {
-    let _places = await placesFromWtml(props.wtmlUrl);
-    places.value = _places;
-    await Promise.all(_places.slice().reverse().map(loadImagesetLayerForPlace));
-    showPersistantPlace(_places);
+    
     
     if (props.defaultStarting && selectedPlaces.value.length === 0) {
-      const defaultPlace = _places.find(p => p.get_name() === props.defaultStarting);
+      const defaultPlace = props.places.find(p => p.get_name() === props.defaultStarting);
       if (defaultPlace) {
         selectPlace(defaultPlace);
       }
-    }
-    // Wait for any parent watchers triggered by `places.value = _places` to flush
-    // (e.g. a parent that calls goToGalleryItem and sets selectedPlaces).
-    // Without this, syncSelectedLayerVisibility runs before selectedPlaces is updated.
-    await nextTick();
-    syncSelectedLayerVisibility();
+    } 
   });
 });
 
@@ -243,51 +206,7 @@ function getImageset(place: Place): Imageset | null {
   return place.get_backgroundImageset() ?? place.get_studyImageset();
 }
 
-function getPlaceKey(place: Place): string {
-  const imageset = getImageset(place);
-  if (!imageset) {
-    return place.get_name();
-  }
 
-  return imageset.get_url() || imageset.get_name();
-}
-
-async function loadImagesetLayerForPlace(place: Place): Promise<ImageSetLayer | null> {
-  const imageset = getImageset(place);
-  if (!imageset) return null;
-  const key = getPlaceKey(place);
-  loadingImageset.value[key] = true;
-  console.log("Loading imageset layer for place", place.get_name(), "with imageset", imageset.get_name());
-  return await store.addImageSetLayer({
-    url: imageset.get_url(),
-    mode: "preloaded",
-    name: imageset.get_name(),
-    goto: false,
-  }).then((layer) => {
-    imagesetLayers.value[getPlaceKey(place)] = layer;
-    layer.set_enabled(false);
-    loadingImageset.value[key] = false;
-    return layer;
-  });
-}
-
-function showPersistantPlace(places: Place[]) {
-  if (props.persist === null || props.hideGalleryLayers) return;
-  for (const place of places) {
-    const iset = getImageset(place);
-    if (!iset) continue;
-    if (props.persist === iset.get_name()) {
-      const layer = getImagesetLayerForPlace(place);
-      if (layer) setLayerVisibility(layer, true);
-    }
-  }
-}
-
-function getImagesetLayerForPlace(place: Place): ImageSetLayer | null {
-  const imageset = getImageset(place);
-  if (!imageset) return null;
-  return imagesetLayers.value[getPlaceKey(place)] ?? null;
-}
 
 function _getThumbnailUrl(place: Place): string {
   
@@ -306,53 +225,6 @@ function _getThumbnailUrl(place: Place): string {
 }
 
 
-function getOpacity(place: Place): number {
-  const opacity = placeOpacities.value[getPlaceKey(place)];
-  return opacity ?? 1;
-}
-
-function applySelectedPlaceOpacity(place: Place) {
-  const layer = getImagesetLayerForPlace(place);
-  if (!layer) return;
-  layer.set_opacity(0);
-  if (isPersistantLayer(place)) {
-    layer.set_opacity(1);
-    return;
-  }
-  layer.set_opacity(getOpacity(place));
-}
-
-function setOpacity(place: Place, opacity: number) {
-  placeOpacities.value[getPlaceKey(place)] = opacity;
-
-  const layer = getImagesetLayerForPlace(place);
-  if (layer) {
-    setLayerVisibility(layer, true);
-    layer.set_opacity(opacity);
-  }
-}
-
-function extractPlaces(folder: Folder): Place[] {
-  let places: Place[] = [];
-  for (const child of folder.get_children() ?? []) {
-    if (child instanceof Place) {
-      const iset = getImageset(child);
-      if (iset !== null) {
-        places.push(child);
-      }
-    } else if (child instanceof Folder) {
-      places = places.concat(extractPlaces(child));
-    }
-  }
-  return places;
-}
-
-async function placesFromWtml(wtmlUrl: string): Promise<Place[]> {
-  return store.loadImageCollection({
-    url: wtmlUrl,
-    loadChildFolders: true
-  }).then((folder) => extractPlaces(folder));
-}
 
 
 function closeOnSelect() {
@@ -362,10 +234,6 @@ function closeOnSelect() {
 
 async function selectPlace(place: Place, letDeselect = true) {
   console.log("Selecting place", place.get_name());
-  const layer = getImagesetLayerForPlace(place);
-  if (!layer) {
-    await loadImagesetLayerForPlace(place);
-  }
   _internallySelecting = true;
   let deselect = false;
   if (props.singleSelect) {
@@ -389,132 +257,18 @@ async function selectPlace(place: Place, letDeselect = true) {
     }
   }
 
-  syncSelectedLayerVisibility();
   nextTick(() => { _internallySelecting = false; });
   if (!deselect && props.collapseOnSelect) {
     closeOnSelect();
   }
 }
 
-function setLayerVisibility(layer: ImageSetLayer, visible: boolean): void {
-  if (!layer.get_enabled() && visible) {
-    layer.set_enabled(true);
-  }
-  layer.set_opacity(visible ? 1 : 0);
-}
-
-function isPersistantLayer(place: Place) {
-  if (!props.persist) return false;
-  const iset = getImageset(place);
-  if (!iset) return false;
-  return iset.get_name() === props.persist;
-}
-
-const getPersistedPlace = () => {
-  if (props.persist === null) return null;
-  return places.value.find(p => isPersistantLayer(p)) ?? null;
-};
-
-function setPlaceVisibility(place: Place, visible: boolean) {
-  const layer = getImagesetLayerForPlace(place);
-  if (!layer) return false;
-  setLayerVisibility(layer, visible);
-  return true;
-}
-
-function setSelectedImagesetVisibility(places: Place[], selectedPlaces: Place[]) {
-  for (const place of places) {
-    const visible = (selectedPlaces.includes(place) || isPersistantLayer(place)) ;
-    setPlaceVisibility(place, visible);
-  }
-}
-
-function syncSelectedLayerVisibility() {
-  if (props.hideGalleryLayers) return;
-  nextTick(async () => {
-    await setSelectedImagesetVisibility(places.value, selectedPlaces.value);
-    selectedPlaces.value.forEach(applySelectedPlaceOpacity);
-  });
-}
-
-watch(() => props.persist, (newPersist, oldPersist) => {
-  if (oldPersist) {
-    const oldPlace = places.value.find(p => getImageset(p)?.get_name() === oldPersist);
-    if (oldPlace) {
-      setPlaceVisibility(oldPlace, false);
-    }
-  }
-
-  if (newPersist) {
-    const newPlace = places.value.find(p => getImageset(p)?.get_name() === newPersist);
-    if (newPlace) {
-      if (selectedPlaces.value.includes(newPlace)) {
-        selectedPlaces.value = selectedPlaces.value.filter(p => p !== newPlace);
-      }
-      const layer = getImagesetLayerForPlace(newPlace);
-      if (layer) {
-        setLayerVisibility(layer, true);
-      } else {
-        loadImagesetLayerForPlace(newPlace).then(layer => {
-          if (layer) setLayerVisibility(layer, true);
-        });
-      }
-    }
-  }
-  showPersistantPlace(places.value);
-});
-
-/* get the draw order of currently selected places, including the persistant one */
-function getSelectedPlacesDrawOrder() {
-  const _selected = selectedPlaces.value.slice();
-  if (!props.useSelectedOrder) {
-    _selected.sort((a, b) => places.value.indexOf(b) - places.value.indexOf(a));
-  }
-  const persisted = getPersistedPlace();
-  if (persisted) {
-    if (_selected.includes(persisted)) {
-      _selected.splice(_selected.indexOf(persisted), 1);
-    }
-    _selected.unshift(persisted);
-  }
-  return _selected;
-}
-
-const { setOrderForPlaces } = useLayerOrdering();
-function setDrawOrder() {
-  const selected = getSelectedPlacesDrawOrder();
-  setOrderForPlaces(selected);
-}
-
-watch(() => props.hideGalleryLayers, (hide) => {
-  if (hide) {
-    places.value.forEach(place => {
-      const layer = getImagesetLayerForPlace(place);
-      if (layer) setLayerVisibility(layer, false);
-    });
-  } else {
-    syncSelectedLayerVisibility();
-  }
-});
-
-// we never push only replace
-watch(selectedPlaces, () => {
-  if (_internallySelecting) return;
-  _internallySelecting = true;
-  syncSelectedLayerVisibility();
-  nextTick(() => { _internallySelecting = false; });
-}, { immediate: true });
-
-watch(() => [selectedPlaces.value, props.persist], () => {
-  setDrawOrder();
-  syncSelectedLayerVisibility();
-}, { deep: true });
 
 </script>
 
 <style lang="less">
 
-.this-gallery-root {
+.this-place-gallery-root {
   transition-property: height, width;
   transition: 0.5s ease-out;
   pointer-events: auto;
@@ -614,6 +368,7 @@ watch(() => [selectedPlaces.value, props.persist], () => {
     cursor: pointer;
     width: var(--gallery-width);
     height: var(--gallery-item-height);
+    justify-content: center;
     position:relative;
     --image-width: 96px;
     
@@ -626,9 +381,10 @@ watch(() => [selectedPlaces.value, props.persist], () => {
       margin-right: auto;
       border-radius: 3px;
       width: var(--image-width);
-      height: 45px;
+      height: calc((2*var(--gallery-item-height) + 45px) / 3);
       object-fit: cover;
     }
+    
 
     span {
       flex-grow: 1;
@@ -636,6 +392,15 @@ watch(() => [selectedPlaces.value, props.persist], () => {
       align-items: center;
       text-align: center;
       padding-block: 4px;
+    }
+  }
+  
+  &.gallery-open {
+    .gallery-item {
+      height: auto;
+      img {
+        height: 45px;
+      }
     }
   }
 
@@ -694,7 +459,7 @@ watch(() => [selectedPlaces.value, props.persist], () => {
     background: rgba(0,0,0,0.5);
     border-radius: 3px;
     width: calc(var(--gallery-width) - 10px);
-    height: 45px;
+    height: 67px;
     text-align: center;
     line-height: 1;
     display:flex;

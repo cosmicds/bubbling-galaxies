@@ -3,6 +3,7 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
   <v-card
     class="info-sheet"
     height="100%"
+    elevation="0"
   >
     <v-tabs
       id="tabs"
@@ -45,7 +46,7 @@ a<!-- eslint-disable vue/max-attributes-per-line -->
       :style="cssVars"
     >
       <v-window-item>
-        <v-card class="scrollable border-radius-0">
+        <v-card class="scrollable border-radius-0" elevation="0">
           <v-card-text class="info-text scrollable">
             <slot />
           </v-card-text>
