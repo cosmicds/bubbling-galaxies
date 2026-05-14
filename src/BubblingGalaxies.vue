@@ -402,13 +402,45 @@
             view the 3D simulation in augmented reality!
           </p>
         </div>
-        <ImageText
+        <v-expansion-panels
           v-else-if="showSimulation || selectedGalleryItem"
-          show-heading
-          show-image
-          :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name())"
-        />
-      </InformationSheet>
+          class="mb-3"
+          :color="accentColorDarker"
+          elevation="0"
+        >
+          <v-expansion-panel>
+            <v-expansion-panel-title class="pa-2">
+              Foreground
+            </v-expansion-panel-title>
+            <v-expansion-panel-text>
+              <ImageText
+                show-heading
+                show-image
+                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name())"
+              />
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
+        <v-expansion-panels
+          :color="accentColorDarker"
+          elevation="0"
+        >
+          <v-expansion-panel
+            v-if="backgroundPlace.length > 0"
+          > 
+            <v-expansion-panel-title class="pa-2">
+              Background
+            </v-expansion-panel-title>
+            <v-expansion-panel-text>
+              <ImageText
+                show-heading
+                show-image
+                :which="backgroundPlace[0]?.get_name() ?? ''"
+              />
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </InformationSheet> 
     </component>
   </v-app>
 </template>
@@ -503,6 +535,7 @@ watch(showSplashScreen, (showing) => {
 const layersLoaded = ref(false);
 const positionSet = ref(false);
 const accentColor = ref("#d957db");
+const accentColorDarker = ref("#4d1c4e");
 const buttonColor = ref("#ffffff");
 
 const showModel = ref(false);
