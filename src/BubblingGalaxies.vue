@@ -84,7 +84,10 @@
       >
         Skip Intro
       </v-btn>
-
+      <div 
+        v-if="showCrawl"
+        class="crawl-scroll-backdrop"
+      ></div>
       <!-- This block contains the elements (e.g. icon buttons displayed at/near the top of the screen -->
       <div
         v-show="!(showSplashScreen || showCrawl)"
@@ -1381,5 +1384,12 @@ select.base-switch-select option {
     align-items: center;
   }
 
+}
+
+.crawl-scroll-backdrop {
+  background-color: rgba(0, 0, 0, 0.65);
+  inset: 0;
+  position: absolute;
+  pointer-events: auto;
 }
 </style>
