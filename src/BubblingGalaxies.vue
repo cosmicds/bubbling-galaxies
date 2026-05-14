@@ -384,7 +384,7 @@
         :tab-color="accentColor"
         heading-color="#f6e368"
         text-color="#e6e6e6"
-        :tab-title="aboutMode ? 'Information' : currentLabel.title"
+        :tab-title="aboutMode ? 'Information' : 'About the Images'"
         :hide-user-guide="!aboutMode"
       >
         <div v-if="aboutMode">
@@ -410,7 +410,7 @@
         >
           <v-expansion-panel>
             <v-expansion-panel-title class="pa-2">
-              Foreground
+              Foreground: {{ showSimulation ? 'Simulation' : selectedGalleryItem?.get_name() }}
             </v-expansion-panel-title>
             <v-expansion-panel-text>
               <ImageText
@@ -429,7 +429,7 @@
             v-if="backgroundPlace.length > 0"
           > 
             <v-expansion-panel-title class="pa-2">
-              Background
+              Background: {{ backgroundPlace[0].get_name() }}
             </v-expansion-panel-title>
             <v-expansion-panel-text>
               <ImageText
