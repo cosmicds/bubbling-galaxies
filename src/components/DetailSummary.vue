@@ -3,7 +3,7 @@
     class="expansion-panel"
     @click="() => { if (!hideInfo) openInfo(); }"
   >
-    <strong class="d-block">{{ title }}</strong>
+    <strong :class="['d-block', {'ep-hideInfo': hideInfo}]">{{ title }}</strong>
     <v-icon
       v-if="!hideInfo"
       aria-label="Learn more"
@@ -122,6 +122,10 @@ function openInfo() {
   font-size: 0.9em;
   border-right: 1px solid white;
   padding-right: 4px;
+}
+.expansion-panel > strong.ep-hideInfo {
+  font-size: 0.9em;
+  border-right: none;
 }
 
 
