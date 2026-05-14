@@ -285,6 +285,7 @@
               show-opacity
               :columns="1"
               width="105px"
+              title="Choose"
               :persist="persistantImage"
               hide-persisted
               :collapse-on-select="true"
@@ -298,32 +299,22 @@
               v-if="!(showImageCard || showSimulation)"
               class="base-switch-button"
             >
-              <v-select
-                v-model="useIrBase"
-                label="Background"
-                :items="[
-                  { title: 'Optical (Kitt Peak)', value: false },
-                  { title: 'Infrared (Spitzer)', value: true },
-                ]"
-                variant="solo"
-                hide-details
-                density="compact"
-                class="v-select-base-switch"
+              <PlaceGallery
+                v-show="ready && !showSimulation && !showImageCard"
+                v-model:selected-places="backgroundPlace"
+                :places="galleryPlaces.filter(p => backgroundPlaceNames.includes(p.get_name()))"
+                :single-select="true"
+                selected-color="limegreen"
+                :columns="1"
+                width="105px"
+                item-height="67px"
+                title="Choose"
+                :collapse-on-select="true"
+                :disabled="showImageCard"
+                closed-text="Background"
+                :exclude-items="galleryPlaces.filter(p => !backgroundPlaceNames.includes(p.get_name())).map(p => p.get_name())"
               />
             </div>
-            <!-- <DetailSummary
-              v-if="!(showSplashScreen || showCrawl) && (showSimulation || selectedGalleryItem)"
-              v-model="labelOpen"
-              :title="currentLabel.title"
-              :use-internal-dialog="false"
-              @open="() => showInfoSheet = !showImageCard"
-            >
-              <ImageText
-                v-if="showSimulation || selectedGalleryItem"
-                show-image
-                :which="(showSimulation ? 'simulation' : selectedGalleryItem!.get_name()) as PhantomImageNames"
-              />
-            </DetailSummary> -->
           </div>
 
           <div
@@ -436,7 +427,7 @@ import SplitScreenSvg from "./components/SplitScreenSvg.vue";
 import { WWTControl } from "@wwtelescope/engine";
 
 import Gallery from "./components/Gallery.vue";
-
+import PlaceGallery from "./components/PlaceGallery.vue";
 
 import SplashScreen from "./components/SplashScreen.vue";
 import InformationSheet from "./components/InformationSheet.vue";
@@ -591,12 +582,32 @@ const currentLabel = computed(() => {
 
 const showSimulation = ref(false);
 
+const backgroundPlaceNames = ['2023 Infrared (Spitzer)', 'Optical (Kitt Peak)'];
 const useIrBase = ref(false);
-const persistantImage = computed(() => { return useIrBase.value ? '2023 Infrared (Spitzer)' : 'Optical (Kitt Peak)';});
+const persistantImage = computed(() => { return useIrBase.value ? backgroundPlaceNames[0] : backgroundPlaceNames[1];});
 function switchBaseImage() {
   useIrBase.value = !useIrBase.value;
 }
 
+const backgroundPlace = computed<Place[]>({
+  get() {
+    const place = useIrBase.value 
+      ? galleryPlaces.value.find(p => p.get_name() === backgroundPlaceNames[0]) 
+      : galleryPlaces.value.find(p => p.get_name() === backgroundPlaceNames[1]);
+    console.log("Computed background place as", place?.get_name());
+    return place ? [place] : [];
+  },
+  set(newPlace) {
+    console.log("Setting background place to", newPlace.map(p => p.get_name()));
+    if (newPlace[0] == null) return;
+    const name = newPlace[0].get_name();
+    if (name === backgroundPlaceNames[0]) {
+      useIrBase.value = true;
+    } else if (name === backgroundPlaceNames[1]) {
+      useIrBase.value = false;
+    }
+  }
+});
 
 import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Object3D, PerspectiveCamera, Scene, SpotLight, WebGLRenderer } from "three";
 import { storeToRefs } from "pinia";
